@@ -10,7 +10,20 @@ public abstract class RobotMap {
 
     // Other Motors
     public static final int INTAKE = 4;
+    public static final int STAGE_TWO = 5;
+    public static final int STAGE_THREE = 6;
+    public static final int STAGE_FOUR = 7;
+    public static final int STAGE_FIVE = 8;
 
+    // Sensors
+    public static final int SENSOR_KNOPF = 0;
+    public static final int SENSOR_ONE = 1;
+    public static final int SENSOR_TWO = 2;
+    public static final int SENSOR_THREE = 3;
+    public static final int SENSOR_FOUR = 4;
+    public static final int SENSOR_FIVE = 5;
+
+    // Controllers
     public static final int DRIVER_CONTROLLER_ID = 0;
     public static final int AUX_CONTROLLER_ID = 1;
 }

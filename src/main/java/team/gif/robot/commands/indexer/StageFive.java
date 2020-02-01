@@ -1,19 +1,15 @@
 package team.gif.robot.commands.indexer;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.subsystems.Indexer;
-import team.gif.robot.subsystems.Intake;
 
-public class IndexerScheduler extends CommandBase {
+public class StageFive extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final Indexer index = Indexer.getInstance();
+    private final Indexer indexer = Indexer.getInstance();
+    private double[] speed = {0, 0, 1, 0.5};
+    private double[] speedStop = {0, 0, 0, 0};
 
-    Command stageTwo = new StageTwo();
-    Command stageThree = new StageThree();
-    Command stageFour = new StageFour();
-
-    public IndexerScheduler() {
+    public StageFive() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Indexer.getInstance());
     }
@@ -26,25 +22,18 @@ public class IndexerScheduler extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if((index.getState()[0] = true) && (index.getState()[1] = false)) {
-            stageTwo.schedule();
-        }
-        if((index.getState()[1] = true) && (index.getState()[2] = false)) {
-            stageThree.schedule();
-        }
-        if((index.getState()[2] = true) && (index.getState()[3] = false)) {
-            stageFour.schedule();
-        }
+        indexer.setSpeed(speed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        indexer.setSpeed(speedStop);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return indexer.getState()[2];
     }
 }
