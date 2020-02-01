@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="" />
+    <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/FRC2020Template.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/FRC2020Template.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FRC2020Template.iml" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
