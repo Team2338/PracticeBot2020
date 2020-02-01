@@ -31,6 +31,7 @@ public class Indexer extends SubsystemBase {
 
     private Indexer() {
         super();
+        stageFourMotor.setInverted(true);
     }
 
     public boolean getKnopf() {
@@ -38,7 +39,7 @@ public class Indexer extends SubsystemBase {
     }
 
     public boolean[] getState() {
-        boolean[] sensorStates = {stageOneSensor.get(), stageTwoSensor.get(), stageThreeSensor.get(), stageFourSensor.get(), stageFiveSensor.get()};
+        boolean[] sensorStates = {!stageOneSensor.get(), stageTwoSensor.get(), stageThreeSensor.get(), stageFourSensor.get(), stageFiveSensor.get()};
         return sensorStates;
     }
 

@@ -23,6 +23,7 @@ public class StageFive extends CommandBase {
     @Override
     public void execute() {
         indexer.setSpeed(speed);
+        System.out.println("Run 5");
     }
 
     // Called once the command ends or is interrupted.
@@ -34,6 +35,6 @@ public class StageFive extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return indexer.getState()[2];
+        return indexer.getState()[4];
     }
 }

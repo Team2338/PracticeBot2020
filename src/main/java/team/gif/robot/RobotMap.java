@@ -9,11 +9,12 @@ public abstract class RobotMap {
     public static final int DRIVE_RIGHT_SLAVE = 3;
 
     // Other Motors
-    public static final int INTAKE = 4;
-    public static final int STAGE_TWO = 5;
-    public static final int STAGE_THREE = 6;
-    public static final int STAGE_FOUR = 7;
-    public static final int STAGE_FIVE = 8;
+    public static final int INTAKE = 4; //4
+    public static final int STAGE_TWO = 5; //5
+    public static final int STAGE_THREE = 6; //6
+    public static final int STAGE_FOUR = 7; //7
+    public static final int STAGE_FIVE = 8; //8
+    public static final int FLYWHEEL = 9; //9
 
     // Sensors
     public static final int SENSOR_KNOPF = 0;
