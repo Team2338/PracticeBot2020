@@ -34,11 +34,11 @@ public class IndexerScheduler extends CommandBase {
     @Override
     public void execute() {
 
-        SmartDashboard.putBoolean("One", index.getState()[0]);
-        SmartDashboard.putBoolean("Two", index.getState()[1]);
-        SmartDashboard.putBoolean("Three", index.getState()[2]);
-        SmartDashboard.putBoolean("Four", index.getState()[3]);
-        SmartDashboard.putBoolean("Five", index.getState()[4]);
+        SmartDashboard.putBoolean("One", index.getState()[1]);
+        SmartDashboard.putBoolean("Two", index.getState()[2]);
+        SmartDashboard.putBoolean("Three", index.getState()[3]);
+        SmartDashboard.putBoolean("Four", index.getState()[4]);
+        SmartDashboard.putBoolean("Five", index.getState()[5]);
 
         if(currentCommand != null && currentCommand.isFinished() == true) {
             System.out.println("Current Command Null");
@@ -47,19 +47,19 @@ public class IndexerScheduler extends CommandBase {
         //System.out.println("entering indexer");
         if(currentCommand == null) {
             //System.out.println("                          Current Command Null");
-            if((index.getState()[3] == true) && (index.getState()[4] == false)) {
+            if((index.getState()[4] == true) && (index.getState()[5] == false)) {
                 currentCommand = new StageFive();
                 CommandScheduler.getInstance().schedule(currentCommand);
             }
-            if((index.getState()[2] == true) && (index.getState()[3] == false)) {
+            if((index.getState()[3] == true) && (index.getState()[4] == false)) {
                 currentCommand = new StageFour();
                 CommandScheduler.getInstance().schedule(currentCommand);
             }
-            if((index.getState()[1] == true) && (index.getState()[2] == false)) {
+            if((index.getState()[2] == true) && (index.getState()[3] == false)) {
                 currentCommand = new StageThree();
                 CommandScheduler.getInstance().schedule(currentCommand);
             }
-            if((index.getState()[0] == true) && (index.getState()[1] == false)) {
+            if((index.getState()[1] == true) && (index.getState()[2] == false)) {
                 currentCommand = new StageTwo();
                 CommandScheduler.getInstance().schedule(currentCommand);
             }

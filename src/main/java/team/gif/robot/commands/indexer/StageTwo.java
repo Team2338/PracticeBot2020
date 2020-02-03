@@ -7,8 +7,8 @@ import team.gif.robot.subsystems.Intake;
 public class StageTwo extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Indexer indexer = Indexer.getInstance();
-    private double[] speed = {0.5, 0, 0, 0};
-    private double[] speedStop = {0, 0, 0, 0};
+    //private double[] speed = {0.5, 0, 0, 0};
+    //private double[] speedStop = {0, 0, 0, 0};
 
     public StageTwo() {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -24,7 +24,7 @@ public class StageTwo extends CommandBase {
     @Override
     public void execute() {
         Intake.getInstance().setSpeed(0.5);
-        indexer.setSpeed(speed);
+        indexer.setSpeedTwo(0.5);
         System.out.println("Run 2");
     }
 
@@ -32,13 +32,13 @@ public class StageTwo extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Intake.getInstance().setSpeed(0);
-        indexer.setSpeed(speedStop);
+        indexer.setSpeedTwo(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         System.out.println("ending 2");
-        return indexer.getState()[1];
+        return indexer.getState()[2];
     }
 }

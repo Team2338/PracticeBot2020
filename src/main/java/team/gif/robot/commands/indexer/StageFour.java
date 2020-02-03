@@ -6,8 +6,8 @@ import team.gif.robot.subsystems.Indexer;
 public class StageFour extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Indexer indexer = Indexer.getInstance();
-    private double[] speed = {0, 1, 0, 0};
-    private double[] speedStop = {0, 0, 0, 0};
+    //private double[] speed = {0, 1, 0, 0};
+    //private double[] speedStop = {0, 0, 0, 0};
 
     public StageFour() {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -22,19 +22,19 @@ public class StageFour extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        indexer.setSpeed(speed);
+        indexer.setSpeedThree(1);
         System.out.println("Run 4");
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        indexer.setSpeed(speedStop);
+        indexer.setSpeedThree(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return indexer.getState()[3];
+        return indexer.getState()[4];
     }
 }
