@@ -8,8 +8,11 @@ public class Fire extends CommandBase {
         //addRequirements(Shooter.getInstance());
     }
 
+    /*
     private double[] speed = {0, 0, 0, 0.5};
     private double[] speedStop = {0, 0, 0, 0};
+
+     */
 
     @Override
     public void initialize() {
@@ -19,14 +22,14 @@ public class Fire extends CommandBase {
     @Override
     public void execute() {
         //Shooter.getInstance().setSpeed(0.5);
-        Indexer.getInstance().setSpeed(speed);
+        //Indexer.getInstance().setSpeed(speed);
         System.out.println("shooting");
     }
 
     @Override
     public void end(boolean interrupted) {
         //Shooter.getInstance().setSpeed(0);
-        Indexer.getInstance().setSpeed(speedStop);
+        //Indexer.getInstance().setSpeed(speedStop);
     }
 
     @Override

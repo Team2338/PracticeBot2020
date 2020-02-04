@@ -31,7 +31,7 @@ public class Indexer extends SubsystemBase {
 
     private Indexer() {
         super();
-        stageFourMotor.setInverted(true);
+        // stageFourMotor.setInverted(true);
     }
 
     public boolean getKnopf() {
