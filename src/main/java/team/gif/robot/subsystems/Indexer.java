@@ -43,15 +43,6 @@ public class Indexer extends SubsystemBase {
         return sensorStates;
     }
 
-    // OLD
-    public void setSpeed(double[] speed) {
-        stageTwoMotor.set(ControlMode.PercentOutput, speed[0]);
-        stageThreeMotor.set(ControlMode.PercentOutput, speed[1]);
-        stageFourMotor.set(ControlMode.PercentOutput, speed[2]);
-        stageFiveMotor.set(ControlMode.PercentOutput, speed[3]);
-    }
-
-    // NEW
     public void setSpeedTwo(double speed) {
         stageTwoMotor.set(ControlMode.PercentOutput, speed);
     }

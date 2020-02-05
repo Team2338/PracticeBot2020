@@ -6,8 +6,6 @@ import team.gif.robot.subsystems.Indexer;
 public class StageFive extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Indexer indexer = Indexer.getInstance();
-    //private double[] speed = {0, 0, 1, 0.5};
-    //private double[] speedStop = {0, 0, 0, 0};
 
     public StageFive() {
         // Use addRequirements() here to declare subsystem dependencies.
