@@ -39,7 +39,7 @@ public class Indexer extends SubsystemBase {
     }
 
     public boolean[] getState() {
-        boolean[] sensorStates = {false, !stageOneSensor.get(), stageTwoSensor.get(), stageThreeSensor.get(), stageFourSensor.get(), stageFiveSensor.get()};
+        boolean[] sensorStates = {false, stageOneSensor.get(), stageTwoSensor.get(), stageThreeSensor.get(), stageFourSensor.get(), stageFiveSensor.get()};
         return sensorStates;
     }
 

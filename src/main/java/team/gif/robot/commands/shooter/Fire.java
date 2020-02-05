@@ -2,6 +2,7 @@ package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Shooter;
 
 public class Fire extends CommandBase {
     public Fire() {
@@ -21,8 +22,7 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        //Shooter.getInstance().setSpeed(0);
-        //Indexer.getInstance().setSpeed(speedStop);
+        Indexer.getInstance().setSpeedFive(0);
     }
 
     @Override

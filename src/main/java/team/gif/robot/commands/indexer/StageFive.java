@@ -20,7 +20,7 @@ public class StageFive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        indexer.setSpeedFour(0.5);
+        indexer.setSpeedFour(1);
         indexer.setSpeedFive(0.5);
         System.out.println("Run 5");
     }

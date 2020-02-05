@@ -3,18 +3,18 @@ package team.gif.robot;
 public abstract class RobotMap {
 
     // Drive Motors
-    public static final int DRIVE_LEFT_MASTER = 10; //0
-    public static final int DRIVE_LEFT_SLAVE = 11; //1
-    public static final int DRIVE_RIGHT_MASTER = 12; //2
-    public static final int DRIVE_RIGHT_SLAVE = 13; //3
+    public static final int DRIVE_LEFT_MASTER = 0; //0
+    public static final int DRIVE_LEFT_SLAVE = 1; //1
+    public static final int DRIVE_RIGHT_MASTER = 2; //2
+    public static final int DRIVE_RIGHT_SLAVE = 3; //3
 
     // Other Motors
     public static final int INTAKE = 4; //4
-    public static final int STAGE_TWO = 0; //5
-    public static final int STAGE_THREE = 2; //6
-    public static final int STAGE_FOUR = 1; //7
-    public static final int STAGE_FIVE = 3; //8
-    public static final int FLYWHEEL = 4; //9
+    public static final int STAGE_TWO = 5; //5
+    public static final int STAGE_THREE = 6; //6
+    public static final int STAGE_FOUR = 7; //7
+    public static final int STAGE_FIVE = 8; //8
+    public static final int FLYWHEEL = 9; //9
 
     // Sensors
     public static final int SENSOR_KNOPF = 0;
