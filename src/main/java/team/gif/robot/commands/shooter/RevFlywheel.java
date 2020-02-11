@@ -9,9 +9,19 @@ import team.gif.robot.subsystems.Shooter;
 public class RevFlywheel extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Shooter shooter;
+    private boolean endtimeout = false;
     //private final OI oi;
 
     public RevFlywheel() {
+        shooter = Shooter.getInstance();
+        //oi = OI.getInstance();
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(Shooter.getInstance());
+    }
+
+
+    public RevFlywheel(boolean timeout) {
+        endtimeout = timeout;
         shooter = Shooter.getInstance();
         //oi = OI.getInstance();
         // Use addRequirements() here to declare subsystem dependencies.
@@ -45,6 +55,11 @@ public class RevFlywheel extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return OI.getInstance().aux.getBButtonPressed();
+        if(endtimeout){
+            return false;
+        }else{
+            return OI.getInstance().aux.getBButtonPressed();
+        }
+
     }
 }

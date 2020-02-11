@@ -24,4 +24,9 @@ public final class Constants {
         public static final double maxVelocity = 5000;
     }
 
+    //        //pivot globals
+    public static double marginx =3;
+    public static double kPx =.001;
+    public static double kFx = .001;
+
 }

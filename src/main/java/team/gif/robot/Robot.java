@@ -15,6 +15,7 @@ import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.drivers.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -27,6 +28,7 @@ public class Robot extends TimedRobot {
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
+  public static Limelight limelight = new Limelight();
 
   private RobotContainer m_robotContainer;
 

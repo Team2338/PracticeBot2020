@@ -215,6 +215,12 @@ public class Limelight {
         return table.getEntry(key).getDouble(0.0);
     }
 
+    public double[] getTcornx(){return table.getEntry("tcornx").getDoubleArray(new double[]{0,0,0,0});}
+
+    //the y valuse of the 4 corners in what order also sadly i dont know this must be tested
+    public double[] getTcorny(){return table.getEntry("tcorny").getDoubleArray(new double[]{0,0,0,0});}
+
+
 //<<<<<<<<--------------------------------------SOLVE PNP------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>
 
     /*
