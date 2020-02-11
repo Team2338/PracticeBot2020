@@ -7,6 +7,8 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -22,6 +24,34 @@ public final class Constants {
         public static final double kF = 0.000177;
         public static final double RPM = 3900;
         public static final double maxVelocity = 5000;
+
     }
 
+    // For Trajectory/Pathfinder in auto
+    // Values are only placeholders until we test
+    public static class TrajectoryConstants {
+        public static final double ksVolts = 0;
+        public static final double kvVoltsSecondsPerMeter = 0;
+        public static final double kvVoltsPerSquaredMeter = 0;
+        public static final double kPDriveVel = 0;
+
+        public static final double kTrackwidthMeters = 0;
+        public static final  DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+
+        public static final double kMaxMetersPerSecond = 0;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 0;
+
+    }
+
+    public static class Drivetrain {
+        public static final double WHEEL_DIAMETER = 0.0;
+        public static final double BUMPER_LENGTH = 0.0;
+        public static final double BUMPER_WIDTH = 0.0;
+
+
+    public static class Ramsete {
+        public static final double kRamseteB = 0.0;
+        public static final double kRamseteZeta = 0.0;
+        }
+    }
 }
