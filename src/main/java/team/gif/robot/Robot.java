@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
-  public static Limelight limelight = new Limelight();
+  public static Limelight limelight;
 
   private RobotContainer m_robotContainer;
 
@@ -41,10 +41,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     oi = new OI();
+    limelight = new Limelight();
   }
 
   /**
@@ -60,6 +62,11 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    SmartDashboard.putNumber("tx",limelight.getXOffset());
+    SmartDashboard.putNumber("ty",limelight.getYOffset());
+    //System.out.println("tx"+limelight.getXOffset());
+    //System.out.println("ty"+limelight.getYOffset());
+    SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
     CommandScheduler.getInstance().run();
   }
 

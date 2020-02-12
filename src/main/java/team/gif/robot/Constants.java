@@ -25,8 +25,8 @@ public final class Constants {
     }
 
     //        //pivot globals
-    public static double marginx =3;
-    public static double kPx =.001;
-    public static double kFx = .001;
+    public static double marginx =2;
+    public static double kPx =.01;
+    public static double kFx = .2;
 
 }

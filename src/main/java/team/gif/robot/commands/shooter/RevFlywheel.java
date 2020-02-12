@@ -1,5 +1,6 @@
 package team.gif.robot.commands.shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Constants;
 import team.gif.robot.OI;
@@ -37,6 +38,7 @@ public class RevFlywheel extends CommandBase {
     @Override
     public void execute() {
         shooter.setPID(Constants.Shooter.RPM);
+        SmartDashboard.putNumber("RPM",Shooter.getInstance().getVelocity());
 
         /*if (OI.getInstance().aux.getXButtonPressed()) {
             Indexer.getInstance().setSpeed(speed);
@@ -56,7 +58,7 @@ public class RevFlywheel extends CommandBase {
     @Override
     public boolean isFinished() {
         if(endtimeout){
-            return false;
+            return Shooter.getInstance().getVelocity() >= Constants.Shooter.RPM;
         }else{
             return OI.getInstance().aux.getBButtonPressed();
         }

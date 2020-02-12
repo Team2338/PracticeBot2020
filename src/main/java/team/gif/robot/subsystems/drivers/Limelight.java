@@ -16,7 +16,8 @@ public class Limelight {
      */
     public Limelight(String key) {
         table = NetworkTableInstance.getDefault().getTable(key);
-        System.out.println("limelight init");
+        System.out.println("                               limelight init");
+        setLEDMode(3);
     }
 
     /**
@@ -38,7 +39,7 @@ public class Limelight {
     public void setLEDMode(int mode) {
         if (mode >= 0 && mode <= 3) {
             table.getEntry("ledMode").setNumber(mode);
-            System.out.println("LedMode set to mode"+mode);
+            System.out.println("LedMode set to mode "+mode);
         }
     }
 
@@ -52,7 +53,7 @@ public class Limelight {
     public void setCamMode(int mode) {
         if (mode >= 0 && mode <= 1) {
             table.getEntry("camMode").setNumber(mode);
-            System.out.println("cammode reset"+mode);
+            System.out.println("cammode reset "+mode);
         }
     }
 
