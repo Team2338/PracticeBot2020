@@ -8,6 +8,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -73,6 +74,19 @@ public class Drivetrain extends SubsystemBase {
         return rightMaster.getSelectedSensorPosition();
     }
 
+    public double getLeftEncoderVelocity() {
+        return leftMaster.getSelectedSensorVelocity();
+    }
+
+    public double getRightEncoderVelocity() {
+        return rightMaster.getSelectedSensorVelocity();
+    }
+
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(leftMaster.getSelectedSensorVelocity() * Constants.Drivetrain.DPS_TO_MPS,
+                                                rightMaster.getSelectedSensorVelocity() * Constants.Drivetrain.DPS_TO_MPS);
+    }
+
     public double getLeftDistancePerPulse() {
         return leftMaster.getSelectedSensorPosition() * Constants.Drivetrain.TICKS_TO_METERS;
     }
@@ -106,7 +120,7 @@ public class Drivetrain extends SubsystemBase {
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         leftMaster.set(ControlMode.Current, leftVolts);
-        rightMaster.set(ControlMode.Current, rightVolts);
+        rightMaster.set(ControlMode.Current, -rightVolts);
     }
 
     /*

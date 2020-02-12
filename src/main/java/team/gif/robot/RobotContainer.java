@@ -9,6 +9,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import team.gif.robot.commands.ExampleCommand;
+import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -106,8 +108,15 @@ public class RobotContainer {
                       Constants.TrajectoryConstants.kvVoltsSecondsPerMeter,
                       Constants.TrajectoryConstants.kaVoltSecondsSquaredPerMeter),
               Constants.TrajectoryConstants.kDriveKinematics,
-//              Drivetrain::getLeftDistancePerPulse
-      )
+              Drivetrain::getWheelSpeeds,
+                new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
+                new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
+                // RamseteCommand passes volts to the callback
+                Drivetrain::tankDriveVolts,
+                Drivetrain
+      );
+
+    return ramseteCommand.andThen(() -> Drivetrain.tankDriveVolts(0, 0));
 
   }
 }

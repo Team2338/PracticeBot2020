@@ -24,6 +24,7 @@ public final class Constants {
         public static final double BUMPER_LENGTH = 0.0;
         public static final double BUMPER_WIDTH = 0.0;
         public static final double TICKS_PER_REV = 4096; // Using mag encoders
+        public static final double DPS_TO_MPS = (WHEEL_DIAMETER * 0.0254 * Math.PI) / (360);
         public static final double TICKS_TO_METERS = (WHEEL_DIAMETER * Math.PI) / (TICKS_PER_REV);
     }
 
