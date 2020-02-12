@@ -19,39 +19,41 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
  */
 public final class Constants {
 
+    public static class Drivetrain {
+        public static final double WHEEL_DIAMETER = 0.0;
+        public static final double BUMPER_LENGTH = 0.0;
+        public static final double BUMPER_WIDTH = 0.0;
+        public static final double ENCODER_TICKS_PER_REV = 4096;
+        public static final double TICKS_TO_DPP = (WHEEL_DIAMETER * Math.PI) / (ENCODER_TICKS_PER_REV);
+    }
+
     public static class Shooter {
         public static final double kP = 0.0008;
         public static final double kF = 0.000177;
         public static final double RPM = 3900;
         public static final double maxVelocity = 5000;
-
     }
 
-    // For Trajectory/Pathfinder in auto
-    // Values are only placeholders until we test
+    /* For Trajectory/Pathfinder in auto
+     Values are only placeholders until we characterize
+     */
     public static class TrajectoryConstants {
         public static final double ksVolts = 0;
         public static final double kvVoltsSecondsPerMeter = 0;
         public static final double kvVoltsPerSquaredMeter = 0;
+
         public static final double kPDriveVel = 0;
 
-        public static final double kTrackwidthMeters = 0;
-        public static final  DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+        public static final double kTrackwidthMeters = 0; // DPP (Distance Per Pulse)
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
 
         public static final double kMaxMetersPerSecond = 0;
         public static final double kMaxAccelerationMetersPerSecondSquared = 0;
-
     }
 
-    public static class Drivetrain {
-        public static final double WHEEL_DIAMETER = 0.0;
-        public static final double BUMPER_LENGTH = 0.0;
-        public static final double BUMPER_WIDTH = 0.0;
-
-
-    public static class Ramsete {
+    // For RamseteController, WPILib's built-in trajectory tracker
+    public static class RamseteConstants {
         public static final double kRamseteB = 0.0;
         public static final double kRamseteZeta = 0.0;
-        }
     }
 }
