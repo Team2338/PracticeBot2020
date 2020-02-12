@@ -17,6 +17,7 @@ public abstract class RobotMap {
     public static final int FLYWHEEL = 9; //9
 
     // Sensors
+    public static final int PIGEON_ID = 0;
     public static final int SENSOR_KNOPF = 0;
     public static final int SENSOR_ONE = 1;
     public static final int SENSOR_TWO = 2;

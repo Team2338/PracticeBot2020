@@ -18,7 +18,7 @@ public class Drivetrain extends SubsystemBase {
     private static final TalonSRX leftSlave = new TalonSRX(RobotMap.DRIVE_LEFT_SLAVE);
     private static final TalonSRX rightMaster = new TalonSRX(RobotMap.DRIVE_RIGHT_MASTER);
     private static final TalonSRX rightSlave = new TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
-//  private static final PigeonIMU pigeon = new PigeonIMU();
+    private static final PigeonIMU pigeon = new PigeonIMU(RobotMap.PIGEON_ID);
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -75,8 +75,20 @@ public class Drivetrain extends SubsystemBase {
         return rightMaster.getSelectedSensorPosition() * Constants.Drivetrain.TICKS_TO_DPP;
     }
 
-    //@Override
+    public double[] getYawPitchRoll() {
+        double[] ypr_deg = new double[3];
+        pigeon.getYawPitchRoll(ypr_deg);
+        return ypr_deg;
+    }
+
+    public double getHeadingDegrees() {
+        return getYawPitchRoll()[0];
+    }
+
+    /*
+    @Override
     //protected void initDefaultCommand() {
     //    setDefaultCommand(new Drive(Drivetrain.getInstance()));
-    //}
+    }
+    */
 }
