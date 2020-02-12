@@ -5,7 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -20,6 +21,8 @@ public class Drivetrain extends SubsystemBase {
     private static final TalonSRX rightSlave = new TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
     private static final PigeonIMU pigeon = new PigeonIMU(RobotMap.PIGEON_ID);
 
+    private final DifferentialDriveOdometry odometry;
+
     public static Drivetrain getInstance() {
         if (instance == null) {
             instance = new Drivetrain();
@@ -30,6 +33,8 @@ public class Drivetrain extends SubsystemBase {
 
     private Drivetrain() {
         super();
+
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeadingDegrees()));
 
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -84,6 +89,12 @@ public class Drivetrain extends SubsystemBase {
     public double getHeadingDegrees() {
         return getYawPitchRoll()[0];
     }
+
+    public void updateOdometry() {
+        odometry.update(Rotation2d.fromDegrees(getHeadingDegrees()), leftMaster.getSelectedSensorPosition(), rightMaster.getSelectedSensorPosition());
+    }
+
+
 
     /*
     @Override
