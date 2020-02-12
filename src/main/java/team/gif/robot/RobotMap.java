@@ -24,6 +24,9 @@ public abstract class RobotMap {
     public static final int SENSOR_FOUR = 4;
     public static final int SENSOR_FIVE = 5;
 
+    // Color Sensor
+    public static final int COLOR_SENSOR = 0;
+
     // Controllers
     public static final int DRIVER_CONTROLLER_ID = 0;
     public static final int AUX_CONTROLLER_ID = 1;
