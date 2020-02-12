@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -22,7 +21,6 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import team.gif.robot.commands.ExampleCommand;
-import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,6 +36,7 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final Drivetrain drivetrain = new Drivetrain();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -105,15 +104,15 @@ public class RobotContainer {
               Drivetrain::getPose,
               new RamseteController(Constants.RamseteConstants.kRamseteB, Constants.RamseteConstants.kRamseteZeta),
               new SimpleMotorFeedforward(Constants.TrajectoryConstants.ksVolts,
-                      Constants.TrajectoryConstants.kvVoltsSecondsPerMeter,
-                      Constants.TrajectoryConstants.kaVoltSecondsSquaredPerMeter),
+                                         Constants.TrajectoryConstants.kvVoltsSecondsPerMeter,
+                                         Constants.TrajectoryConstants.kaVoltSecondsSquaredPerMeter),
               Constants.TrajectoryConstants.kDriveKinematics,
               Drivetrain::getWheelSpeeds,
                 new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
                 new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
                 // RamseteCommand passes volts to the callback
                 Drivetrain::tankDriveVolts,
-                Drivetrain
+//              Drivetrain
       );
 
     return ramseteCommand.andThen(() -> Drivetrain.tankDriveVolts(0, 0));
