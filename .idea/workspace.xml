@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ctre_phoenix_api_java_5_18_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ctre_phoenix_wpiapi_java_5_18_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_revrobotics_frc_ColorSensorV3_java_1_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ctre_phoenix_api_java_5_17_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ctre_phoenix_wpiapi_java_5_17_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/PracticeBot2020.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/PracticeBot2020.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/PracticeBot2020.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/PracticeBot2020.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendordeps/Phoenix.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendordeps/Phoenix.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +50,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/libs" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3175745" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -116,11 +106,11 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="184" y="0" width="1162" height="738" key="SettingsEditor" timestamp="1581487137640">
+    <state x="184" y="0" width="1162" height="738" key="SettingsEditor" timestamp="1581487811082">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1579979422455" />
-    <state x="184" y="0" width="1162" height="738" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1581487137640" />
+    <state x="184" y="0" width="1162" height="738" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1581487811082" />
     <state x="65" y="0" key="new project wizard" timestamp="1581487517593">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
