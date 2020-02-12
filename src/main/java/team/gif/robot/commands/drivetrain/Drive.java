@@ -59,7 +59,7 @@ public class Drive extends CommandBase {
             rightSpeed = rightSpeed / Math.abs(rightSpeed);
         }
 
-        Drivetrain.getInstance().setSpeed(-leftSpeed, -rightSpeed);
+        Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
 
 
     }
