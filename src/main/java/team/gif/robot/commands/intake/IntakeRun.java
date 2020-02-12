@@ -21,8 +21,8 @@ public class IntakeRun extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (!Indexer.getInstance().getState()[1]) {
-            intake.setSpeed(0.5);
+        if (!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2]) {
+            intake.setSpeed(0.75);
         } else {
             intake.setSpeed(0);
         }

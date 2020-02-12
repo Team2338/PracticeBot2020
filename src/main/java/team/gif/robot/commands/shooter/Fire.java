@@ -17,7 +17,7 @@ public class Fire extends CommandBase {
 
     @Override
     public void execute() {
-        if (Shooter.getInstance().getVelocity() > Constants.Shooter.RPM) {
+        if ((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 500)) {
             Indexer.getInstance().setSpeedFive(0.5);
         } else {
             Indexer.getInstance().setSpeedFive(0);
