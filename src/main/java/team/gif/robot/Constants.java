@@ -40,13 +40,14 @@ public final class Constants {
     public static class TrajectoryConstants {
         public static final double ksVolts = 0;
         public static final double kvVoltsSecondsPerMeter = 0;
-        public static final double kvVoltsPerSquaredMeter = 0;
+        public static final double kaVoltSecondsSquaredPerMeter = 0;
 
         public static final double kPDriveVel = 0;
 
         public static final double kTrackwidthMeters = 0; // DPP (Distance Per Pulse)
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
 
+        // Velocity and acceleration constraints
         public static final double kMaxMetersPerSecond = 0;
         public static final double kMaxAccelerationMetersPerSecondSquared = 0;
     }

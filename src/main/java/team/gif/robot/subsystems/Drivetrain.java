@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -90,8 +91,17 @@ public class Drivetrain extends SubsystemBase {
         return getYawPitchRoll()[0];
     }
 
+    public Pose2d getPose() {
+        return odometry.getPoseMeters();
+    }
+
     public void updateOdometry() {
         odometry.update(Rotation2d.fromDegrees(getHeadingDegrees()), getLeftDistancePerPulse(), getRightDistancePerPulse());
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        resetEncoders();
+        odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeadingDegrees()));
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
