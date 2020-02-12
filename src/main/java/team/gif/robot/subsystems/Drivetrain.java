@@ -27,10 +27,10 @@ public class Drivetrain extends SubsystemBase {
     private Drivetrain() {
         super();
 
-        leftMaster.setInverted(true);
-        leftSlave.setInverted(true);
-//        rightMaster.setInverted(Constants.IS_INVERTED_DRIVE_RIGHT_MASTER);
-//        rightSlave.setInverted(Constants.IS_INVERTED_DRIVE_RIGHT_SLAVE);
+        //leftMaster.setInverted(true);
+        //leftSlave.setInverted(true);
+        rightMaster.setInverted(true);
+        rightSlave.setInverted(true);
 
         leftMaster.setNeutralMode(NeutralMode.Brake);
         leftSlave.setNeutralMode(NeutralMode.Brake);
