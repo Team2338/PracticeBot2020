@@ -216,51 +216,15 @@ public class Limelight {
         return table.getEntry(key).getDouble(0.0);
     }
 
+    /** Returns array of x values of each pixel coordinates*
+    * the x valuse of the 4 corners in what order sadly i dont know this must be tested
+    * */
     public double[] getTcornx(){return table.getEntry("tcornx").getDoubleArray(new double[]{0,0,0,0});}
 
-    //the y valuse of the 4 corners in what order also sadly i dont know this must be tested
+    /**Returns array of x values of each pixel coordinates*
+     * the y valuse of the 4 corners in what order sadly i dont know this must be tested
+     * */
     public double[] getTcorny(){return table.getEntry("tcorny").getDoubleArray(new double[]{0,0,0,0});}
 
 
-//<<<<<<<<--------------------------------------SOLVE PNP------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>
-
-    /*
-    public static double theta = 9;//in degrees
-
-    public static double limelightheight = 5;//in inches from ground
-
-    public static double tr =97.5;// in inches
-
-    public void setheight(double thing){
-        theta =thing;
-    }
-
-    public void setelevation(double elevation){
-        limelightheight=elevation;
-    }
-
-    public double x(){
-        return 0;
-    }
-
-    public double y(){
-        return 0;
-    }
-
-    public double z(){
-        return tr-limelightheight;
-    }
-
-    public double pitch(){
-        return 0;
-    }
-
-    public double yaw(){
-        return 0;
-    }
-
-    public double roll(){
-        return theta;
-    }
-    */
 }

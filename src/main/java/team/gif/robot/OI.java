@@ -69,7 +69,7 @@ public class OI {
         dRB.whileHeld(new IntakeRun());
         dLB.whileHeld(new IntakeReverse());
         aA.whileHeld(new RevFlywheel());
-        aX.whileHeld(new Fire());
+        aX.whileHeld(new Fire(0));
         aY.whenPressed(new autoshoot());
     }
 
