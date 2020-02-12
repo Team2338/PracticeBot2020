@@ -73,11 +73,11 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getLeftDistancePerPulse() {
-        return leftMaster.getSelectedSensorPosition() * Constants.Drivetrain.TICKS_TO_DPP;
+        return leftMaster.getSelectedSensorPosition() * Constants.Drivetrain.TICKS_TO_METERS;
     }
 
     public double getRightDistancePerPulse() {
-        return rightMaster.getSelectedSensorPosition() * Constants.Drivetrain.TICKS_TO_DPP;
+        return rightMaster.getSelectedSensorPosition() * Constants.Drivetrain.TICKS_TO_METERS;
     }
 
     public double[] getYawPitchRoll() {
@@ -91,7 +91,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void updateOdometry() {
-        odometry.update(Rotation2d.fromDegrees(getHeadingDegrees()), leftMaster.getSelectedSensorPosition(), rightMaster.getSelectedSensorPosition());
+        odometry.update(Rotation2d.fromDegrees(getHeadingDegrees()), getLeftDistancePerPulse(), getRightDistancePerPulse());
     }
 
 

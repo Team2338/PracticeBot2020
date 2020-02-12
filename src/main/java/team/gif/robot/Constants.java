@@ -23,8 +23,8 @@ public final class Constants {
         public static final double WHEEL_DIAMETER = 0.0;
         public static final double BUMPER_LENGTH = 0.0;
         public static final double BUMPER_WIDTH = 0.0;
-        public static final double ENCODER_TICKS_PER_REV = 4096; // Using mag encoders
-        public static final double TICKS_TO_DPP = (WHEEL_DIAMETER * Math.PI) / (ENCODER_TICKS_PER_REV);
+        public static final double TICKS_PER_REV = 4096; // Using mag encoders
+        public static final double TICKS_TO_METERS = (WHEEL_DIAMETER * Math.PI) / (TICKS_PER_REV);
     }
 
     public static class Shooter {
