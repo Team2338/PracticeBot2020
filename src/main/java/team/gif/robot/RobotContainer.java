@@ -36,7 +36,7 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final Drivetrain drivetrain = new Drivetrain();
+  private final Drivetrain drivetrain = Drivetrain.getInstance();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -112,7 +112,7 @@ public class RobotContainer {
                 new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
                 // RamseteCommand passes volts to the callback
                 Drivetrain::tankDriveVolts,
-//              Drivetrain
+
       );
 
     return ramseteCommand.andThen(() -> Drivetrain.tankDriveVolts(0, 0));
