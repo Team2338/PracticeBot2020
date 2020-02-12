@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/OI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/OI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Robot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autoaim/autoshoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autoaim/autoshoot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/Fire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/Fire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/RevFlywheel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/RevFlywheel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/fire2.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,19 +112,19 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="184" y="0" width="1162" height="738" key="SettingsEditor" timestamp="1581487811082">
+    <state x="184" y="0" width="1162" height="738" key="SettingsEditor" timestamp="1581547529617">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1579979422455" />
-    <state x="184" y="0" width="1162" height="738" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1581487811082" />
+    <state x="184" y="0" width="1162" height="738" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1581547529617" />
     <state x="65" y="0" key="new project wizard" timestamp="1581487517593">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="65" y="0" key="new project wizard/0.0.1366.738@0.0.1366.738" timestamp="1581487517593" />
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1581472974455">
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1581547881335">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1581472974455" />
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1581547881335" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

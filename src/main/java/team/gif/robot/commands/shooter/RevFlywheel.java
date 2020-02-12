@@ -10,7 +10,7 @@ import team.gif.robot.subsystems.Shooter;
 public class RevFlywheel extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Shooter shooter;
-    private boolean endtimeout = false;
+    private boolean endwithRPM = false;
     //private final OI oi;
 
     public RevFlywheel() {
@@ -21,8 +21,8 @@ public class RevFlywheel extends CommandBase {
     }
 
 
-    public RevFlywheel(boolean timeout) {
-        endtimeout = timeout;
+    public RevFlywheel(boolean endwithRPMval) {
+        endwithRPM = endwithRPMval;
         shooter = Shooter.getInstance();
         //oi = OI.getInstance();
         // Use addRequirements() here to declare subsystem dependencies.
@@ -38,7 +38,7 @@ public class RevFlywheel extends CommandBase {
     @Override
     public void execute() {
         shooter.setPID(Constants.Shooter.RPM);
-        SmartDashboard.putNumber("RPM",Shooter.getInstance().getVelocity());
+
 
         /*if (OI.getInstance().aux.getXButtonPressed()) {
             Indexer.getInstance().setSpeed(speed);
@@ -50,17 +50,28 @@ public class RevFlywheel extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Shooter.getInstance().setPID(0);
+
+        // below removed  bc we need the fly wheel to stay spinning when we
+        // fire, and it heats up the motor and draws power to stop
+
+        //Shooter.getInstance().setPID(0);
+
+
         //Indexer.getInstance().setSpeed(speedStop);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(endtimeout){
-            return Shooter.getInstance().getVelocity() >= Constants.Shooter.RPM;
-        }else{
-            return OI.getInstance().aux.getBButtonPressed();
+        if(endwithRPM){
+            if(OI.getInstance().aux.getYButtonPressed()){
+                return true;
+            }else{
+                return Shooter.getInstance().getVelocity() >= Constants.Shooter.RPM;
+            }
+        }else {
+            //return OI.getInstance().aux.getBButtonPressed();
+            return false;
         }
 
     }

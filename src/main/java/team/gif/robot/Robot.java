@@ -15,6 +15,7 @@ import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
 
 /**
@@ -62,8 +63,25 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+
+    SmartDashboard.putBoolean("One", Indexer.getInstance().getState()[1]);
+    SmartDashboard.putBoolean("Two", Indexer.getInstance().getState()[2]);
+    SmartDashboard.putBoolean("Three", Indexer.getInstance().getState()[3]);
+    SmartDashboard.putBoolean("Four", Indexer.getInstance().getState()[4]);
+    SmartDashboard.putBoolean("Five", Indexer.getInstance().getState()[5]);
+
+
+    //the jyoonk i want to see on the board
     SmartDashboard.putNumber("tx",limelight.getXOffset());
     SmartDashboard.putNumber("ty",limelight.getYOffset());
+    SmartDashboard.putNumber(" 3D X",limelight.getCamTran()[0]);
+    SmartDashboard.putNumber(" 3D Y",limelight.getCamTran()[1]);
+    SmartDashboard.putNumber(" 3D Z",limelight.getCamTran()[2]);
+    SmartDashboard.putNumber(" 3D yaw",limelight.getCamTran()[3]);
+    SmartDashboard.putNumber(" 3D pitch",limelight.getCamTran()[4]);
+    SmartDashboard.putNumber(" 3D roll",limelight.getCamTran()[5]);
+
+    SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
     //System.out.println("tx"+limelight.getXOffset());
     //System.out.println("ty"+limelight.getYOffset());
     SmartDashboard.putBoolean("hastarget",limelight.hasTarget());

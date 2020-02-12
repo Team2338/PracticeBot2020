@@ -18,7 +18,7 @@ public class Fire extends ParallelCommandGroup {
 
     @Override
     public void execute() {
-        if ((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 500)) {
+        if ((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 500) && Indexer.getInstance().getState()[4]) {
             Indexer.getInstance().setSpeedFive(0.5);
         } else {
             Indexer.getInstance().setSpeedFive(0);
