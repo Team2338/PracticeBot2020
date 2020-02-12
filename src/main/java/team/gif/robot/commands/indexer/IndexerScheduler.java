@@ -41,7 +41,6 @@ public class IndexerScheduler extends CommandBase {
         SmartDashboard.putBoolean("Five", index.getState()[5]);
 
         if(currentCommand != null && currentCommand.isFinished() == true) {
-            System.out.println("Current Command Null");
             currentCommand = null;
         }
         //System.out.println("entering indexer");

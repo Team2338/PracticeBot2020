@@ -44,8 +44,8 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        leftSpeed = oi.driver.getY(GenericHID.Hand.kLeft) - oi.driver.getX(GenericHID.Hand.kRight);
-        rightSpeed = oi.driver.getY(GenericHID.Hand.kLeft) + oi.driver.getX(GenericHID.Hand.kRight);
+        leftSpeed = oi.driver.getY(GenericHID.Hand.kLeft) + oi.driver.getX(GenericHID.Hand.kRight);
+        rightSpeed = oi.driver.getY(GenericHID.Hand.kLeft) - oi.driver.getX(GenericHID.Hand.kRight);
         if (leftSpeed < 0.05 && leftSpeed > -0.05) {
             leftSpeed = 0;
         }
@@ -59,7 +59,7 @@ public class Drive extends CommandBase {
             rightSpeed = rightSpeed / Math.abs(rightSpeed);
         }
 
-        Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
+        Drivetrain.getInstance().setSpeed(-leftSpeed, -rightSpeed);
 
 
     }

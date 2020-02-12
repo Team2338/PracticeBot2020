@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autoaim/autoshoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autoaim/autoshoot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/RevFlywheel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/RevFlywheel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/subsystems/drivers/Limelight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/subsystems/drivers/Limelight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/intake/IntakeRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/intake/IntakeRun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/Fire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/shooter/Fire.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

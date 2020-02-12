@@ -1,6 +1,7 @@
 package team.gif.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Intake;
 
 public class IntakeRun extends CommandBase {
@@ -20,7 +21,11 @@ public class IntakeRun extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        intake.setSpeed(0.5);
+        if (!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2]) {
+            intake.setSpeed(0.75);
+        } else {
+            intake.setSpeed(0);
+        }
     }
 
     // Called once the command ends or is interrupted.
