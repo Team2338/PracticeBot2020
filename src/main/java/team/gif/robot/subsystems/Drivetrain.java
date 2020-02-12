@@ -94,7 +94,10 @@ public class Drivetrain extends SubsystemBase {
         odometry.update(Rotation2d.fromDegrees(getHeadingDegrees()), getLeftDistancePerPulse(), getRightDistancePerPulse());
     }
 
-
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
+        leftMaster.set(ControlMode.Current, leftVolts);
+        rightMaster.set(ControlMode.Current, rightVolts);
+    }
 
     /*
     @Override
