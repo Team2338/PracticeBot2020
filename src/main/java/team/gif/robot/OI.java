@@ -71,6 +71,7 @@ public class OI {
         dLB.whileHeld(new IntakeReverse());
         aA.whileHeld(new RevFlywheel());
         aX.whileHeld(new Fire(0));
+        // b button kills an autoaim revflywheel
         aY.whenPressed(new autoshoot());
     }
 
