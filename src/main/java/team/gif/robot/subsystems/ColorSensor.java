@@ -88,6 +88,31 @@ public class ColorSensor extends SubsystemBase {
     int proximity = m_colorSensor.getProximity();
 
     SmartDashboard.putNumber("Proximity", proximity);
+
+    /**
+     * Dispays our guess of the color.
+     * Order is confidence level.
+     * All are with sensor light on.
+     * 1: Red - Highest value = Red
+     * 2: Yellow - Highest value = Green, R > B
+     * 3: Green - Highest value = Green, B > R, Blue and Red within 10
+     * 4: Blue - Green & Blue > Red, G & B are within 5, Blue and Red greater than 10
+     */
+    String colorGuess = "";
+    double greenBlueDifference = Math.abs(detectedColor.blue - detectedColor.green);
+    double redBlueDifference = Math.abs(detectedColor.blue - detectedColor.red);
+    if(detectedColor.red > detectedColor.blue && detectedColor.red > detectedColor.green) {
+      colorGuess = "Red";
+
+    } else if(detectedColor.green > detectedColor.red && detectedColor.green > detectedColor.blue && detectedColor.red > detectedColor.blue) {
+      colorGuess = "Yellow";
+    } else if(detectedColor.green > detectedColor.red && detectedColor.blue > detectedColor.red && greenBlueDifference < 0.05 && redBlueDifference > 0.1) {
+      colorGuess = "Blue";
+    } else {
+      colorGuess = "Green";
+    }
+
+    SmartDashboard.putString("Color", colorGuess);
   }
 }
 //josh was here
