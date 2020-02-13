@@ -40,7 +40,7 @@ public final class Constants {
      */
     public static class TrajectoryConstants {
         public static final double ksVolts = 0;
-        public static final double kvVoltsSecondsPerMeter = 0;
+        public static final double kvVoltSecondsPerMeter = 0;
         public static final double kaVoltSecondsSquaredPerMeter = 0;
 
         public static final double kPDriveVel = 0;

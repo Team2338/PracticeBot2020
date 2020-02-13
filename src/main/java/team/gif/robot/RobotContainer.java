@@ -71,7 +71,7 @@ public class RobotContainer {
       var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
               new SimpleMotorFeedforward(
                       Constants.TrajectoryConstants.ksVolts,
-                      Constants.TrajectoryConstants.kvVoltsSecondsPerMeter,
+                      Constants.TrajectoryConstants.kvVoltSecondsPerMeter,
                       Constants.TrajectoryConstants.kaVoltSecondsSquaredPerMeter),
               Constants.TrajectoryConstants.kDriveKinematics, 10);
 
@@ -101,21 +101,22 @@ public class RobotContainer {
       // RamseteCommand to keep track of trajectory
       RamseteCommand ramseteCommand = new RamseteCommand(
               basicMobility,
-              Drivetrain::getPose,
+              drivetrain::getPose,
               new RamseteController(Constants.RamseteConstants.kRamseteB, Constants.RamseteConstants.kRamseteZeta),
               new SimpleMotorFeedforward(Constants.TrajectoryConstants.ksVolts,
-                                         Constants.TrajectoryConstants.kvVoltsSecondsPerMeter,
-                                         Constants.TrajectoryConstants.kaVoltSecondsSquaredPerMeter),
+                      Constants.TrajectoryConstants.kvVoltSecondsPerMeter,
+                      Constants.TrajectoryConstants.kaVoltSecondsSquaredPerMeter),
               Constants.TrajectoryConstants.kDriveKinematics,
-              Drivetrain::getWheelSpeeds,
-                new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
-                new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
-                // RamseteCommand passes volts to the callback
-                Drivetrain::tankDriveVolts,
+              drivetrain::getWheelSpeeds,
+              new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
+              new PIDController(Constants.TrajectoryConstants.kPDriveVel, 0, 0),
+              // RamseteCommand passes volts to the callback
+              drivetrain::tankDriveVolts,
+              drivetrain
 
       );
 
-    return ramseteCommand.andThen(() -> Drivetrain.tankDriveVolts(0, 0));
+    return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
 
   }
 }

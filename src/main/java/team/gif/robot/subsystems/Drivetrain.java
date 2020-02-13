@@ -118,7 +118,7 @@ public class Drivetrain extends SubsystemBase {
         odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeadingDegrees()));
     }
 
-    public static void tankDriveVolts(double leftVolts, double rightVolts) {
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
         leftMaster.set(ControlMode.Current, leftVolts);
         rightMaster.set(ControlMode.Current, -rightVolts);
     }
