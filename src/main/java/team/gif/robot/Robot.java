@@ -15,6 +15,7 @@ import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.ColorSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
 
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
+  private final ColorSensor colorsensor = ColorSensor.getInstance();
 
   /**
    * This function is run when the robot is first started up and should be used for any
