@@ -21,8 +21,16 @@ public class Pivot extends CommandBase {
     public static double kFy;
     public static boolean endthing = false;
 
+    public double looptime = 10;
+    public double kI =.001;
+    public double Ilooper =0;
+    public double looped =0;
+
     @Override
     public void initialize() {
+        looptime = 10;
+        looped =0;
+        Ilooper = 0;
         SmartDashboard.putBoolean("trying to get there",true);
         System.out.println("pivot");
 
@@ -33,6 +41,7 @@ public class Pivot extends CommandBase {
 
     @Override
     public void execute() {
+        System.out.println("pivoting");
 
         double xoffset = Robot.limelight.getXOffset();
         //double yoffset = Robot.limelight.getYOffset();
@@ -48,19 +57,21 @@ public class Pivot extends CommandBase {
         SmartDashboard.putBoolean("see target",Robot.limelight.hasTarget());
         if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
             //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget());
-            powerL = -1*kPx*xoffset +-t*kFx;
-            powerR = 1*kPx*xoffset+t*kFx;
+            powerL = -1*kPx*xoffset +-t*kFx+ -t*Ilooper*kI;
+            powerR = 1*kPx*xoffset+t*kFx+ t*Ilooper*kI;
             Drivetrain.getInstance().setSpeed(powerR ,powerL);
             SmartDashboard.putBoolean("are we there yet x" , false);
             SmartDashboard.putNumber("PowerL",powerL);
             SmartDashboard.putNumber("PowerR",powerR);
-        }else{
+            looped =0;
+            Ilooper ++;
+        }else if(xoffset<marginx ||xoffset>-marginx ){
+            looped++;
+        }else if(looped >looptime){
             System.out.println("wegot there");
             Drivetrain.getInstance().setSpeed(0,0);
             SmartDashboard.putBoolean("are we there yet x", true);
             endthing = true;
-
-
         }
     }
 

@@ -9,6 +9,7 @@ import team.gif.robot.subsystems.Shooter;
 public class Fire extends ParallelCommandGroup {
     public int fire =0;
     public int fired =0;
+    public boolean endthing = false;
     public Fire(int fireval) {
         fire =fire;
         fired =0;
@@ -23,17 +24,25 @@ public class Fire extends ParallelCommandGroup {
 
     @Override
     public void execute() {
-        if ((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 500) && Indexer.getInstance().getState()[4] && (fired<fire || fire ==0)) {
+        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 500)) && (Indexer.getInstance().getState()[5] == true) && (fired<fire || fire ==0)) {
             Indexer.getInstance().setSpeedFive(0.5);
             fired++;
+            if((fired<fire)&&(Indexer.getInstance().getState()[5]== true)){
+                endthing = false;
+            }else{
+                endthing = true;
+            }
 
         }else {
             Indexer.getInstance().setSpeedFive(0);
         }
+        System.out.println("flywheeeling");
     }
 
     @Override
     public void end(boolean interrupted) {
+
+        Shooter.getInstance().setPID(0);
         Indexer.getInstance().setSpeedFive(0);
     }
 
