@@ -20,7 +20,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 public final class Constants {
 
     public static class Drivetrain {
-        public static final double WHEEL_DIAMETER = 0.0;
+        // All units for characterization are in meters!
+        public static final double WHEEL_DIAMETER = 0.127;
         public static final double BUMPER_LENGTH = 0.0;
         public static final double BUMPER_WIDTH = 0.0;
         public static final double TICKS_PER_REV = 4096; // Using mag encoders
