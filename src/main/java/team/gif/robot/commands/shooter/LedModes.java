@@ -1,15 +1,21 @@
-/*package team.gif.robot.commands.shooter;
+package team.gif.robot.commands.shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Indexer;
-import team.gif.robot.subsystems.Shooter;
 
-public class LedMode extends CommandBase {
-    public LedMode() {
-
-        //addRequirements(Shooter.getInstance());
+public class LedModes extends CommandBase {
+    public static int state = 0;
+    public LedModes() {
+        state ++;
+        if(state>3){
+            state = 0;
+        }
+        Robot.limelight.setLEDMode(state);
+        SmartDashboard.putNumber("limelight",state);
     }
 
     @Override
@@ -19,8 +25,6 @@ public class LedMode extends CommandBase {
 
     @Override
     public void execute() {
-        Indexer.getInstance().setSpeedFive(0.5);
-        System.out.println("shooting");
     }
 
     @Override
@@ -30,6 +34,6 @@ public class LedMode extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
-}*/
+}
