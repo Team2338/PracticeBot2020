@@ -20,7 +20,8 @@ public class Elevator extends SubsystemBase {
 
     private Elevator() {
         super();
-        elevatorMotor.setNeutralMode(NeutralMode.Brake);
+        //elevatorMotor.setInverted(true);
+        elevatorMotor.setNeutralMode(NeutralMode.Coast);
     }
 
     public void setspeed(double speed) {

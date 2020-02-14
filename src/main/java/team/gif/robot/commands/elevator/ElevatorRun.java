@@ -23,7 +23,7 @@ public class ElevatorRun extends CommandBase {
     @Override
     public void execute() {
         elevator.setspeed(oi.aux.getY(GenericHID.Hand.kLeft));
-    }
+}
 
     @Override
     public void end(boolean interrupted) {
