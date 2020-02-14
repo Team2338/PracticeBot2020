@@ -27,6 +27,7 @@ public class ElevatorRun extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        elevator.setspeed(0);
     }
 
     @Override
