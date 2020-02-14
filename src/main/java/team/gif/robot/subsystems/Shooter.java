@@ -26,7 +26,7 @@ public class Shooter extends SubsystemBase {
         flywheelMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         flywheelPIDController.setP(Constants.Shooter.kP);
         flywheelPIDController.setFF(Constants.Shooter.kF);
-        flywheelPIDController.setOutputRange(0, Constants.Shooter.maxVelocity);
+        flywheelPIDController.setOutputRange(0, 1);
     }
 
     public void setPID (double setPoint) {
