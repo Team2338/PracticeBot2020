@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.RobotMap;
 
 public class ColorSensor extends SubsystemBase {
@@ -30,6 +30,7 @@ public class ColorSensor extends SubsystemBase {
    * parameters.
    */
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+
   public static ColorSensor getInstance() {
     if (instance == null) {
       instance = new ColorSensor();
@@ -37,6 +38,7 @@ public class ColorSensor extends SubsystemBase {
 
     return instance;
   }
+
   /**
    * Creates a new ExampleSubsystem.
    */
@@ -47,6 +49,10 @@ public class ColorSensor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+  }
+
+  public void getColor() {
     /**
      * The method GetColor() returns a normalized color value from the sensor and can be
      * useful if outputting the color to an RGB LED or similar. To
@@ -99,20 +105,18 @@ public class ColorSensor extends SubsystemBase {
      * 4: Blue - Green & Blue > Red, G & B are within 5, Blue and Red greater than 10
      */
     String colorGuess = "";
-    double greenBlueDifference = Math.abs(detectedColor.blue - detectedColor.green);
     double redBlueDifference = Math.abs(detectedColor.blue - detectedColor.red);
     if(detectedColor.red > detectedColor.blue && detectedColor.red > detectedColor.green) {
       colorGuess = "Red";
 
     } else if(detectedColor.green > detectedColor.red && detectedColor.green > detectedColor.blue && detectedColor.red > detectedColor.blue) {
       colorGuess = "Yellow";
-    } else if(detectedColor.green > detectedColor.red && detectedColor.blue > detectedColor.red && greenBlueDifference < 0.05 && redBlueDifference > 0.1) {
-      colorGuess = "Blue";
-    } else {
+    } else if(detectedColor.green > detectedColor.blue && detectedColor.green > detectedColor.red && redBlueDifference < 0.1) {
       colorGuess = "Green";
+    } else {
+      colorGuess = "Blue";
     }
 
     SmartDashboard.putString("Color", colorGuess);
   }
 }
-//josh was here

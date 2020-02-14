@@ -1,12 +1,12 @@
 package team.gif.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import team.gif.robot.commands.intake.IntakeReverse;
 import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
+import team.gif.robot.commands.ReadColor;
 
 public class OI {
     private static OI instance = null;
@@ -68,6 +68,7 @@ public class OI {
         aLB.whileHeld(new IntakeReverse());
         aA.whenPressed(new RevFlywheel());
         aX.whileHeld(new Fire());
+        aB.whileHeld(new ReadColor());
     }
 
 }
