@@ -74,13 +74,14 @@ public class Robot extends TimedRobot {
     //the jyoonk i want to see on the board
     SmartDashboard.putNumber("tx",limelight.getXOffset());
     SmartDashboard.putNumber("ty",limelight.getYOffset());
+    /*
     SmartDashboard.putNumber(" 3D X",limelight.getCamTran()[0]);
     SmartDashboard.putNumber(" 3D Y",limelight.getCamTran()[1]);
     SmartDashboard.putNumber(" 3D Z",limelight.getCamTran()[2]);
     SmartDashboard.putNumber(" 3D yaw",limelight.getCamTran()[3]);
     SmartDashboard.putNumber(" 3D pitch",limelight.getCamTran()[4]);
     SmartDashboard.putNumber(" 3D roll",limelight.getCamTran()[5]);
-
+*/
     SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
     //System.out.println("tx"+limelight.getXOffset());
     //System.out.println("ty"+limelight.getYOffset());

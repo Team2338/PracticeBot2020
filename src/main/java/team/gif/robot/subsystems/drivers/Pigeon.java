@@ -1,27 +1,24 @@
-package team.gif.robot.subsystems.drivers;
+/*package team.gif.robot.subsystems.drivers;
 import com.ctre.phoenix.sensors.PigeonIMU;
 public class Pigeon {
 
 
 
-    PigeonIMU _pigeon = new PigeonIMU(0);
+    public static PigeonIMU pidgeon = new PigeonIMU(0);
 
-System.out.println("new pigeon values");
-        switch(whichone) {
 
-        case 1:
-            double[] ypr = new double[3];
-            pidgeon.getYawPitchRoll(ypr);
-            System.out.println("pidgeon ypr " + "y " + ypr[0] + " p " + ypr[1] + " r " + ypr[2]);
-            break;
+    public double[] getYPR(){
+        double[] ypr = new double[3];
+        pidgeon.getYawPitchRoll(ypr);
+        return ypr;
+    }
 
+    public double[] getQuaternions() {
         //quaternions
-        case 2:
-            double[] quaternions = new double[4];
-            pidgeon.get6dQuaternion(quaternions);
-            System.out.println("quaternions(6d #s) " + "W" + quaternions[0] + "X" + quaternions[1] + "Y " + quaternions[2] + "Z " + quaternions[3]);
-            break;
-
+        double[] quaternions = new double[4];
+        pidgeon.get6dQuaternion(quaternions);
+        return quaternions;
+    }
         //acumulated gyro
         case 3:
             double[] accumGyro = new double[3];
@@ -66,43 +63,5 @@ System.out.println("new pigeon values");
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+*/

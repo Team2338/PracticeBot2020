@@ -7,6 +7,8 @@ import team.gif.robot.commands.autoaim.autoshoot;
 import team.gif.robot.commands.intake.IntakeReverse;
 import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
+//import team.gif.robot.commands.shooter.LedModes;
+import team.gif.robot.commands.shooter.LedModes;
 import team.gif.robot.commands.shooter.RevFlywheel;
 
 
@@ -73,6 +75,7 @@ public class OI {
         aX.whileHeld(new Fire(0));
         // b button kills an autoaim revflywheel
         aY.whenPressed(new autoshoot());
+        aB.whenPressed(new LedModes());
     }
 
 }

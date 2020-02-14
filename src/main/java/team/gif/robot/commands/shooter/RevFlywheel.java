@@ -14,6 +14,7 @@ public class RevFlywheel extends CommandBase {
     //private final OI oi;
 
     public RevFlywheel() {
+        endwithRPM = false;
         shooter = Shooter.getInstance();
         //oi = OI.getInstance();
         // Use addRequirements() here to declare subsystem dependencies.
@@ -50,6 +51,7 @@ public class RevFlywheel extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        shooter.setPID(0);
 
         // below removed  bc we need the fly wheel to stay spinning when we
         // fire, and it heats up the motor and draws power to stop
@@ -63,12 +65,12 @@ public class RevFlywheel extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(endwithRPM){
+        /*if(endwithRPM){
             return (Shooter.getInstance().getVelocity() >= Constants.Shooter.RPM)||(OI.getInstance().aux.getBButtonPressed());
-        }else {
+        }else {*/
             //return OI.getInstance().aux.getBButtonPressed();
             return false;
-        }
+        //}
 
     }
 }

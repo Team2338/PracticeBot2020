@@ -30,9 +30,8 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setPID (double setPoint) {
-        flywheelPIDController.setReference(setPoint, ControlType.kVelocity);
+            flywheelPIDController.setReference(setPoint, ControlType.kVelocity);
     }
-
     public double getVelocity () {
         double velocity = flywheelEncoder.getVelocity();
         return velocity;

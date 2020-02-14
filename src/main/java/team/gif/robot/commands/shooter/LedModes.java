@@ -9,18 +9,18 @@ import team.gif.robot.subsystems.Indexer;
 
 public class LedModes extends CommandBase {
     public static int state = 0;
+
     public LedModes() {
-        state ++;
-        if(state>3){
-            state = 0;
-        }
-        Robot.limelight.setLEDMode(state);
-        SmartDashboard.putNumber("limelight",state);
     }
 
     @Override
     public void initialize() {
-
+        state++;
+        if (state > 4) {
+            state = 0;
+        }
+        Robot.limelight.setLEDMode(state);
+        SmartDashboard.putNumber("limelight", state);
     }
 
     @Override
@@ -34,6 +34,11 @@ public class LedModes extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        //if () {
+            return true;
+
+        //}
+
     }
+
 }
