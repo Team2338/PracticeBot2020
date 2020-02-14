@@ -20,7 +20,6 @@ public class Drivetrain extends SubsystemBase {
         if (instance == null) {
             instance = new Drivetrain();
         }
-
         return instance;
     }
 

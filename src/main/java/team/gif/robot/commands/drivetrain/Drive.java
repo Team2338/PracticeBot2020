@@ -26,7 +26,7 @@ public class Drive extends CommandBase {
      *
      * @param subsystem The subsystem used by this command.
      */
-    public Drive(Drivetrain subsystem) {
+    public Drive() {
         //m_subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Drivetrain.getInstance());
