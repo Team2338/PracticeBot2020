@@ -21,7 +21,7 @@ public class StageFive extends CommandBase {
     @Override
     public void execute() {
         indexer.setSpeedFour(1);
-        indexer.setSpeedFive(0.5);
+        indexer.setSpeedFive(0.45);
     }
 
     // Called once the command ends or is interrupted.
