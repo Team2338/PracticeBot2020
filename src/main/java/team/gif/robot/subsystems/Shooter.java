@@ -31,8 +31,8 @@ public class Shooter extends SubsystemBase {
         flywheelPIDController.setOutputRange(0, 1);
     }
 
-    public void setSpeed(double speed) {
-        flywheelMotor.setVoltage(speed);
+    public void setVoltage(double voltage) {
+        flywheelMotor.setVoltage(voltage);
     }
 
     public void setPID (double setPoint) {

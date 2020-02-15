@@ -19,7 +19,6 @@ public class RevFlywheel extends CommandBase {
         //oi = OI.getInstance();
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Shooter.getInstance());
-        System.out.println("isCalled " + flywheelCount++);
     }
 
     /*
@@ -43,7 +42,7 @@ public class RevFlywheel extends CommandBase {
     public void execute() {
 
         shooter.setPID(Constants.Shooter.RPM);
-        //shooter.setSpeed(7);
+        //shooter.setVoltage(7);
 
 
         /*if (OI.getInstance().aux.getXButtonPressed()) {
@@ -61,7 +60,7 @@ public class RevFlywheel extends CommandBase {
         // fire, and it heats up the motor and draws power to stop
 
         // Shooter.getInstance().setPID(0);
-        shooter.setSpeed(0);
+        shooter.setVoltage(0);
 
 
         //Indexer.getInstance().setSpeed(speedStop);
