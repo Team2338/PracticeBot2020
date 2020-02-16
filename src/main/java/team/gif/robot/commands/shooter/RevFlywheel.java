@@ -65,12 +65,12 @@ public class RevFlywheel extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        /*if(endwithRPM){
+        if(endwithRPM){
             return (Shooter.getInstance().getVelocity() >= Constants.Shooter.RPM)||(OI.getInstance().aux.getBButtonPressed());
-        }else {*/
+        }else {
             //return OI.getInstance().aux.getBButtonPressed();
             return false;
-        //}
+        }
 
     }
 }

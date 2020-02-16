@@ -26,7 +26,8 @@ public final class Constants {
 
     //        //pivot globals
     public static double marginx =1;
-    public static double kPx =.011;
+    public static double marginx1 =.5;
+    public static double kPx =.05;
     public static double kFx = .2;
 
     public static double WheelDiameter = 0.127;

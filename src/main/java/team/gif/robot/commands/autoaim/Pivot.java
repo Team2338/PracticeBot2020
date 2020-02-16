@@ -1,7 +1,9 @@
 package team.gif.robot.commands.autoaim;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.robot.OI;
 import team.gif.robot.Robot;
 import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
@@ -10,6 +12,8 @@ public class Pivot extends CommandBase {
     public Pivot() {
         SmartDashboard.putBoolean("trying to get there",false);
         SmartDashboard.putBoolean("are we there yet x" , false);
+        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
+        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         //addRequirements(Drivetrain.getInstance());
 
     }
@@ -30,13 +34,13 @@ public class Pivot extends CommandBase {
     public void initialize() {
         looptime = 0;
         looped =0;
-        Ilooper = 0;
+        Ilooper = 5;
         SmartDashboard.putBoolean("trying to get there",true);
         System.out.println("pivot");
 
         marginx  = Constants.marginx;
         kPx  = Constants.kPx;
-        kFx = Constants.kFx;
+        //kFx = Constants.kFx;
     }
 
     @Override
@@ -47,44 +51,41 @@ public class Pivot extends CommandBase {
         //double yoffset = Robot.limelight.getYOffset();
         double powerL;
         double powerR;
-        int t = 0;
-        if(xoffset<0){
-            t=-1;
-        }else{
-            t=1;
-        }
 
         SmartDashboard.putBoolean("see target",Robot.limelight.hasTarget());
-        if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
+        //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
             //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget());
-            powerL = -1*kPx*xoffset +-t*kFx/*+ -t*Ilooper*kI*/;
-            powerR = 1*kPx*xoffset+t*kFx/*+ t*Ilooper*kI*/;
-            Drivetrain.getInstance().setSpeed(powerR ,powerL);
-            SmartDashboard.putBoolean("are we there yet x" , false);
-            SmartDashboard.putNumber("PowerL",powerL);
-            SmartDashboard.putNumber("PowerR",powerR);
-            //looped =0;
-            //Ilooper ++;
-        }else /*if(xoffset<marginx ||xoffset>-marginx )*/{
-            //looped++;
-            System.out.println("wegot there");
-            Drivetrain.getInstance().setSpeed(0,0);
-            SmartDashboard.putBoolean("are we there yet x", true);
-            endthing = true;
-            /*
-        }else if(looped >looptime){
-            System.out.println("wegot there");
-            Drivetrain.getInstance().setSpeed(0,0);
-            SmartDashboard.putBoolean("are we there yet x", true);
-            endthing = true;
-        }*/
+
+        if(Math.abs(xoffset)<marginx){
+            Ilooper += xoffset;
+            powerL = -1*kPx*xoffset+ Ilooper*kI;
+            powerR = 1*kPx*xoffset+ Ilooper*kI;
+            OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,1);
+            OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,1);
+        }else{
+            Ilooper = 0;
+            powerL = -1*kPx*xoffset;
+            powerR = 1*kPx*xoffset;
+            OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
+            OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         }
+
+        Drivetrain.getInstance().setSpeed(powerR ,powerL);
+        SmartDashboard.putNumber("PowerL",powerL);
+        SmartDashboard.putNumber("PowerR",powerR);
+        //looped =0;
+
+
+
+
     }
 
     @Override
     public void end(boolean interrupted) {
+        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
+        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         SmartDashboard.putBoolean("trying to get there",false);
-        Drivetrain.getInstance().setSpeed(0, 0);
+        //Drivetrain.getInstance().setSpeed(0, 0);
     }
 
     @Override

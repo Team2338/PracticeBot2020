@@ -3,6 +3,8 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import team.gif.lib.AxisButton;
+import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.autoaim.autoshoot;
 import team.gif.robot.commands.intake.IntakeReverse;
 import team.gif.robot.commands.intake.IntakeRun;
@@ -57,7 +59,8 @@ public class OI {
     public final JoystickButton aStart = new JoystickButton(aux, 8);
     public final JoystickButton aLS = new JoystickButton(aux, 9);
     public final JoystickButton aRS = new JoystickButton(aux, 10);
-
+    public final AxisButton aRT = new AxisButton(aux,3,.05);
+    public final AxisButton aLT = new AxisButton(aux,2,.05);
 
     public OI() {
         /*
@@ -72,10 +75,10 @@ public class OI {
         dRB.whileHeld(new IntakeRun());
         dLB.whileHeld(new IntakeReverse());
         aA.whileHeld(new RevFlywheel());
-        aX.whileHeld(new Fire(0));
-        // b button kills an autoaim revflywheel
-        aY.whenPressed(new autoshoot());
+        aRT.whileHeld(new Fire(0,false));
+        aLT.whileHeld(new Pivot());
         aB.whenPressed(new LedModes());
+
     }
 
 }
