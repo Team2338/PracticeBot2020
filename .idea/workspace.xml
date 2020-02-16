@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/RobotMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/RobotMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/subsystems/drivers/Pigeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/subsystems/drivers/Pigeon.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

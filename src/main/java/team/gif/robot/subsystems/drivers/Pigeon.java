@@ -1,7 +1,6 @@
 package team.gif.robot.subsystems.drivers;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import team.gif.robot.RobotMap;
-import team.gif.robot.subsystems.Indexer;
 
 public class Pigeon {
 
@@ -22,11 +21,21 @@ public class Pigeon {
         return ypr;
     }
 
+    public void setyaw(double set){
+        pidgeon.setYaw(set);
+    }
+
     public double[] getQuaternions() {
         //quaternions
         double[] quaternions = new double[4];
         pidgeon.get6dQuaternion(quaternions);
         return quaternions;
+    }
+
+    public double getTemp(){
+        double stuff = 0;
+        stuff =pidgeon.getTemp();
+        return stuff;
     }
 
     public double[] getAccumulatedGyro(){
