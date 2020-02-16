@@ -27,4 +27,8 @@ public abstract class RobotMap {
     // Controllers
     public static final int DRIVER_CONTROLLER_ID = 0;
     public static final int AUX_CONTROLLER_ID = 1;
+
+    //pigeon
+    public static final int PIGEON
+
 }
