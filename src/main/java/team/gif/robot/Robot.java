@@ -23,7 +23,7 @@ import team.gif.robot.subsystems.Indexer;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand = null;
+  private Command autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
@@ -77,11 +77,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (autonomousCommand != null) {
+      System.out.println("Scheduling autonomous");
+      autonomousCommand.schedule();
     }
   }
 
@@ -90,6 +91,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    // System.out.println("Running autonomous periodic");
+    // CommandScheduler.getInstance().run();
   }
 
   @Override
@@ -98,8 +101,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
 
     driveCommand.schedule();

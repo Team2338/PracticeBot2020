@@ -43,6 +43,8 @@ public class Drivetrain extends SubsystemBase {
 
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
+        rightMaster.setInverted(true);
+        rightSlave.setInverted(true);
 //      rightMaster.setInverted(Constants.IS_INVERTED_DRIVE_RIGHT_MASTER);
 //      rightSlave.setInverted(Constants.IS_INVERTED_DRIVE_RIGHT_SLAVE);
 
@@ -121,6 +123,8 @@ public class Drivetrain extends SubsystemBase {
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         leftMaster.set(ControlMode.Current, leftVolts);
         rightMaster.set(ControlMode.Current, -rightVolts);
+        System.out.println("Left current " + leftVolts);
+        System.out.println("Right current " + rightVolts);
     }
 
     /*

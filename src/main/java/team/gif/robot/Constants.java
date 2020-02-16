@@ -22,8 +22,8 @@ public final class Constants {
     public static class Drivetrain {
         // All units for characterization are in meters!
         public static final double WHEEL_DIAMETER = 0.127;
-        public static final double BUMPER_LENGTH = 0.0;
-        public static final double BUMPER_WIDTH = 0.0;
+        public static final double BUMPER_LENGTH = 0.06;
+        public static final double BUMPER_WIDTH = 0.06;
         public static final double TICKS_PER_REV = 4096; // Using mag encoders
         public static final double DPS_TO_MPS = (WHEEL_DIAMETER * 0.0254 * Math.PI) / (360);
         public static final double TICKS_TO_METERS = (WHEEL_DIAMETER * Math.PI) / (TICKS_PER_REV);
@@ -40,23 +40,23 @@ public final class Constants {
      Values are only placeholders until we characterize
      */
     public static class TrajectoryConstants {
-        public static final double ksVolts = 0;
-        public static final double kvVoltSecondsPerMeter = 0;
-        public static final double kaVoltSecondsSquaredPerMeter = 0;
+        public static final double ksVolts = 1.13;
+        public static final double kvVoltSecondsPerMeter = 2.56;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.606;
 
-        public static final double kPDriveVel = 0;
+        public static final double kPDriveVel = 18.5;
 
-        public static final double kTrackwidthMeters = 0; // DPP (Distance Per Pulse)
+        public static final double kTrackwidthMeters = 0.76884201; // DPP (Distance Per Pulse)
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
 
         // Velocity and acceleration constraints
-        public static final double kMaxMetersPerSecond = 0;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 0;
+        public static final double kMaxMetersPerSecond = 0.2;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 0.04;
     }
 
     // For RamseteController, WPILib's built-in trajectory tracker
     public static class RamseteConstants {
-        public static final double kRamseteB = 0.0;
-        public static final double kRamseteZeta = 0.0;
+        public static final double kRamseteB = 2.0;
+        public static final double kRamseteZeta = 0.7;
     }
 }
