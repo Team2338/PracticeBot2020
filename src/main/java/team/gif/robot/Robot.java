@@ -105,6 +105,14 @@ public class Robot extends TimedRobot {
       autonomousCommand.cancel();
     }
 
+    drivetrain.resetEncoders();
+
+    SmartDashboard.putNumber("Left Encoder Ticks ", drivetrain.getLeftEncoderPos());
+    SmartDashboard.putNumber("Right Encoder Ticks ", drivetrain.getRightEncoderPos());
+
+    SmartDashboard.putNumber("Left Meters ", drivetrain.getLeftDistancePerPulse());
+    SmartDashboard.putNumber("Right Meters ", drivetrain.getRightDistancePerPulse());
+
     driveCommand.schedule();
     indexCommand.schedule();
   }

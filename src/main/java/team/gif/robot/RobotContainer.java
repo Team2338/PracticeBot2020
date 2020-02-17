@@ -68,6 +68,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
       System.out.println("Entering autonomous");
+      drivetrain.resetEncoders();
       // Creates a voltage constraint to prevent excessive acceleration
       var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
               new SimpleMotorFeedforward(
