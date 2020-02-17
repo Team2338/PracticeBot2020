@@ -72,10 +72,14 @@ public class OI {
          *
          */
 
+//        dRB.whileHeld(new IntakeRun(false));
+//        dRB.whenReleased(new IntakeRun(true));
         dRB.whileHeld(new IntakeRun());
+//        dRB.whenReleased(new IntakeRun(true));
         dLB.whileHeld(new IntakeReverse());
 
-        aLB.whileHeld(new RevFlywheel());
+        aLB.whileHeld(new RevFlywheel(false));
+        aLB.whenReleased(new RevFlywheel(true));
         aRT.whileHeld(new Fire(0,false));
         aLT.whileHeld(new Pivot());
     }

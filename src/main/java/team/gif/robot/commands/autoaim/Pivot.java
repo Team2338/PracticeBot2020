@@ -12,8 +12,8 @@ public class Pivot extends CommandBase {
     public Pivot() {
         SmartDashboard.putBoolean("trying to get there",false);
         SmartDashboard.putBoolean("are we there yet x" , false);
-        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
-        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
+        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
+        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         //addRequirements(Drivetrain.getInstance());
 
     }
@@ -60,14 +60,14 @@ public class Pivot extends CommandBase {
             Ilooper += xoffset;
             powerL = -1*kPx*xoffset+ Ilooper*kI;
             powerR = 1*kPx*xoffset+ Ilooper*kI;
-            OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,1);
-            OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,1);
+            //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,1);
+            //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,1);
         }else{
             Ilooper = 0;
             powerL = -1*kPx*xoffset;
             powerR = 1*kPx*xoffset;
-            OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
-            OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
+            //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
+            //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         }
 
         Drivetrain.getInstance().setSpeed(powerR ,powerL);

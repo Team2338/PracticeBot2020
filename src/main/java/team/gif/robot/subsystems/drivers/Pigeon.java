@@ -1,5 +1,5 @@
 package team.gif.robot.subsystems.drivers;
-import com.ctre.phoenix.sensors.PigeonIMU;
+/*import com.ctre.phoenix.sensors.PigeonIMU;
 import team.gif.robot.RobotMap;
 
 public class Pigeon {
@@ -74,4 +74,4 @@ public class Pigeon {
         return rawMagnet;
     }
 
-}
+}*/

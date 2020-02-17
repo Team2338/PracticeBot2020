@@ -8,75 +8,40 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 
 public class RevFlywheel extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private int flywheelCount = 1;
-    private final Shooter shooter;
-    private boolean endwithRPM = false;
-    //private final OI oi;
+    public boolean buttonState = false;
 
-    public RevFlywheel() {
-        endwithRPM = false;
-        shooter = Shooter.getInstance();
-        //oi = OI.getInstance();
-        // Use addRequirements() here to declare subsystem dependencies.
+    public RevFlywheel(boolean state){
+
+        buttonState = state;
+
         addRequirements(Shooter.getInstance());
     }
-
-    /*
-    public RevFlywheel(boolean endwithRPMval) {
-        endwithRPM = endwithRPMval;
-        shooter = Shooter.getInstance();
-        //oi = OI.getInstance();
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(Shooter.getInstance());
-    }
-
-     */
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-    }
+    public void initialize() {}
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
 
-        shooter.setPID(Constants.Shooter.RPM);
-        //shooter.setVoltage(7);
-
-
-        /*if (OI.getInstance().aux.getXButtonPressed()) {
-            Indexer.getInstance().setSpeed(speed);
-        } else {
-            Indexer.getInstance().setSpeed(speedStop);
-        }*/
+        //buttonState is set to:
+        //    true when the button is pressed
+        //    false when the button is released
+        if(buttonState) {
+            Shooter.getInstance().setVoltage(0);
+        }else{
+            Shooter.getInstance().setPID(Constants.Shooter.RPM);
+        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        shooter.setPID(0);
-
-        // below removed  bc we need the fly wheel to stay spinning when we
-        // fire, and it heats up the motor and draws power to stop
-
-        // Shooter.getInstance().setPID(0);
-        shooter.setVoltage(0);
-
-
-        //Indexer.getInstance().setSpeed(speedStop);
-    }
+    public void end(boolean interrupted) {}
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished() {
-        if(endwithRPM){
-            return (Shooter.getInstance().getVelocity() >= Constants.Shooter.RPM)||(OI.getInstance().aux.getBButtonPressed());
-        }else {
-            //return OI.getInstance().aux.getBButtonPressed();
-        //    return false;
-        //}
-
-    }
+    public boolean isFinished() { return false; }
 }
