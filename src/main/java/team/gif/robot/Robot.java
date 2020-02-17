@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
 
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
-  private final AnalogInput pressureSensor = new AnalogInput(RobotMap.PRESSURE_SENSOR);
+  //private final AnalogInput pressureSensor = new AnalogInput(RobotMap.PRESSURE_SENSOR);
 
   //private NetworkTableEntry pressureEntry;
 
@@ -97,8 +97,8 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     // pneumatics
-    SmartDashboard.putNumber("Pressure Volts", pressureSensor.getAverageVoltage());
-    SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
+    SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
+    //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
   }
 
   /**

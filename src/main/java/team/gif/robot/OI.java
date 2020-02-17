@@ -72,7 +72,8 @@ public class OI {
          */
 
         // Driver Controls
-        dRB.whileHeld(new IntakeRun());
+        dRB.whileHeld(new IntakeRun(true));
+        dRB.whenReleased(new IntakeRun(false));
         dLB.whileHeld(new IntakeReverse());
         dA.whenPressed(new IntakeDown());
         dX.whenPressed(new IntakeMid());

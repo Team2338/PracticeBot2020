@@ -39,8 +39,8 @@ public class Intake extends SubsystemBase {
     /*
      * Data Table for Solenoid States
      *      Down    Mid     Up
-     * 0    on      off     off
-     * 1    on      on      off
-     * 2    off     off     on
+     * 0    on      on      off
+     * 1    on      off     off
+     * 2    off     on      on
      */
 }
