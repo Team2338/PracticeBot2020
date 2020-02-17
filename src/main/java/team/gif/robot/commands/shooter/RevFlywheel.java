@@ -9,7 +9,6 @@ import team.gif.robot.subsystems.Shooter;
 
 public class RevFlywheel extends CommandBase {
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private int flywheelCount = 1;
     public boolean buttonState = false;
 
     public RevFlywheel(boolean state){
@@ -31,9 +30,9 @@ public class RevFlywheel extends CommandBase {
         //    true when the button is pressed
         //    false when the button is released
         if(buttonState) {
-            Shooter.getInstance().setVoltage(0);
-        }else{
             Shooter.getInstance().setPID(Constants.Shooter.RPM);
+        }else{
+            Shooter.getInstance().setVoltage(0);
         }
     }
 

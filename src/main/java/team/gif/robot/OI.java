@@ -78,8 +78,8 @@ public class OI {
 //        dRB.whenReleased(new IntakeRun(true));
         dLB.whileHeld(new IntakeReverse());
 
-        aLB.whileHeld(new RevFlywheel(false));
-        aLB.whenReleased(new RevFlywheel(true));
+        aLB.whileHeld(new RevFlywheel(true));
+        aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));
         aLT.whileHeld(new Pivot());
     }
