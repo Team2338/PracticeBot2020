@@ -9,7 +9,18 @@ import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
 
 public class Pivot extends CommandBase {
-    public Pivot() {
+    public static boolean state = true;
+    public static int timeout = 0;
+    public Pivot(boolean state/*true to keep going, false to kill*/){
+        SmartDashboard.putBoolean("trying to get there",false);
+        SmartDashboard.putBoolean("are we there yet x" , false);
+        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
+        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
+        //addRequirements(Drivetrain.getInstance());
+
+    }
+    public Pivot(boolean state/*true to keep going, false to kill*/,int timeoutval){
+        timeout = timeoutval;
         SmartDashboard.putBoolean("trying to get there",false);
         SmartDashboard.putBoolean("are we there yet x" , false);
         //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
@@ -32,9 +43,11 @@ public class Pivot extends CommandBase {
 
     @Override
     public void initialize() {
+        time = 0;
         looptime = 0;
         looped =0;
         Ilooper = 5;
+
         SmartDashboard.putBoolean("trying to get there",true);
         System.out.println("pivot");
 
@@ -74,10 +87,6 @@ public class Pivot extends CommandBase {
         SmartDashboard.putNumber("PowerL",powerL);
         SmartDashboard.putNumber("PowerR",powerR);
         //looped =0;
-
-
-
-
     }
 
     @Override
@@ -88,8 +97,14 @@ public class Pivot extends CommandBase {
         //Drivetrain.getInstance().setSpeed(0, 0);
     }
 
+    public static int time =0;
     @Override
     public boolean isFinished() {
-        return endthing;
+        if (timeout >0){
+            time ++;
+            return time >= timeout;
+        }else{
+            return !state;
+        }
     }
 }

@@ -17,6 +17,8 @@ import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
+//import team.gif.robot.commands.autos.IndexerScheduler;
+import team.gif.robot.commands.autos.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,7 +28,7 @@ import team.gif.robot.subsystems.drivers.Limelight;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
-  private Command driveCommand = new Drive(Drivetrain.getInstance());
+  private Command driveCommand = new Drive();
   private Command indexCommand = new IndexerScheduler();
 
   public static Limelight limelight;
@@ -106,12 +108,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = new autonomous();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    indexCommand.schedule();
   }
 
   /**
@@ -119,6 +122,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    CommandScheduler.getInstance().run();
   }
 
   @Override

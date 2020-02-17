@@ -78,7 +78,8 @@ public class OI {
         aLB.whileHeld(new RevFlywheel(true));
         aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));
-        aLT.whileHeld(new Pivot());
+        aLT.whenPressed(new Pivot(true));
+        aLT.whenReleased(new Pivot(false));
     }
 
 }
