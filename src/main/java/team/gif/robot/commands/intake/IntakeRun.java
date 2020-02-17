@@ -5,10 +5,16 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Intake;
 
 public class IntakeRun extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Intake intake = Intake.getInstance();
+    public int time =0;
 
     public IntakeRun() {
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(Intake.getInstance());
+    }
+    public IntakeRun(int timeval) {
+        time = timeval;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Intake.getInstance());
     }
@@ -20,9 +26,10 @@ public class IntakeRun extends CommandBase {
     }
 
     // Called every time the scheduler runs while the command is scheduled.
+    public int looped = 0;
     @Override
     public void execute() {
-        if (!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2]) {
+        if ((!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2])&&(time<looped || time ==0)) {
             intake.setSpeed(0.75);
         } else {
             intake.setSpeed(0);

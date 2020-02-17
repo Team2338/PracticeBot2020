@@ -7,16 +7,15 @@ import team.gif.robot.commands.indexer.*;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.Robot;
 
-public class autonomous extends SequentialCommandGroup {
+public class intakebackwards extends ParallelDeadlineGroup {
 
     public autonomous() {
         System.out.println("autoshoot");
         addCommands(
-            //new Pivot(true,50),
-            new Fire(3, false),
-            new ParallelDeadlineGroup(new forward(150,-.4,-.4),new IntakeRun()),
-            new forward(150,.4,.4),
-            new Fire(5,false)
+                new IntakeRun(),
+                new forward()
+
+
         );
     }
 }
