@@ -7,6 +7,8 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,6 +34,9 @@ public class Robot extends TimedRobot {
 
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
+  private final AnalogInput pressureSensor = new AnalogInput(RobotMap.PRESSURE_SENSOR);
+
+  //private NetworkTableEntry pressureEntry;
 
   private RobotContainer m_robotContainer;
 
