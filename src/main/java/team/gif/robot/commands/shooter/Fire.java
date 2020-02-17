@@ -7,7 +7,7 @@ import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 
-public class Fire extends ParallelCommandGroup {
+public class Fire extends CommandBase {
     public int fire =0;
     public int fired =0;
     public boolean endthing = false;

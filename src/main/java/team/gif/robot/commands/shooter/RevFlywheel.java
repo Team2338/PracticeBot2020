@@ -9,6 +9,7 @@ import team.gif.robot.subsystems.Shooter;
 
 public class RevFlywheel extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    private int flywheelCount = 1;
     private final Shooter shooter;
     private boolean endwithRPM = false;
     //private final OI oi;
@@ -21,7 +22,7 @@ public class RevFlywheel extends CommandBase {
         addRequirements(Shooter.getInstance());
     }
 
-
+    /*
     public RevFlywheel(boolean endwithRPMval) {
         endwithRPM = endwithRPMval;
         shooter = Shooter.getInstance();
@@ -29,6 +30,8 @@ public class RevFlywheel extends CommandBase {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Shooter.getInstance());
     }
+
+     */
 
     // Called when the command is initially scheduled.
     @Override
@@ -38,7 +41,9 @@ public class RevFlywheel extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+
         shooter.setPID(Constants.Shooter.RPM);
+        //shooter.setVoltage(7);
 
 
         /*if (OI.getInstance().aux.getXButtonPressed()) {
@@ -56,7 +61,8 @@ public class RevFlywheel extends CommandBase {
         // below removed  bc we need the fly wheel to stay spinning when we
         // fire, and it heats up the motor and draws power to stop
 
-        //Shooter.getInstance().setPID(0);
+        // Shooter.getInstance().setPID(0);
+        shooter.setVoltage(0);
 
 
         //Indexer.getInstance().setSpeed(speedStop);
@@ -69,8 +75,8 @@ public class RevFlywheel extends CommandBase {
             return (Shooter.getInstance().getVelocity() >= Constants.Shooter.RPM)||(OI.getInstance().aux.getBButtonPressed());
         }else {
             //return OI.getInstance().aux.getBButtonPressed();
-            return false;
-        }
+        //    return false;
+        //}
 
     }
 }

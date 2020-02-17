@@ -74,11 +74,10 @@ public class OI {
 
         dRB.whileHeld(new IntakeRun());
         dLB.whileHeld(new IntakeReverse());
-        aA.whileHeld(new RevFlywheel());
+
+        aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(0,false));
         aLT.whileHeld(new Pivot());
-        aB.whenPressed(new LedModes());
-
     }
 
 }
