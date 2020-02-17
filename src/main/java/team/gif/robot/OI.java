@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.autoaim.autoshoot;
-import team.gif.robot.commands.intake.IntakeReverse;
-import team.gif.robot.commands.intake.IntakeRun;
+import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
 //import team.gif.robot.commands.shooter.LedModes;
 import team.gif.robot.commands.shooter.LedModes;
@@ -72,9 +71,14 @@ public class OI {
          *
          */
 
+        // Driver Controls
         dRB.whileHeld(new IntakeRun());
         dLB.whileHeld(new IntakeReverse());
+        dA.whenPressed(new IntakeDown());
+        dX.whenPressed(new IntakeMid());
+        dY.whenPressed(new IntakeUp());
 
+        // Aux Controls
         aLB.whileHeld(new RevFlywheel(true));
         aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));

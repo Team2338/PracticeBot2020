@@ -7,6 +7,7 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
   private Command indexCommand = new IndexerScheduler();
 
   public static Limelight limelight;
+  private final Compressor compressor = new Compressor();
 
   private RobotContainer m_robotContainer;
 
@@ -111,6 +113,7 @@ public class Robot extends TimedRobot {
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+      compressor.stop();
     }
   }
 
@@ -131,6 +134,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
+    compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
   }
