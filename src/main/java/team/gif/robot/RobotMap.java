@@ -23,7 +23,7 @@ public abstract class RobotMap {
     public static final int SENSOR_THREE = 3;
     public static final int SENSOR_FOUR = 4;
     public static final int SENSOR_FIVE = 5;
-    public static final int PRESSURE_SENSOR = 1;
+    public static final int PRESSURE_SENSOR = 0;
 
     // Solenoids
     public static final int SOLENOID_ZERO = 0;

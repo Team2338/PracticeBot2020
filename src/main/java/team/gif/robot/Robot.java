@@ -10,6 +10,7 @@ package team.gif.robot;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -94,6 +95,10 @@ public class Robot extends TimedRobot {
     //System.out.println("ty"+limelight.getYOffset());
     SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
     CommandScheduler.getInstance().run();
+
+    // pneumatics
+    SmartDashboard.putNumber("Pressure Volts", pressureSensor.getAverageVoltage());
+    SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
   }
 
   /**
@@ -152,7 +157,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     boolean state = Indexer.getInstance().getKnopf();
-    SmartDashboard.putBoolean("High/Low", state);
+    //SmartDashboard.putBoolean("High/Low", state);
   }
 
   @Override
