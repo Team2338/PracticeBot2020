@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import jdk.jshell.Snippet;
+//import jdk.jshell.Snippet;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Intake;
 
@@ -33,13 +33,13 @@ public class IndexerScheduler extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
+    /*
         SmartDashboard.putBoolean("One", index.getState()[1]);
         SmartDashboard.putBoolean("Two", index.getState()[2]);
         SmartDashboard.putBoolean("Three", index.getState()[3]);
         SmartDashboard.putBoolean("Four", index.getState()[4]);
         SmartDashboard.putBoolean("Five", index.getState()[5]);
-
+*/
         if(currentCommand != null && currentCommand.isFinished() == true) {
             currentCommand = null;
         }

@@ -60,6 +60,8 @@ public class Drivetrain extends SubsystemBase {
     public void setSpeed(double left, double right) {
         leftMaster.set(ControlMode.PercentOutput, left);
         rightMaster.set(ControlMode.PercentOutput, right);
+        SmartDashboard.putNumber("Left Percent", left);
+        SmartDashboard.putNumber("Right Percent", right);
     }
 
     // These methods will help with odometry
