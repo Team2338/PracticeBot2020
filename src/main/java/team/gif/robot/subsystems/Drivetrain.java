@@ -41,6 +41,9 @@ public class Drivetrain extends SubsystemBase {
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
+        leftMaster.enableVoltageCompensation(true);
+        rightMaster.enableVoltageCompensation(true);
+
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
         rightMaster.setInverted(true);
@@ -60,8 +63,6 @@ public class Drivetrain extends SubsystemBase {
     public void setSpeed(double left, double right) {
         leftMaster.set(ControlMode.PercentOutput, left);
         rightMaster.set(ControlMode.PercentOutput, right);
-        SmartDashboard.putNumber("Left Percent", left);
-        SmartDashboard.putNumber("Right Percent", right);
     }
 
     // These methods will help with odometry
@@ -109,6 +110,10 @@ public class Drivetrain extends SubsystemBase {
         return getYawPitchRoll()[0];
     }
 
+    public void resetHeading() {
+        pigeon.setFusedHeading(0);
+    }
+
     public Pose2d getPose() {
         return odometry.getPoseMeters();
     }
@@ -123,10 +128,10 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
-        leftMaster.set(ControlMode.Current, leftVolts);
-        rightMaster.set(ControlMode.Current, -rightVolts);
-        System.out.println("Left current " + leftVolts);
-        System.out.println("Right current " + rightVolts);
+        leftMaster.set(ControlMode.PercentOutput, leftVolts / 12);
+        rightMaster.set(ControlMode.PercentOutput, -rightVolts / 12);
+        System.out.println("Left voltage " + leftVolts);
+        System.out.println("Right voltage " + rightVolts);
     }
 
     /*

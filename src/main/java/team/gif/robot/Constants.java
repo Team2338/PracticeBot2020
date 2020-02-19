@@ -22,16 +22,16 @@ public final class Constants {
     public static class Drivetrain {
         // All units for characterization are in meters!
         public static final double WHEEL_DIAMETER = 0.127;
-        public static final double BUMPER_LENGTH = 0.06;
-        public static final double BUMPER_WIDTH = 0.06;
+        // public static final double BUMPER_LENGTH = 0;
+        // public static final double BUMPER_WIDTH = 0;
         public static final double TICKS_PER_REV = 4096; // Using mag encoders
-        public static final double DPS_TO_MPS = (WHEEL_DIAMETER * 0.0254 * Math.PI) / (360); // Degrees per sec to meters per sec
+        public static final double DPS_TO_MPS = (WHEEL_DIAMETER * 0.0254 * Math.PI) / (360); // Degrees per sec. to meters per sec.
         public static final double TICKS_TO_METERS = (WHEEL_DIAMETER * Math.PI) / (TICKS_PER_REV);
     }
 
     public static class Shooter {
-        public static final double kP = 0.0005; // 0.0005 0.0008
-        public static final double kF = 0.000166;
+        public static final double kP = 0.0008;
+        public static final double kF = 0.000177;
         public static final double RPM = 4500;
         public static final double maxVelocity = 5000;
     }
