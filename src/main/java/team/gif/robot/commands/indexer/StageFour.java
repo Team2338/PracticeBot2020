@@ -21,7 +21,6 @@ public class StageFour extends CommandBase {
     @Override
     public void execute() {
         indexer.setSpeedThree(1);
-        System.out.println("Run 4");
     }
 
     // Called once the command ends or is interrupted.
