@@ -18,7 +18,6 @@ public class IntakeRun extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        new IntakeDown();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
