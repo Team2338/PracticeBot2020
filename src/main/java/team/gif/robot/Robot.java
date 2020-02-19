@@ -7,6 +7,10 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,6 +19,8 @@ import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Shooter;
+import team.gif.robot.subsystems.drivers.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -27,6 +33,12 @@ public class Robot extends TimedRobot {
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
+  public static Limelight limelight;
+  private final Compressor compressor = new Compressor();
+  //private final AnalogInput pressureSensor = new AnalogInput(RobotMap.PRESSURE_SENSOR);
+
+  //private NetworkTableEntry pressureEntry;
+
   private RobotContainer m_robotContainer;
 
   public OI oi;
@@ -38,10 +50,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     oi = new OI();
+    limelight = new Limelight();
   }
 
   /**
@@ -57,7 +71,34 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+
+    SmartDashboard.putBoolean("One", Indexer.getInstance().getState()[1]);
+    SmartDashboard.putBoolean("Two", Indexer.getInstance().getState()[2]);
+    SmartDashboard.putBoolean("Three", Indexer.getInstance().getState()[3]);
+    SmartDashboard.putBoolean("Four", Indexer.getInstance().getState()[4]);
+    SmartDashboard.putBoolean("Five", Indexer.getInstance().getState()[5]);
+
+
+    //the jyoonk i want to see on the board
+    SmartDashboard.putNumber("tx",limelight.getXOffset());
+    SmartDashboard.putNumber("ty",limelight.getYOffset());
+    /*
+    SmartDashboard.putNumber(" 3D X",limelight.getCamTran()[0]);
+    SmartDashboard.putNumber(" 3D Y",limelight.getCamTran()[1]);
+    SmartDashboard.putNumber(" 3D Z",limelight.getCamTran()[2]);
+    SmartDashboard.putNumber(" 3D yaw",limelight.getCamTran()[3]);
+    SmartDashboard.putNumber(" 3D pitch",limelight.getCamTran()[4]);
+    SmartDashboard.putNumber(" 3D roll",limelight.getCamTran()[5]);
+*/
+    SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
+    //System.out.println("tx"+limelight.getXOffset());
+    //System.out.println("ty"+limelight.getYOffset());
+    SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
     CommandScheduler.getInstance().run();
+
+    // pneumatics
+    SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
+    //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
   }
 
   /**
@@ -82,6 +123,7 @@ public class Robot extends TimedRobot {
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+      compressor.stop();
     }
   }
 
@@ -102,6 +144,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
+    compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
   }
@@ -114,7 +157,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     boolean state = Indexer.getInstance().getKnopf();
-    SmartDashboard.putBoolean("High/Low", state);
+    //SmartDashboard.putBoolean("High/Low", state);
   }
 
   @Override

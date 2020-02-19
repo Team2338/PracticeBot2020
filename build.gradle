@@ -3,7 +3,7 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2020.2.2"
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_11//try changing this to 13 next time you get a chance
 targetCompatibility = JavaVersion.VERSION_11
 
 def ROBOT_MAIN_CLASS = "team.gif.robot.Main"
@@ -44,7 +44,13 @@ def includeDesktopSupport = false
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
-dependencies {
+dependencies {// TODO: need to update these so it stops adding pheonix 17.3 and uses 18.1
+
+    //added this two lines below
+
+    //implementation files('libs/api-java-5.18.1 .jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation wpi.deps.wpilib()
     nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
