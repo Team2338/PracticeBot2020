@@ -7,6 +7,7 @@ import team.gif.robot.commands.intake.IntakeReverse;
 import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
+import edu.wpi.first.wpilibj.GenericHID;
 
 public class OI {
     private static OI instance = null;
@@ -69,5 +70,8 @@ public class OI {
         aA.whenPressed(new RevFlywheel());
         aX.whileHeld(new Fire());
     }
-
+    public void setRumble(boolean rumble) {
+        controller.setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
+        controller.setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
+    }
 }
