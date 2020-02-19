@@ -42,6 +42,12 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     oi = new OI();
+
+    SmartDashboard.putNumber("Left Encoder Ticks ", drivetrain.getLeftEncoderPos());
+    SmartDashboard.putNumber("Right Encoder Ticks ", drivetrain.getRightEncoderPos());
+
+    SmartDashboard.putNumber("Left Meters ", drivetrain.getLeftDistancePerPulse());
+    SmartDashboard.putNumber("Right Meters ", drivetrain.getRightDistancePerPulse());
   }
 
   /**
@@ -78,12 +84,16 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     autonomousCommand = m_robotContainer.getAutonomousCommand();
+    autonomousCommand.schedule();
+    System.out.println("Scheduling autonomous");
 
-    // schedule the autonomous command (example)
+    /* schedule the autonomous command (example)
     if (autonomousCommand != null) {
       System.out.println("Scheduling autonomous");
       autonomousCommand.schedule();
     }
+
+     */
   }
 
   /**
@@ -106,12 +116,6 @@ public class Robot extends TimedRobot {
     }
 
     drivetrain.resetEncoders();
-
-    SmartDashboard.putNumber("Left Encoder Ticks ", drivetrain.getLeftEncoderPos());
-    SmartDashboard.putNumber("Right Encoder Ticks ", drivetrain.getRightEncoderPos());
-
-    SmartDashboard.putNumber("Left Meters ", drivetrain.getLeftDistancePerPulse());
-    SmartDashboard.putNumber("Right Meters ", drivetrain.getRightDistancePerPulse());
 
     driveCommand.schedule();
     indexCommand.schedule();

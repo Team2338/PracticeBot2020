@@ -64,10 +64,11 @@ public class OI {
          * rightTrigger.whileHeld(new EjectCommand());
          *
          */
-        aRB.whileHeld(new IntakeRun());
-        aLB.whileHeld(new IntakeReverse());
+        dRB.whileHeld(new IntakeRun());
+        dLB.whileHeld(new IntakeReverse());
+
         aA.whenPressed(new RevFlywheel());
-        aX.whileHeld(new Fire());
+        aX.whenPressed(new Fire());
     }
 
 }
