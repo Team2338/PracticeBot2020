@@ -17,6 +17,7 @@ package team.gif.robot;
  */
 public final class Constants {
 
+    // variables
     public static boolean isReversingIndexer = false;
 
     public static class Shooter {

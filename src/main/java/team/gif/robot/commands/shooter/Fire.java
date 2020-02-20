@@ -42,7 +42,7 @@ public class Fire extends CommandBase {
         }else {
             Indexer.getInstance().setSpeedFive(0);
         }
-        System.out.println("flywheeeling");
+        //System.out.println("flywheeeling");
     }
 
     @Override
