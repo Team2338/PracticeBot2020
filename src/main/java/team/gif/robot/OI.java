@@ -1,15 +1,13 @@
 package team.gif.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
-import team.gif.robot.commands.autoaim.autoshoot;
+import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
 //import team.gif.robot.commands.shooter.LedModes;
-import team.gif.robot.commands.shooter.LedModes;
 import team.gif.robot.commands.shooter.RevFlywheel;
 
 
@@ -78,7 +76,8 @@ public class OI {
         dLB.whileHeld(new IntakeReverse());
         dA.whenPressed(new IntakeDown());
         dX.whenPressed(new IntakeMid());
-        dY.whenPressed(new IntakeUp());
+        dY.whenPressed(new IntakeUp().withTimeout(0.05));
+        dB.whenPressed(new ReverseIndexScheduler());
 
         // Aux Controls
         aLB.whileHeld(new RevFlywheel(true));

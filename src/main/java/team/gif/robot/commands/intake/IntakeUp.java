@@ -26,5 +26,5 @@ public class IntakeUp extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() { return true; }
+    public boolean isFinished() { return false; }
 }

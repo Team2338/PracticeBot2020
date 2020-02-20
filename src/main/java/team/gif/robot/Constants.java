@@ -17,6 +17,8 @@ package team.gif.robot;
  */
 public final class Constants {
 
+    public static boolean isReversingIndexer = false;
+
     public static class Shooter {
         public static final double kP = 0.0005; // 0.0005 0.0008
         public static final double kF = 0.000166;
