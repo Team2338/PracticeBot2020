@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import jdk.jshell.Snippet;
+import team.gif.robot.Globals;
+import team.gif.robot.OI;
+import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Intake;
 
@@ -44,7 +47,7 @@ public class IndexerScheduler extends CommandBase {
             currentCommand = null;
         }
         //System.out.println("entering indexer");
-        if(currentCommand == null) {
+        if(currentCommand == null && !Globals.isReversingIndexer) {
             //System.out.println("                          Current Command Null");
             if((index.getState()[4] == true) && (index.getState()[5] == false)) {
                 currentCommand = new StageFive();

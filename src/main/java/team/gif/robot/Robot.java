@@ -35,7 +35,6 @@ public class Robot extends TimedRobot {
 
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
-  //private final AnalogInput pressureSensor = new AnalogInput(RobotMap.PRESSURE_SENSOR);
 
   //private NetworkTableEntry pressureEntry;
 

@@ -1,15 +1,13 @@
 package team.gif.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
-import team.gif.robot.commands.autoaim.autoshoot;
+import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
 //import team.gif.robot.commands.shooter.LedModes;
-import team.gif.robot.commands.shooter.LedModes;
 import team.gif.robot.commands.shooter.RevFlywheel;
 
 
@@ -47,6 +45,8 @@ public class OI {
     public final JoystickButton dStart = new JoystickButton(driver, 8);
     public final JoystickButton dLS = new JoystickButton(driver, 9);
     public final JoystickButton dRS = new JoystickButton(driver, 10);
+    public final AxisButton dRT = new AxisButton(aux,3,.05);
+    public final AxisButton dLT = new AxisButton(aux,2,.05);
 
     public final JoystickButton aA = new JoystickButton(aux, 1);
     public final JoystickButton aB = new JoystickButton(aux, 2);
@@ -78,7 +78,8 @@ public class OI {
         dLB.whileHeld(new IntakeReverse());
         dA.whenPressed(new IntakeDown());
         dX.whenPressed(new IntakeMid());
-        dY.whenPressed(new IntakeUp());
+        dY.whenPressed(new IntakeUp().withTimeout(0.05));
+        dB.whenPressed(new ReverseIndexScheduler());
 
         // Aux Controls
         aLB.whileHeld(new RevFlywheel(true));
