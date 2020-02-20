@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/indexer/ReverseIndex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/indexer/ReverseIndexScheduler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Globals.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/OI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/OI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Robot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/indexer/IndexerScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/indexer/IndexerScheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/intake/IntakeUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/intake/IntakeUp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

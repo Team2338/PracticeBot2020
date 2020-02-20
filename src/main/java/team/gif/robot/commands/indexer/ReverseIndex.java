@@ -1,7 +1,7 @@
 package team.gif.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import team.gif.robot.Constants;
+import team.gif.robot.Globals;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Intake;
 
@@ -15,7 +15,7 @@ public class ReverseIndex extends CommandBase {
 
     @Override
     public void initialize() {
-        Constants.isReversingIndexer = true;
+        Globals.isReversingIndexer = true;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ReverseIndex extends CommandBase {
         intake.setSpeed(0);
         indexer.setSpeedTwo(0);
         indexer.setSpeedThree(0);
-        Constants.isReversingIndexer = false;
+        Globals.isReversingIndexer = false;
     }
 
     @Override
