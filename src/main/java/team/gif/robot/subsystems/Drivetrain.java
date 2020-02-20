@@ -36,7 +36,7 @@ public class Drivetrain extends SubsystemBase {
     private Drivetrain() {
         super();
 
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeadingDegrees()));
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawPitchRoll()));
 
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -100,31 +100,35 @@ public class Drivetrain extends SubsystemBase {
         return rightMaster.getSelectedSensorPosition() * Constants.Drivetrain.TICKS_TO_METERS;
     }
 
-    public double[] getYawPitchRoll() {
-        double[] ypr_deg = new double[3];
+    public double getYawPitchRoll() {
+        double ypr_deg[] = {0, 0, 0};
         pigeon.getYawPitchRoll(ypr_deg);
-        return ypr_deg;
+        return Math.IEEEremainder(ypr_deg[0], 360.0d);
     }
 
-    public double getHeadingDegrees() {
-        return getYawPitchRoll()[0];
+    public Rotation2d getHeadingDegrees() {
+        double ypr_deg[] = {0, 0, 0};
+        pigeon.getYawPitchRoll(ypr_deg);
+        return Rotation2d.fromDegrees(Math.IEEEremainder(ypr_deg[0], 360.0d));
     }
 
     public void resetHeading() {
-        pigeon.setFusedHeading(0);
+        pigeon.setYaw(0);
     }
 
     public Pose2d getPose() {
         return odometry.getPoseMeters();
     }
 
+    /*
     public void updateOdometry() {
-        odometry.update(Rotation2d.fromDegrees(getHeadingDegrees()), getLeftDistancePerPulse(), getRightDistancePerPulse());
+        odometry.resetPosition(new Pose2d(), getYawPitchRoll());
     }
 
-    public void resetOdometry(Pose2d pose) {
-        resetEncoders();
-        odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeadingDegrees()));
+     */
+
+    public void resetOdometry() {
+        odometry.resetPosition(new Pose2d(), getHeadingDegrees());
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
