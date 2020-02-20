@@ -1,5 +1,6 @@
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import team.gif.robot.commands.intake.IntakeReverse;
@@ -68,7 +69,6 @@ public class OI {
         aLB.whileHeld(new IntakeReverse());
         aA.whenPressed(new RevFlywheel());
         aX.whileHeld(new Fire());
-        aB.whileHeld(new ReadColor());
     }
 
 }

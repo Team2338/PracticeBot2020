@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
 
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
-
+  private final ColorSensor colorsensor = ColorSensor.getInstance();
 
   /**
    * This function is run when the robot is first started up and should be used for any

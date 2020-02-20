@@ -50,9 +50,9 @@ public class ColorSensor extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-  }
-
-  public void getColor() {
+//  }
+//
+//  public void getColor() {
     /**
      * The method GetColor() returns a normalized color value from the sensor and can be
      * useful if outputting the color to an RGB LED or similar. To
@@ -111,7 +111,7 @@ public class ColorSensor extends SubsystemBase {
 
     } else if(detectedColor.green > detectedColor.red && detectedColor.green > detectedColor.blue && detectedColor.red > detectedColor.blue) {
       colorGuess = "Yellow";
-    } else if(detectedColor.green > detectedColor.blue && detectedColor.green > detectedColor.red && redBlueDifference < 0.1) {
+    } else if(detectedColor.green > detectedColor.blue && detectedColor.green > detectedColor.red && redBlueDifference < 0.15) {
       colorGuess = "Green";
     } else {
       colorGuess = "Blue";
