@@ -21,6 +21,7 @@ import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -157,6 +158,12 @@ public class Robot extends TimedRobot {
 
     boolean state = Indexer.getInstance().getKnopf();
     //SmartDashboard.putBoolean("High/Low", state);
+
+    // Rumble the joysticks at specified time
+    // to notify the driver to begin to climb
+    double matchTime = DriverStation.getInstance().getMatchTime();
+    System.out.println("Match time: " + matchTime);
+    oi.setRumble(matchTime > 18.0 && matchTime < 22.0);
   }
 
   @Override
