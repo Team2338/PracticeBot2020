@@ -33,6 +33,7 @@ public class forward extends CommandBase {
     public static double powerL = 0;
     public static double powerR = 0;
     public static boolean endthing = false;
+
     public move(int timeval, double powerLval,double powerRval) {
         endthing = false;
         time = timeval;
