@@ -30,17 +30,11 @@ public final class Constants {
     }
 
     public static class Shooter {
-        public static final double kP = 0.0008;
-        public static final double kF = 0.000177;
+        public static final double kP = 0.0005; // 0.0005 0.0008
+        public static final double kF = 0.000166;
         public static final double RPM = 4500;
         public static final double maxVelocity = 5000;
     }
-
-    //        //pivot globals
-    public static double marginx =1;
-    public static double marginx1 =.5;
-    public static double kPx =.05;
-    public static double kFx = .2;
 
     public static class DriverCommands{
         public static double marginx = 1.5;
@@ -51,22 +45,4 @@ public final class Constants {
         public static double kIx = .05;
     }
 
-    public static double WheelDiameter = 0.127;
-    public static double encoderEPR;
-    //public static double
-    //public static double
-
-        public static final double kTrackwidthMeters = 0.76884201; // DPP (Distance Per Pulse)
-        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
-
-        // Velocity and acceleration constraints
-        public static final double kMaxMetersPerSecond = 0.2;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 0.04;
-    }
-
-    // For RamseteController, WPILib's built-in trajectory tracker
-    public static class RamseteConstants {
-        public static final double kRamseteB = 2.0;
-        public static final double kRamseteZeta = 0.7;
-    }
 }
