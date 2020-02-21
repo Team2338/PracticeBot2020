@@ -5,13 +5,19 @@ import team.gif.robot.Globals;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Intake;
 
-public class ReverseIndex extends CommandBase {
+public class ToggleIndexer extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final Indexer indexer = Indexer.getInstance();
-    private final Intake intake = Intake.getInstance();
 
-    public ReverseIndex() {
+    public ToggleIndexer() {
     }
+
+    /*
+     * When used with toggleWhenPressed, the command runs
+     * alternately between initialize() and end().
+     *
+     * This allows us to toggle the state of the field
+     * between true and false.
+     */
 
     @Override
     public void initialize() {
@@ -20,16 +26,10 @@ public class ReverseIndex extends CommandBase {
 
     @Override
     public void execute() {
-        intake.setSpeed(-0.5);
-        indexer.setSpeedTwo(-0.6);
-        indexer.setSpeedThree(-0.5);
     }
 
     @Override
     public void end(boolean interrupted) {
-        intake.setSpeed(0);
-        indexer.setSpeedTwo(0);
-        indexer.setSpeedThree(0);
         Globals.indexerEnabled = true;
     }
 
