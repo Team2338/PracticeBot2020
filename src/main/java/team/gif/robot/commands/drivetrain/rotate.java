@@ -1,15 +1,11 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
 package team.gif.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 
 /**
@@ -17,25 +13,62 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class rotate extends CommandBase {
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    //private final Drivetrain m_subsystem;
 
-    public rotate() {
-        //m_subsystem = subsystem;
-        // Use addRequirements() here to declare subsystem dependencies.
+
+    public rotate(double angle) {
+        xoffset = angle;
+        kPx = Constants.DriverCommands.kPx;
+        kIx = Constants.DriverCommands.kIx;
         addRequirements(Drivetrain.getInstance());
     }
-
-    double leftSpeed;
-    double rightSpeed;
+    public boolean endthing = false;
+    public static double powerL =0;
+    public static double powerR =0;
+    public static double marginxI = 0;
+    public static double marginx = 0;
+    public static double kIx =0;
+    public static double kPx =0;
+    public static double Ilooper=0;
+    public static double xoffset =0;
+    public static double initial = 0;
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        endthing = false;
+        initial = Pigeon.getInstance().getYPR()[0];
+        marginx = Constants.DriverCommands.marginx;
+        marginxI = Constants.DriverCommands.marginxI;
+        kIx = Constants.DriverCommands.kIx;
+        kPx = Constants.DriverCommands.kPx;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
 
+        System.out.println("pivoting");
+
+        double xoffset = Pigeon.getInstance().getYPR()[0]- initial;
+        SmartDashboard.putNumber("xoffset",xoffset);
+        //double yoffset = Robot.limelight.getYOffset();
+
+        SmartDashboard.putBoolean("see target",Robot.limelight.hasTarget());
+        //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
+        //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget());
+
+        if(Math.abs(xoffset)<marginx){
+             endthing = true;
+        }else if(Math.abs(xoffset)<marginxI){
+             Ilooper += xoffset;
+             powerL = -1*kPx*xoffset+ Ilooper*kIx;
+             powerR = 1*kPx*xoffset+ Ilooper*kIx;
+        }else{
+             powerL = -1*kPx*xoffset;
+             powerR = 1*kPx*xoffset;
+        }
+        Drivetrain.getInstance().setSpeed(powerR ,powerL);
+        SmartDashboard.putNumber("PowerL",powerL);
+        SmartDashboard.putNumber("PowerR",powerR);
     }
 
     // Called once the command ends or is interrupted.
@@ -47,6 +80,6 @@ public class rotate extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return endthing;
     }
 }

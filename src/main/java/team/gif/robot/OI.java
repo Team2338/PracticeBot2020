@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
+import team.gif.robot.commands.drivetrain.rotate;
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
@@ -84,9 +85,8 @@ public class OI {
         // Aux Controls
         aLB.whileHeld(new RevFlywheel(true));
         aLB.whenReleased(new RevFlywheel(false));
-        aRT.whileHeld(new Fire(0,false));
-        aLT.whenPressed(new Pivot(true));
-        aLT.whenReleased(new Pivot(false));
+        aRT.whileHeld(new Fire(false));
+        aLT.whenPressed(new rotate(30));
     }
 
 }

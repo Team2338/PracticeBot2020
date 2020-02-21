@@ -7,20 +7,12 @@ import team.gif.robot.OI;
 import team.gif.robot.Robot;
 import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class Pivot extends CommandBase {
     public static boolean state = true;
-    public static int timeout = 0;
-    public Pivot(boolean state/*true to keep going, false to kill*/){
-        SmartDashboard.putBoolean("trying to get there",false);
-        SmartDashboard.putBoolean("are we there yet x" , false);
-        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
-        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
-        //addRequirements(Drivetrain.getInstance());
 
-    }
-    public Pivot(boolean state/*true to keep going, false to kill*/,int timeoutval){
-        timeout = timeoutval;
+    public Pivot(boolean state/*true to keep going, false to kill*/){
         SmartDashboard.putBoolean("trying to get there",false);
         SmartDashboard.putBoolean("are we there yet x" , false);
         //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
@@ -37,22 +29,22 @@ public class Pivot extends CommandBase {
     public static boolean endthing = false;
 
     public double looptime = 0;
-    public double kI =.00;
+    public double kIx =.00;
     public double Ilooper =0;
     public double looped =0;
+    public double yaw0 =0;
+    public double turned =0;
+    public double initial =0;
+    public static double marginxI = 0;
 
     @Override
     public void initialize() {
-        time = 0;
-        looptime = 0;
-        looped =0;
-        Ilooper = 5;
-
-        SmartDashboard.putBoolean("trying to get there",true);
-        System.out.println("pivot");
-
-        marginx  = Constants.marginx;
-        kPx  = Constants.kPx;
+        endthing = false;
+        initial = Pigeon.getInstance().getYPR()[0];
+        marginx = Constants.DriverCommands.marginx;
+        marginxI = Constants.DriverCommands.marginxI;
+        kIx = Constants.DriverCommands.kIx;
+        kPx = Constants.DriverCommands.kPx;
         //kFx = Constants.kFx;
     }
 
@@ -60,7 +52,8 @@ public class Pivot extends CommandBase {
     public void execute() {
         System.out.println("pivoting");
 
-        double xoffset = Robot.limelight.getXOffset();
+        double xoffset = Pigeon.getInstance().getYPR()[0]- initial;
+        SmartDashboard.putNumber("xoffset",xoffset);
         //double yoffset = Robot.limelight.getYOffset();
         double powerL;
         double powerR;
@@ -69,42 +62,31 @@ public class Pivot extends CommandBase {
         //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
             //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget());
 
-        if(Math.abs(xoffset)<marginx){
+        if(Math.abs(xoffset)<marginxI){
             Ilooper += xoffset;
-            powerL = -1*kPx*xoffset+ Ilooper*kI;
-            powerR = 1*kPx*xoffset+ Ilooper*kI;
-            //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,1);
-            //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,1);
+            powerL = -1*kPx*xoffset+ Ilooper*kIx;
+            powerR = 1*kPx*xoffset+ Ilooper*kIx;
         }else{
             Ilooper = 0;
             powerL = -1*kPx*xoffset;
             powerR = 1*kPx*xoffset;
-            //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
-            //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         }
-
         Drivetrain.getInstance().setSpeed(powerR ,powerL);
         SmartDashboard.putNumber("PowerL",powerL);
         SmartDashboard.putNumber("PowerR",powerR);
-        //looped =0;
     }
 
     @Override
     public void end(boolean interrupted) {
-        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
-        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
+        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
+        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         SmartDashboard.putBoolean("trying to get there",false);
+        Constants.DriverCommands.turned = Pigeon.getInstance().getYPR()[0] - initial;
+
         //Drivetrain.getInstance().setSpeed(0, 0);
     }
-
-    public static int time =0;
     @Override
     public boolean isFinished() {
-        if (timeout >0){
-            time ++;
-            return time >= timeout;
-        }else{
-            return !state;
-        }
+        return !state;
     }
 }

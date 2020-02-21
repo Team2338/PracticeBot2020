@@ -34,7 +34,7 @@ public class forward extends CommandBase {
     public static double powerR = 0;
     public static boolean endthing = false;
 
-    public move(int timeval, double powerLval,double powerRval) {
+    public forward(int timeval, double powerLval,double powerRval) {
         endthing = false;
         time = timeval;
         powerL = powerLval;
@@ -43,6 +43,7 @@ public class forward extends CommandBase {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Drivetrain.getInstance());
     }
+
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -51,13 +52,13 @@ public class forward extends CommandBase {
     }
 
     // Called every time the scheduler runs while the command is scheduled.
-    public int looped
+    public int looped;
 
     @Override
     public void execute() {
 
         if(looped <= time){
-            Drivetrain.getInstance().setSpeed(PowerL, PowerR);
+            Drivetrain.getInstance().setSpeed(powerL, powerR);
         }else{
             endthing = true;
         }

@@ -1,4 +1,5 @@
 package team.gif.robot.commands.autos;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import team.gif.robot.commands.shooter.*;
 import team.gif.robot.commands.autoaim.*;
@@ -12,11 +13,12 @@ public class autonomous extends SequentialCommandGroup {
     public autonomous() {
         System.out.println("autoshoot");
         addCommands(
-            //new Pivot(true,50),
-            new Fire(3, false),
-            new ParallelDeadlineGroup(new forward(150,-.4,-.4),new IntakeRun()),
-            new forward(150,.4,.4),
-            new Fire(5,false)
+                new Pivot(true),
+                new Fire(false),
+                new Pivot(false)/*,
+                new ParallelDeadlineGroup(new forward(150,-.4,-.4),new IntakeRun()),
+                new forward(150,.4,.4),
+                new Fire(false)*/
         );
     }
 }

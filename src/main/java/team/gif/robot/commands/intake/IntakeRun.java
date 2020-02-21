@@ -14,11 +14,6 @@ public class IntakeRun extends CommandBase {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Intake.getInstance());
     }
-    public IntakeRun(int timeval) {
-        time = timeval;
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(Intake.getInstance());
-    }
 
     // Called when the command is initially scheduled.
     @Override
@@ -29,7 +24,7 @@ public class IntakeRun extends CommandBase {
     public int looped = 0;
     @Override
     public void execute() {
-        if ((!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2])&&(time<looped || time ==0)) {
+        if ((!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2])/*&&(time<looped || time ==0)*/) {
             intake.setSpeed(0.75);
         } else {
             intake.setSpeed(0);

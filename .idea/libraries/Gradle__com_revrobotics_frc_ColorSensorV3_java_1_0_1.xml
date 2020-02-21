@@ -2,7 +2,6 @@
   <library name="Gradle: com.revrobotics.frc:ColorSensorV3-java:1.0.1">
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/GradleRIO-master/caches/modules-2/files-2.1/com.revrobotics.frc/ColorSensorV3-java/1.0.1/3a29587ecaedf9d12b39d8114a9d6f42dbd18c9b/ColorSensorV3-java-1.0.1.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.revrobotics.frc/ColorSensorV3-java/1.0.1/3a29587ecaedf9d12b39d8114a9d6f42dbd18c9b/ColorSensorV3-java-1.0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
