@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/drivetrain/forward.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autos/autonomous.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autos/autonomous.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Globals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> master
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -170,6 +175,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -196,6 +202,8 @@
     <option name="width" value="1940" />
     <option name="height" value="1060" />
   </component>
+=======
+>>>>>>> master
   <component name="ProjectId" id="1WtgqCCLQ4OnItjlcFGNKuY5ODm" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -350,6 +358,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="team.gif.robot.commands.intake" />
       <recent name="team.gif.robot.commands.indexer" />
     </key>
     <key name="CopyFile.RECENT_KEYS">

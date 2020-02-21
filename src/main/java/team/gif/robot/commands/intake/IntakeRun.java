@@ -7,9 +7,10 @@ import team.gif.robot.subsystems.Intake;
 public class IntakeRun extends CommandBase {
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Intake intake = Intake.getInstance();
-    public int time =0;
+    public boolean buttonState = false;
 
-    public IntakeRun() {
+    public IntakeRun(boolean state) {
+        buttonState = state;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Intake.getInstance());
     }
@@ -22,7 +23,6 @@ public class IntakeRun extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        System.out.println("  intake start");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -34,17 +34,18 @@ public class IntakeRun extends CommandBase {
         } else {
             intake.setSpeed(0);
         }
+        if (!buttonState) {
+            intake.setSpeed(0);
+        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        System.out.println("           intake end");
-    }
+    public void end(boolean interrupted) {}
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return !buttonState;
     }
 }
