@@ -99,6 +99,8 @@ public class Robot extends TimedRobot {
     // pneumatics
     SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
     //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
+
+    SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
   }
 
   /**
