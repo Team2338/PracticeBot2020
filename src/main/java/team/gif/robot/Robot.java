@@ -7,11 +7,8 @@
 
 package team.gif.robot;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -45,6 +42,7 @@ public class Robot extends TimedRobot {
 
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
+  private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(drivetrain.getHeadingDegrees());
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -52,12 +50,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     oi = new OI();
-    limelight = new Limelight();
+
   }
 
   /**
@@ -141,13 +138,15 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
 
-    compressor.start();
-    driveCommand.schedule();
-    indexCommand.schedule();
+    drivetrain.resetEncoders();
+    drivetrain.resetHeading();
+
+    // driveCommand.schedule();
+    // indexCommand.schedule();
   }
 
   /**
@@ -157,8 +156,19 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();
 
-    boolean state = Indexer.getInstance().getKnopf();
-    //SmartDashboard.putBoolean("High/Low", state);
+    // boolean state = Indexer.getInstance().getKnopf();
+    // SmartDashboard.putBoolean("High/Low", state);
+
+    SmartDashboard.putNumber("Left Encoder Ticks ", drivetrain.getLeftEncoderPos());
+    SmartDashboard.putNumber("Right Encoder Ticks ", drivetrain.getRightEncoderPos());
+
+    SmartDashboard.putNumber("Left Meters ", drivetrain.getLeftDistancePerPulse());
+    SmartDashboard.putNumber("Right Meters ", drivetrain.getRightDistancePerPulse());
+
+    SmartDashboard.putNumber("Heading ", drivetrain.getYawPitchRoll());
+
+    SmartDashboard.putNumber("X pose ", odometry.getPoseMeters().getTranslation().getX());
+    SmartDashboard.putNumber("Y pose ", odometry.getPoseMeters().getTranslation().getY());
   }
 
   @Override
