@@ -35,6 +35,6 @@ public abstract class RobotMap {
     public static final int AUX_CONTROLLER_ID = 1;
 
     //pigeon
-    public static final int PIGEON = 17;//Pigeon number here
+    public static final int PIGEON = 2;//Pigeon number here
 
 }

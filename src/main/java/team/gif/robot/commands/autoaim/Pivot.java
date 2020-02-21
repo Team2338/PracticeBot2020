@@ -15,10 +15,6 @@ public class Pivot extends CommandBase {
     public Pivot(boolean state/*true to keep going, false to kill*/){
         SmartDashboard.putBoolean("trying to get there",false);
         SmartDashboard.putBoolean("are we there yet x" , false);
-        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
-        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
-        //addRequirements(Drivetrain.getInstance());
-
     }
 
     public static double marginx ;
@@ -29,20 +25,25 @@ public class Pivot extends CommandBase {
     public static boolean endthing = false;
 
     public double looptime = 0;
-    public double kIx =.00;
+    public double kIx =.05;
     public double Ilooper =0;
     public double looped =0;
     public double yaw0 =0;
     public double turned =0;
     public double initial =0;
     public static double marginxI = 0;
+    public static double xoffset =0;
+    public static double target =0;
 
     @Override
     public void initialize() {
+        System.out.println("pivot start");
         endthing = false;
         initial = Pigeon.getInstance().getYPR()[0];
         marginx = Constants.DriverCommands.marginx;
         marginxI = Constants.DriverCommands.marginxI;
+        xoffset = Robot.limelight.getXOffset();
+        target = xoffset + initial;
         kIx = Constants.DriverCommands.kIx;
         kPx = Constants.DriverCommands.kPx;
         //kFx = Constants.kFx;
@@ -50,9 +51,10 @@ public class Pivot extends CommandBase {
 
     @Override
     public void execute() {
+        SmartDashboard.putNumber("Ilooper",Ilooper);
         System.out.println("pivoting");
 
-        double xoffset = Pigeon.getInstance().getYPR()[0]- initial;
+        xoffset = Pigeon.getInstance().getYPR()[0]- target;
         SmartDashboard.putNumber("xoffset",xoffset);
         //double yoffset = Robot.limelight.getYOffset();
         double powerL;
@@ -64,12 +66,12 @@ public class Pivot extends CommandBase {
 
         if(Math.abs(xoffset)<marginxI){
             Ilooper += xoffset;
-            powerL = -1*kPx*xoffset+ Ilooper*kIx;
-            powerR = 1*kPx*xoffset+ Ilooper*kIx;
+            powerL = kPx*xoffset+ Ilooper*kIx;
+            powerR = -1*kPx*xoffset+ Ilooper*kIx;
         }else{
             Ilooper = 0;
-            powerL = -1*kPx*xoffset;
-            powerR = 1*kPx*xoffset;
+            powerL = kPx*xoffset;
+            powerR = -1*kPx*xoffset;
         }
         Drivetrain.getInstance().setSpeed(powerR ,powerL);
         SmartDashboard.putNumber("PowerL",powerL);
@@ -80,6 +82,7 @@ public class Pivot extends CommandBase {
     public void end(boolean interrupted) {
         //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
         //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
+        System.out.println("pivot end");
         SmartDashboard.putBoolean("trying to get there",false);
         Constants.DriverCommands.turned = Pigeon.getInstance().getYPR()[0] - initial;
 

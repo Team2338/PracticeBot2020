@@ -81,6 +81,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Four", Indexer.getInstance().getState()[4]);
     SmartDashboard.putBoolean("Five", Indexer.getInstance().getState()[5]);
 
+    SmartDashboard.putNumber("turned",Constants.DriverCommands.turned);
+
     SmartDashboard.putNumber("tx",limelight.getXOffset());
     SmartDashboard.putNumber("ty",limelight.getYOffset());
     SmartDashboard.putBoolean("hastarget",limelight.hasTarget());

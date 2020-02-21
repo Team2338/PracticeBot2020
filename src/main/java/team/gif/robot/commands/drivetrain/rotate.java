@@ -26,16 +26,21 @@ public class rotate extends CommandBase {
     public static double powerR =0;
     public static double marginxI = 0;
     public static double marginx = 0;
-    public static double kIx =0;
-    public static double kPx =0;
+    public static double kIx =1;
+    public static double kPx =1;
     public static double Ilooper=0;
     public static double xoffset =0;
     public static double initial = 0;
+    public static double target = 0;
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        SmartDashboard.putNumber("target",target);
+        System.out.println("rotate init "+ target);
         endthing = false;
         initial = Pigeon.getInstance().getYPR()[0];
+        target = xoffset + initial;
+        xoffset = target - Pigeon.getInstance().getYPR()[0];
         marginx = Constants.DriverCommands.marginx;
         marginxI = Constants.DriverCommands.marginxI;
         kIx = Constants.DriverCommands.kIx;
@@ -46,9 +51,10 @@ public class rotate extends CommandBase {
     @Override
     public void execute() {
 
-        System.out.println("pivoting");
+        System.out.println("rotating");
+        SmartDashboard.putNumber("Ilooper",Ilooper);
 
-        double xoffset = Pigeon.getInstance().getYPR()[0]- initial;
+        double xoffset = Pigeon.getInstance().getYPR()[0]- target;
         SmartDashboard.putNumber("xoffset",xoffset);
         //double yoffset = Robot.limelight.getYOffset();
 

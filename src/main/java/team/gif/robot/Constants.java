@@ -27,12 +27,12 @@ public final class Constants {
     //        //pivot globals
 
     public static class DriverCommands{
-        public static double marginx = 1;
-        public static double marginxI = .5;
+        public static double marginx = 1.5;
+        public static double marginxI = 3;
         public static double turned=0;
         public static double kPx = .05;
         public static double kFx = 0;//connors idea
-        public static double kIx = 0;
+        public static double kIx = .05;
     }
 
     public static double WheelDiameter = 0.127;
