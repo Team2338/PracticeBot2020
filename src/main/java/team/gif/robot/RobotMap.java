@@ -3,10 +3,10 @@ package team.gif.robot;
 public abstract class RobotMap {
 
     // Drive Motors
-    public static final int DRIVE_LEFT_MASTER = 0; //0
-    public static final int DRIVE_LEFT_SLAVE = 1; //1
-    public static final int DRIVE_RIGHT_MASTER = 2; //2
-    public static final int DRIVE_RIGHT_SLAVE = 3; //3
+    public static final int DRIVE_LEFT_MASTER = 2; //0
+    public static final int DRIVE_LEFT_SLAVE = 3; //1
+    public static final int DRIVE_RIGHT_MASTER = 0; //2
+    public static final int DRIVE_RIGHT_SLAVE = 1; //3
 
     // Other Motors
     public static final int INTAKE = 4; //4
