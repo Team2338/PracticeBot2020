@@ -12,9 +12,14 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.chosenAuto;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
@@ -35,6 +40,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive();
   private Command indexCommand = new IndexerScheduler();
+  private SendableChooser<chosenAuto> autoModeChooser = new SendableChooser<>();
+  private chosenAuto auto;
 
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
@@ -54,10 +61,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    autotabsetup();
     // autonomous chooser on the dashboard.
+
     m_robotContainer = new RobotContainer();
     oi = new OI();
     limelight = new Limelight();
+    updateauto();
+
   }
 
   /**
@@ -92,6 +103,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Pigeon", Pigeon.getInstance().getYPR()[0]);
 
     SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
+    //System.out.println("auto"+auto);
+    auto = autoModeChooser.getSelected();
+
+    //autotabsetup();
 
     CommandScheduler.getInstance().run();
 
@@ -117,10 +132,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    updateauto();
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_autonomousCommand = new autonomous();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
+      System.out.println("auto is not null");
       m_autonomousCommand.schedule();
       compressor.stop();
     }
@@ -172,5 +188,27 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+
   }
+
+  public void autotabsetup() {
+    System.out.println("autonomous stuff");
+    ShuffleboardTab autotab = Shuffleboard.getTab("autonomous yeeeeeeeeeee");
+    autoModeChooser.addOption("Mobility", chosenAuto.MOBILITY);
+    autoModeChooser.addOption("Move and shoot", chosenAuto.Shootcollectshoot);
+    autotab.add("Select an Auto ", autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
+  }
+
+  public void updateauto(){
+    System.out.println("update auto");
+    if(auto ==chosenAuto.MOBILITY){
+      m_autonomousCommand = new Mobility();
+      System.out.println("mobility selected");
+    }else if(auto ==chosenAuto.Shootcollectshoot){
+      m_autonomousCommand = new shootcollectshoot();
+      System.out.println("shootcollectshoot enabled");
+    }
+    System.out.println("auto"+auto);
+  }
+
 }

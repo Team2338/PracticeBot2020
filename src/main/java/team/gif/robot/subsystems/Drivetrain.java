@@ -67,6 +67,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -81,7 +82,7 @@ public class Drivetrain extends SubsystemBase {
     private static final TalonSRX rightSlave = new TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
     //private static final PigeonIMU pigeon = new PigeonIMU(RobotMap.PIGEON_ID);
 
-    private final DifferentialDriveOdometry odometry;
+    //private final DifferentialDriveOdometry odometry;
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -94,7 +95,7 @@ public class Drivetrain extends SubsystemBase {
     private Drivetrain() {
         super();
 
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawPitchRoll()));
+        //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawPitchRoll()));
 
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -119,16 +120,18 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void setSpeed(double left, double right) {
-        leftMaster.set(ControlMode.PercentOutput, left);
+        SmartDashboard.putNumber("drivetrain left",-left);
+        SmartDashboard.putNumber("drivetrain",right);
+        leftMaster.set(ControlMode.PercentOutput, -left);
         rightMaster.set(ControlMode.PercentOutput, right);
     }
-
+/*
     // These methods will help with odometry
     public void resetEncoders() {
         leftMaster.setSelectedSensorPosition(0, 0, 0);
         rightMaster.setSelectedSensorPosition(0, 0, 0);
-    }
-
+    }*/
+/*
     public double getLeftEncoderPos() {
         return leftMaster.getSelectedSensorPosition();
     }
@@ -143,8 +146,8 @@ public class Drivetrain extends SubsystemBase {
 
     public double getRightEncoderVelocity() {
         return rightMaster.getSelectedSensorVelocity();
-    }
-
+    }*/
+/*
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(leftMaster.getSelectedSensorVelocity() * Constants.Drivetrain.DPS_TO_MPS,
                 rightMaster.getSelectedSensorVelocity() * Constants.Drivetrain.DPS_TO_MPS);
@@ -172,11 +175,11 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetHeading() {
         pigeon.setYaw(0);
-    }
+    }*/
 
-    public Pose2d getPose() {
+    /*public Pose2d getPose() {
         return odometry.getPoseMeters();
-    }
+    }*/
 
     /*
     public void updateOdometry() {
@@ -184,7 +187,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
      */
-
+/*
     public void resetOdometry() {
         odometry.resetPosition(new Pose2d(), getHeadingDegrees());
     }
@@ -194,5 +197,5 @@ public class Drivetrain extends SubsystemBase {
         rightMaster.set(ControlMode.PercentOutput, -rightVolts / 12);
         System.out.println("Left voltage " + leftVolts);
         System.out.println("Right voltage " + rightVolts);
-    }
+    }*/
 }

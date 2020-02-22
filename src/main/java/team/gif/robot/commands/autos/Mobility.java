@@ -9,18 +9,13 @@ import team.gif.robot.commands.indexer.*;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.Robot;
 
-public class autonomous extends SequentialCommandGroup {
+public class Mobility extends SequentialCommandGroup {
 
-    public autonomous() {
-        System.out.println("autoshoot");
+    public Mobility() {
+        System.out.println("Mobility");
         addCommands(
-                new Pivot(true),
-                new Fire(true),
-                new Pivot(false),
-                new rotate(-Constants.DriverCommands.turned),
-                new ParallelDeadlineGroup(new forward(150,-.4,-.4),new IntakeRun(true)),
-                new forward(150,.4,.4),
-                new Fire(false)
+                new forward(5,.3,.3)
+                //new forward(3,-.3,-.3)
         );
     }
 }

@@ -1,4 +1,13 @@
 package team.gif.lib;
 
-public class chosenAuto {
+public enum chosenAuto {
+
+    MOBILITY(0),
+    Shootcollectshoot(1)
+    ;
+
+    private int value;
+    chosenAuto(int value) {
+        this.value = value;
+    }
 }

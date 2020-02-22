@@ -29,16 +29,17 @@ public class forward extends CommandBase {
      *
      * @param subsystem The subsystem used by this command.
      */
-    public static int time = 0;
-    public static double powerL = 0;
-    public static double powerR = 0;
-    public static boolean endthing = false;
+    public int time = 0;
+    public double powerL = 0;
+    public double powerR = 0;
+    public boolean endthing = false;
 
-    public forward(int timeval, double powerLval,double powerRval) {
-        endthing = false;
-        time = timeval;
-        powerL = powerLval;
-        powerR = powerRval;
+    public forward(double timeval, double powerLval,double powerRval) {
+        this.endthing = false;
+        this.time = (int)(timeval*50);
+
+        this.powerL = powerLval;
+        this.powerR = powerRval;
         //m_subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Drivetrain.getInstance());
@@ -48,7 +49,6 @@ public class forward extends CommandBase {
     @Override
     public void initialize() {
 
-
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -57,22 +57,26 @@ public class forward extends CommandBase {
     @Override
     public void execute() {
 
-        if(looped <= time){
-            Drivetrain.getInstance().setSpeed(powerL, powerR);
+        if(this.looped <= this.time){
+            SmartDashboard.putNumber("PowerL",this.powerL);
+            SmartDashboard.putNumber("PowerR",this.powerR);
+            Drivetrain.getInstance().setSpeed(this.powerL, this.powerR);
+            this.looped++;
         }else{
-            endthing = true;
+            this.endthing = true;
         }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+
         Drivetrain.getInstance().setSpeed(0, 0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return endthing;
+        return this.endthing;
     }
 }
