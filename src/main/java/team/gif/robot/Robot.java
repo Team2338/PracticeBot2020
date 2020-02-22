@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
+  public static final boolean isCompBot = false;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
