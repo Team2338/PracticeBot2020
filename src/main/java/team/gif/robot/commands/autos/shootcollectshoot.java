@@ -12,15 +12,18 @@ import team.gif.robot.commands.shooter.Fire;
 public class shootcollectshoot extends SequentialCommandGroup {
 
     public shootcollectshoot() {
-        System.out.println("autoshoot");
+        System.out.println("shoot collect shoot auto");
         addCommands(
                 new Pivot(true),
-                new Fire(true),
+                new Fire(true).withTimeout(3),
                 new Pivot(false),
                 new rotate(-Constants.DriverCommands.turned),
                 new ParallelDeadlineGroup(new forward(3, -.4, -.4), new IntakeRun(true)),
                 new forward(3, .4, .4),
-                new Fire(false)
+                new Pivot(true),
+                new Fire(true).withTimeout(3),
+                new Pivot(false)
         );
+        //total time accumulated in this code is 12 seconds not including rotate
     }
 }

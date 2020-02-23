@@ -54,10 +54,10 @@ public class Robot extends TimedRobot {
 
   public static ShuffleboardTab autotab;
   public static ShuffleboardTab teleoptab;
-  public static ShuffleboardTab indextab;
+  public static ShuffleboardTab indextab;//includes intake
   public static ShuffleboardTab shootertab;
   public static ShuffleboardTab climbertab ;
-  public static ShuffleboardTab drivetraintab;
+  public static ShuffleboardTab drivetraintab;//includes compressor and pigeon
 
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
@@ -94,11 +94,14 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
 
-    SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
     auto = autoModeChooser.getSelected();
+    autotab.add("auto selected",auto);
+
     updateDashboard();
 
+
     CommandScheduler.getInstance().run();
+
     // pneumatics
     //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
   }
@@ -124,7 +127,6 @@ public class Robot extends TimedRobot {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      System.out.println("auto is not null");
       m_autonomousCommand.schedule();
       compressor.stop();
     }
@@ -180,11 +182,12 @@ public class Robot extends TimedRobot {
   }
 
   public void tabsetup() {
-    //seting up tabs
+    /**seting up tabs
+     * TODO : auto tab needs to display current individual command bieng run
+     * **/
     autotab = Shuffleboard.getTab("auto");
     teleoptab = Shuffleboard.getTab("teleop");
     indextab = Shuffleboard.getTab("intake");
-    indextab = Shuffleboard.getTab("index");
     shootertab = Shuffleboard.getTab("limelight/shooter");
     climbertab = Shuffleboard.getTab("climber");
 
@@ -195,18 +198,19 @@ public class Robot extends TimedRobot {
   }
 
   public void updateauto(){
-    System.out.println("update auto");
+
     if(auto ==chosenAuto.MOBILITY){
       m_autonomousCommand = new Mobility();
       System.out.println("mobility selected");
     }else if(auto ==chosenAuto.Shootcollectshoot){
       m_autonomousCommand = new shootcollectshoot();
-      System.out.println("shootcollectshoot enabled");
+      System.out.println("shootcollectshoot selected");
     }
-    System.out.println("auto"+auto);
+    System.out.println("selected auto :"+auto);
   }
 
   public void updateDashboard(){
+    // runs periodically, updates each of the tabs with relavant data
     teleoptab.add("One", Indexer.getInstance().getState()[1]);
     teleoptab.add("Two", Indexer.getInstance().getState()[2]);
     teleoptab.add("Three", Indexer.getInstance().getState()[3]);
@@ -215,6 +219,8 @@ public class Robot extends TimedRobot {
 
     teleoptab.add("tx",limelight.getXOffset());
     teleoptab.add("hastarget",limelight.hasTarget());
+
+    teleoptab.add("Pressure", compressor.getPressureSwitchValue());
 
     indextab.add("One", Indexer.getInstance().getState()[1]);
     indextab.add("Two", Indexer.getInstance().getState()[2]);
@@ -227,8 +233,13 @@ public class Robot extends TimedRobot {
     shootertab.add("hastarget",limelight.hasTarget());
     shootertab.add("turned",Constants.DriverCommands.turned);
     shootertab.add("RPM", Shooter.getInstance().getVelocity());
+    shootertab.add("latency",limelight.getLatency());
 
-    drivetraintab.add("Pigeon", Pigeon.getInstance().getYPR()[0]);
+    drivetraintab.add("Pigeon yaw", Pigeon.getInstance().getYPR()[0]);
+    drivetraintab.add("Pigeon yaw", Pigeon.getInstance().getYPR()[1]);
+    drivetraintab.add("Pigeon yaw", Pigeon.getInstance().getYPR()[2]);
+
+    drivetraintab.add("Pressure", compressor.getPressureSwitchValue());
 
   }
 }

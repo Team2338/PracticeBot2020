@@ -21,6 +21,7 @@ public class rotate extends CommandBase {
         kIx = Constants.DriverCommands.kIx;
         addRequirements(Drivetrain.getInstance());
     }
+
     public boolean endthing = false;
     public static double powerL =0;
     public static double powerR =0;
@@ -32,6 +33,8 @@ public class rotate extends CommandBase {
     public static double xoffset =0;
     public static double initial = 0;
     public static double target = 0;
+    public static int intarget = 0;
+    public static int timeintarget = 10;
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -63,14 +66,20 @@ public class rotate extends CommandBase {
         //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget());
 
         if(Math.abs(xoffset)<marginx){
-             endthing = true;
+             intarget++;
+             if(intarget>timeintarget){
+                 endthing = true;
+             }
+
         }else if(Math.abs(xoffset)<marginxI){
              Ilooper += xoffset;
              powerL = -1*kPx*xoffset+ Ilooper*kIx;
              powerR = 1*kPx*xoffset+ Ilooper*kIx;
+            intarget =0;
         }else{
              powerL = -1*kPx*xoffset;
              powerR = 1*kPx*xoffset;
+            intarget =0;
         }
         Drivetrain.getInstance().setSpeed(powerR ,powerL);
         SmartDashboard.putNumber("PowerL",powerL);

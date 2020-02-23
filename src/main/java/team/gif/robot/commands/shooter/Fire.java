@@ -8,36 +8,35 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 
 public class Fire extends CommandBase {
-    //public int fire =0;
-    //public int fired =0;
+
     public boolean endthing = false;
     boolean limelight = false;
-    public Fire(/*int fireval,*/boolean limelightval) {
+
+    public Fire(boolean limelightval) {
+
         limelight = limelightval;
-        //fire =fire;
-        //fired =0;
         //addRequirements(Shooter.getInstance());
     }
 
     @Override
     public void initialize() {
-        //fired =0;
 
     }
 
     @Override
     public void execute() {
-        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 500))
-                && (Indexer.getInstance().getState()[5] == true)
-                /*&& (fired<fire || fire ==0)*/
-                && (!limelight||(Math.abs(Robot.limelight.getXOffset())<Constants.DriverCommands.marginx))) {
+        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 500))//speed control
+                && (Indexer.getInstance().getState()[5] == true)//dont shoot if no ball
+                && (!limelight||(Math.abs(Robot.limelight.getXOffset())<Constants.DriverCommands.marginx))) {// shoot when see
+
             Indexer.getInstance().setSpeedFive(0.5);
-            //fired++;
-            if(/*(fired<fire)&&*/(Indexer.getInstance().getState()[5]== true)){
+            /*
+            if(Indexer.getInstance().getState()[5]== true){
                 endthing = false;
             }else{
                 endthing = true;
-            }
+            }*/
+            //shoot until some timeout runs out
 
         }else {
             Indexer.getInstance().setSpeedFive(0);

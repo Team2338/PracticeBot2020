@@ -2,6 +2,7 @@ package team.gif.robot.subsystems.drivers;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import team.gif.robot.Robot;
 
 public class Limelight {
 
@@ -15,9 +16,13 @@ public class Limelight {
      * @param key NetworkTable key specified in limelight web config
      */
     public Limelight(String key) {
+        Robot.shootertab.add("LED mode", "default pipeline");
         table = NetworkTableInstance.getDefault().getTable(key);
-        System.out.println("                               limelight init");
-        setLEDMode(3);
+        System.out.println("limelight init");
+        /**defaults
+         * TODO : limelight defaults pipeline,cammode,streammode,snapshotmode
+         * **/
+        setLEDMode(3);//force on by default
     }
 
     /**
@@ -40,6 +45,23 @@ public class Limelight {
         if (mode >= 0 && mode <= 3) {
             table.getEntry("ledMode").setNumber(mode);
             System.out.println("LedMode set to mode "+mode);
+            switch (mode) {
+                case 0:
+                    Robot.shootertab.add("LED mode", "default pipeline");
+                    break;
+                case 1:
+                    Robot.shootertab.add("LED mode", "off");
+                    break;
+                case 2:
+                    Robot.shootertab.add("LED mode", "blink ");
+                    break;
+                case 3:
+                    Robot.shootertab.add("LED mode", "on");
+                    break;
+                default:
+                    Robot.shootertab.add("LED mode", "good question");
+                    break;
+            }/**you need this to put the current LEDMODE to the dashboard**/
         }
     }
 
@@ -55,6 +77,17 @@ public class Limelight {
             table.getEntry("camMode").setNumber(mode);
             System.out.println("cammode reset "+mode);
         }
+        switch (mode) {
+            case 0:
+                Robot.shootertab.add("Cammode", "image recognition");
+                break;
+            case 1:
+                Robot.shootertab.add("Cammode", "driver");
+                break;
+            default:
+                Robot.shootertab.add("Cammode", "good question");
+                break;
+        }/**you need this to put the current CamMode to the dashboard**/
     }
 
     /**
@@ -66,8 +99,10 @@ public class Limelight {
     public void setPipeline(int pipeline) {
         if (pipeline >= 0 && pipeline <= 9) {
             table.getEntry("pipeline").setNumber(pipeline);
-
+            /**you need this to put the current pipeline to the dashboard**/
+            Robot.shootertab.add("pipeline", pipeline);
         }
+
     }
 
     /**
@@ -217,12 +252,12 @@ public class Limelight {
     }
 
     /** Returns array of x values of each pixel coordinates*
-    * the x valuse of the 4 corners in what order sadly i dont know this must be tested
+    * TODO: the x valuse of the 4 corners in what order sadly i dont know this must be tested
     * */
     public double[] getTcornx(){return table.getEntry("tcornx").getDoubleArray(new double[]{0,0,0,0});}
 
     /**Returns array of x values of each pixel coordinates*
-     * the y valuse of the 4 corners in what order sadly i dont know this must be tested
+     * TODO: the y values of the 4 corners in what order sadly i dont know this must be tested
      * */
     public double[] getTcorny(){return table.getEntry("tcorny").getDoubleArray(new double[]{0,0,0,0});}
 

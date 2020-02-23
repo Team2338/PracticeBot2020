@@ -13,69 +13,82 @@ public class Pivot extends CommandBase {
     public static boolean state = true;
 
     public Pivot(boolean state/*true to keep going, false to kill*/){
-        SmartDashboard.putBoolean("trying to get there",false);
-        SmartDashboard.putBoolean("are we there yet x" , false);
-    }
-
-    public static double marginx ;
-    public static double kPx ;
-    public static double kPy;
-    public static double kFx;
-    public static double kFy;
-    public static boolean endthing = false;
-
-    public double looptime = 0;
-    public double kIx =.05;
-    public double Ilooper =0;
-    public double looped =0;
-    public double yaw0 =0;
-    public double turned =0;
-    public double initial =0;
-    public static double marginxI = 0;
-    public static double xoffset =0;
-    public static double target =0;
-
-    @Override
-    public void initialize() {
-        System.out.println("pivot start");
         endthing = false;
-        initial = Pigeon.getInstance().getYPR()[0];
-        marginx = Constants.DriverCommands.marginx;
-        marginxI = Constants.DriverCommands.marginxI;
-        xoffset = Robot.limelight.getXOffset();
-        target = xoffset + initial;
+
+        Robot.shootertab.add("we not there yet pivot",true);
+
         kIx = Constants.DriverCommands.kIx;
         kPx = Constants.DriverCommands.kPx;
-        //kFx = Constants.kFx;
+        marginx = Constants.DriverCommands.marginx;
+        marginxI = Constants.DriverCommands.marginxI;
+    }
+
+    public double marginx ;
+    public double kPx ;
+    //public double kPy;
+    //public double kFx;
+    //public double kFy;
+    public boolean endthing = false;
+
+    //public double looptime = 0;
+    public double kIx =.05;
+    public double Ilooper =0;
+    //public double looped =0;
+    //public double yaw0 =0;
+    //public double turned =0;
+    public double initial =0;
+    public double marginxI = 0;
+    public double xoffset =0;
+    public double target =0;
+    /*
+    TODO:
+        we gotta change margin to be 1/2 of the lower side length before second midwest
+    */
+    @Override
+    public void initialize() {
+
+        System.out.println("pivot start");
+        Robot.shootertab.add("pivot trying to get there",true);
+
+        Pigeon.getInstance().setyaw(0);
+        initial = Pigeon.getInstance().getYPR()[0];
+        xoffset = Robot.limelight.getXOffset();
+        target = xoffset + initial;
+
+        Robot.shootertab.add("target",target);
+        Robot.shootertab.add("offset from target",xoffset);
+
     }
 
     @Override
     public void execute() {
-        SmartDashboard.putNumber("Ilooper",Ilooper);
+        Robot.shootertab.add("Ilooper",Ilooper);
         System.out.println("pivoting");
 
         xoffset = Pigeon.getInstance().getYPR()[0]- target;
-        SmartDashboard.putNumber("xoffset",xoffset);
+        Robot.shootertab.add("offset from target",xoffset);
         //double yoffset = Robot.limelight.getYOffset();
         double powerL;
         double powerR;
-
-        SmartDashboard.putBoolean("see target",Robot.limelight.hasTarget());
         //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
             //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget());
-
         if(Math.abs(xoffset)<marginxI){
             Ilooper += xoffset;
+            /**
+             * TODO: maybe try removing P in here
+             * **/
             powerL = kPx*xoffset+ Ilooper*kIx;
             powerR = -1*kPx*xoffset+ Ilooper*kIx;
+            Robot.shootertab.add("Ilooping",true);
         }else{
             Ilooper = 0;
             powerL = kPx*xoffset;
             powerR = -1*kPx*xoffset;
+            Robot.shootertab.add("Ilooping",false);
         }
         Drivetrain.getInstance().setSpeed(powerR ,powerL);
-        SmartDashboard.putNumber("PowerL",powerL);
-        SmartDashboard.putNumber("PowerR",powerR);
+        Robot.shootertab.add("PowerL",powerL);
+        Robot.shootertab.add("PowerR",powerR);
     }
 
     @Override
@@ -83,8 +96,11 @@ public class Pivot extends CommandBase {
         //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
         //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         System.out.println("pivot end");
-        SmartDashboard.putBoolean("trying to get there",false);
         Constants.DriverCommands.turned = Pigeon.getInstance().getYPR()[0] - initial;
+        Robot.shootertab.add("turned",Constants.DriverCommands.turned);
+        Robot.shootertab.add("pivot trying to get there",false);
+        Robot.shootertab.add("target",0);
+        Robot.shootertab.add("offset from target",0);
 
         //Drivetrain.getInstance().setSpeed(0, 0);
     }
