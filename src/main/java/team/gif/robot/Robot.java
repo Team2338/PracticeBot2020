@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.chosenAuto;
@@ -41,9 +42,12 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive();
   private Command indexCommand = new IndexerScheduler();
+
   private SendableChooser<chosenAuto> autoModeChooser = new SendableChooser<>();
+  private SendableChooser<Color> Colorchooser = new SendableChooser<>();
 
   private chosenAuto auto;
+  private Color ChosenColor;
 
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
@@ -58,6 +62,7 @@ public class Robot extends TimedRobot {
   public static ShuffleboardTab shootertab;
   public static ShuffleboardTab climbertab ;
   public static ShuffleboardTab drivetraintab;//includes compressor and pigeon
+  public static ShuffleboardTab spinnertab;
 
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
@@ -95,10 +100,9 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
 
     auto = autoModeChooser.getSelected();
-    autotab.add("auto selected",auto);
+    ChosenColor = Colorchooser.getSelected();
 
     updateDashboard();
-
 
     CommandScheduler.getInstance().run();
 
@@ -195,6 +199,13 @@ public class Robot extends TimedRobot {
     autoModeChooser.addOption("Mobility", chosenAuto.MOBILITY);
     autoModeChooser.addOption("Move and shoot", chosenAuto.Shootcollectshoot);
     autotab.add("Select an Auto ", autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
+
+    Colorchooser.addOption("green",Color.kBlue);
+    Colorchooser.addOption("red",Color.kRed);
+    Colorchooser.addOption("yellow",Color.kYellow);
+    Colorchooser.addOption("blue",Color.kBlue);
+
+    teleoptab.add("choose thy color",Colorchooser);
   }
 
   public void updateauto(){
@@ -220,6 +231,8 @@ public class Robot extends TimedRobot {
     teleoptab.add("tx",limelight.getXOffset());
     teleoptab.add("hastarget",limelight.hasTarget());
 
+    teleoptab.add("colorchosen",ChosenColor);
+
     teleoptab.add("Pressure", compressor.getPressureSwitchValue());
 
     indextab.add("One", Indexer.getInstance().getState()[1]);
@@ -240,6 +253,14 @@ public class Robot extends TimedRobot {
     drivetraintab.add("Pigeon yaw", Pigeon.getInstance().getYPR()[2]);
 
     drivetraintab.add("Pressure", compressor.getPressureSwitchValue());
+
+    spinnertab.add("detectedcolor","not yet");
+    spinnertab.add("RGB","dont got one yet");
+    spinnertab.add("confidence","notyet");
+    spinnertab.add("colorchosen",ChosenColor);
+
+
+    autotab.add("auto selected",auto);
 
   }
 }
