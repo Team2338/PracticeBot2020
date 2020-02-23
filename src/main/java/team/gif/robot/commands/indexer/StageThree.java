@@ -1,6 +1,7 @@
 package team.gif.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.robot.Globals;
 import team.gif.robot.subsystems.Indexer;
 
 public class StageThree extends CommandBase {
@@ -20,9 +21,8 @@ public class StageThree extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        indexer.setSpeedTwo(0.5);
-        indexer.setSpeedThree(0.5);
-        System.out.println("Run 3");
+        indexer.setSpeedTwo(0.45);
+        indexer.setSpeedThree(0.45);
     }
 
     // Called once the command ends or is interrupted.
@@ -35,6 +35,10 @@ public class StageThree extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return indexer.getState()[3];
+        if (!Globals.indexerEnabled) { // stops this command if directed to stop the indexer
+            return true;
+        } else {
+            return indexer.getState()[3];
+        }
     }
 }

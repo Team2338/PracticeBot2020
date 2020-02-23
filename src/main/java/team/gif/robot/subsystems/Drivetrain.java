@@ -3,6 +3,7 @@ package team.gif.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -29,8 +30,8 @@ public class Drivetrain extends SubsystemBase {
 
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
-//        rightMaster.setInverted(Constants.IS_INVERTED_DRIVE_RIGHT_MASTER);
-//        rightSlave.setInverted(Constants.IS_INVERTED_DRIVE_RIGHT_SLAVE);
+        //rightMaster.setInverted(true);
+        //rightSlave.setInverted(true);
 
         leftMaster.setNeutralMode(NeutralMode.Brake);
         leftSlave.setNeutralMode(NeutralMode.Brake);
@@ -41,11 +42,11 @@ public class Drivetrain extends SubsystemBase {
         rightSlave.follow(rightMaster);
     }
 
-
     public void setSpeed(double left, double right) {
-
         leftMaster.set(ControlMode.PercentOutput, left);
         rightMaster.set(ControlMode.PercentOutput, right);
+        SmartDashboard.putNumber("Left Percent", left);
+        SmartDashboard.putNumber("Right Percent", right);
     }
 
     //@Override

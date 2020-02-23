@@ -18,10 +18,21 @@ package team.gif.robot;
 public final class Constants {
 
     public static class Shooter {
-        public static final double kP = 0.0008;
-        public static final double kF = 0.000177;
+        public static final double kP = 0.0005; // 0.0005 0.0008
+        public static final double kF = 0.000166;
         public static final double RPM = 4500;
         public static final double maxVelocity = 5000;
     }
+
+    //        //pivot globals
+    public static double marginx =1;
+    public static double marginx1 =.5;
+    public static double kPx =.05;
+    public static double kFx = .2;
+
+    public static double WheelDiameter = 0.127;
+    public static double encoderEPR;
+    //public static double
+    //public static double
 
 }

@@ -2,6 +2,7 @@ package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.RobotMap;
@@ -16,10 +17,17 @@ public class Indexer extends SubsystemBase {
         return instance;
     }
 
+    // Talons
     private static final TalonSRX stageTwoMotor = new TalonSRX(RobotMap.STAGE_TWO);
     private static final TalonSRX stageThreeMotor = new TalonSRX(RobotMap.STAGE_THREE);
     private static final TalonSRX stageFourMotor = new TalonSRX(RobotMap.STAGE_FOUR);
     private static final TalonSRX stageFiveMotor = new TalonSRX(RobotMap.STAGE_FIVE);
+
+    // Victors
+    private static final VictorSPX stageTwoMotorVictor = new VictorSPX(RobotMap.STAGE_TWO);
+    private static final VictorSPX stageThreeMotorVictor = new VictorSPX(RobotMap.STAGE_THREE);
+    private static final VictorSPX stageFourMotorVictor = new VictorSPX(RobotMap.STAGE_FOUR);
+    private static final VictorSPX stageFiveMotorVictor = new VictorSPX(RobotMap.STAGE_FIVE);
 
     private static final DigitalInput knopfSensor = new DigitalInput(RobotMap.SENSOR_KNOPF);
 
@@ -45,14 +53,18 @@ public class Indexer extends SubsystemBase {
 
     public void setSpeedTwo(double speed) {
         stageTwoMotor.set(ControlMode.PercentOutput, speed);
+        stageTwoMotorVictor.set(ControlMode.PercentOutput, speed);
     }
     public void setSpeedThree(double speed) {
         stageThreeMotor.set(ControlMode.PercentOutput, speed);
+        stageThreeMotorVictor.set(ControlMode.PercentOutput, speed);
     }
     public void setSpeedFour(double speed) {
         stageFourMotor.set(ControlMode.PercentOutput, speed);
+        stageFourMotorVictor.set(ControlMode.PercentOutput, speed);
     }
     public void setSpeedFive(double speed) {
         stageFiveMotor.set(ControlMode.PercentOutput, speed);
+        stageFiveMotorVictor.set(ControlMode.PercentOutput, speed);
     }
 }

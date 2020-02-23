@@ -61,8 +61,7 @@ public class Drive extends CommandBase {
 
         Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
 
-        SmartDashboard.putNumber("Left Percent", leftSpeed);
-        SmartDashboard.putNumber("Right Percent", rightSpeed);
+
     }
 
     // Called once the command ends or is interrupted.

@@ -1,6 +1,7 @@
 package team.gif.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.robot.Globals;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Intake;
 
@@ -23,7 +24,6 @@ public class StageTwo extends CommandBase {
     public void execute() {
         Intake.getInstance().setSpeed(0.5);
         indexer.setSpeedTwo(0.5);
-        System.out.println("Run 2");
     }
 
     // Called once the command ends or is interrupted.
@@ -36,7 +36,10 @@ public class StageTwo extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        System.out.println("ending 2");
-        return indexer.getState()[2];
+        if (!Globals.indexerEnabled) { // stops this command if directed to stop the indexer
+            return true;
+        } else {
+            return indexer.getState()[2];
+        }
     }
 }

@@ -3,10 +3,10 @@ package team.gif.robot;
 public abstract class RobotMap {
 
     // Drive Motors
-    public static final int DRIVE_LEFT_MASTER = 0; //0
-    public static final int DRIVE_LEFT_SLAVE = 1; //1
-    public static final int DRIVE_RIGHT_MASTER = 2; //2
-    public static final int DRIVE_RIGHT_SLAVE = 3; //3
+    public static final int DRIVE_LEFT_MASTER = 2; //0
+    public static final int DRIVE_LEFT_SLAVE = 3; //1
+    public static final int DRIVE_RIGHT_MASTER = 0; //2
+    public static final int DRIVE_RIGHT_SLAVE = 1; //3
 
     // Other Motors
     public static final int INTAKE = 4; //4
@@ -23,6 +23,12 @@ public abstract class RobotMap {
     public static final int SENSOR_THREE = 3;
     public static final int SENSOR_FOUR = 4;
     public static final int SENSOR_FIVE = 5;
+    public static final int PRESSURE_SENSOR = 0;
+
+    // Solenoids
+    public static final int SOLENOID_ZERO = 0;
+    public static final int SOLENOID_ONE = 1;
+    public static final int SOLENOID_TWO = 2;
 
     // Color Sensor
     public static final int COLOR_SENSOR = 0;
@@ -30,4 +36,8 @@ public abstract class RobotMap {
     // Controllers
     public static final int DRIVER_CONTROLLER_ID = 0;
     public static final int AUX_CONTROLLER_ID = 1;
+
+    //pigeon
+    //public static final int PIGEON
+
 }
