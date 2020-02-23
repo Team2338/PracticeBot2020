@@ -79,6 +79,10 @@ public class Hanger extends SubsystemBase {
         return hangMotor.getSelectedSensorPosition();
     }
 
+    public double getOutputPercent() {
+        return hangMotor.getMotorOutputPercent();
+    }
+
     public boolean isFinished() {
         return Math.abs(hangMotor.getClosedLoopError()) < Constants.Hanger.ALLOWABLE_ERROR;
     }

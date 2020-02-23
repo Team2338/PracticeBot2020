@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.robot.commands.drivetrain.Drive;
+import team.gif.robot.commands.hanger.HangerManualControl;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Hanger;
@@ -34,6 +35,9 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
+
+  // TODO: remove
+  private Command hangerCommand = new HangerManualControl();
 
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
@@ -105,7 +109,9 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
 
-    SmartDashboard.putNumber("Hang Pos.", Hanger.getInstance().getPosition());
+    // Hanger
+    SmartDashboard.putNumber("Hang Position", Hanger.getInstance().getPosition());
+    SmartDashboard.putNumber("Hanger Output", Hanger.getInstance().getOutputPercent());
   }
 
   /**
@@ -154,6 +160,9 @@ public class Robot extends TimedRobot {
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
+
+    // TODO: also remove
+    hangerCommand.schedule();
   }
 
   /**

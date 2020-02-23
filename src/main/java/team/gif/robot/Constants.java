@@ -29,7 +29,7 @@ public final class Constants {
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.425;
-        public static final double REV_F = 0.425;
+        public static final double REV_F = 0.38;
 
         public static final double GRAV_FEED_FORWARD = 300 / 1023.0; // Percent constant to counteract gravity
         public static final double REV_GRAV_FEED_FORWARD = 50 / 1023.0;
@@ -41,6 +41,8 @@ public final class Constants {
 
         public static final int MAX_POS = 1000;
         public static final int MIN_POS = 30000;
+
+        public static final int DEPLOYED_POS = 15000;
     }
 
     //        //pivot globals
