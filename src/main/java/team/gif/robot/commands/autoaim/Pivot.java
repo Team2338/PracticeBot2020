@@ -49,6 +49,7 @@ public class Pivot extends CommandBase {
 
         System.out.println("pivot start");
         Robot.shootertab.add("pivot trying to get there",true);
+        Robot.autotab.add("pivot trying to get there",true);
 
         Pigeon.getInstance().setyaw(0);
         initial = Pigeon.getInstance().getYPR()[0];
@@ -89,6 +90,8 @@ public class Pivot extends CommandBase {
         Drivetrain.getInstance().setSpeed(powerR ,powerL);
         Robot.shootertab.add("PowerL",powerL);
         Robot.shootertab.add("PowerR",powerR);
+        Robot.autotab.add("PowerL",powerL);
+        Robot.autotab.add("PowerR",powerR);
     }
 
     @Override
@@ -101,8 +104,8 @@ public class Pivot extends CommandBase {
         Robot.shootertab.add("pivot trying to get there",false);
         Robot.shootertab.add("target",0);
         Robot.shootertab.add("offset from target",0);
-
-        //Drivetrain.getInstance().setSpeed(0, 0);
+        Robot.autotab.add("pivot trying to get there",false);
+        Drivetrain.getInstance().setSpeed(0, 0);
     }
     @Override
     public boolean isFinished() {
