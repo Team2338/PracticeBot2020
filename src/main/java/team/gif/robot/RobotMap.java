@@ -15,6 +15,7 @@ public abstract class RobotMap {
     public static final int STAGE_FOUR = 7; //7
     public static final int STAGE_FIVE = 8; //8
     public static final int FLYWHEEL = 9; //9
+    public static final int HANGER = 10;
 
     // Sensors
     public static final int SENSOR_KNOPF = 0;

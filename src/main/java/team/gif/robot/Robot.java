@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.Hanger;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -103,6 +104,8 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
 
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
+
+    SmartDashboard.putNumber("Hang Pos.", Hanger.getInstance().getPosition());
   }
 
   /**
