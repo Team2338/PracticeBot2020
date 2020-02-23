@@ -21,9 +21,12 @@ public class Drivetrain extends SubsystemBase {
     private static final TalonSRX leftSlave = new TalonSRX(RobotMap.DRIVE_LEFT_SLAVE);
     private static final TalonSRX rightMaster = new TalonSRX(RobotMap.DRIVE_RIGHT_MASTER);
     private static final TalonSRX rightSlave = new TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
-    private static final PigeonIMU pigeon = new PigeonIMU(RobotMap.PIGEON_ID);
+
+    private final PigeonIMU pigeon = new PigeonIMU(RobotMap.PIGEON_ID);
 
     private final DifferentialDriveOdometry odometry;
+
+    Pose2d pose;
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -117,7 +120,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public Pose2d getPose() {
-        return odometry.getPoseMeters();
+        return pose;
     }
 
     /*

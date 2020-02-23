@@ -129,8 +129,8 @@ public class Robot extends TimedRobot {
     // boolean state = Indexer.getInstance().getKnopf();
     // SmartDashboard.putBoolean("High/Low", state);
 
-    SmartDashboard.putNumber("Left Encoder Ticks ", drivetrain.getLeftEncoderPos());
-    SmartDashboard.putNumber("Right Encoder Ticks ", drivetrain.getRightEncoderPos());
+    SmartDashboard.putNumber("Left Ticks ", drivetrain.getLeftEncoderPos());
+    SmartDashboard.putNumber("Right Ticks ", drivetrain.getRightEncoderPos());
 
     SmartDashboard.putNumber("Left Meters ", drivetrain.getLeftDistancePerPulse());
     SmartDashboard.putNumber("Right Meters ", drivetrain.getRightDistancePerPulse());
