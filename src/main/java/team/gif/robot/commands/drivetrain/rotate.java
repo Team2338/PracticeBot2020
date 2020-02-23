@@ -56,12 +56,8 @@ public class rotate extends CommandBase {
 
         Robot.autotab.add("rotate trying to get there",true);
 
-        initial = Pigeon.getInstance().getYPR()[0];
-        xoffset = Robot.limelight.getXOffset();
-        target = xoffset + initial;
-
-        Robot.shootertab.add("target",target);
-        Robot.shootertab.add("offset from target",xoffset);
+        Robot.autotab.add("target rotate",target);
+        Robot.autotab.add("xoffset rotate",xoffset);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -71,7 +67,7 @@ public class rotate extends CommandBase {
         Robot.autotab.add("Ilooper rotate",Ilooper);
 
         xoffset = Pigeon.getInstance().getYPR()[0]- target;
-        Robot.autotab.add("xoffset",xoffset);
+        Robot.autotab.add("xoffset rotate",xoffset);
 
         if(Math.abs(xoffset)<marginx){
              intarget++;
