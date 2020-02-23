@@ -8,7 +8,6 @@
 package team.gif.robot.subsystems;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
@@ -78,6 +77,13 @@ public class ColorSensor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    getColor();
+  }
+
+  public String getColor() {
+    /**
+     * Run the color match algorithm on our detected color
+     */
     /**
      * The method GetColor() returns a normalized color value from the sensor and can be
      * useful if outputting the color to an RGB LED or similar. To
@@ -90,9 +96,6 @@ public class ColorSensor extends SubsystemBase {
      */
     Color detectedColor = m_colorSensor.getColor();
 
-    /**
-     * Run the color match algorithm on our detected color
-     */
     String colorString;
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
@@ -112,14 +115,11 @@ public class ColorSensor extends SubsystemBase {
      * Open Smart Dashboard or Shuffleboard to see the color detected by the
      * sensor.
      */
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
-//  }
-//
-//  public void getColor() {
+//    SmartDashboard.putNumber("Red", detectedColor.red);
+//    SmartDashboard.putNumber("Green", detectedColor.green);
+//    SmartDashboard.putNumber("Blue", detectedColor.blue);
+//    SmartDashboard.putNumber("Confidence", match.confidence);
+//    SmartDashboard.putString("Detected Color", colorString);
     /**
      * The method GetColor() returns a normalized color value from the sensor and can be
      * useful if outputting the color to an RGB LED or similar. To
@@ -158,9 +158,9 @@ public class ColorSensor extends SubsystemBase {
      * or provide a threshold for when an object is close enough to provide
      * accurate color values.
      */
-    int proximity = m_colorSensor.getProximity();
-
-    SmartDashboard.putNumber("Proximity", proximity);
+//    int proximity = m_colorSensor.getProximity();
+//
+//    SmartDashboard.putNumber("Proximity", proximity);
 
     /**
      * Dispays our guess of the color.
@@ -185,5 +185,6 @@ public class ColorSensor extends SubsystemBase {
 //    }
 //
 //    SmartDashboard.putString("Color", colorGuess);
+    return colorString;
   }
 }

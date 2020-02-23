@@ -106,6 +106,15 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
 
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
+
+    //ColorSensor
+    String detectedColor = ColorSensor.getInstance().getColor();
+//    SmartDashboard.putNumber("Red", detectedColor.red);
+//    SmartDashboard.putNumber("Green", detectedColor.green);
+//    SmartDashboard.putNumber("Blue", detectedColor.blue);
+//    SmartDashboard.putNumber("Confidence", match.confidence);
+    SmartDashboard.putString("Detected Color", detectedColor);
+
   }
 
   /**
