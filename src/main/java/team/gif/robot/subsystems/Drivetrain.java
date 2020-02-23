@@ -70,6 +70,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 import team.gif.robot.commands.drivetrain.Drive;
 
@@ -120,8 +121,8 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void setSpeed(double left, double right) {
-        SmartDashboard.putNumber("drivetrain left",-left);
-        SmartDashboard.putNumber("drivetrain",right);
+        Robot.drivetraintab.add("drivetrain left",-left);
+        Robot.drivetraintab.add("drivetrain",right);
         leftMaster.set(ControlMode.PercentOutput, -left);
         rightMaster.set(ControlMode.PercentOutput, right);
     }

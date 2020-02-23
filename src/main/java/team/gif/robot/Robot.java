@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
   private Command driveCommand = new Drive();
   private Command indexCommand = new IndexerScheduler();
   private SendableChooser<chosenAuto> autoModeChooser = new SendableChooser<>();
+
   private chosenAuto auto;
 
   public static Limelight limelight;
@@ -49,6 +51,13 @@ public class Robot extends TimedRobot {
   //private NetworkTableEntry pressureEntry;
 
   private RobotContainer m_robotContainer;
+
+  public static ShuffleboardTab autotab;
+  public static ShuffleboardTab teleoptab;
+  public static ShuffleboardTab indextab;
+  public static ShuffleboardTab shootertab;
+  public static ShuffleboardTab climbertab ;
+  public static ShuffleboardTab drivetraintab;
 
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
@@ -61,7 +70,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    autotabsetup();
+    tabsetup();
     // autonomous chooser on the dashboard.
 
     m_robotContainer = new RobotContainer();
@@ -85,33 +94,12 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
 
-    //the jyoonk i want to see on the board
-    SmartDashboard.putBoolean("One", Indexer.getInstance().getState()[1]);
-    SmartDashboard.putBoolean("Two", Indexer.getInstance().getState()[2]);
-    SmartDashboard.putBoolean("Three", Indexer.getInstance().getState()[3]);
-    SmartDashboard.putBoolean("Four", Indexer.getInstance().getState()[4]);
-    SmartDashboard.putBoolean("Five", Indexer.getInstance().getState()[5]);
-
-    SmartDashboard.putNumber("turned",Constants.DriverCommands.turned);
-
-    SmartDashboard.putNumber("tx",limelight.getXOffset());
-    SmartDashboard.putNumber("ty",limelight.getYOffset());
-    SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
-
-    SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
-
-    SmartDashboard.putNumber("Pigeon", Pigeon.getInstance().getYPR()[0]);
-
     SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
-    //System.out.println("auto"+auto);
     auto = autoModeChooser.getSelected();
-
-    //autotabsetup();
+    updateDashboard();
 
     CommandScheduler.getInstance().run();
-
     // pneumatics
-
     //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
   }
 
@@ -191,9 +179,16 @@ public class Robot extends TimedRobot {
 
   }
 
-  public void autotabsetup() {
-    System.out.println("autonomous stuff");
-    ShuffleboardTab autotab = Shuffleboard.getTab("autonomous yeeeeeeeeeee");
+  public void tabsetup() {
+    //seting up tabs
+    autotab = Shuffleboard.getTab("auto");
+    teleoptab = Shuffleboard.getTab("teleop");
+    indextab = Shuffleboard.getTab("intake");
+    indextab = Shuffleboard.getTab("index");
+    shootertab = Shuffleboard.getTab("limelight/shooter");
+    climbertab = Shuffleboard.getTab("climber");
+
+    //adding autos to autotab
     autoModeChooser.addOption("Mobility", chosenAuto.MOBILITY);
     autoModeChooser.addOption("Move and shoot", chosenAuto.Shootcollectshoot);
     autotab.add("Select an Auto ", autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
@@ -211,4 +206,29 @@ public class Robot extends TimedRobot {
     System.out.println("auto"+auto);
   }
 
+  public void updateDashboard(){
+    teleoptab.add("One", Indexer.getInstance().getState()[1]);
+    teleoptab.add("Two", Indexer.getInstance().getState()[2]);
+    teleoptab.add("Three", Indexer.getInstance().getState()[3]);
+    teleoptab.add("Four", Indexer.getInstance().getState()[4]);
+    teleoptab.add("Five", Indexer.getInstance().getState()[5]);
+
+    teleoptab.add("tx",limelight.getXOffset());
+    teleoptab.add("hastarget",limelight.hasTarget());
+
+    indextab.add("One", Indexer.getInstance().getState()[1]);
+    indextab.add("Two", Indexer.getInstance().getState()[2]);
+    indextab.add("Three", Indexer.getInstance().getState()[3]);
+    indextab.add("Four", Indexer.getInstance().getState()[4]);
+    indextab.add("Five", Indexer.getInstance().getState()[5]);
+
+    shootertab.add("tx",limelight.getXOffset());
+    shootertab.add("ty",limelight.getYOffset());
+    shootertab.add("hastarget",limelight.hasTarget());
+    shootertab.add("turned",Constants.DriverCommands.turned);
+    shootertab.add("RPM", Shooter.getInstance().getVelocity());
+
+    drivetraintab.add("Pigeon", Pigeon.getInstance().getYPR()[0]);
+
+  }
 }

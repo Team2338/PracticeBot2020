@@ -2,7 +2,6 @@ plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2020.2.2"
 }
-
 sourceCompatibility = JavaVersion.VERSION_11//try changing this to 13 next time you get a chance
 targetCompatibility = JavaVersion.VERSION_11
 
@@ -74,3 +73,4 @@ jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
+// hope this works
