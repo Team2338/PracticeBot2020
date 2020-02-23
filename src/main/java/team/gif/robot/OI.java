@@ -55,6 +55,10 @@ public class OI {
     public final POVButton dDPadRight = new POVButton(driver, 90);
     public final POVButton dDPadDown = new POVButton(driver, 180);
     public final POVButton dDPadLeft = new POVButton(driver, 270);
+    public final POVButton aDPadUp = new POVButton(aux, 0);
+    public final POVButton aDPadRight = new POVButton(aux, 90);
+    public final POVButton aDPadDown = new POVButton(aux, 180);
+    public final POVButton aDPadLeft = new POVButton(aux, 270);
 
     public final JoystickButton aA = new JoystickButton(aux, 1);
     public final JoystickButton aB = new JoystickButton(aux, 2);
@@ -84,9 +88,6 @@ public class OI {
         dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
         dRB.whenReleased(new IntakeRun(false));
         dLB.whileHeld(new IntakeReverse());
-        dDPadDown.whenPressed(new IntakeDown());
-        dDPadLeft.whenPressed(new IntakeMid());
-        dDPadUp.whenPressed(new IntakeUp().withTimeout(0.05));
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
 
@@ -95,6 +96,10 @@ public class OI {
         aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));
         aLT.whileHeld(new Pivot());
+
+        aDPadDown.whenPressed(new IntakeDown());
+        aDPadLeft.whenPressed(new IntakeMid());
+        aDPadUp.whenPressed(new IntakeUp().withTimeout(0.05));
     }
 
     public void setRumble(boolean rumble) {
