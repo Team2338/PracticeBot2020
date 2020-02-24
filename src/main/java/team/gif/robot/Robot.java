@@ -141,6 +141,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     updateauto();
     compressor.stop();
+    indexCommand.schedule();
 
     // schedule the autonomous command (example)
     /*if (m_autonomousCommand != null) {
