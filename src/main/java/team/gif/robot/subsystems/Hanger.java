@@ -1,7 +1,6 @@
 package team.gif.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.*;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -9,7 +8,10 @@ import team.gif.robot.RobotMap;
 public class Hanger extends SubsystemBase {
     public static Hanger instance = null;
 
-    private static final TalonSRX hangMotor = new TalonSRX(RobotMap.HANGER);
+    private static final CANSparkMax hangMotor = new CANSparkMax(RobotMap.HANGER, CANSparkMaxLowLevel.MotorType.kBrushless);
+    private static final CANPIDController hangPIDController = hangMotor.getPIDController();
+    private static final CANEncoder hangEncoder = hangMotor.getEncoder();
+    private static final CANDigitalInput limitSwitch = hangMotor.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyClosed);
 
     public static Hanger getInstance() {
         if (instance == null) {
@@ -20,70 +22,48 @@ public class Hanger extends SubsystemBase {
 
     public Hanger() {
         super();
-        /* Factory default hardware to prevent unexpected behavior */
-        hangMotor.configFactoryDefault();
+        hangMotor.restoreFactoryDefaults();
 
-        //hangMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10);
-        //hangMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10);
+        // Limit Switch
+        limitSwitch.enableLimitSwitch(true);
+        // Soft Limits
+        hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, false);
+        hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, false);
 
-        /* Configure Sensor Source for Primary PID */
-        hangMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.Hanger.MAX_POS);
+        hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.Hanger.MIN_POS);
 
-        hangMotor.enableVoltageCompensation(true);
-        hangMotor.setSensorPhase(true);
-        hangMotor.setInverted(false);
-        hangMotor.setNeutralMode(NeutralMode.Brake);
+        // PID Controller
+        hangPIDController.setP(Constants.Hanger.P);
+        hangPIDController.setI(Constants.Hanger.I);
+        hangPIDController.setD(Constants.Hanger.D);
+        hangPIDController.setFF(Constants.Hanger.F);
+        hangPIDController.setOutputRange(-1, 1);
 
-        /* Set Motion Magic gains in slot0 - see documentation */
-        hangMotor.config_kP(0, Constants.Hanger.P);
-        hangMotor.config_kI(0, Constants.Hanger.I);
-        hangMotor.config_kD(0, Constants.Hanger.D);
-        hangMotor.config_kF(0, Constants.Hanger.F);
-
-        /* Set acceleration and vcruise velocity - see documentation */
-        hangMotor.configMotionCruiseVelocity(Constants.Hanger.MAX_VELOCITY);
-        hangMotor.configMotionAcceleration(Constants.Hanger.MAX_ACCELERATION);
-        hangMotor.configNominalOutputForward(0);
-        hangMotor.configNominalOutputReverse(0);
-        hangMotor.configPeakOutputForward(1);
-        hangMotor.configPeakOutputReverse(-1);
-
-        /* limit switches */
-        hangMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
-        hangMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-        hangMotor.configForwardSoftLimitThreshold(Constants.Hanger.MAX_POS);
-        hangMotor.configReverseSoftLimitThreshold(Constants.Hanger.MIN_POS);
-        hangMotor.overrideLimitSwitchesEnable(false);
-        hangMotor.configForwardSoftLimitEnable(true);
-        hangMotor.configReverseSoftLimitEnable(true);
-        //hangMotor.configClearPositionOnLimitR(true, 0);
+        int smartMotionSlot = 0;
+        hangPIDController.setSmartMotionMaxVelocity(Constants.Hanger.MAX_VELOCITY, smartMotionSlot);
+        hangPIDController.setSmartMotionMinOutputVelocity(Constants.Hanger.MIN_VELOCITY, smartMotionSlot);
+        hangPIDController.setSmartMotionMaxAccel(Constants.Hanger.MAX_ACCELERATION, smartMotionSlot);
+        hangPIDController.setSmartMotionAllowedClosedLoopError(Constants.Hanger.ALLOWABLE_ERROR, smartMotionSlot);
     }
 
     public void setSpeed(double speed) {
-        hangMotor.set(ControlMode.PercentOutput, speed);
+        hangMotor.set(speed);
     }
 
-    public void setMotionMagic(double position, double arbitraryFeedForward) {
-        hangMotor.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, arbitraryFeedForward);
+    public void setPoint(int position) {
+        hangPIDController.setReference(position, ControlType.kSmartMotion);
     }
 
-    public void setCruiseVelocity(int ticksPer100ms) {
-        hangMotor.configMotionCruiseVelocity(ticksPer100ms);
+    public void setF() {
+        hangPIDController.setFF(Constants.Hanger.F);
     }
 
-    public void configF(double f) {
-        hangMotor.config_kF(0, f);
+    public void setFGravity() {
+        hangPIDController.setFF(Constants.Hanger.GRAV_FEED_FORWARD);
     }
 
-    public int getPosition() {
-        return hangMotor.getSelectedSensorPosition();
-    }
-
-    public double getOutputPercent() {
-        return hangMotor.getMotorOutputPercent();
-    }
-
-    public boolean isFinished() {
-        return Math.abs(hangMotor.getClosedLoopError()) < Constants.Hanger.ALLOWABLE_ERROR;
+    public double getPosition() {
+        return hangEncoder.getPosition();
     }
 }

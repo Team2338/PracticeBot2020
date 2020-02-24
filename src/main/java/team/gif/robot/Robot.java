@@ -8,10 +8,7 @@
 package team.gif.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.RobotController;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -23,7 +20,6 @@ import team.gif.robot.subsystems.Hanger;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
-import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -111,7 +107,7 @@ public class Robot extends TimedRobot {
 
     // Hanger
     SmartDashboard.putNumber("Hang Position", Hanger.getInstance().getPosition());
-    SmartDashboard.putNumber("Hanger Output", Hanger.getInstance().getOutputPercent());
+    SmartDashboard.putNumber("Hanger Output", OI.getInstance().aux.getY(GenericHID.Hand.kLeft));
   }
 
   /**
