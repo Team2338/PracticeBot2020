@@ -30,9 +30,13 @@ public final class Constants {
     public static double kPx =.05;
     public static double kFx = .2;
 
-    public static double WheelDiameter = 0.127;
-    public static double encoderEPR;
-    //public static double
-    //public static double
+    // Drivetrain physical constants (IN METERS)
+    public static double WHEEL_DIAMETER = 0.127;
+    public static double WHEEL_RADIUS = 0.0635;
+    public static double ENCODER_EPR = 4096; // EPR = Edges per revolution (IN TICKS)
+
+    public static double TICKS_TO_METERS = (WHEEL_DIAMETER * Math.PI) / (ENCODER_EPR);
+    public static final double DPS_TO_MPS = ((WHEEL_DIAMETER * 0.0254 * Math.PI) / (360) * (10)); // Degrees per sec. to meters per sec.
+
 
 }

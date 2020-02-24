@@ -3,6 +3,8 @@ package team.gif.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
@@ -48,6 +50,45 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Left Percent", left);
         SmartDashboard.putNumber("Right Percent", right);
     }
+
+    // Mag Encoder methods
+    public void resetEncoders() {
+        leftMaster.setSelectedSensorPosition(0, 0, 0);
+        rightMaster.setSelectedSensorPosition(0, 0, 0);
+    }
+
+    public double getLeftEncoderPos() {
+        return leftMaster.getSelectedSensorPosition();
+    }
+
+    public double getRightEncoderPos() {
+        return rightMaster.getSelectedSensorPosition();
+    }
+
+    public double getLeftPosMeters() {
+        return leftMaster.getSelectedSensorPosition() * Constants.TICKS_TO_METERS;
+    }
+
+    public double getRightPosMeters() {
+        return rightMaster.getSelectedSensorPosition() * Constants.TICKS_TO_METERS;
+    }
+
+    public double getLeftEncoderVelocity() {
+        return leftMaster.getSelectedSensorVelocity();
+    }
+
+    public double getRightEncoderVelocity() {
+        return rightMaster.getSelectedSensorVelocity();
+    }
+
+    /* public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(leftMaster.getSelectedSensorVelocity() * Constants.DPS_TO_MPS,
+                                                rightMaster.getSelectedSensorVelocity() * Constants.DPS_TO_MPS);
+    }
+
+     */
+
+
 
     //@Override
     //protected void initDefaultCommand() {
