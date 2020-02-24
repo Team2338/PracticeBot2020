@@ -40,10 +40,11 @@ public class Robot extends TimedRobot {
 
   private SendableChooser<chosenAuto> autoModeChooser = new SendableChooser<>();
   private SendableChooser<delay> delayChooser = new SendableChooser<>();
+
+  private chosenAuto Auto;
   private delay chosenDelay;
 
   public static Limelight limelight;
-  private chosenAuto Auto;
   private final Compressor compressor = new Compressor();
 
   //private NetworkTableEntry pressureEntry;
@@ -155,7 +156,6 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     double matchTime = DriverStation.getInstance().getMatchTime();
     boolean runAuto = false;
-    System.out.println("MT: " + matchTime + " Delay: " + delay.getvalue(chosenDelay));
 
     if (matchTime < (15.0 - delay.getvalue(chosenDelay)) && !runAuto) {
       if (m_autonomousCommand != null) {
