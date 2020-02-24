@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.chosenAuto;
 import team.gif.robot.commands.autos.Mobility;
+import team.gif.robot.commands.autos.ShootCollectShoot;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
@@ -95,7 +96,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Four", Indexer.getInstance().getState()[4]);
     SmartDashboard.putBoolean("Five", Indexer.getInstance().getState()[5]);
 
-
+    //limelight.setStreamMode(0);
     //the jyoonk i want to see on the board
     SmartDashboard.putNumber("tx",limelight.getXOffset());
     SmartDashboard.putNumber("ty",limelight.getYOffset());
@@ -144,6 +145,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
       compressor.stop();
     }
+    indexCommand.schedule();
   }
 
   /**
@@ -202,10 +204,10 @@ public class Robot extends TimedRobot {
     //setp tabs
     Autotab = Shuffleboard.getTab("auto");
 
-    autoModeChooser.addOption("Mobility",chosenAuto.MOBILITY);
+    autoModeChooser.addOption("ShootCollectShoot",chosenAuto.SHOOTCOLLECTSHOOT);
     autoModeChooser.setDefaultOption("Mobility",chosenAuto.MOBILITY);
-    Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
+    Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
   }
 
@@ -213,6 +215,11 @@ public class Robot extends TimedRobot {
     if(Auto == chosenAuto.MOBILITY){
       m_autonomousCommand = new Mobility();
       System.out.println("mobility selected");
+    } else if(Auto == chosenAuto.SHOOTCOLLECTSHOOT){
+      m_autonomousCommand = new ShootCollectShoot();
+      System.out.println("shootcollectshoot was chosen");
+    }else if(Auto ==null) {
+      System.out.println("Auto is null");
     }
     System.out.println("auto "+Auto);
 
