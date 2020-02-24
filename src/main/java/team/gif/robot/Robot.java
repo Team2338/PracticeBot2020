@@ -7,10 +7,7 @@
 
 package team.gif.robot;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -20,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.chosenAuto;
+import team.gif.lib.delay;
 import team.gif.robot.commands.autos.Mobility;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
@@ -41,6 +39,8 @@ public class Robot extends TimedRobot {
   private Command indexCommand = new IndexerScheduler();
 
   private SendableChooser<chosenAuto> autoModeChooser = new SendableChooser<>();
+  private SendableChooser<delay> delayChooser = new SendableChooser<>();
+  private delay chosenDelay;
 
   public static Limelight limelight;
   private chosenAuto Auto;
@@ -88,6 +88,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
 
     Auto = autoModeChooser.getSelected();
+    chosenDelay = delayChooser.getSelected();
 
     SmartDashboard.putBoolean("One", Indexer.getInstance().getState()[1]);
     SmartDashboard.putBoolean("Two", Indexer.getInstance().getState()[2]);
@@ -138,12 +139,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     updateauto();
+    compressor.stop();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
+    /*if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
       compressor.stop();
-    }
+    }*/
   }
 
   /**
@@ -151,6 +153,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    double matchTime = DriverStation.getInstance().getMatchTime();
+    boolean runAuto = false;
+    System.out.println("MT: " + matchTime + " Delay: " + delay.getvalue(chosenDelay));
+
+    if (matchTime < delay.getvalue(chosenDelay) && !runAuto) {
+      if (m_autonomousCommand != null) {
+        m_autonomousCommand.schedule();
+      }
+      runAuto = true;
+    }
   }
 
   @Override
@@ -206,7 +218,14 @@ public class Robot extends TimedRobot {
     autoModeChooser.setDefaultOption("Mobility",chosenAuto.MOBILITY);
     Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
+    delayChooser.setDefaultOption("0", delay.DELAY_0);
+    delayChooser.addOption("1", delay.DELAY_1);
+    delayChooser.addOption("2", delay.DELAY_2);
+    delayChooser.addOption("3", delay.DELAY_3);
+    delayChooser.addOption("4", delay.DELAY_4);
+    delayChooser.addOption("5", delay.DELAY_5);
 
+    Autotab.add("Delay", delayChooser);
   }
 
   public void updateauto(){
