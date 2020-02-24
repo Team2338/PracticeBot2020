@@ -157,7 +157,7 @@ public class Robot extends TimedRobot {
     boolean runAuto = false;
     System.out.println("MT: " + matchTime + " Delay: " + delay.getvalue(chosenDelay));
 
-    if (matchTime < delay.getvalue(chosenDelay) && !runAuto) {
+    if (matchTime < (15.0 - delay.getvalue(chosenDelay)) && !runAuto) {
       if (m_autonomousCommand != null) {
         m_autonomousCommand.schedule();
       }
@@ -224,6 +224,17 @@ public class Robot extends TimedRobot {
     delayChooser.addOption("3", delay.DELAY_3);
     delayChooser.addOption("4", delay.DELAY_4);
     delayChooser.addOption("5", delay.DELAY_5);
+    delayChooser.addOption("6", delay.DELAY_6);
+    delayChooser.addOption("7", delay.DELAY_7);
+    delayChooser.addOption("8", delay.DELAY_8);
+    delayChooser.addOption("9", delay.DELAY_9);
+    delayChooser.addOption("10", delay.DELAY_10);
+    delayChooser.addOption("11", delay.DELAY_11);
+    delayChooser.addOption("12", delay.DELAY_12);
+    delayChooser.addOption("13", delay.DELAY_13);
+    delayChooser.addOption("14", delay.DELAY_14);
+    delayChooser.addOption("15", delay.DELAY_15);
+
 
     Autotab.add("Delay", delayChooser);
   }
