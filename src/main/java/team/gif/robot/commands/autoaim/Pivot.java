@@ -9,7 +9,9 @@ import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
 
 public class Pivot extends CommandBase {
-    public Pivot() {
+    public static boolean state = false;
+    public Pivot(boolean stateval) {
+        state = stateval;
         SmartDashboard.putBoolean("trying to get there",false);
         SmartDashboard.putBoolean("are we there yet x" , false);
         //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
@@ -18,28 +20,33 @@ public class Pivot extends CommandBase {
 
     }
 
-    public static double marginx ;
-    public static double kPx ;
-    public static double kPy;
-    public static double kFx;
-    public static double kFy;
-    public static boolean endthing = false;
+    public double marginx ;
+    public double kPx ;
+    public double kPy;
+    public double kFx;
+    public double kFy;
+    public boolean endthing = false;
 
     public double looptime = 0;
-    public double kI =.00;
+    public double kIx =.00;
     public double Ilooper =0;
     public double looped =0;
+    public double marginxI=0;
+    public double initialx =0;
+    public double finalx = 0;
 
     @Override
     public void initialize() {
         looptime = 0;
         looped =0;
         Ilooper = 5;
+
         SmartDashboard.putBoolean("trying to get there",true);
         System.out.println("pivot");
 
-        marginx  = Constants.marginx;
-        kPx  = Constants.kPx;
+        marginxI  = Constants.Pivot.marginxI;
+        kPx  = Constants.Pivot.kPx;
+        kIx = Constants.Pivot.kIx;
         //kFx = Constants.kFx;
     }
 
@@ -56,10 +63,10 @@ public class Pivot extends CommandBase {
         //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
             //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget());
 
-        if(Math.abs(xoffset)<marginx){
+        if(Math.abs(xoffset)<marginxI){
             Ilooper += xoffset;
-            powerL = -1*kPx*xoffset+ Ilooper*kI;
-            powerR = 1*kPx*xoffset+ Ilooper*kI;
+            powerL = -Ilooper*kIx;
+            powerR = Ilooper*kIx;
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,1);
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,1);
         }else{
@@ -70,9 +77,9 @@ public class Pivot extends CommandBase {
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
         }
 
-        Drivetrain.getInstance().setSpeed(powerR ,powerL);
-        SmartDashboard.putNumber("PowerL",powerL);
-        SmartDashboard.putNumber("PowerR",powerR);
+        Drivetrain.getInstance().setSpeed(-powerR ,-powerL);
+        SmartDashboard.putNumber("PowerL",-powerL);
+        SmartDashboard.putNumber("PowerR",-powerR);
         //looped =0;
 
 
@@ -81,11 +88,11 @@ public class Pivot extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void end(boolean interrupted) {/*
         OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
-        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
+        OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);*/
         SmartDashboard.putBoolean("trying to get there",false);
-        //Drivetrain.getInstance().setSpeed(0, 0);
+        Drivetrain.getInstance().setSpeed(0, 0);
     }
 
     @Override

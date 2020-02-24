@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="FRC2020Template.main" target="11" />
       <module name="FRC2020Template.test" target="11" />
+      <module name="IdeaProjects.PracticeBot2020.main" target="11" />
+      <module name="IdeaProjects.PracticeBot2020.test" target="11" />
       <module name="PracticeBot2020.main" target="11" />
       <module name="PracticeBot2020.test" target="11" />
       <module name="PracticeBot2020_2.main" target="11" />

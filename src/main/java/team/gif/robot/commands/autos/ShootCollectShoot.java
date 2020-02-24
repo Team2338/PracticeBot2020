@@ -19,13 +19,15 @@ public class ShootCollectShoot extends SequentialCommandGroup {
         Robot.limelight.setPipeline(0);
 
         addCommands(
-                //new Pivot(),
                 new IntakeDown(),
-                new ParallelDeadlineGroup(new AutoDrive(3,.35,.35),
+                new ParallelDeadlineGroup(new AutoDrive(2.5,.4,.4),
                         new IntakeRun(true),new RevFlywheel(true)),
+                new Pivot(true).withTimeout(2.5),
+                new ParallelCommandGroup(new Pivot(true),new RevFlywheel(true),
+                        new Fire(0,true))/*,
                 new ParallelCommandGroup(new RevFlywheel(true),
-                                         new Fire(0,false)).withTimeout(5),
-                new RevFlywheel(false)
+                                         new Fire(0,true)).withTimeout(3),
+                new RevFlywheel(false)*/
 
         );
 
