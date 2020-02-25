@@ -158,7 +158,7 @@ public class Robot extends TimedRobot {
     double matchTime = DriverStation.getInstance().getMatchTime();
     boolean runAuto = false;
 
-    if (matchTime < (15.0 - delay.getvalue(chosenDelay)) && !runAuto) {
+    if (matchTime < (15.0 - delay.getValue(chosenDelay)) && !runAuto) {
       if (m_autonomousCommand != null) {
         m_autonomousCommand.schedule();
       }
