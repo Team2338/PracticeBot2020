@@ -27,10 +27,10 @@ public final class Constants {
     //        //pivot globals
     public static class Pivot {
         //public static double marginx = 0;
-        public static double marginxF = 2.5;
-        public static double marginxI = 2;
-        public static double kPx = .04;
-        public static double kIx = .025;
+        public static double marginxF = 1.8;//OG 2
+        public static double marginxI = 4;//og 4
+        public static double kPx = .033;//from .04
+        public static double kIx = .008;//from .025
     }
     public static double WheelDiameter = 0.127;
     public static double encoderEPR;

@@ -96,10 +96,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Four", Indexer.getInstance().getState()[4]);
     SmartDashboard.putBoolean("Five", Indexer.getInstance().getState()[5]);
 
-    limelight.setStreamMode(0);
+    //limelight.setStreamMode(0);
     //the jyoonk i want to see on the board
     SmartDashboard.putNumber("tx",limelight.getXOffset());
     SmartDashboard.putNumber("ty",limelight.getYOffset());
+
     /*
     SmartDashboard.putNumber(" 3D X",limelight.getCamTran()[0]);
     SmartDashboard.putNumber(" 3D Y",limelight.getCamTran()[1]);
