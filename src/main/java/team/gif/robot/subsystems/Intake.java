@@ -2,6 +2,7 @@ package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.RobotMap;
@@ -17,6 +18,7 @@ public class Intake extends SubsystemBase {
     }
 
     private static final TalonSRX intakeMotor = new TalonSRX(RobotMap.INTAKE);
+    private static final VictorSPX intakeMotorVictor = new VictorSPX(RobotMap.INTAKE);
 
     private static final Solenoid solenoidZero = new Solenoid(RobotMap.SOLENOID_ZERO);
     private static final Solenoid solenoidOne = new Solenoid(RobotMap.SOLENOID_ONE);
@@ -25,10 +27,12 @@ public class Intake extends SubsystemBase {
     private Intake() {
         super();
         intakeMotor.setInverted(true);
+        intakeMotorVictor.setInverted(true);
     }
 
     public void setSpeed(double speed) {
         intakeMotor.set(ControlMode.PercentOutput, speed);
+        intakeMotorVictor.set(ControlMode.PercentOutput, speed);
     }
 
     public void setSolenoids(boolean zero, boolean one, boolean two) {
