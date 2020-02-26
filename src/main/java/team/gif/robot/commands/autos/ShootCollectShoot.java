@@ -33,11 +33,6 @@ public class ShootCollectShoot extends SequentialCommandGroup {
                 new ParallelCommandGroup(new Pivot(true),
                                          new RevFlywheel(true),
                                          new Fire(0,true))
-                /*,
-                new ParallelCommandGroup(new RevFlywheel(true),
-                                         new Fire(0,true)).withTimeout(3),
-                new RevFlywheel(false)*/
-
         );
 
     }
