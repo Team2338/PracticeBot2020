@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import team.gif.lib.chosenAuto;
+import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.autos.Mobility;
 import team.gif.robot.commands.autos.ShootCollectShoot;
@@ -39,10 +39,10 @@ public class Robot extends TimedRobot {
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
-  private SendableChooser<chosenAuto> autoModeChooser = new SendableChooser<>();
+  private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
   private SendableChooser<delay> delayChooser = new SendableChooser<>();
 
-  private chosenAuto Auto;
+  private autoMode chosenAuto;
   private delay chosenDelay;
 
   public static Limelight limelight;
@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
 
-    Auto = autoModeChooser.getSelected();
+    chosenAuto = autoModeChooser.getSelected();
     chosenDelay = delayChooser.getSelected();
 
     SmartDashboard.putBoolean("One", Indexer.getInstance().getState()[1]);
@@ -160,7 +160,7 @@ public class Robot extends TimedRobot {
     double matchTime = DriverStation.getInstance().getMatchTime();
     boolean runAuto = false;
 
-    if (matchTime < (15.0 - delay.getvalue(chosenDelay)) && !runAuto) {
+    if (matchTime < (15.0 - chosenDelay.getValue()) && !runAuto) {
       if (m_autonomousCommand != null) {
         m_autonomousCommand.schedule();
       }
@@ -217,8 +217,8 @@ public class Robot extends TimedRobot {
     //setp tabs
     Autotab = Shuffleboard.getTab("auto");
 
-    autoModeChooser.setDefaultOption("Mobility",chosenAuto.MOBILITY);
-    autoModeChooser.addOption("ShootCollectShoot",chosenAuto.SHOOTCOLLECTSHOOT);
+    autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY);
+    autoModeChooser.addOption("5 Ball Auto", autoMode.SHOOTCOLLECTSHOOT);
 
     Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
@@ -244,16 +244,17 @@ public class Robot extends TimedRobot {
   }
 
   public void updateauto(){
-    if(Auto == chosenAuto.MOBILITY){
+    if(chosenAuto == autoMode.MOBILITY){
       m_autonomousCommand = new Mobility();
       System.out.println("mobility selected");
-    } else if(Auto == chosenAuto.SHOOTCOLLECTSHOOT){
+    } else if(chosenAuto == autoMode.SHOOTCOLLECTSHOOT){
       m_autonomousCommand = new ShootCollectShoot();
       System.out.println("shootcollectshoot was chosen");
-    }else if(Auto ==null) {
+    }else if(chosenAuto ==null) {
       System.out.println("Auto is null");
     }
-    System.out.println("auto "+Auto);
+
+    System.out.println("auto " + chosenAuto);
 
   }
 }
