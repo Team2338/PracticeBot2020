@@ -42,10 +42,16 @@ public final class Constants {
 
     public static double kTrackWidth = 0.76884201;
 
-    public static double DRIVE_P = 0.0; // TEST
+    // Must be tuned
+    public static double DRIVE_P = 0.0;
     public static double DRIVE_I = 0.0;
     public static double DRIVE_D = 0.0;
+    public static double DRIVE_ANGLE_P = 0.0;
+    public static double DRIVE_ANGLE_I = 0.0;
+    public static double DRIVE_ANGLE_D = 0.0;
+    public static double DRIVE_ANGLE_I_ZONE = 0.0;
     public static double DRIVE_STRAIGHT_ANGLE_P = 0.0;
     public static double DRIVE_DIST_TOLERANCE = 0;
+    public static double DRIVE_ANGLE_TOLERANCE = 0;
 
 }

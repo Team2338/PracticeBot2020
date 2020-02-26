@@ -10,12 +10,12 @@ import team.gif.robot.subsystems.Drivetrain;
 
 public class DriveStraight extends CommandBase {
 
-    public static double setpoint;
-    public static double angle;
+    private double setpoint;
+    private double angle;
     // public static double speedCap;
-    public static double distLeftError;
-    public static double distRightError;
-    public static double distError;
+    private double distLeftError;
+    private double distRightError;
+    private double distError;
 
     private PIDCalculator distCalc;
     private PIDCalculator angleCalc;
