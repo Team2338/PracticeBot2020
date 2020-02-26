@@ -257,18 +257,22 @@ public class Robot extends TimedRobot {
   }
 
   public void updateauto(){
-    if(Auto == chosenAuto.MOBILITY){
+    if (Auto == chosenAuto.MOBILITY) {
       m_autonomousCommand = new Mobility();
       System.out.println("mobility selected");
-    } else if(Auto == chosenAuto.SHOOTCOLLECTSHOOT){
+
+    } else if (Auto == chosenAuto.SHOOTCOLLECTSHOOT) {
       m_autonomousCommand = new ShootCollectShoot();
       System.out.println("shootcollectshoot was chosen");
-    } else if(Auto == chosenAuto.PIDMOBILITY) { // PIDMobility for test auto
+
+    } else if (Auto == chosenAuto.PIDMOBILITY) { // PIDMobility for test auto
       m_autonomousCommand = new PIDMobility();
       System.out.println("PIDMobility chosen");
-    } else if(Auto ==null) {
+
+    } else if (Auto == null) {
       System.out.println("Auto is null");
     System.out.println("auto "+ Auto);
 
   }
+ }
 }
