@@ -89,6 +89,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
 
+    /*
     Auto = autoModeChooser.getSelected();
     chosenDelay = delayChooser.getSelected();
 
@@ -180,6 +181,15 @@ public class Robot extends TimedRobot {
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
+
+    SmartDashboard.putNumber("Left Ticks ", drivetrain.getLeftEncoderPos());
+    SmartDashboard.putNumber("Right Ticks ", drivetrain.getRightEncoderPos());
+
+    SmartDashboard.putNumber("Left Meters ", drivetrain.getLeftPosMeters());
+    SmartDashboard.putNumber("Right Meters ", drivetrain.getRightPosMeters());
+
+    SmartDashboard.putNumber("Left Velocity ", drivetrain.getLeftVelMeters());
+    SmartDashboard.putNumber("Right Velocity ", drivetrain.getRightVelMeters());
   }
 
   /**

@@ -24,19 +24,28 @@ public final class Constants {
         public static final double maxVelocity = 5000;
     }
 
-    //        //pivot globals
+    /*        //pivot globals
     public static double marginx =1;
     public static double marginx1 =.5;
-    public static double kPx =.05;
-    public static double kFx = .2;
+    public static double kPx =.04;
+    public static double kIx = .025;
 
-    // Drivetrain physical constants (IN METERS)
-    public static double WHEEL_DIAMETER = 0.127;
+     */
+
+    // Drivetrain globals
+    public static double WHEEL_DIAMETER = 0.127; // DIAMETER AND RADIUS ARE IN METERS
     public static double WHEEL_RADIUS = 0.0635;
     public static double ENCODER_EPR = 4096; // EPR = Edges per revolution (IN TICKS)
 
     public static double TICKS_TO_METERS = (WHEEL_DIAMETER * Math.PI) / (ENCODER_EPR);
-    public static final double DPS_TO_MPS = ((WHEEL_DIAMETER * 0.0254 * Math.PI) / (360) * (10)); // Degrees per sec. to meters per sec.
+    public static double DPS_TO_MPS = ((WHEEL_DIAMETER * 0.0254 * Math.PI) / (360) * (10)); // Degrees per sec. to meters per sec.
 
+    public static double kTrackWidth = 0.76884201;
+
+    public static double DRIVE_P = 0.0; // TEST
+    public static double DRIVE_I = 0.0;
+    public static double DRIVE_D = 0.0;
+    public static double DRIVE_STRAIGHT_ANGLE_P = 0.0;
+    public static double DRIVE_DIST_TOLERANCE = 0;
 
 }

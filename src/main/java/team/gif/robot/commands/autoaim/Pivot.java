@@ -1,5 +1,6 @@
 package team.gif.robot.commands.autoaim;
 
+/*
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -93,3 +94,5 @@ public class Pivot extends CommandBase {
         return endthing;
     }
 }
+
+ */
