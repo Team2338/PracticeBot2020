@@ -20,6 +20,7 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.autos.Mobility;
 import team.gif.robot.commands.autos.ShootCollectShoot;
+import team.gif.robot.commands.autos.threeBallAuto;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
@@ -219,6 +220,7 @@ public class Robot extends TimedRobot {
 
     autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY);
     autoModeChooser.addOption("5 Ball Auto", autoMode.SHOOTCOLLECTSHOOT);
+    autoModeChooser.addOption("3ball auto",autoMode.THREEBALLAUTO);
 
     Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
@@ -250,7 +252,9 @@ public class Robot extends TimedRobot {
     } else if(chosenAuto == autoMode.SHOOTCOLLECTSHOOT){
       m_autonomousCommand = new ShootCollectShoot();
       System.out.println("shootcollectshoot was chosen");
-    }else if(chosenAuto ==null) {
+    }else if(chosenAuto== autoMode.THREEBALLAUTO){
+      m_autonomousCommand = new threeBallAuto();
+    } else if(chosenAuto ==null) {
       System.out.println("Auto is null");
     }
 
