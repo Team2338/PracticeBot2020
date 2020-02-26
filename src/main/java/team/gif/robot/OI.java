@@ -95,7 +95,7 @@ public class OI {
         aLB.whileHeld(new RevFlywheel(true));
         aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));
-        aLT.whileHeld(new Pivot());
+        aLT.whileHeld(new Pivot(true));
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());

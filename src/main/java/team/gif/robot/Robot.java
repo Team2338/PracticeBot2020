@@ -102,6 +102,7 @@ public class Robot extends TimedRobot {
     //the jyoonk i want to see on the board
     SmartDashboard.putNumber("tx",limelight.getXOffset());
     SmartDashboard.putNumber("ty",limelight.getYOffset());
+
     /*
     SmartDashboard.putNumber(" 3D X",limelight.getCamTran()[0]);
     SmartDashboard.putNumber(" 3D Y",limelight.getCamTran()[1]);
@@ -195,7 +196,7 @@ public class Robot extends TimedRobot {
     // Rumble the joysticks at specified time
     // to notify the driver to begin to climb
     double matchTime = DriverStation.getInstance().getMatchTime();
-    System.out.println("Match time: " + matchTime);
+    //System.out.println("Match time: " + matchTime);
     oi.setRumble(matchTime > 18.0 && matchTime < 22.0);
   }
 
@@ -216,8 +217,8 @@ public class Robot extends TimedRobot {
     //setp tabs
     Autotab = Shuffleboard.getTab("auto");
 
-    autoModeChooser.addOption("ShootCollectShoot",chosenAuto.SHOOTCOLLECTSHOOT);
     autoModeChooser.setDefaultOption("Mobility",chosenAuto.MOBILITY);
+    autoModeChooser.addOption("ShootCollectShoot",chosenAuto.SHOOTCOLLECTSHOOT);
 
     Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 

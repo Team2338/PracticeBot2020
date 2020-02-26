@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Globals.java" afterDir="false" />
+    <list default="true" id="9c8e0c01-461a-4d0c-82fb-02b17d92623b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Robot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autoaim/Pivot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autoaim/Pivot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autos/ShootCollectShoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/autos/ShootCollectShoot.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="DefaultGradleProjectSettings">
-    <option name="isMigrated" value="true" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -37,17 +37,13 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>flywheelMotor.setIdleMode(</find>
-      <find>Shooter()</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1WtgqCCLQ4OnItjlcFGNKuY5ODm" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1YHASiZaMRngx0XaaN2KMED0PP1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -55,89 +51,31 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.3175745" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
-    <property name="show.unlinked.gradle.project.popup" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="team.gif.robot.commands.intake" />
-      <recent name="team.gif.robot.commands.indexer" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\uwish\IdeaProjects\PracticeBot2020\libs" />
-      <recent name="C:\Users\uwish\IdeaProjects\PracticeBot2020\vendordeps" />
-    </key>
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="" />
-      <created>1579974494014</created>
+      <changelist id="9c8e0c01-461a-4d0c-82fb-02b17d92623b" name="Default Changelist" comment="" />
+      <created>1582595438336</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1579974494014</updated>
+      <updated>1582595438336</updated>
     </task>
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list />
-          </value>
-        </entry>
-        <entry key="User">
-          <value>
-            <list />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="WindowStateProjectService">
-    <state x="275" y="27" key="#Notifications" timestamp="1581553114862">
+    <state x="389" y="110" key="FileChooserDialogImpl" timestamp="1582506515587">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="27" key="#Notifications/0.0.1366.738@0.0.1366.738" timestamp="1581553114862" />
-    <state x="705" y="326" key="FileChooserDialogImpl" timestamp="1581900855396">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="705" y="326" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1581900855396" />
-    <state x="184" y="0" width="1162" height="738" key="SettingsEditor" timestamp="1581547529617">
+    <state x="389" y="110" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1582506515587" />
+    <state x="163" y="0" key="SettingsEditor" timestamp="1582506535555">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1579979422455" />
-    <state x="184" y="0" width="1162" height="738" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1581547529617" />
-    <state x="65" y="0" key="new project wizard" timestamp="1581487517593">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="65" y="0" key="new project wizard/0.0.1366.738@0.0.1366.738" timestamp="1581487517593" />
-    <state x="339" y="165" key="run.anything.popup" timestamp="1581906345487">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1581906345487" />
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1581547881335">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1581547881335" />
+    <state x="163" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1582506535555" />
   </component>
 </project>
