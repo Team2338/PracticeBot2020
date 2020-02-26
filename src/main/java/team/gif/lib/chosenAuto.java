@@ -3,6 +3,7 @@ package team.gif.lib;
 public enum chosenAuto {
 
     MOBILITY(0),
+    PIDMOBILITY(0),
     SHOOTCOLLECTSHOOT(0);
 
     private int value;

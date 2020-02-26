@@ -9,7 +9,7 @@ public class PIDMobility extends SequentialCommandGroup {
     public PIDMobility() {
         System.out.println("PIDMobility");
         addCommands(
-                new DriveStraight(50000) // Based on conversion: 50,000 ticks = ~4.87
+                new DriveStraight(55000) // Based on conversion: 55,000 ticks = ~5.357 m
                 // new GyroTurn(90)
         );
     }

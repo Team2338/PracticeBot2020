@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.chosenAuto;
 import team.gif.lib.delay;
 import team.gif.robot.commands.autos.Mobility;
+import team.gif.robot.commands.autos.PIDMobility;
 import team.gif.robot.commands.autos.ShootCollectShoot;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.indexer.IndexerScheduler;
@@ -27,6 +28,7 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
 import edu.wpi.first.wpilibj.DriverStation;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -111,7 +113,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber(" 3D pitch",limelight.getCamTran()[4]);
     SmartDashboard.putNumber(" 3D roll",limelight.getCamTran()[5]);
 */
-    SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
+    //SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
     //System.out.println("tx"+limelight.getXOffset());
     //System.out.println("ty"+limelight.getYOffset());
     SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
@@ -121,7 +123,17 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
     //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
 
-    SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
+    //SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
+
+    // Encoder values
+    SmartDashboard.putNumber("Left Ticks ", Drivetrain.getInstance().getLeftEncoderPos());
+    SmartDashboard.putNumber("Right Ticks ", Drivetrain.getInstance().getRightEncoderPos());
+
+    SmartDashboard.putNumber("Left Meters ", Drivetrain.getInstance().getLeftPosMeters());
+    SmartDashboard.putNumber("Right Meters ", Drivetrain.getInstance().getRightPosMeters());
+
+    // Pigeon values
+    SmartDashboard.putNumber("Heading/Angle ", Pigeon.getInstance().getHeading());
   }
 
   /**
@@ -181,15 +193,6 @@ public class Robot extends TimedRobot {
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
-
-    SmartDashboard.putNumber("Left Ticks ", drivetrain.getLeftEncoderPos());
-    SmartDashboard.putNumber("Right Ticks ", drivetrain.getRightEncoderPos());
-
-    SmartDashboard.putNumber("Left Meters ", drivetrain.getLeftPosMeters());
-    SmartDashboard.putNumber("Right Meters ", drivetrain.getRightPosMeters());
-
-    SmartDashboard.putNumber("Left Velocity ", drivetrain.getLeftVelMeters());
-    SmartDashboard.putNumber("Right Velocity ", drivetrain.getRightVelMeters());
   }
 
   /**
@@ -228,6 +231,7 @@ public class Robot extends TimedRobot {
 
     autoModeChooser.addOption("ShootCollectShoot",chosenAuto.SHOOTCOLLECTSHOOT);
     autoModeChooser.setDefaultOption("Mobility",chosenAuto.MOBILITY);
+    autoModeChooser.addOption("PIDMobility", chosenAuto.PIDMOBILITY);
 
     Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
@@ -259,10 +263,12 @@ public class Robot extends TimedRobot {
     } else if(Auto == chosenAuto.SHOOTCOLLECTSHOOT){
       m_autonomousCommand = new ShootCollectShoot();
       System.out.println("shootcollectshoot was chosen");
-    }else if(Auto ==null) {
+    } else if(Auto == chosenAuto.PIDMOBILITY) { // PIDMobility for test auto
+      m_autonomousCommand = new PIDMobility();
+      System.out.println("PIDMobility chosen");
+    } else if(Auto ==null) {
       System.out.println("Auto is null");
-    }
-    System.out.println("auto "+Auto);
+    System.out.println("auto "+ Auto);
 
   }
 }
