@@ -23,12 +23,13 @@ public class ShootCollectShoot extends SequentialCommandGroup {
 
         addCommands(
                 new IntakeDown(),
-                new ParallelDeadlineGroup(new AutoDrive(2.5,.47,.47),
+                new ParallelDeadlineGroup(new AutoDrive(2.3,.47,.47),//OG 2.5
                                           new IntakeRun(true),
                                           new RevFlywheel(false)),
-                new IntakeRun(false),
+                //new IntakeRun(false),
                 new ParallelCommandGroup(new Pivot(false),
                                          new RevFlywheel(true)).withTimeout(2.5),
+                new IntakeRun(false),
                 new ParallelCommandGroup(new Pivot(true),
                                          new RevFlywheel(true),
                                          new Fire(0,true))
