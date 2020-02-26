@@ -7,7 +7,11 @@
 
 package team.gif.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.SparkMax;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -59,6 +63,7 @@ public class Robot extends TimedRobot {
 
   public static final boolean isCompBot = true;
 
+  public CANSparkMax climbermotor = new CANSparkMax(RobotMap.CLIMBER, CANSparkMaxLowLevel.MotorType.kBrushless);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -68,6 +73,7 @@ public class Robot extends TimedRobot {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
+    climbermotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     oi = new OI();
@@ -89,6 +95,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
 
+
     Auto = autoModeChooser.getSelected();
     chosenDelay = delayChooser.getSelected();
 
@@ -102,6 +109,7 @@ public class Robot extends TimedRobot {
     //the jyoonk i want to see on the board
     SmartDashboard.putNumber("tx",limelight.getXOffset());
     SmartDashboard.putNumber("ty",limelight.getYOffset());
+
     /*
     SmartDashboard.putNumber(" 3D X",limelight.getCamTran()[0]);
     SmartDashboard.putNumber(" 3D Y",limelight.getCamTran()[1]);
@@ -176,7 +184,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
+    climbermotor.set(0);
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
@@ -187,6 +195,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    climbermotor.set(0);
     CommandScheduler.getInstance().run();
 
     boolean state = Indexer.getInstance().getKnopf();
