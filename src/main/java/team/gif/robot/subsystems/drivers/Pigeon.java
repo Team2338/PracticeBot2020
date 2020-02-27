@@ -1,5 +1,8 @@
 package team.gif.robot.subsystems.drivers;
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 import com.ctre.phoenix.sensors.PigeonIMU;
 import team.gif.robot.RobotMap;
 
@@ -14,6 +17,9 @@ public class Pigeon {
             instance = new Pigeon();
         }
         return instance;
+    }
+    public void setYaw(double yaw){
+
     }
 
     public double[] getYPR(){
@@ -49,7 +55,11 @@ public class Pigeon {
 
     public double[] getAccumulatedGyro(){
         double[] accumGyro = new double[3];
+<<<<<<< HEAD
         pigeon.getAccumGyro(accumGyro);
+=======
+        pidgeon.getAccumGyro(accumGyro);
+>>>>>>> master
         return accumGyro;
     }
 
@@ -61,7 +71,11 @@ public class Pigeon {
 
     public double[] getrawGyro(){
         double[] rawGyro = new double[3];
+<<<<<<< HEAD
         pigeon.getRawGyro(rawGyro);
+=======
+        pidgeon.getRawGyro(rawGyro);
+>>>>>>> master
         return rawGyro;
     }
 

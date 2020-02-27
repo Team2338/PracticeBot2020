@@ -17,16 +17,22 @@ public class ShootCollectShoot extends SequentialCommandGroup {
     public ShootCollectShoot(){
         System.out.println("shootcollectshoot acitivated");
         Robot.limelight.setPipeline(0);
+        /*
+        * TODO: speed up moveback
+        * */
 
         addCommands(
-                //new Pivot(),
                 new IntakeDown(),
-                new ParallelDeadlineGroup(new AutoDrive(3,.35,.35),
-                        new IntakeRun(true),new RevFlywheel(true)),
-                new ParallelCommandGroup(new RevFlywheel(true),
-                                         new Fire(0,false)).withTimeout(5),
-                new RevFlywheel(false)
-
+                new ParallelDeadlineGroup(new AutoDrive(2.3,.47,.47),//OG 2.5
+                                          new IntakeRun(true),
+                                          new RevFlywheel(false)),
+                //new IntakeRun(false),
+                new ParallelCommandGroup(new Pivot(false),
+                                         new RevFlywheel(true)).withTimeout(2.5),
+                new IntakeRun(false),
+                new ParallelCommandGroup(new Pivot(true),
+                                         new RevFlywheel(true),
+                                         new Fire(0,true))
         );
 
     }

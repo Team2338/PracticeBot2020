@@ -23,7 +23,7 @@ public enum delay {
     delay(double value) {
         this.value = value;
     }
-    public static double getvalue(delay d){
-        return d.value;
+    public double getValue(){
+        return this.value;
     }
 }

@@ -1,13 +1,16 @@
 package team.gif.lib;
 
-public enum chosenAuto {
+public enum autoMode {
 
     MOBILITY(0),
     PIDMOBILITY(0),
     SHOOTCOLLECTSHOOT(0);
 
     private int value;
-    chosenAuto(int value) {
+    autoMode(int value) {
         this.value = value;
+    }
+    public int getValue(){
+        return this.value;
     }
 }
