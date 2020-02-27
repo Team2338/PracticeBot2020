@@ -10,7 +10,8 @@ public class autoshoot extends SequentialCommandGroup{
     public autoshoot() {
         System.out.println("autoshoot");
         addCommands(
-            new Pivot()/*,
+            //new Pivot()
+                /*,
             new RevFlywheel(true),
             new Fire(5)*/
         );

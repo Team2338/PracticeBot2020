@@ -1,5 +1,5 @@
 package team.gif.robot.subsystems.drivers;
-/*import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.PigeonIMU;
 import team.gif.robot.RobotMap;
 
 public class Pigeon {
@@ -13,6 +13,9 @@ public class Pigeon {
             instance = new Pigeon();
         }
         return instance;
+    }
+    public void setYaw(double yaw){
+
     }
 
     public double[] getYPR(){
@@ -41,7 +44,7 @@ public class Pigeon {
     public double[] getAccumulatedGyro(){
         double[] accumGyro = new double[3];
         pidgeon.getAccumGyro(accumGyro);
-        return accumGyro
+        return accumGyro;
     }
 
     public short[] getBiasedAccel(){
@@ -53,7 +56,7 @@ public class Pigeon {
     public double[] getrawGyro(){
         double[] rawGyro = new double[3];
         pidgeon.getRawGyro(rawGyro);
-        return rawGyro
+        return rawGyro;
     }
 
     public double[] getAccelAngles() {
@@ -74,4 +77,4 @@ public class Pigeon {
         return rawMagnet;
     }
 
-}*/
+}
