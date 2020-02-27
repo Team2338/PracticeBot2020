@@ -7,9 +7,13 @@ import team.gif.robot.subsystems.ExampleSubsystem;
 import team.gif.robot.subsystems.Hanger;
 
 public class HangerManualControl extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
+    //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
+    public static final double ClimberupGain = 1;
+    public static final double ClimberdownGain = 1;
     private final Hanger hanger = Hanger.getInstance();
-    private final OI oi = OI.getInstance();
+    //private final OI oi = OI.getInstance();
     double speed;
 
     public HangerManualControl() {
@@ -25,24 +29,29 @@ public class HangerManualControl extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        speed = oi.aux.getY(GenericHID.Hand.kLeft);
+        speed = OI.getInstance().aux.getY(GenericHID.Hand.kLeft);
 
         if (speed < 0.05 && speed > -0.05) {
             speed = 0;
-        }
+        }else if (speed<= -.05){
+            speed = speed*ClimberdownGain*12;
+        }else if (speed>= .05){
+            speed = speed*ClimberupGain*12;
 
-        hanger.setSpeed(speed);
+        }
+        hanger.setVoltage(speed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        hanger.setSpeed(0);
+        hanger.setVoltage(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        //return OI.getInstance().aux.getXButtonReleased();
         return false;
     }
 }

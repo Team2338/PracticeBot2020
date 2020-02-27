@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
   private Command indexCommand = new IndexerScheduler();
 
   // TODO: remove
-  private Command hangerCommand = new HangerManualControl();
+  //--private Command hangerCommand = new HangerManualControl();
 
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
@@ -106,8 +106,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
 
     // Hanger
-    SmartDashboard.putNumber("Hang Position", Hanger.getInstance().getPosition());
-    SmartDashboard.putNumber("Hanger Output", OI.getInstance().aux.getY(GenericHID.Hand.kLeft));
+    //--SmartDashboard.putNumber("Hang Position", Hanger.getInstance().getPosition());
+    //--SmartDashboard.putNumber("Hanger Output", OI.getInstance().aux.getY(GenericHID.Hand.kLeft));
   }
 
   /**
@@ -158,7 +158,7 @@ public class Robot extends TimedRobot {
     indexCommand.schedule();
 
     // TODO: also remove
-    hangerCommand.schedule();
+    //--hangerCommand.schedule();
   }
 
   /**

@@ -22,6 +22,7 @@ public class Hanger extends SubsystemBase {
 
     public Hanger() {
         super();
+        hangMotor.setInverted(false);
         hangMotor.restoreFactoryDefaults();
 
         // Limit Switch
@@ -45,6 +46,12 @@ public class Hanger extends SubsystemBase {
         hangPIDController.setSmartMotionMinOutputVelocity(Constants.Hanger.MIN_VELOCITY, smartMotionSlot);
         hangPIDController.setSmartMotionMaxAccel(Constants.Hanger.MAX_ACCELERATION, smartMotionSlot);
         hangPIDController.setSmartMotionAllowedClosedLoopError(Constants.Hanger.ALLOWABLE_ERROR, smartMotionSlot);
+
+        hangMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    }
+
+    public void setVoltage(double speed){
+        hangMotor.setVoltage(speed);
     }
 
     public void setSpeed(double speed) {
