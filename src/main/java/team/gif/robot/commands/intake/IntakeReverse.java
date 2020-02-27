@@ -22,10 +22,6 @@ public class IntakeReverse extends CommandBase {
     @Override
     public void execute() {
         intake.setSpeed(-0.5);
-        Indexer.getInstance().setSpeedTwo(0.4);
-        Indexer.getInstance().setSpeedThree(0.4);
-        Indexer.getInstance().setSpeedFour(0.4);
-        Indexer.getInstance().setSpeedFive(0.4);
     }
 
     // Called once the command ends or is interrupted.
