@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c8e0c01-461a-4d0c-82fb-02b17d92623b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ctre_phoenix_api_java_5_18_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ctre_phoenix_api_java_5_18_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ctre_phoenix_wpiapi_java_5_18_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ctre_phoenix_wpiapi_java_5_18_1.xml" afterDir="false" />
@@ -20,6 +19,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpilibNewCommands_wpilibNewCommands_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpilibNewCommands_wpilibNewCommands_java_2020_2_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpilibj_wpilibj_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpilibj_wpilibj_java_2020_2_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpiutil_wpiutil_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpiutil_wpiutil_java_2020_2_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_cdense_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_cdense_0_38.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_core_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_core_0_38.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_ddense_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_ddense_0_38.xml" afterDir="false" />
@@ -27,12 +27,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_fdense_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_fdense_0_38.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_simple_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_simple_0_38.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_zdense_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_zdense_0_38.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Robot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/RobotMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/RobotMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Constants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
