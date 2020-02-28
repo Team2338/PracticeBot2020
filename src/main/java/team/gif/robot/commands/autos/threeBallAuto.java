@@ -8,9 +8,11 @@ import team.gif.robot.Robot;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.drivetrain.AutoDrive;
 import team.gif.robot.commands.intake.IntakeDown;
+import team.gif.robot.commands.intake.IntakeUp;
 import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
+
 
 public class threeBallAuto extends SequentialCommandGroup{
 
@@ -22,12 +24,12 @@ public class threeBallAuto extends SequentialCommandGroup{
          * */
 
         addCommands(
-                new IntakeDown(),
-                new ParallelDeadlineGroup(new AutoDrive(1.3,.47,.47),//OG 2.5
-                        new IntakeRun(true),
-                        new RevFlywheel(false)),
-                new IntakeRun(false),
-                new ParallelCommandGroup(new Pivot(true),
+                new IntakeUp().withTimeout(.5),
+                new AutoDrive(1.3,.47,.47),//OG 2.5
+                new RevFlywheel(true).withTimeout(2.5),
+                new Pivot(true).withTimeout(3),
+                new ParallelCommandGroup(
+                        new Pivot(true),
                         new RevFlywheel(true),
                         new Fire(0,true))
         );

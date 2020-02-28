@@ -27,10 +27,11 @@ public class Fire extends CommandBase {
 
     @Override
     public void execute() {
-        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 400))
-                && (Indexer.getInstance().getState()[5] == true)
-                /*&& (fired<fire || fire ==0)*/
-                && (!limelight||((Math.abs(Robot.limelight.getXOffset())<Constants.Pivot.marginxF)&&Robot.limelight.hasTarget()))) {
+        if (    (Shooter.getInstance().getVelocity() > (Constants.Shooter.RPM - 400)) && // Shooter within speed range
+                (Indexer.getInstance().getState()[5] == true) &&                         // Stage 5 has ball
+                (   !limelight  ||                                                       // no limelight feed
+                    (   (Math.abs(Robot.limelight.getXOffset())<Constants.Pivot.marginxF) && // target within range
+                         Robot.limelight.hasTarget()))) {                                    // target acquired
             Indexer.getInstance().setSpeedFive(0.5);
             fired++;
             if((fired<fire)&&(Indexer.getInstance().getState()[5]== true)){
