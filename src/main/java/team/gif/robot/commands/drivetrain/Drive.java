@@ -10,6 +10,7 @@ package team.gif.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.robot.OI;
+import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -46,10 +47,19 @@ public class Drive extends CommandBase {
     public void execute() {
         leftSpeed = oi.driver.getY(GenericHID.Hand.kLeft) - oi.driver.getX(GenericHID.Hand.kRight);
         rightSpeed = oi.driver.getY(GenericHID.Hand.kLeft) + oi.driver.getX(GenericHID.Hand.kRight);
-        if (leftSpeed < 0.05 && leftSpeed > -0.05) {
+
+        // Practice Bot
+        if (leftSpeed < 0.05 && leftSpeed > -0.05 && !Robot.isCompBot) {
             leftSpeed = 0;
         }
-        if (rightSpeed < 0.05 && rightSpeed > -0.05) {
+        if (rightSpeed < 0.05 && rightSpeed > -0.05  && !Robot.isCompBot) {
+            rightSpeed = 0;
+        }
+        // Comp Bot
+        if (leftSpeed < 0.075 && leftSpeed > -0.075 && Robot.isCompBot) {
+            leftSpeed = 0;
+        }
+        if (rightSpeed < 0.075 && rightSpeed > -0.075  && Robot.isCompBot) {
             rightSpeed = 0;
         }
         if (leftSpeed < -1 || leftSpeed > 1) {
