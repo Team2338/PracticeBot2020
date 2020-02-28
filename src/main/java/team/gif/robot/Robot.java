@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
-  public static final boolean isCompBot = true;
+  public static final boolean isCompBot = false;
 
   //public CANSparkMax climbermotor = new CANSparkMax(RobotMap.CLIMBER, CANSparkMaxLowLevel.MotorType.kBrushless);
   //should not be in Robot.java put this in the subsystem made for it
