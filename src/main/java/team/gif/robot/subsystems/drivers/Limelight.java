@@ -130,7 +130,7 @@ public class Limelight {
      *
      * @return percentage of image (0 to 100)
      */
-    public double getArea() {
+    public static double getArea() {
         return table.getEntry("ta").getDouble(0.0);
     }
 

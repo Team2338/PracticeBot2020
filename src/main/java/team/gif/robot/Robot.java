@@ -31,6 +31,7 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
 import edu.wpi.first.wpilibj.DriverStation;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -58,6 +59,17 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static ShuffleboardTab Autotab;
+  public static ShuffleboardTab Teletab;
+  public static ShuffleboardTab Endgametab;
+
+  public static ShuffleboardTab Shootertab;
+  public static ShuffleboardTab Drivetraintab;
+  public static ShuffleboardTab IndexerIntaketab;
+  public static ShuffleboardTab Climbertab;
+  public static ShuffleboardTab PigeonLimelighttab;
+
+
+
 
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
@@ -99,36 +111,8 @@ public class Robot extends TimedRobot {
     chosenAuto = autoModeChooser.getSelected();
     chosenDelay = delayChooser.getSelected();
 
-    SmartDashboard.putBoolean("One", Indexer.getInstance().getState()[1]);
-    SmartDashboard.putBoolean("Two", Indexer.getInstance().getState()[2]);
-    SmartDashboard.putBoolean("Three", Indexer.getInstance().getState()[3]);
-    SmartDashboard.putBoolean("Four", Indexer.getInstance().getState()[4]);
-    SmartDashboard.putBoolean("Five", Indexer.getInstance().getState()[5]);
-
-    //limelight.setStreamMode(0);
-    //the jyoonk i want to see on the board
-    SmartDashboard.putNumber("tx",limelight.getXOffset());
-    SmartDashboard.putNumber("ty",limelight.getYOffset());
-
-    /*
-    SmartDashboard.putNumber(" 3D X",limelight.getCamTran()[0]);
-    SmartDashboard.putNumber(" 3D Y",limelight.getCamTran()[1]);
-    SmartDashboard.putNumber(" 3D Z",limelight.getCamTran()[2]);
-    SmartDashboard.putNumber(" 3D yaw",limelight.getCamTran()[3]);
-    SmartDashboard.putNumber(" 3D pitch",limelight.getCamTran()[4]);
-    SmartDashboard.putNumber(" 3D roll",limelight.getCamTran()[5]);
-*/
-    SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
-    //System.out.println("tx"+limelight.getXOffset());
-    //System.out.println("ty"+limelight.getYOffset());
-    SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
     CommandScheduler.getInstance().run();
 
-    // pneumatics
-    SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
-    //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
-
-    SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
   }
 
   /**
@@ -222,15 +206,26 @@ public class Robot extends TimedRobot {
   }
 
   public void tabsetup(){
-    //setp tabs
-    Autotab = Shuffleboard.getTab("auto");
+    //setup tabs
+    Autotab = Shuffleboard.getTab("auto tab");
+    Teletab = Shuffleboard.getTab("Tele tab");
+    Endgametab = Shuffleboard.getTab("EndGame tab");
 
+    Shootertab = Shuffleboard.getTab("Shooter Tab");
+    Drivetraintab = Shuffleboard.getTab("Drivetrain Tab");
+    IndexerIntaketab = Shuffleboard.getTab("Indexer+Intake tab");
+    PigeonLimelighttab = Shuffleboard.getTab("Pigeon+Limelight tab");
+
+    Climbertab = Shuffleboard.getTab("Climber tab");
+
+    //setup the auto choosers
     autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY);
     autoModeChooser.addOption("5 Ball Auto", autoMode.SHOOTCOLLECTSHOOT);
-
     Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
+    //setup delay choosers
     delayChooser.setDefaultOption("0", delay.DELAY_0);
+    //adding options to the delay chooser
     delayChooser.addOption("1", delay.DELAY_1);
     delayChooser.addOption("2", delay.DELAY_2);
     delayChooser.addOption("3", delay.DELAY_3);
@@ -249,6 +244,53 @@ public class Robot extends TimedRobot {
 
 
     Autotab.add("Delay", delayChooser);
+  }
+
+  public void updateShuffle(){
+
+    // the stuff i want to see on the board
+
+    //indexer
+    IndexerIntaketab.add("One", Indexer.getInstance().getState()[1]);
+    IndexerIntaketab.add("Two", Indexer.getInstance().getState()[2]);
+    IndexerIntaketab.add("Three", Indexer.getInstance().getState()[3]);
+    IndexerIntaketab.add("Four", Indexer.getInstance().getState()[4]);
+    IndexerIntaketab.add("Five", Indexer.getInstance().getState()[5]);
+
+    //Pigeon Limelight tab
+    PigeonLimelighttab.add("tx",limelight.getXOffset());
+    PigeonLimelighttab.add("ty",limelight.getYOffset());
+    PigeonLimelighttab.add("area",limelight.getArea());
+
+    PigeonLimelighttab.add("Limelight 3D X",limelight.getCamTran()[0]);
+    PigeonLimelighttab.add("Limelight 3D Y",limelight.getCamTran()[1]);
+    PigeonLimelighttab.add("Limelight 3D Z",limelight.getCamTran()[2]);
+    PigeonLimelighttab.add("Limelight 3D yaw",limelight.getCamTran()[3]);
+    PigeonLimelighttab.add("Limelight 3D pitch",limelight.getCamTran()[4]);
+    PigeonLimelighttab.add("Limelight 3D roll",limelight.getCamTran()[5]);
+    PigeonLimelighttab.add("Limelight hastarget",limelight.hasTarget());
+
+    PigeonLimelighttab.add("Gyro YPR", Pigeon.getInstance().getYPR());
+    PigeonLimelighttab.add("Gyro Accel angles", Pigeon.getInstance().getAccelAngles());
+    PigeonLimelighttab.add("Gyro Acumulated Gyro", Pigeon.getInstance().getAccumulatedGyro());
+    PigeonLimelighttab.add("Gyro Biased Accel", Pigeon.getInstance().getBiasedAccel());
+    PigeonLimelighttab.add("Gyro biasedMagnetometer", Pigeon.getInstance().getBiasedMagnetometer());
+    PigeonLimelighttab.add("Gyro Quaternions", Pigeon.getInstance().getQuaternions());
+    PigeonLimelighttab.add("Gyro rawGyro", Pigeon.getInstance().getrawGyro());
+    PigeonLimelighttab.add("Gyro RawMagnet", Pigeon.getInstance().getRawMagnet());
+    PigeonLimelighttab.add("Gyro Temp", Pigeon.getInstance().getTemp());
+
+    //shooter tab
+    Shootertab.add("RPM", Shooter.getInstance().getVelocity());
+    Shootertab.add("hastarget",limelight.hasTarget());
+
+    // teleop tab
+    Teletab.add("Pressure", compressor.getPressureSwitchValue());
+    Teletab.add("Enable Indexer", Globals.indexerEnabled);
+
+    //drivetrain tab
+
+
   }
 
   public void updateauto(){
