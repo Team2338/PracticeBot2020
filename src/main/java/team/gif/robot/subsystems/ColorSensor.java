@@ -14,6 +14,7 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class ColorSensor extends SubsystemBase {
@@ -45,15 +46,29 @@ public class ColorSensor extends SubsystemBase {
    * Note: Any example colors should be calibrated as the user needs, these
    * are here as a basic example.
    */
+  /**
+   * Original
+   */
 //  private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
 //  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
 //  private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
 //  private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
+  /** Above table
+   *
+   */
   private final Color kBlueTarget = ColorMatch.makeColor(0.130, 0.427, 0.429);
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.551, 0.250);
   private final Color kRedTarget = ColorMatch.makeColor(0.480, 0.370, 0.150);
   private final Color kYellowTarget = ColorMatch.makeColor(0.320, 0.550, 0.130);
+
+  /**
+   * Under Table
+   */
+//     private final Color kBlueTarget = ColorMatch.makeColor(0.198, 0.457, 0.345);
+//     private final Color kGreenTarget = ColorMatch.makeColor(0.224, 0.510, 0.266);
+//     private final Color kRedTarget = ColorMatch.makeColor(0.330, 0.442, 0.228);
+//     private final Color kYellowTarget = ColorMatch.makeColor(0.286, 0.518, 0.195);
 
   public static ColorSensor getInstance() {
     if (instance == null) {
@@ -142,9 +157,9 @@ public class ColorSensor extends SubsystemBase {
      * Open Smart Dashboard or Shuffleboard to see the color detected by the
      * sensor.
      */
-//    SmartDashboard.putNumber("Red", detectedColor.red);
-//    SmartDashboard.putNumber("Green", detectedColor.green);
-//    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
 //    SmartDashboard.putNumber("IR", IR);
 
     /**

@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/Globals.java" afterDir="false" />
+    <list default="true" id="7b9b7967-41d2-4ac6-a3ac-4a33cb415740" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/RotationCount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_10_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_10_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_10_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_3_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_3_0_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_cameraserver_cameraserver_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_cameraserver_cameraserver_java_2020_2_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_cscore_cscore_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_cscore_cscore_java_2020_2_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_hal_hal_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_hal_hal_java_2020_2_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_ntcore_ntcore_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_ntcore_ntcore_java_2020_2_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_thirdparty_frc2020_opencv_opencv_java_3_4_7_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_thirdparty_frc2020_opencv_opencv_java_3_4_7_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpilibNewCommands_wpilibNewCommands_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpilibNewCommands_wpilibNewCommands_java_2020_2_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpilibj_wpilibj_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpilibj_wpilibj_java_2020_2_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpiutil_wpiutil_java_2020_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__edu_wpi_first_wpiutil_wpiutil_java_2020_2_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_cdense_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_cdense_0_38.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_core_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_core_0_38.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_ddense_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_ddense_0_38.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_dsparse_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_dsparse_0_38.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_fdense_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_fdense_0_38.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_simple_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_simple_0_38.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_zdense_0_38.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ejml_ejml_zdense_0_38.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/OI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/OI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/commands/ReadColor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/team/gif/robot/subsystems/ColorSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/team/gif/robot/subsystems/ColorSensor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,12 +106,20 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5184252a-3f8a-4b71-a978-6f25d240c3f9" name="Default Changelist" comment="" />
+      <changelist id="7b9b7967-41d2-4ac6-a3ac-4a33cb415740" name="Default Changelist" comment="" />
       <created>1579974494014</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1579974494014</updated>
     </task>
+    <task id="LOCAL-00001" summary="Moved SmartDashboard to Robot.java">
+      <created>1582493037813</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582493037813</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -113,11 +149,19 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Moved SmartDashboard to Robot.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved SmartDashboard to Robot.java" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="275" y="27" key="#Notifications" timestamp="1581553114862">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="275" y="27" key="#Notifications/0.0.1366.738@0.0.1366.738" timestamp="1581553114862" />
+    <state x="106" y="7" key="CommitChangelistDialog2" timestamp="1582493035188">
+      <screen x="0" y="0" width="1458" height="864" />
+    </state>
+    <state x="106" y="7" key="CommitChangelistDialog2/0.0.1458.864@0.0.1458.864" timestamp="1582493035188" />
     <state x="705" y="326" key="FileChooserDialogImpl" timestamp="1581900855396">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -127,6 +171,14 @@
     </state>
     <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1579979422455" />
     <state x="184" y="0" width="1162" height="738" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1581547529617" />
+    <state x="322" y="165" key="Vcs.Push.Dialog.v2" timestamp="1582493050561">
+      <screen x="0" y="0" width="1458" height="864" />
+    </state>
+    <state x="322" y="165" key="Vcs.Push.Dialog.v2/0.0.1458.864@0.0.1458.864" timestamp="1582493050561" />
+    <state x="426" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1582853722841">
+      <screen x="0" y="0" width="1458" height="864" />
+    </state>
+    <state x="426" y="256" key="com.intellij.ide.util.TipDialog/0.0.1458.864@0.0.1458.864" timestamp="1582853722841" />
     <state x="65" y="0" key="new project wizard" timestamp="1581487517593">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

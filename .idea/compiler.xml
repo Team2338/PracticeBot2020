@@ -8,6 +8,8 @@
       <module name="PracticeBot2020.test" target="11" />
       <module name="PracticeBot2020_2.main" target="11" />
       <module name="PracticeBot2020_2.test" target="11" />
+      <module name="robot.PracticeBot2020.main" target="11" />
+      <module name="robot.PracticeBot2020.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

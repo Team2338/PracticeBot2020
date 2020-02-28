@@ -12,7 +12,6 @@ import team.gif.robot.commands.shooter.Fire;
 //import team.gif.robot.commands.shooter.LedModes;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import edu.wpi.first.wpilibj.GenericHID;
-import team.gif.robot.commands.ReadColor;
 
 
 public class OI {
