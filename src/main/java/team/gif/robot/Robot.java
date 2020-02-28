@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj.DriverStation;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
+// for init commit
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
