@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
+import team.gif.robot.commands.hanger.HangerManualControl;
+import team.gif.robot.commands.hanger.ToggleHangerLock;
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;
@@ -96,6 +98,8 @@ public class OI {
         aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));
         aLT.whileHeld(new Pivot(true));
+        aY.toggleWhenPressed(new HangerManualControl());
+        //aX.toggleWhenPressed(new ToggleHangerLock(true));
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());

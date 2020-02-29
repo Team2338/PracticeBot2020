@@ -24,6 +24,28 @@ public final class Constants {
         public static final double maxVelocity = 5000;
     }
 
+    public static class Hanger {
+        public static final double P = 0.0; // Connor said 4
+        public static final double I = 0.0;
+        public static final double D = 0.0;
+        public static final double F = 0; //0.425
+        public static final double REV_F = 0.38;
+
+        public static final double GRAV_FEED_FORWARD = 300 / 1023.0; // Percent constant to counteract gravity
+        //public static final double REV_GRAV_FEED_FORWARD = 50 / 1023.0;
+
+        public static final int ALLOWABLE_ERROR = 100; // Error to allow move command to end
+        public static final int MAX_VELOCITY = 2000; // RPM
+        public static final int MIN_VELOCITY = 0;
+        //public static final int REV_MAX_VELOCITY = 2800;
+        public static final int MAX_ACCELERATION = 1500;
+
+        public static final int MAX_POS = 30000;
+        public static final int MIN_POS = 1000;
+
+        public static final int DEPLOYED_POS = 15000;
+    }
+
     //        //pivot globals
     public static class Pivot {
         //public static double marginx = 0;

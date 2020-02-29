@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -25,12 +27,13 @@ import team.gif.lib.delay;
 import team.gif.robot.commands.autos.Mobility;
 import team.gif.robot.commands.autos.ShootCollectShoot;
 import team.gif.robot.commands.drivetrain.Drive;
+import team.gif.robot.commands.hanger.HangerManualControl;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.Hanger;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
-import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -128,6 +131,10 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
 
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
+
+    // Hanger
+    //--SmartDashboard.putNumber("Hang Position", Hanger.getInstance().getPosition());
+    //--SmartDashboard.putNumber("Hanger Output", OI.getInstance().aux.getY(GenericHID.Hand.kLeft));
   }
 
   /**
@@ -187,6 +194,9 @@ public class Robot extends TimedRobot {
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
+
+    // TODO: also remove
+    //--hangerCommand.schedule();
   }
 
   /**
