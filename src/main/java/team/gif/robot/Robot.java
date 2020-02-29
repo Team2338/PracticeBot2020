@@ -284,9 +284,18 @@ public class Robot extends TimedRobot {
     Shootertab.add("RPM", Shooter.getInstance().getVelocity());
     Shootertab.add("hastarget",limelight.hasTarget());
 
+
     // teleop tab
     Teletab.add("Pressure", compressor.getPressureSwitchValue());
     Teletab.add("Enable Indexer", Globals.indexerEnabled);
+    Teletab.add("tx",limelight.getXOffset());
+    Teletab.add("ty",limelight.getYOffset());
+
+    Teletab.add("One", Indexer.getInstance().getState()[1]);
+    Teletab.add("Two", Indexer.getInstance().getState()[2]);
+    Teletab.add("Three", Indexer.getInstance().getState()[3]);
+    Teletab.add("Four", Indexer.getInstance().getState()[4]);
+    Teletab.add("Five", Indexer.getInstance().getState()[5]);
 
     //drivetrain tab
 
