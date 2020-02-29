@@ -1,6 +1,7 @@
 package team.gif.robot.subsystems;
 
 import com.revrobotics.*;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -12,6 +13,8 @@ public class Hanger extends SubsystemBase {
     private static final CANPIDController hangPIDController = hangMotor.getPIDController();
     private static final CANEncoder hangEncoder = hangMotor.getEncoder();
     private static final CANDigitalInput limitSwitch = hangMotor.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyClosed);
+
+    private static final Solenoid hangerRatchet = new Solenoid(RobotMap.SOLENOID_HANGER);
 
     public static Hanger getInstance() {
         if (instance == null) {
@@ -72,5 +75,9 @@ public class Hanger extends SubsystemBase {
 
     public double getPosition() {
         return hangEncoder.getPosition();
+    }
+
+    public void setLocked(boolean setOpen) {
+        hangerRatchet.set(setOpen);
     }
 }

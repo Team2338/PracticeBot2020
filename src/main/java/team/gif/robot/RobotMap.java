@@ -30,6 +30,7 @@ public abstract class RobotMap {
     public static final int SOLENOID_ZERO = 0;
     public static final int SOLENOID_ONE = 1;
     public static final int SOLENOID_TWO = 2;
+    public static final int SOLENOID_HANGER = 3;
 
     // Controllers
     public static final int DRIVER_CONTROLLER_ID = 0;
