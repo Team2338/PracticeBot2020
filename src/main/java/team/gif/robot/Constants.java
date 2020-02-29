@@ -28,7 +28,7 @@ public final class Constants {
         public static final double P = 0.0; // Connor said 4
         public static final double I = 0.0;
         public static final double D = 0.0;
-        public static final double F = 0.425;
+        public static final double F = 0; //0.425
         public static final double REV_F = 0.38;
 
         public static final double GRAV_FEED_FORWARD = 300 / 1023.0; // Percent constant to counteract gravity

@@ -98,7 +98,7 @@ public class OI {
         aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));
         aLT.whileHeld(new Pivot(true));
-        aY.toggleWhenActive(new HangerManualControl());
+        aY.toggleWhenPressed(new HangerManualControl());
         //aX.toggleWhenPressed(new ToggleHangerLock(true));
 
         aDPadDown.whenPressed(new IntakeDown());

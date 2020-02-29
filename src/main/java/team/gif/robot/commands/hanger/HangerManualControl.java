@@ -19,7 +19,7 @@ public class HangerManualControl extends CommandBase {
 
     public HangerManualControl() {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(hanger);
+        //addRequirements(hanger);
     }
 
     // Called when the command is initially scheduled.
@@ -36,20 +36,22 @@ public class HangerManualControl extends CommandBase {
 
         if (speed < 0.05 && speed > -0.05) {
             speed = 0;
-        }else if (speed<= -.05){
+        }/*else if (speed<= -.05){
             speed = speed*ClimberdownGain*12;
         }else if (speed>= .05){
             speed = speed*ClimberupGain*12;
 
-        }
-        hanger.setVoltage(speed);
+        }*/
+        //hanger.setVoltage(speed);
+        hanger.setSpeed(speed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         hanger.setOpen(false);
-        hanger.setVoltage(0);
+        //hanger.setVoltage(0);
+        hanger.setSpeed(0);
         Globals.hangerActive = false;
     }
 
