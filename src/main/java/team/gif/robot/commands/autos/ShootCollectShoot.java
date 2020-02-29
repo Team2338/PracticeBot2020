@@ -23,9 +23,10 @@ public class ShootCollectShoot extends SequentialCommandGroup {
 
         addCommands(
                 new IntakeDown(),
-                new ParallelDeadlineGroup(new AutoDrive(2.3,.47,.47),//OG 2.5
+                new ParallelDeadlineGroup(new AutoDrive(2.3,.47,.47),//OG 2.5 ----- time was 2.3
                                           new IntakeRun(true),
                                           new RevFlywheel(false)),
+                new IntakeRun(true).withTimeout(0.5),
                 //new IntakeRun(false),
                 new ParallelCommandGroup(new Pivot(false),
                                          new RevFlywheel(true)).withTimeout(2.5),

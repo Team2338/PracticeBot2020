@@ -48,20 +48,22 @@ public class Drive extends CommandBase {
         leftSpeed = oi.driver.getY(GenericHID.Hand.kLeft) - oi.driver.getX(GenericHID.Hand.kRight);
         rightSpeed = oi.driver.getY(GenericHID.Hand.kLeft) + oi.driver.getX(GenericHID.Hand.kRight);
 
-        // Practice Bot
-        if (leftSpeed < 0.05 && leftSpeed > -0.05 && !Robot.isCompBot) {
-            leftSpeed = 0;
+        if (Robot.isCompBot) { // Comp Bot
+            if (leftSpeed < 0.075 && leftSpeed > -0.075 ) {
+                leftSpeed = 0;
+            }
+            if (rightSpeed < 0.075 && rightSpeed > -0.075 ) {
+                rightSpeed = 0;
+            }
+        } else { // Practice Bot
+            if (leftSpeed < 0.05 && leftSpeed > -0.05 ) {
+                leftSpeed = 0;
+            }
+            if (rightSpeed < 0.05 && rightSpeed > -0.05 ) {
+                rightSpeed = 0;
+            }
         }
-        if (rightSpeed < 0.05 && rightSpeed > -0.05  && !Robot.isCompBot) {
-            rightSpeed = 0;
-        }
-        // Comp Bot
-        if (leftSpeed < 0.075 && leftSpeed > -0.075 && Robot.isCompBot) {
-            leftSpeed = 0;
-        }
-        if (rightSpeed < 0.075 && rightSpeed > -0.075  && Robot.isCompBot) {
-            rightSpeed = 0;
-        }
+
         if (leftSpeed < -1 || leftSpeed > 1) {
             leftSpeed = leftSpeed / Math.abs(leftSpeed);
         }

@@ -22,8 +22,8 @@ public class StageTwo extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Intake.getInstance().setSpeed(0.5);
         indexer.setSpeedTwo(0.5);
+        Intake.getInstance().setSpeed(0.5);
     }
 
     // Called once the command ends or is interrupted.
