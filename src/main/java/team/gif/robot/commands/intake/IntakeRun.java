@@ -23,10 +23,13 @@ public class IntakeRun extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        System.out.println("Indexer " + Indexer.getInstance().getState()[1] + "  " + Indexer.getInstance().getState()[2]);
+        //System.out.println("Indexer         2 " + Indexer.getInstance().getState()[2]);
         if (!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2]) {
             intake.setSpeed(0.75);
         } else {
             intake.setSpeed(0);
+            System.out.println("Stop Intake");
         }
         if (!buttonState) {
             intake.setSpeed(0);
@@ -35,7 +38,9 @@ public class IntakeRun extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        //intake.setSpeed(0);
+    }
 
     // Returns true when the command should end.
     @Override
