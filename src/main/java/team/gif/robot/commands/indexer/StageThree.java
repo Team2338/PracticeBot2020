@@ -21,8 +21,8 @@ public class StageThree extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        indexer.setSpeedTwo(0.45);
         indexer.setSpeedThree(0.45);
+        indexer.setSpeedTwo(0.45);
     }
 
     // Called once the command ends or is interrupted.

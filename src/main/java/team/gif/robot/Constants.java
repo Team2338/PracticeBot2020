@@ -20,7 +20,7 @@ public final class Constants {
     public static class Shooter {
         public static final double kP = 0.0005; // 0.0005 0.0008
         public static final double kF = 0.000166;
-        public static final double RPM = 4500;
+        public static final double RPM = Robot.isCompBot ? 4200 : 4500; // C:4200 P: 4500
         public static final double maxVelocity = 5000;
     }
 
@@ -47,11 +47,13 @@ public final class Constants {
     }
 
     //        //pivot globals
-    public static double marginx =1;
-    public static double marginx1 =.5;
-    public static double kPx =.05;
-    public static double kFx = .2;
-
+    public static class Pivot {
+        //public static double marginx = 0;
+        public static double marginxF = 1.8;//OG 2 in the 3 ball auto
+        public static double marginxI = 4;//og 4
+        public static double kPx = .05;//from .037
+        public static double kIx = .007;//from .025
+    }
     public static double WheelDiameter = 0.127;
     public static double encoderEPR;
     //public static double
