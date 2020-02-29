@@ -21,11 +21,13 @@ public class opponent_ball_auto extends SequentialCommandGroup {
 
         addCommands(
                 new IntakeDown(),
-
                 new ParallelDeadlineGroup(new AutoDrive(2.3,.47,.47),//OG 2.5
                         new IntakeRun(true),
                         new RevFlywheel(false)),
 
+                new AutoDrive(2,.5,-.5),//turn right
+                new AutoDrive(2,.5,.5),//move forward
+                new AutoDrive(2,-.3,.3),//turn left
                 new ParallelCommandGroup(new Pivot(false),
                         new RevFlywheel(true)).withTimeout(2.5),
                 new IntakeRun(false),
