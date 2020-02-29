@@ -26,7 +26,7 @@ public class HangerManualControl extends CommandBase {
     @Override
     public void initialize() {
         hanger.setOpen(true);
-        Globals.hangerActive = true;
+        //Globals.hangerActive = true;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -52,7 +52,7 @@ public class HangerManualControl extends CommandBase {
         hanger.setOpen(false);
         //hanger.setVoltage(0);
         hanger.setSpeed(0);
-        Globals.hangerActive = false;
+        //Globals.hangerActive = false;
     }
 
     // Returns true when the command should end.
