@@ -13,8 +13,7 @@ public class IntakeMid extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        intake.setSolenoids(true, false, true);
+    public void initialize() { intake.setSolenoids(false, true,false);
     }
 
     @Override
