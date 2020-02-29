@@ -77,7 +77,7 @@ public class Hanger extends SubsystemBase {
         return hangEncoder.getPosition();
     }
 
-    public void setLocked(boolean setOpen) {
+    public void setOpen(boolean setOpen) {
         hangerRatchet.set(setOpen);
     }
 }

@@ -18,7 +18,7 @@ public class ToggleHangerLock extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        hanger.setLocked(setOpen);
+        //hanger.setLocked(setOpen);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -29,7 +29,7 @@ public class ToggleHangerLock extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        hanger.setLocked(!setOpen);
+        //hanger.setLocked(!setOpen);
     }
 
     // Returns true when the command should end.
