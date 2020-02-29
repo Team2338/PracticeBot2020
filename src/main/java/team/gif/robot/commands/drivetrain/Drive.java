@@ -64,6 +64,13 @@ public class Drive extends CommandBase {
             }
         }
 
+        if (leftSpeed < -1 || leftSpeed > 1) {
+            leftSpeed = leftSpeed / Math.abs(leftSpeed);
+        }
+        if (rightSpeed < -1 || rightSpeed > 1) {
+            rightSpeed = rightSpeed / Math.abs(rightSpeed);
+        }
+
         Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
 
 
