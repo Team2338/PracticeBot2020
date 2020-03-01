@@ -19,6 +19,7 @@ public class HangerManualControl extends CommandBase {
     double speed;
 
     public HangerManualControl() {
+
         // Use addRequirements() here to declare subsystem dependencies.
         //addRequirements(hanger);
     }

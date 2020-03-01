@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
 
   public static ShuffleboardTab Autotab;
 
-  public static  OI oi;
+  public static OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
   public static final boolean isCompBot = false;
@@ -73,6 +73,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
+    SmartDashboard.putBoolean("Hanging", false);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
     // autonomous chooser on the dashboard.
@@ -144,7 +145,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    //CommandScheduler.getInstance().run();
   }
 
   /**
@@ -152,6 +152,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    SmartDashboard.putBoolean("Hanging", false);
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -181,6 +182,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    SmartDashboard.putBoolean("Hanging", false);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -201,7 +203,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    //CommandScheduler.getInstance().run();
 
     boolean state = Indexer.getInstance().getKnopf();
     //SmartDashboard.putBoolean("High/Low", state);
