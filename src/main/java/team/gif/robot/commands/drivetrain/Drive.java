@@ -35,7 +35,7 @@ public class Drive extends CommandBase {
 
     double leftSpeed;
     double rightSpeed;
-    private final OI oi = OI.getInstance();
+    private final OI oi = Robot.oi; // .oi; //OI.getInstance();
 
     // Called when the command is initially scheduled.
     @Override

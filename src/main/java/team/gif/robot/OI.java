@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
+import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
 import team.gif.robot.commands.hanger.ToggleHangerLock;
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
@@ -19,14 +20,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 public class OI {
     private static OI instance = null;
 
-    public static OI getInstance() {
+/*    public static OI getInstance() {
         if (instance == null) {
             instance = new OI();
         }
 
         return instance;
     }
-
+*/
     /*
      * TODO: Instantiate all joysticks/controllers and their buttons here
      *
@@ -99,6 +100,8 @@ public class OI {
         aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));
         aY.toggleWhenPressed(new HangerManualControl());
+        aStart.whenPressed(new ControlPanelPosition(true));
+        aBack.whenPressed(new ControlPanelPosition(false));
         //aX.toggleWhenPressed(new ToggleHangerLock(true));
 
         aDPadDown.whenPressed(new IntakeDown());

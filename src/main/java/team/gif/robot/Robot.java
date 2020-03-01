@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
 
   public static ShuffleboardTab Autotab;
 
-  public OI oi;
+  public static  OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
   public static final boolean isCompBot = false;
@@ -80,6 +80,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
     limelight = new Limelight();
     updateauto();
+    Hanger.getInstance().zeroEncoder();
   }
 
   /**
@@ -131,8 +132,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
 
     // Hanger
-    //--SmartDashboard.putNumber("Hang Position", Hanger.getInstance().getPosition());
-    //--SmartDashboard.putNumber("Hanger Output", OI.getInstance().aux.getY(GenericHID.Hand.kLeft));
+    SmartDashboard.putNumber("Hang Position", Hanger.getInstance().getPosition());
   }
 
   /**
@@ -144,7 +144,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    CommandScheduler.getInstance().run();
+    //CommandScheduler.getInstance().run();
   }
 
   /**
@@ -201,7 +201,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    CommandScheduler.getInstance().run();
+    //CommandScheduler.getInstance().run();
 
     boolean state = Indexer.getInstance().getKnopf();
     //SmartDashboard.putBoolean("High/Low", state);

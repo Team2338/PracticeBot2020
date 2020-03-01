@@ -40,10 +40,13 @@ public final class Constants {
         //public static final int REV_MAX_VELOCITY = 2800;
         public static final int MAX_ACCELERATION = 1500;
 
-        public static final int MAX_POS = 30000;
-        public static final int MIN_POS = 1000;
+        public static final int MAX_POS = 165;
+        public static final int MIN_POS = 0;
 
         public static final int DEPLOYED_POS = 15000;
+
+        // Color Wheel
+        public static final int COLOR_WHEEL_POSITION = 30;
     }
 
     //        //pivot globals

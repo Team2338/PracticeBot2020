@@ -31,7 +31,7 @@ public class Hanger extends SubsystemBase {
         // Limit Switch
         limitSwitch.enableLimitSwitch(true);
         // Soft Limits
-        hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, false);
+        hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
         hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, false);
 
         hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.Hanger.MAX_POS);
@@ -51,6 +51,10 @@ public class Hanger extends SubsystemBase {
         hangPIDController.setSmartMotionAllowedClosedLoopError(Constants.Hanger.ALLOWABLE_ERROR, smartMotionSlot);*/
 
         hangMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    }
+
+    public void zeroEncoder() {
+        hangEncoder.setPosition(0);
     }
 
     public void setVoltage(double speed){
@@ -77,7 +81,10 @@ public class Hanger extends SubsystemBase {
         return hangEncoder.getPosition();
     }
 
-    public void setOpen(boolean setOpen) {
-        hangerRatchet.set(setOpen);
+    public void setOpen() {
+        hangerRatchet.set(true);
+    }
+    public void setClosed() {
+        hangerRatchet.set(false);
     }
 }
