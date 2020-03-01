@@ -8,52 +8,41 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 
 public class Fire extends CommandBase {
-    public int fire =0;
-    public int fired =0;
-    public boolean endthing = false;
-    boolean limelight = false;
-    public Fire(int fireval,boolean limelightval) {
-        limelight = limelightval;
-        fire =fire;
-        fired =0;
-        //addRequirements(Shooter.getInstance());
+    boolean useLimelight = false;
+
+    public Fire(boolean useLimelightVal) {
+        useLimelight = useLimelightVal;
     }
 
     @Override
     public void initialize() {
-        fired =0;
-
+        //System.out.println("Firing init");
     }
 
     @Override
     public void execute() {
+        //System.out.println("Firing execute");
         if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 400))
                 && (Indexer.getInstance().getState()[5] == true)
-                /*&& (fired<fire || fire ==0)*/
-                && (!limelight||((Math.abs(Robot.limelight.getXOffset())<Constants.Pivot.marginxF)&&Robot.limelight.hasTarget()))) {
+                && (!useLimelight || ((Math.abs(Robot.limelight.getXOffset()) < Constants.Pivot.marginxF) && Robot.limelight.hasTarget()))) {
             Indexer.getInstance().setSpeedFive(0.5);
-            fired++;
-            if((fired<fire)&&(Indexer.getInstance().getState()[5]== true)){
-                endthing = false;
-            }else{
-                endthing = true;
-            }
-
-        }else {
+            //System.out.println("Firing setSpeed .5");
+        } else {
+            //System.out.println("Firing setSpeed 0");
             Indexer.getInstance().setSpeedFive(0);
         }
-        //System.out.println("flywheeeling");
+    }
+
+
+    @Override
+    public boolean isFinished() {
+        //System.out.println("Firing isFinished");
+        return false;
     }
 
     @Override
     public void end(boolean interrupted) {
-
-        Shooter.getInstance().setPID(0);
+        //System.out.println("Firing interupted");
         Indexer.getInstance().setSpeedFive(0);
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }
