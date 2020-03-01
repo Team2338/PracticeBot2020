@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
-  public static final boolean isCompBot = false;
+  public static final boolean isCompBot = true;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -193,9 +193,6 @@ public class Robot extends TimedRobot {
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
-
-    // TODO: also remove
-    //--hangerCommand.schedule();
   }
 
   /**

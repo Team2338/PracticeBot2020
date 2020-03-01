@@ -85,6 +85,7 @@ public class Hanger extends SubsystemBase {
     public void setOpen() {
         hangerRatchet.set(true);
     }
+
     public void setClosed() {
         hangerRatchet.set(false);
     }

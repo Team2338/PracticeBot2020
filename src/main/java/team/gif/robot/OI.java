@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
+import team.gif.robot.commands.hanger.ControlPanelDown;
 import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
 import team.gif.robot.commands.hanger.ToggleHangerLock;
@@ -90,8 +91,8 @@ public class OI {
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false));
         aY.toggleWhenPressed(new HangerManualControl());
-        aStart.whenPressed(new ControlPanelPosition(true));
-        aBack.whenPressed(new ControlPanelPosition(false));
+        aStart.whenPressed(new ControlPanelPosition());
+        aBack.whenPressed(new ControlPanelDown());
         //aX.toggleWhenPressed(new ToggleHangerLock(true));
 
         aDPadDown.whenPressed(new IntakeDown());
