@@ -44,7 +44,6 @@ public class ControlPanelPosition extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         hanger.setSpeed(0);
-//        hanger.setClosed();
     }
 
 }

@@ -36,18 +36,10 @@ public class HangerManualControl extends CommandBase {
     public void execute() {
         speed = -Robot.oi.aux.getY(GenericHID.Hand.kLeft);
 
-        //speed = -OI.getInstance().aux.getY(GenericHID.Hand.kLeft);
-
         if ( speed > -0.05 && speed < 0.05) {
             speed = 0;
         }
- /*       /*else if (speed<= -.05){
-            speed = speed*ClimberdownGain*12;
-        }else if (speed>= .05){
-            speed = speed*ClimberupGain*12;
 
-        }*/
-        //hanger.setVoltage(speed);
         hanger.setSpeed(speed);
     }
 
@@ -55,15 +47,12 @@ public class HangerManualControl extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         hanger.setClosed();
-        //hanger.setVoltage(0);
         hanger.setSpeed(0);
-        //Globals.hangerActive = false;
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //return OI.getInstance().aux.getXButtonReleased();
         return false;
     }
 }
