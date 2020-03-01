@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Hanger extends SubsystemBase {
     public static Hanger instance = null;
@@ -79,5 +80,6 @@ public class Hanger extends SubsystemBase {
 
     public void setOpen(boolean setOpen) {
         hangerRatchet.set(setOpen);
+        SmartDashboard.putBoolean("Hanging", setOpen);
     }
 }

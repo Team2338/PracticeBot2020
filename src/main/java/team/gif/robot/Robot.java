@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
-  public static final boolean isCompBot = false;
+  public static final boolean isCompBot = true;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -73,6 +73,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
+    SmartDashboard.putBoolean("Hanging", false);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
     // autonomous chooser on the dashboard.
@@ -152,6 +153,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    SmartDashboard.putBoolean("Hanging", false);
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -181,6 +183,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    SmartDashboard.putBoolean("Hanging", false);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
