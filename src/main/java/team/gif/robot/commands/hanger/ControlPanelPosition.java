@@ -41,7 +41,7 @@ public class ControlPanelPosition extends CommandBase {
                 hanger.setSpeed(0);
                 finished = true;
             }
-        }else{
+        } else {
             if (hanger.getPosition() > Constants.Hanger.MIN_POS) {
                 hanger.setSpeed(-0.3);
                 System.out.println("going down");
