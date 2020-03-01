@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.OI;
 import team.gif.robot.subsystems.Hanger;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ToggleHangerLock extends CommandBase {
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
