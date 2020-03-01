@@ -32,11 +32,12 @@ public class HangerManualControl extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        speed = OI.getInstance().aux.getY(GenericHID.Hand.kLeft);
+        speed = -OI.getInstance().aux.getY(GenericHID.Hand.kLeft);
 
-        if (speed < 0.05 && speed > -0.05) {
+        if ( speed > -0.05 && speed < 0.05) {
             speed = 0;
-        }/*else if (speed<= -.05){
+        }
+ /*       /*else if (speed<= -.05){
             speed = speed*ClimberdownGain*12;
         }else if (speed>= .05){
             speed = speed*ClimberupGain*12;
