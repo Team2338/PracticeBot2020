@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Globals;
 import team.gif.robot.OI;
+import team.gif.robot.Robot;
 import team.gif.robot.subsystems.ExampleSubsystem;
 import team.gif.robot.subsystems.Hanger;
 
@@ -33,7 +34,7 @@ public class HangerManualControl extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        speed = -OI.getInstance().aux.getY(GenericHID.Hand.kLeft);
+        speed = -Robot.oi.aux.getY(GenericHID.Hand.kLeft);
 
         if ( speed > -0.05 && speed < 0.05) {
             speed = 0;

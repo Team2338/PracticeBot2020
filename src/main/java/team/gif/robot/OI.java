@@ -19,14 +19,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 public class OI {
     private static OI instance = null;
 
-    public static OI getInstance() {
-        if (instance == null) {
-            instance = new OI();
-        }
-
-        return instance;
-    }
-
     /*
      * TODO: Instantiate all joysticks/controllers and their buttons here
      *

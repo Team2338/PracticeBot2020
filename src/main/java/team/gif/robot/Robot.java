@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
 
   public static ShuffleboardTab Autotab;
 
-  public OI oi;
+  public static OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
   public static final boolean isCompBot = true;
@@ -145,7 +145,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    CommandScheduler.getInstance().run();
   }
 
   /**
@@ -204,7 +203,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    CommandScheduler.getInstance().run();
 
     boolean state = Indexer.getInstance().getKnopf();
     //SmartDashboard.putBoolean("High/Low", state);
