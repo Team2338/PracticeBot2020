@@ -28,9 +28,15 @@ public class ShootCollectShoot extends SequentialCommandGroup {
 //                                          new RevFlywheel(false)),
                 new IntakeRun().withTimeout(0.5), // sit in position to fully collect ball
                 //new IntakeRun(false),
-                new ParallelCommandGroup(new Pivot(false),
+/*                new ParallelCommandGroup(new Pivot(false),
                                          new RevFlywheel().withTimeout(2.5),
                         new ParallelCommandGroup(new Pivot(true),
+                                         new RevFlywheel(),
+                                         new Fire(true))
+*/
+                new ParallelCommandGroup(new Pivot(),
+                                         new RevFlywheel().withTimeout(2.5),
+                        new ParallelCommandGroup(new Pivot(),
                                          new RevFlywheel(),
                                          new Fire(true))
                 )

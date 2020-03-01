@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
-  public static final boolean isCompBot = true;
+  public static final boolean isCompBot = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     tabsetup();
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    oi = new OI();
+    //oi = new OI();
     limelight = new Limelight();
     updateauto();
     Hanger.getInstance().zeroEncoder();
@@ -190,6 +190,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    oi = new OI();
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();

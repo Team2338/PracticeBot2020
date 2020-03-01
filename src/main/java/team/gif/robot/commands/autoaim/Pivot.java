@@ -9,11 +9,15 @@ import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
 
 public class Pivot extends CommandBase {
-    public static boolean state = false;
-    public Pivot(boolean stateval) {
-        state = stateval;
+//-    public static boolean state = false;
+//-    public Pivot(boolean stateval) {
+    public Pivot() {
+//-        state = stateval;
         SmartDashboard.putBoolean("trying to get there",true);
         SmartDashboard.putBoolean("are we there yet x" , false);
+//-        System.out.println("***** " + state + " *****");
+        Ilooper = 0;
+        looptime = 0;
 
     }
 
@@ -43,12 +47,12 @@ public class Pivot extends CommandBase {
         SmartDashboard.putBoolean("FIRE",false);
         Robot.limelight.setPipeline(0);
         Robot.limelight.setLEDMode(3);
-        if(!state) {
-            SmartDashboard.putNumber("Ilooping",0);
-            System.out.println("reset pivot");
-            Ilooper = 0;
-            looptime = 0;
-        }
+ //       if(!state) {
+ //-           SmartDashboard.putNumber("Ilooping",0);
+ //-           System.out.println("reset pivot");
+ //           Ilooper = 0;
+ //           looptime = 0;
+ //       }
         SmartDashboard.putBoolean("trying to get there",true);
         System.out.println("pivot");
 
