@@ -50,8 +50,8 @@ public class OI {
     public final JoystickButton dStart = new JoystickButton(driver, 8);
     public final JoystickButton dLS = new JoystickButton(driver, 9);
     public final JoystickButton dRS = new JoystickButton(driver, 10);
-    public final AxisButton dRT = new AxisButton(aux,3,.05);
-    public final AxisButton dLT = new AxisButton(aux,2,.05);
+    public final AxisButton dRT = new AxisButton(driver,3,.05);
+    public final AxisButton dLT = new AxisButton(driver,2,.05);
 
     public final POVButton dDPadUp = new POVButton(driver, 0);
     public final POVButton dDPadRight = new POVButton(driver, 90);
@@ -86,6 +86,7 @@ public class OI {
          */
 
         // Driver Controls
+        dLT.whileHeld(new Pivot(true));
         dRB.whileHeld(new IntakeRun(true));
         dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
         dRB.whenReleased(new IntakeRun(false));
@@ -97,7 +98,6 @@ public class OI {
         aLB.whileHeld(new RevFlywheel(true));
         aLB.whenReleased(new RevFlywheel(false));
         aRT.whileHeld(new Fire(0,false));
-        aLT.whileHeld(new Pivot(true));
         aY.toggleWhenPressed(new HangerManualControl());
         //aX.toggleWhenPressed(new ToggleHangerLock(true));
 

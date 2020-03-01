@@ -14,9 +14,6 @@ public class Pivot extends CommandBase {
         state = stateval;
         SmartDashboard.putBoolean("trying to get there",true);
         SmartDashboard.putBoolean("are we there yet x" , false);
-        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
-        //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);
-        //addRequirements(Drivetrain.getInstance());
 
     }
 
@@ -34,9 +31,16 @@ public class Pivot extends CommandBase {
     public double marginxI=0;
     public double initialx =0;
     public double finalx = 0;
+    public double loopedI;
+    public double Ilooptime = 10;
+
+    public double powerR=0;
+    public double powerL =0;
+
 
     @Override
     public void initialize() {
+        SmartDashboard.putBoolean("FIRE",false);
         Robot.limelight.setPipeline(0);
         Robot.limelight.setLEDMode(3);
         if(!state) {
@@ -59,14 +63,17 @@ public class Pivot extends CommandBase {
         System.out.println("pivoting");
         double xoffset = Robot.limelight.getXOffset();
         //double yoffset = Robot.limelight.getYOffset();
-        double powerL;
-        double powerR;
-
 
         //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
-            //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget());
+            //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget())
+        if((Math.abs(xoffset)<Constants.Pivot.marginxF)&&(loopedI<Ilooptime)){
+            powerR = 0;
+            powerL = 0;
+            SmartDashboard.putBoolean("FIRE",true);
 
-        if((Math.abs(xoffset)<marginxI)&&(looped>=looptime)){
+        } else if((Math.abs(xoffset)<marginxI)&&(looped>=looptime)){
+            SmartDashboard.putBoolean("FIRE",false);
+            loopedI++;
             looped++;
             SmartDashboard.putNumber("Ilooping",1);
             Ilooper += xoffset;
@@ -76,6 +83,8 @@ public class Pivot extends CommandBase {
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,1);
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,1);
         }else{
+            SmartDashboard.putBoolean("FIRE",false);
+            loopedI =0;
             if(Math.abs(xoffset)<marginxI){
                 looped++;
             }else{
