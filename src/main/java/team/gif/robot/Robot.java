@@ -21,7 +21,7 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.autos.Mobility;
 import team.gif.robot.commands.autos.OppFiveBall;
-import team.gif.robot.commands.autos.ShootCollectShoot;
+import team.gif.robot.commands.autos.SafeFiveBall;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.ResetHanger;
 import team.gif.robot.commands.indexer.IndexerScheduler;
@@ -235,7 +235,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand = new Mobility();
       System.out.println("Mobility selected");
     } else if(chosenAuto == autoMode.SAFE_5_BALL){
-      m_autonomousCommand = new ShootCollectShoot();
+      m_autonomousCommand = new SafeFiveBall();
       System.out.println("Safe 5 ball was chosen");
     } else if(chosenAuto == autoMode.OPP_5_BALL){
       m_autonomousCommand = new OppFiveBall();

@@ -13,8 +13,8 @@ import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
 
-public class ShootCollectShoot extends SequentialCommandGroup {
-    public ShootCollectShoot(){
+public class SafeFiveBall extends SequentialCommandGroup {
+    public SafeFiveBall(){
         System.out.println("shootcollectshoot acitivated");
         Robot.limelight.setPipeline(0);
         /*
