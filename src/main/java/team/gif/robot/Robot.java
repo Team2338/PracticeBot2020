@@ -79,6 +79,9 @@ public class Robot extends TimedRobot {
     hanger = new Hanger();
     hanger.zeroEncoder();
 
+    // Puts a button on the dashboard which sets the current
+    // hanger position as the 0 position. Does this by calling
+    // the commandBase specifically made for this ResetHanger()
     SmartDashboard.putData("Hanger", new ResetHanger());
   }
 
