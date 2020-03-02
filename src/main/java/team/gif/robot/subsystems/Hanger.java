@@ -8,7 +8,7 @@ import team.gif.robot.RobotMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Hanger extends SubsystemBase {
-    public static Hanger instance = null;
+//    public static Hanger instance = null;
 
     private static final CANSparkMax hangMotor = new CANSparkMax(RobotMap.HANGER, CANSparkMaxLowLevel.MotorType.kBrushless);
     private static final CANPIDController hangPIDController = hangMotor.getPIDController();
@@ -16,13 +16,6 @@ public class Hanger extends SubsystemBase {
     private static final CANDigitalInput limitSwitch = hangMotor.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyClosed);
 
     private static final Solenoid hangerRatchet = new Solenoid(RobotMap.SOLENOID_HANGER);
-
-    public static Hanger getInstance() {
-        if (instance == null) {
-            instance = new Hanger();
-        }
-        return instance;
-    }
 
     public Hanger() {
         super();
@@ -75,5 +68,15 @@ public class Hanger extends SubsystemBase {
 
     public void setClosed() {
         hangerRatchet.set(false);
+    }
+
+    public String getLockState() {
+        String returnVal;
+        returnVal = ( hangerRatchet.get() ) ? "Unlocked" : "Locked";
+        return returnVal;
+    }
+
+    public boolean getLockStateBool() {
+        return hangerRatchet.get();
     }
 }

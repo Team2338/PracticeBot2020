@@ -37,7 +37,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setPID (double setPoint) {
-        SmartDashboard.putNumber("setPoint",setPoint);
         flywheelPIDController.setReference(setPoint, ControlType.kVelocity);
     }
     public double getVelocity () {

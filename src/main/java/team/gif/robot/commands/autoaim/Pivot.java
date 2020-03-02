@@ -10,11 +10,10 @@ import team.gif.robot.subsystems.Drivetrain;
 
 public class Pivot extends CommandBase {
     public Pivot() {
-        SmartDashboard.putBoolean("trying to get there",true);
-        SmartDashboard.putBoolean("are we there yet x" , false);
+//        SmartDashboard.putBoolean("trying to get there",true);
+//        SmartDashboard.putBoolean("are we there yet x" , false);
         Ilooper = 0;
         looptime = 0;
-
     }
 
     public double marginx ;
@@ -40,11 +39,9 @@ public class Pivot extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putBoolean("FIRE",false);
         Robot.limelight.setPipeline(0);
         Robot.limelight.setLEDMode(3);
 
-        SmartDashboard.putBoolean("trying to get there",true);
         System.out.println("pivot");
 
         marginxI  = Constants.Pivot.marginxI;
@@ -54,19 +51,15 @@ public class Pivot extends CommandBase {
 
     @Override
     public void execute() {
-        System.out.println("pivoting");
         double xoffset = Robot.limelight.getXOffset();
 
         if((Math.abs(xoffset)<Constants.Pivot.marginxF)&&(loopedI<Ilooptime)){
             powerR = 0;
             powerL = 0;
-            SmartDashboard.putBoolean("FIRE",true);
 
         } else if((Math.abs(xoffset)<marginxI)&&(looped>=looptime)){
-            SmartDashboard.putBoolean("FIRE",false);
             loopedI++;
             looped++;
-            SmartDashboard.putNumber("Ilooping",1);
             Ilooper += xoffset;
             powerL = -Ilooper*kIx;
             powerR = Ilooper*kIx;
@@ -74,14 +67,12 @@ public class Pivot extends CommandBase {
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,1);
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,1);
         }else{
-            SmartDashboard.putBoolean("FIRE",false);
             loopedI =0;
             if(Math.abs(xoffset)<marginxI){
                 looped++;
             }else{
                 looped = 0;
             }
-            SmartDashboard.putNumber("Ilooping",0);
             Ilooper = 0;
             powerL = -1*kPx*xoffset;
             powerR = 1*kPx*xoffset;
@@ -90,10 +81,6 @@ public class Pivot extends CommandBase {
         }
 
         Drivetrain.getInstance().setSpeed(-powerR ,-powerL);
-        SmartDashboard.putNumber("looptime",looptime);
-        SmartDashboard.putNumber("Ilooper",Ilooper);
-        SmartDashboard.putNumber("PowerL",-powerL);
-        SmartDashboard.putNumber("PowerR",-powerR);
     }
 
     @Override

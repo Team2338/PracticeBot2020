@@ -7,17 +7,12 @@
 
 package team.gif.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.SparkMax;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,7 +23,7 @@ import team.gif.robot.commands.autos.Mobility;
 import team.gif.robot.commands.autos.OppFiveBall;
 import team.gif.robot.commands.autos.ShootCollectShoot;
 import team.gif.robot.commands.drivetrain.Drive;
-import team.gif.robot.commands.hanger.HangerManualControl;
+import team.gif.robot.commands.hanger.ResetHanger;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Hanger;
@@ -66,6 +61,7 @@ public class Robot extends TimedRobot {
   public static ShuffleboardTab Autotab;
 
   public static OI oi;
+  public static Hanger hanger;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
   /**
@@ -74,15 +70,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
-    SmartDashboard.putBoolean("Hanging", false);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     limelight = new Limelight();
     updateauto();
-    Hanger.getInstance().zeroEncoder();
+    hanger = new Hanger();
+    hanger.zeroEncoder();
+
+    SmartDashboard.putData("Hanger", new ResetHanger());
   }
 
   /**
@@ -108,22 +105,21 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Four", Indexer.getInstance().getState()[4]);
     SmartDashboard.putBoolean("Five", Indexer.getInstance().getState()[5]);
 
-    //limelight.setStreamMode(0);
-    //the jyoonk i want to see on the board
-    SmartDashboard.putNumber("tx",limelight.getXOffset());
-    SmartDashboard.putNumber("ty",limelight.getYOffset());
+//    SmartDashboard.putNumber("tx",limelight.getXOffset());
+//    SmartDashboard.putNumber("ty",limelight.getYOffset());
 
     SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
-    SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
+//    SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
     CommandScheduler.getInstance().run();
 
     // pneumatics
-    SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
+//    SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
 
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
 
     // Hanger
-    SmartDashboard.putNumber("Hang Position", Hanger.getInstance().getPosition());
+    SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
+    SmartDashboard.putNumber("Hang Position", Robot.hanger.getPosition());
   }
 
   /**
@@ -142,7 +138,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    SmartDashboard.putBoolean("Hanging", false);
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -166,7 +161,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    SmartDashboard.putBoolean("Hanging", false);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
