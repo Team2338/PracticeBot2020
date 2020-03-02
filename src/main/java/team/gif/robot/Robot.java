@@ -61,16 +61,12 @@ public class Robot extends TimedRobot {
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
 
-  //private NetworkTableEntry pressureEntry;
-
   private RobotContainer m_robotContainer;
 
   public static ShuffleboardTab Autotab;
 
   public static OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
-
-//  public static final boolean isCompBot = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -84,7 +80,6 @@ public class Robot extends TimedRobot {
     tabsetup();
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    //oi = new OI();
     limelight = new Limelight();
     updateauto();
     Hanger.getInstance().zeroEncoder();
@@ -118,23 +113,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("tx",limelight.getXOffset());
     SmartDashboard.putNumber("ty",limelight.getYOffset());
 
-    /*
-    SmartDashboard.putNumber(" 3D X",limelight.getCamTran()[0]);
-    SmartDashboard.putNumber(" 3D Y",limelight.getCamTran()[1]);
-    SmartDashboard.putNumber(" 3D Z",limelight.getCamTran()[2]);
-    SmartDashboard.putNumber(" 3D yaw",limelight.getCamTran()[3]);
-    SmartDashboard.putNumber(" 3D pitch",limelight.getCamTran()[4]);
-    SmartDashboard.putNumber(" 3D roll",limelight.getCamTran()[5]);
-*/
     SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
-    //System.out.println("tx"+limelight.getXOffset());
-    //System.out.println("ty"+limelight.getYOffset());
     SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
     CommandScheduler.getInstance().run();
 
     // pneumatics
     SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
-    //SmartDashboard.putNumber("Pressure", 250 * (pressureSensor.getAverageVoltage() / RobotController.getVoltage5V()));
 
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
 
@@ -162,12 +146,6 @@ public class Robot extends TimedRobot {
     updateauto();
     compressor.stop();
     indexCommand.schedule();
-
-    // schedule the autonomous command (example)
-    /*if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-      compressor.stop();
-    }*/
   }
 
   /**
@@ -208,13 +186,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    boolean state = Indexer.getInstance().getKnopf();
-    //SmartDashboard.putBoolean("High/Low", state);
-
     // Rumble the joysticks at specified time
     // to notify the driver to begin to climb
     double matchTime = DriverStation.getInstance().getMatchTime();
-    //System.out.println("Match time: " + matchTime);
     oi.setRumble(matchTime > 18.0 && matchTime < 22.0);
   }
 

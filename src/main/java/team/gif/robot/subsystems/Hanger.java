@@ -38,19 +38,6 @@ public class Hanger extends SubsystemBase {
         hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.Hanger.MAX_POS);
         hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.Hanger.MIN_POS);
 
-        // PID Controller
-        /*hangPIDController.setP(Constants.Hanger.P);
-        hangPIDController.setI(Constants.Hanger.I);
-        hangPIDController.setD(Constants.Hanger.D);
-        hangPIDController.setFF(Constants.Hanger.F);
-        hangPIDController.setOutputRange(-1, 1);
-
-        int smartMotionSlot = 0;
-        hangPIDController.setSmartMotionMaxVelocity(Constants.Hanger.MAX_VELOCITY, smartMotionSlot);
-        hangPIDController.setSmartMotionMinOutputVelocity(Constants.Hanger.MIN_VELOCITY, smartMotionSlot);
-        hangPIDController.setSmartMotionMaxAccel(Constants.Hanger.MAX_ACCELERATION, smartMotionSlot);
-        hangPIDController.setSmartMotionAllowedClosedLoopError(Constants.Hanger.ALLOWABLE_ERROR, smartMotionSlot);*/
-
         hangMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     }
 

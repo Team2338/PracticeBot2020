@@ -21,13 +21,14 @@ public class RevFlywheel extends CommandBase {
         Shooter.getInstance().setPID(Constants.Shooter.RPM);
     }
 
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() { return false; }
+
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         Shooter.getInstance().setVoltage(0);
     }
 
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() { return false; }
 }
