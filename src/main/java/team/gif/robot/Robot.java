@@ -72,7 +72,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
     SmartDashboard.putBoolean("Hanging", false);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
@@ -230,6 +229,7 @@ public class Robot extends TimedRobot {
   }
 
   public void tabsetup(){
+
     //setp tabs
     Autotab = Shuffleboard.getTab("auto");
 
@@ -257,9 +257,12 @@ public class Robot extends TimedRobot {
 
 
     Autotab.add("Delay", delayChooser);
+
+    autopipeline();
   }
 
   public void updateauto(){
+    autopipeline();
     if(chosenAuto == autoMode.MOBILITY){
       m_autonomousCommand = new Mobility();
       System.out.println("mobility selected");
@@ -272,5 +275,20 @@ public class Robot extends TimedRobot {
 
     System.out.println("auto " + chosenAuto);
 
+  }
+
+  public void autopipeline(){/**sets the limelight pipeline to redside or blue side**/
+
+    Autotab.add("pipeline selected", " !!ERROR!! alliance unselected !!ERROR!!");
+
+    if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
+      Autotab.add("pipeline selected", "Blue");
+      limelight.setPipeline(0);
+    }else if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
+      Autotab.add("pipeline selected", "Red");
+      limelight.setPipeline(1);
+    }else{
+      Autotab.add("pipeline selected", " !!ERROR!! alliance unselected");
+    }
   }
 }
