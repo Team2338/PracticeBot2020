@@ -1,26 +1,24 @@
-package team.gif.robot.commands.autoaim;
+package team.gif.robot.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import team.gif.robot.Globals;
-import team.gif.robot.OI;
-import team.gif.robot.Robot;
 import team.gif.robot.Constants;
+import team.gif.robot.Globals;
+import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Drivetrain;
 
-public class Pivot extends CommandBase {
-
+public class RotateBack extends CommandBase {
     public static boolean state = false;
 
     public static double target_initial_angle;
     public static double target_Final_angle;
 
-    public Pivot(boolean stateval) {
+    public RotateBack(boolean stateval) {
+        target_initial_angle = Globals.Rotate.initial_angle;
+        target_Final_angle = Globals.Rotate.final_angle;
         state = stateval;
         SmartDashboard.putBoolean("trying to get there",true);
         SmartDashboard.putBoolean("are we there yet x" , false);
-
     }
 
     public double marginx ;
@@ -44,44 +42,39 @@ public class Pivot extends CommandBase {
     public double powerL =0;
 
 
+
     @Override
     public void initialize() {
-        target_initial_angle = Robot.limelight.getXOffset();
-        SmartDashboard.putBoolean("FIRE",false);
         Robot.limelight.setPipeline(0);
         Robot.limelight.setLEDMode(3);
+
         if(!state) {
             SmartDashboard.putNumber("Ilooping",0);
             System.out.println("reset pivot");
-            target_initial_angle=0;
-            target_Final_angle =0;
             Ilooper = 0;
             looptime = 0;
-        }
+        }/**reseter code**/
         SmartDashboard.putBoolean("trying to get there",true);
-        System.out.println("pivot");
+        System.out.println("RotateBack");
 
         marginxI  = Constants.Pivot.marginxI;
         kPx  = Constants.Pivot.kPx;
         kIx = Constants.Pivot.kIx;
-        //kFx = Constants.kFx;
     }
 
     @Override
     public void execute() {
-        System.out.println("pivoting");
-        double xoffset = Robot.limelight.getXOffset();
+        System.out.println("rotating back");
+        double xoffset = target_initial_angle - Robot.limelight.getXOffset();
         //double yoffset = Robot.limelight.getYOffset();
 
         //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
-            //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget())
+        //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget())
         if((Math.abs(xoffset)<Constants.Pivot.marginxF)&&(loopedI<Ilooptime)){
+            endthing = true;
             powerR = 0;
             powerL = 0;
-            SmartDashboard.putBoolean("FIRE",true);
-
         } else if((Math.abs(xoffset)<marginxI)&&(looped>=looptime)){
-            SmartDashboard.putBoolean("FIRE",false);
             loopedI++;
             looped++;
             SmartDashboard.putNumber("Ilooping",1);
@@ -92,7 +85,6 @@ public class Pivot extends CommandBase {
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,1);
             //OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,1);
         }else{
-            SmartDashboard.putBoolean("FIRE",false);
             loopedI =0;
             if(Math.abs(xoffset)<marginxI){
                 looped++;
@@ -117,12 +109,7 @@ public class Pivot extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
-        target_Final_angle= Robot.limelight.getXOffset();
-
-        Globals.Rotate.initial_angle = target_initial_angle;
-        Globals.Rotate.final_angle = target_Final_angle;
-
+        Drivetrain.getInstance().setSpeed(0 ,0);
         /*
         OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
         OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);*/
@@ -133,4 +120,5 @@ public class Pivot extends CommandBase {
     public boolean isFinished() {
         return endthing;
     }
+
 }
