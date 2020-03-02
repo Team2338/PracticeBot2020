@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
 import team.gif.lib.delay;
+import team.gif.robot.commands.autoaim.Flywheelspeedcontroller;
 import team.gif.robot.commands.autos.Mobility;
 import team.gif.robot.commands.autos.ShootCollectShoot;
 import team.gif.robot.commands.drivetrain.Drive;
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
+  private Command calc = new Flywheelspeedcontroller();
 
   private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
   private SendableChooser<delay> delayChooser = new SendableChooser<>();
@@ -64,7 +66,7 @@ public class Robot extends TimedRobot {
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
-  public static final boolean isCompBot = true;
+  public static final boolean isCompBot = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -191,6 +193,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    calc.schedule();
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();

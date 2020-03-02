@@ -62,7 +62,7 @@ public class Pivot extends CommandBase {
     public void execute() {
         System.out.println("pivoting");
         double xoffset = Robot.limelight.getXOffset();
-        //double yoffset = Robot.limelight.getYOffset();
+        double yoffset = Robot.limelight.getYOffset();
 
         //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
             //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget())

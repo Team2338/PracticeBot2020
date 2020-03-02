@@ -27,7 +27,7 @@ public class Fire extends CommandBase {
 
     @Override
     public void execute() {
-        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 400))
+        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM -300))
                 && (Indexer.getInstance().getState()[5] == true)
                 /*&& (fired<fire || fire ==0)*/
                 && (!limelight||((Math.abs(Robot.limelight.getXOffset())<Constants.Pivot.marginxF)&&Robot.limelight.hasTarget()))) {
