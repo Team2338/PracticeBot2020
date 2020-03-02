@@ -9,13 +9,9 @@ import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
 
 public class Pivot extends CommandBase {
-//-    public static boolean state = false;
-//-    public Pivot(boolean stateval) {
     public Pivot() {
-//-        state = stateval;
         SmartDashboard.putBoolean("trying to get there",true);
         SmartDashboard.putBoolean("are we there yet x" , false);
-//-        System.out.println("***** " + state + " *****");
         Ilooper = 0;
         looptime = 0;
 
@@ -47,29 +43,20 @@ public class Pivot extends CommandBase {
         SmartDashboard.putBoolean("FIRE",false);
         Robot.limelight.setPipeline(0);
         Robot.limelight.setLEDMode(3);
- //       if(!state) {
- //-           SmartDashboard.putNumber("Ilooping",0);
- //-           System.out.println("reset pivot");
- //           Ilooper = 0;
- //           looptime = 0;
- //       }
+
         SmartDashboard.putBoolean("trying to get there",true);
         System.out.println("pivot");
 
         marginxI  = Constants.Pivot.marginxI;
         kPx  = Constants.Pivot.kPx;
         kIx = Constants.Pivot.kIx;
-        //kFx = Constants.kFx;
     }
 
     @Override
     public void execute() {
         System.out.println("pivoting");
         double xoffset = Robot.limelight.getXOffset();
-        //double yoffset = Robot.limelight.getYOffset();
 
-        //if(xoffset>marginx ||xoffset<-marginx ) {//aligning to x offset
-            //SmartDashboard.putBoolean("see target1",Robot.limelight.hasTarget())
         if((Math.abs(xoffset)<Constants.Pivot.marginxF)&&(loopedI<Ilooptime)){
             powerR = 0;
             powerL = 0;
@@ -107,14 +94,12 @@ public class Pivot extends CommandBase {
         SmartDashboard.putNumber("Ilooper",Ilooper);
         SmartDashboard.putNumber("PowerL",-powerL);
         SmartDashboard.putNumber("PowerR",-powerR);
-        //looped =0;
     }
 
     @Override
     public void end(boolean interrupted) {/*
         OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
         OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);*/
-        //Drivetrain.getInstance().setSpeed(0, 0);
     }
 
     @Override
