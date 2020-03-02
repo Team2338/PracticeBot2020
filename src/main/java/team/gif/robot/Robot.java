@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.autos.Mobility;
+import team.gif.robot.commands.autos.OppFiveBall;
 import team.gif.robot.commands.autos.ShootCollectShoot;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.HangerManualControl;
@@ -42,6 +43,11 @@ import team.gif.robot.subsystems.drivers.Limelight;
  * project.
  */
 public class Robot extends TimedRobot {
+
+
+  public static final boolean isCompBot = true;
+
+
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
@@ -64,7 +70,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
-  public static final boolean isCompBot = false;
+//  public static final boolean isCompBot = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -230,7 +236,8 @@ public class Robot extends TimedRobot {
     Autotab = Shuffleboard.getTab("auto");
 
     autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY);
-    autoModeChooser.addOption("5 Ball Auto", autoMode.SHOOTCOLLECTSHOOT);
+    autoModeChooser.addOption("5 Ball Auto", autoMode.SAFE_5_BALL);
+    autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
 
     Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
@@ -258,10 +265,13 @@ public class Robot extends TimedRobot {
   public void updateauto(){
     if(chosenAuto == autoMode.MOBILITY){
       m_autonomousCommand = new Mobility();
-      System.out.println("mobility selected");
-    } else if(chosenAuto == autoMode.SHOOTCOLLECTSHOOT){
+      System.out.println("Mobility selected");
+    } else if(chosenAuto == autoMode.SAFE_5_BALL){
       m_autonomousCommand = new ShootCollectShoot();
-      System.out.println("shootcollectshoot was chosen");
+      System.out.println("Safe 5 ball was chosen");
+    } else if(chosenAuto == autoMode.OPP_5_BALL){
+      m_autonomousCommand = new OppFiveBall();
+      System.out.println("Opp 5 ball was chosen");
     }else if(chosenAuto ==null) {
       System.out.println("Auto is null");
     }

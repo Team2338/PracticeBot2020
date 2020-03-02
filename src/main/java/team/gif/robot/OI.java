@@ -80,7 +80,6 @@ public class OI {
          */
 
         // Driver Controls
-//-        dLT.whileHeld(new Pivot(true));
         dLT.whileHeld(new Pivot());
         dRB.whileHeld(new IntakeRun());
         dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.

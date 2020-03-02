@@ -15,20 +15,15 @@ public class Fire extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        //System.out.println("Firing init");
-    }
+    public void initialize() {}
 
     @Override
     public void execute() {
-        //System.out.println("Firing execute");
-        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 400))
+        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 300)) //400
                 && (Indexer.getInstance().getState()[5] == true)
                 && (!useLimelight || ((Math.abs(Robot.limelight.getXOffset()) < Constants.Pivot.marginxF) && Robot.limelight.hasTarget()))) {
             Indexer.getInstance().setSpeedFive(0.5);
-            //System.out.println("Firing setSpeed .5");
         } else {
-            //System.out.println("Firing setSpeed 0");
             Indexer.getInstance().setSpeedFive(0);
         }
     }
@@ -36,13 +31,11 @@ public class Fire extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        //System.out.println("Firing isFinished");
         return false;
     }
 
     @Override
     public void end(boolean interrupted) {
-        //System.out.println("Firing interupted");
         Indexer.getInstance().setSpeedFive(0);
     }
 }

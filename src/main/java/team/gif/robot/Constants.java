@@ -18,13 +18,14 @@ package team.gif.robot;
 public final class Constants {
 
     public static class Shooter {
-        public static final double kP = 0.0005; // 0.0005 0.0008
+        public static final double kP = 0.0005;
         public static final double kF = 0.000166;
-        public static final double RPM = Robot.isCompBot ? 4300 : 4500; // C:4300 P: 4500
+        public static final double RPM = Robot.isCompBot ? 4300 : 4600; // C:4300 P: 4600 // P was 4500
         public static final double maxVelocity = 5000;
     }
 
     public static class Hanger {
+        // Elevator
         public static final double P = 0.0; // Connor said 4
         public static final double I = 0.0;
         public static final double D = 0.0;
@@ -32,15 +33,13 @@ public final class Constants {
         public static final double REV_F = 0.38;
 
         public static final double GRAV_FEED_FORWARD = 300 / 1023.0; // Percent constant to counteract gravity
-        //public static final double REV_GRAV_FEED_FORWARD = 50 / 1023.0;
 
         public static final int ALLOWABLE_ERROR = 100; // Error to allow move command to end
         public static final int MAX_VELOCITY = 2000; // RPM
         public static final int MIN_VELOCITY = 0;
-        //public static final int REV_MAX_VELOCITY = 2800;
         public static final int MAX_ACCELERATION = 1500;
 
-        public static final int MAX_POS = 165;
+        public static final int MAX_POS = 160;
         public static final int MIN_POS = 0;
 
 
@@ -50,7 +49,6 @@ public final class Constants {
         public static final int COLOR_WHEEL_POSITION = 30;
     }
 
-    //        //pivot globals
     public static class Pivot {
         //public static double marginx = 0;
         public static double marginxF = 1.8;//OG 2 in the 3 ball auto
@@ -60,7 +58,4 @@ public final class Constants {
     }
     public static double WheelDiameter = 0.127;
     public static double encoderEPR;
-    //public static double
-    //public static double
-
 }
