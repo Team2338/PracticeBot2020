@@ -9,6 +9,7 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 
 public class RevFlywheel extends CommandBase {
+
     public RevFlywheel() {
     }
 
@@ -19,12 +20,11 @@ public class RevFlywheel extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.oi.dRT.get()) {
+        // RevFlyWheel is used in auto but OI isn't instantiated yet so need to check first
+        if (Robot.oi != null && Robot.oi.dRT.get()) {
             Shooter.getInstance().setPID(Constants.Shooter.RPM_HIGH);
-            System.out.println("Flywheel High");
         } else {
             Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW);
-            System.out.println("Flywheel Low");
         }
     }
 

@@ -87,7 +87,7 @@ public class OI {
 
         // Aux Controls
         aLB.whileHeld(new RevFlywheel());
-        aRT.whileHeld(new Fire(false));
+        aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());
         aStart.whenPressed(new ControlPanelPosition());
         aBack.whenPressed(new ControlPanelDown());
