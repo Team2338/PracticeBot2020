@@ -1,9 +1,9 @@
 # FRC2020
- 2020 Robot code for FRC team 2338 Gear it Forward.
+ FRC robot code for 2338 Gear it Forward's 2020 robot, "Prowler".
  
  ## Drivetrain
  Arcade Drive.
- Uses 4 TalonSRX motor controllers
+ Uses 4 TalonSRX motor controllers with 4 CIM motors.
  
  ## Hanger
  W.I.P. Motion Magic
@@ -15,7 +15,7 @@
  Can be toggled on/off if jammed or if sensor is accidentally triggered.
  
  ## Intake
- Mecanum wheels positioned to draw power cells towards the center, where they are fed into the indexer.
+ Vectored wheels positioned to draw power cells towards the center, where they are fed into the indexer.
  Holds the 5th power cell.
  
  ## Shooter
