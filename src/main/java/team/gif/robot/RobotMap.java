@@ -15,6 +15,7 @@ public abstract class RobotMap {
     public static final int STAGE_FOUR = 7; //7
     public static final int STAGE_FIVE = 8; //8
     public static final int FLYWHEEL = 9; //9
+    public static final int HANGER = 11;
 
     // Sensors
     public static final int SENSOR_KNOPF = 0;
@@ -29,6 +30,7 @@ public abstract class RobotMap {
     public static final int SOLENOID_ZERO = 0;
     public static final int SOLENOID_ONE = 1;
     public static final int SOLENOID_TWO = 2;
+    public static final int SOLENOID_HANGER = 3;
 
     // Color Sensor
     public static final int COLOR_SENSOR = 0;
@@ -38,6 +40,7 @@ public abstract class RobotMap {
     public static final int AUX_CONTROLLER_ID = 1;
 
     //pigeon
-    //public static final int PIGEON
+    public static final int PIGEON = 2;
+
 
 }

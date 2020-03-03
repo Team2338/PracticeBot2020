@@ -10,16 +10,18 @@ package team.gif.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.robot.OI;
-import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+
+
+
 /**
  * An example command that uses an example subsystem.
  */
-public class Drive extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class forward extends CommandBase {
+    //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     //private final Drivetrain m_subsystem;
 
     /**
@@ -27,63 +29,52 @@ public class Drive extends CommandBase {
      *
      * @param subsystem The subsystem used by this command.
      */
-    public Drive(Drivetrain subsystem) {
+    public int time = 0;
+    public double powerL = 0;
+    public double powerR = 0;
+    public boolean endthing = false;
+
+    public forward(double timeval, double powerLval,double powerRval) {
+        this.endthing = false;
+        this.time = (int)(timeval*50);
+
+        this.powerL = powerLval;
+        this.powerR = powerRval;
         //m_subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Drivetrain.getInstance());
     }
 
-    double leftSpeed;
-    double rightSpeed;
-
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
+    public int looped;
+
     @Override
     public void execute() {
-        leftSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) - Robot.oi.driver.getX(GenericHID.Hand.kRight);
-        rightSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) + Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
-        if (Robot.isCompBot) { // Comp Bot
-            if (leftSpeed < 0.075 && leftSpeed > -0.075 ) {
-                leftSpeed = 0;
-            }
-            if (rightSpeed < 0.075 && rightSpeed > -0.075 ) {
-                rightSpeed = 0;
-            }
-        } else { // Practice Bot
-            if (leftSpeed < 0.05 && leftSpeed > -0.05 ) {
-                leftSpeed = 0;
-            }
-            if (rightSpeed < 0.05 && rightSpeed > -0.05 ) {
-                rightSpeed = 0;
-            }
+        if(this.looped <= this.time){
+            Drivetrain.getInstance().setSpeed(this.powerL, this.powerR);
+            this.looped++;
+        }else{
+            this.endthing = true;
         }
-
-        if (leftSpeed < -1 || leftSpeed > 1) {
-            leftSpeed = leftSpeed / Math.abs(leftSpeed);
-        }
-        if (rightSpeed < -1 || rightSpeed > 1) {
-            rightSpeed = rightSpeed / Math.abs(rightSpeed);
-        }
-
-        Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
-
-
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+
         Drivetrain.getInstance().setSpeed(0, 0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return this.endthing;
     }
 }

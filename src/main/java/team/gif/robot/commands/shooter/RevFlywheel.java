@@ -8,14 +8,7 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 
 public class RevFlywheel extends CommandBase {
-    //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    public boolean buttonState = false;
-
-    public RevFlywheel(boolean state){
-
-        buttonState = state;
-
-        addRequirements(Shooter.getInstance());
+    public RevFlywheel() {
     }
 
     // Called when the command is initially scheduled.
@@ -25,22 +18,17 @@ public class RevFlywheel extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
-        //buttonState is set to:
-        //    true when the button is pressed
-        //    false when the button is released
-        if(buttonState) {
-            Shooter.getInstance().setPID(Constants.Shooter.RPM);
-        }else{
-            Shooter.getInstance().setVoltage(0);
-        }
+        Shooter.getInstance().setPID(Constants.Shooter.RPM);
     }
-
-    // Called once the command ends or is interrupted.
-    @Override
-    public void end(boolean interrupted) {}
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished() { return !buttonState; }
+    public boolean isFinished() { return false; }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        Shooter.getInstance().setVoltage(0);
+    }
+
 }

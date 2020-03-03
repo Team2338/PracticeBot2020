@@ -4,6 +4,7 @@ import com.revrobotics.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
@@ -24,7 +25,7 @@ public class Shooter extends SubsystemBase {
         super();
         flywheelMotor.restoreFactoryDefaults();
         flywheelMotor.enableVoltageCompensation(12);
-        flywheelMotor.setInverted(true);
+        flywheelMotor.setInverted(!Robot.isCompBot); // C:false P:true
         flywheelMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         flywheelPIDController.setP(Constants.Shooter.kP);
         flywheelPIDController.setFF(Constants.Shooter.kF);
@@ -36,7 +37,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setPID (double setPoint) {
-        SmartDashboard.putNumber("setPoint",setPoint);
         flywheelPIDController.setReference(setPoint, ControlType.kVelocity);
     }
     public double getVelocity () {

@@ -5,25 +5,19 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
+import team.gif.robot.commands.hanger.ControlPanelDown;
+import team.gif.robot.commands.hanger.ControlPanelPosition;
+import team.gif.robot.commands.hanger.HangerManualControl;
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
-//import team.gif.robot.commands.shooter.LedModes;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import edu.wpi.first.wpilibj.GenericHID;
 
 
 public class OI {
     private static OI instance = null;
-
-    public static OI getInstance() {
-        if (instance == null) {
-            instance = new OI();
-        }
-
-        return instance;
-    }
 
     /*
      * TODO: Instantiate all joysticks/controllers and their buttons here
@@ -48,13 +42,17 @@ public class OI {
     public final JoystickButton dStart = new JoystickButton(driver, 8);
     public final JoystickButton dLS = new JoystickButton(driver, 9);
     public final JoystickButton dRS = new JoystickButton(driver, 10);
-    public final AxisButton dRT = new AxisButton(aux,3,.05);
-    public final AxisButton dLT = new AxisButton(aux,2,.05);
+    public final AxisButton dRT = new AxisButton(driver,3,.05);
+    public final AxisButton dLT = new AxisButton(driver,2,.05);
 
     public final POVButton dDPadUp = new POVButton(driver, 0);
     public final POVButton dDPadRight = new POVButton(driver, 90);
     public final POVButton dDPadDown = new POVButton(driver, 180);
     public final POVButton dDPadLeft = new POVButton(driver, 270);
+    public final POVButton aDPadUp = new POVButton(aux, 0);
+    public final POVButton aDPadRight = new POVButton(aux, 90);
+    public final POVButton aDPadDown = new POVButton(aux, 180);
+    public final POVButton aDPadLeft = new POVButton(aux, 270);
 
     public final JoystickButton aA = new JoystickButton(aux, 1);
     public final JoystickButton aB = new JoystickButton(aux, 2);
@@ -80,21 +78,23 @@ public class OI {
          */
 
         // Driver Controls
-        dRB.whileHeld(new IntakeRun(true));
+        dLT.whileHeld(new Pivot());
+        dRB.whileHeld(new IntakeRun());
         dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
-        dRB.whenReleased(new IntakeRun(false));
         dLB.whileHeld(new IntakeReverse());
-        dDPadDown.whenPressed(new IntakeDown());
-        dDPadLeft.whenPressed(new IntakeMid());
-        dDPadUp.whenPressed(new IntakeUp().withTimeout(0.05));
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
 
         // Aux Controls
-        aLB.whileHeld(new RevFlywheel(true));
-        aLB.whenReleased(new RevFlywheel(false));
-        aRT.whileHeld(new Fire(0,false));
-        aLT.whileHeld(new Pivot());
+        aLB.whileHeld(new RevFlywheel());
+        aRT.whileHeld(new Fire(false));
+        aY.toggleWhenPressed(new HangerManualControl());
+        aStart.whenPressed(new ControlPanelPosition());
+        aBack.whenPressed(new ControlPanelDown());
+
+        aDPadDown.whenPressed(new IntakeDown());
+        aDPadLeft.whenPressed(new IntakeMid());
+        aDPadUp.whenPressed(new IntakeUp().withTimeout(0.05));
     }
 
     public void setRumble(boolean rumble) {
