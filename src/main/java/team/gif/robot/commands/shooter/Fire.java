@@ -19,7 +19,9 @@ public class Fire extends CommandBase {
 
     @Override
     public void execute() {
-        if (((Shooter.getInstance().getVelocity()) > (Constants.Shooter.RPM - 300)) //400
+        double speed = Robot.oi.dRT.get() ? Constants.Shooter.RPM_HIGH : Constants.Shooter.RPM_LOW;
+        System.out.println("Fire speed: " + speed);
+        if (((Shooter.getInstance().getVelocity()) > (speed - 300)) //400
                 && (Indexer.getInstance().getState()[5] == true)
                 && (!useLimelight || ((Math.abs(Robot.limelight.getXOffset()) < Constants.Pivot.marginxF) && Robot.limelight.hasTarget()))) {
             Indexer.getInstance().setSpeedFive(0.5);
