@@ -19,9 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
 import team.gif.lib.delay;
-import team.gif.robot.commands.autos.Mobility;
-import team.gif.robot.commands.autos.OppFiveBall;
-import team.gif.robot.commands.autos.SafeFiveBall;
+import team.gif.robot.commands.autos.*;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.ResetHanger;
 import team.gif.robot.commands.indexer.IndexerScheduler;
@@ -206,8 +204,10 @@ public class Robot extends TimedRobot {
     //setp tabs
     Autotab = Shuffleboard.getTab("auto");
 
-    autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY);
-    autoModeChooser.addOption("5 Ball Auto", autoMode.SAFE_5_BALL);
+    autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
+    autoModeChooser.addOption("Fwd Mobility", autoMode.MOBILITY_FWD);
+    autoModeChooser.addObject("3 Ball Auto", autoMode.SAFE_3_BALL);
+    autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
 
     Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
@@ -237,6 +237,12 @@ public class Robot extends TimedRobot {
     if(chosenAuto == autoMode.MOBILITY){
       m_autonomousCommand = new Mobility();
       System.out.println("Mobility selected");
+    } else if(chosenAuto == autoMode.MOBILITY_FWD){
+      m_autonomousCommand = new MobilityFwd();
+      System.out.println("Mobility Fwd selected");
+    } else if(chosenAuto == autoMode.SAFE_3_BALL){
+      m_autonomousCommand = new SafeThreeBall();
+      System.out.println("Safe 5 ball was chosen");
     } else if(chosenAuto == autoMode.SAFE_5_BALL){
       m_autonomousCommand = new SafeFiveBall();
       System.out.println("Safe 5 ball was chosen");
