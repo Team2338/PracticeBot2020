@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Indexer extends SubsystemBase {
@@ -50,6 +51,9 @@ public class Indexer extends SubsystemBase {
         stageThreeMotorVictor.setNeutralMode(NeutralMode.Brake);
         stageFourMotorVictor.setNeutralMode( NeutralMode.Brake);
         stageFiveMotorVictor.setNeutralMode( NeutralMode.Brake);
+
+        stageFourMotorVictor.setInverted(Robot.isCompBot); // C:false P:true
+
     }
 
     public boolean getKnopf() {

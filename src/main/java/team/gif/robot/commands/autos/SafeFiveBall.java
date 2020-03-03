@@ -13,8 +13,8 @@ import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
 
-public class ShootCollectShoot extends SequentialCommandGroup {
-    public ShootCollectShoot(){
+public class SafeFiveBall extends SequentialCommandGroup {
+    public SafeFiveBall(){
         System.out.println("shootcollectshoot acitivated");
         Robot.limelight.setPipeline(0);
         /*
@@ -24,17 +24,13 @@ public class ShootCollectShoot extends SequentialCommandGroup {
         addCommands(
                 new IntakeDown(),
                 new ParallelDeadlineGroup(new AutoDrive(2.3,.47,.47),//OG 2.5 ----- time was 2.3
-                                          new IntakeRun(true),
-                                          new RevFlywheel(false)),
-                new IntakeRun(true).withTimeout(0.5),
-                //new IntakeRun(false),
-                new ParallelCommandGroup(new Pivot(false),
-                                         new RevFlywheel(true)).withTimeout(2.5),
-                new IntakeRun(false),
-                new ParallelCommandGroup(new Pivot(true),
-                                         new RevFlywheel(true),
-                                         new Fire(0,true))
+                                          new IntakeRun()),
+                new IntakeRun().withTimeout(0.5), // sit in position to fully collect ball
+                new ParallelCommandGroup(new Pivot(),
+                                         new RevFlywheel().withTimeout(2.5)),
+                new ParallelCommandGroup(new Pivot(),
+                                         new RevFlywheel(),
+                                         new Fire(true))
         );
-
     }
 }

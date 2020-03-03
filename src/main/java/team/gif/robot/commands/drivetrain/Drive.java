@@ -35,7 +35,6 @@ public class Drive extends CommandBase {
 
     double leftSpeed;
     double rightSpeed;
-    private final OI oi = OI.getInstance();
 
     // Called when the command is initially scheduled.
     @Override
@@ -45,8 +44,8 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        leftSpeed = oi.driver.getY(GenericHID.Hand.kLeft) - oi.driver.getX(GenericHID.Hand.kRight);
-        rightSpeed = oi.driver.getY(GenericHID.Hand.kLeft) + oi.driver.getX(GenericHID.Hand.kRight);
+        leftSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) - Robot.oi.driver.getX(GenericHID.Hand.kRight);
+        rightSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) + Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
         if (Robot.isCompBot) { // Comp Bot
             if (leftSpeed < 0.075 && leftSpeed > -0.075 ) {

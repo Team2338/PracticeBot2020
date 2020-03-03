@@ -5,27 +5,19 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
+import team.gif.robot.commands.hanger.ControlPanelDown;
+import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
-import team.gif.robot.commands.hanger.ToggleHangerLock;
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
-//import team.gif.robot.commands.shooter.LedModes;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import edu.wpi.first.wpilibj.GenericHID;
 
 
 public class OI {
     private static OI instance = null;
-
-    public static OI getInstance() {
-        if (instance == null) {
-            instance = new OI();
-        }
-
-        return instance;
-    }
 
     /*
      * TODO: Instantiate all joysticks/controllers and their buttons here
@@ -86,20 +78,19 @@ public class OI {
          */
 
         // Driver Controls
-        dLT.whileHeld(new Pivot(true));
-        dRB.whileHeld(new IntakeRun(true));
+        dLT.whileHeld(new Pivot());
+        dRB.whileHeld(new IntakeRun());
         dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
-        dRB.whenReleased(new IntakeRun(false));
         dLB.whileHeld(new IntakeReverse());
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
 
         // Aux Controls
-        aLB.whileHeld(new RevFlywheel(true));
-        aLB.whenReleased(new RevFlywheel(false));
-        aRT.whileHeld(new Fire(0,false));
+        aLB.whileHeld(new RevFlywheel());
+        aRT.whileHeld(new Fire(false));
         aY.toggleWhenPressed(new HangerManualControl());
-        //aX.toggleWhenPressed(new ToggleHangerLock(true));
+        aStart.whenPressed(new ControlPanelPosition());
+        aBack.whenPressed(new ControlPanelDown());
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());

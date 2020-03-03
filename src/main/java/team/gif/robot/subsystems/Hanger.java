@@ -8,7 +8,7 @@ import team.gif.robot.RobotMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Hanger extends SubsystemBase {
-    public static Hanger instance = null;
+//    public static Hanger instance = null;
 
     private static final CANSparkMax hangMotor = new CANSparkMax(RobotMap.HANGER, CANSparkMaxLowLevel.MotorType.kBrushless);
     private static final CANPIDController hangPIDController = hangMotor.getPIDController();
@@ -16,13 +16,6 @@ public class Hanger extends SubsystemBase {
     private static final CANDigitalInput limitSwitch = hangMotor.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyClosed);
 
     private static final Solenoid hangerRatchet = new Solenoid(RobotMap.SOLENOID_HANGER);
-
-    public static Hanger getInstance() {
-        if (instance == null) {
-            instance = new Hanger();
-        }
-        return instance;
-    }
 
     public Hanger() {
         super();
@@ -32,26 +25,17 @@ public class Hanger extends SubsystemBase {
         // Limit Switch
         limitSwitch.enableLimitSwitch(true);
         // Soft Limits
-        hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, false);
+        hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
         hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, false);
 
         hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.Hanger.MAX_POS);
         hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.Hanger.MIN_POS);
 
-        // PID Controller
-        /*hangPIDController.setP(Constants.Hanger.P);
-        hangPIDController.setI(Constants.Hanger.I);
-        hangPIDController.setD(Constants.Hanger.D);
-        hangPIDController.setFF(Constants.Hanger.F);
-        hangPIDController.setOutputRange(-1, 1);
-
-        int smartMotionSlot = 0;
-        hangPIDController.setSmartMotionMaxVelocity(Constants.Hanger.MAX_VELOCITY, smartMotionSlot);
-        hangPIDController.setSmartMotionMinOutputVelocity(Constants.Hanger.MIN_VELOCITY, smartMotionSlot);
-        hangPIDController.setSmartMotionMaxAccel(Constants.Hanger.MAX_ACCELERATION, smartMotionSlot);
-        hangPIDController.setSmartMotionAllowedClosedLoopError(Constants.Hanger.ALLOWABLE_ERROR, smartMotionSlot);*/
-
         hangMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    }
+
+    public void zeroEncoder() {
+        hangEncoder.setPosition(0);
     }
 
     public void setVoltage(double speed){
@@ -78,8 +62,21 @@ public class Hanger extends SubsystemBase {
         return hangEncoder.getPosition();
     }
 
-    public void setOpen(boolean setOpen) {
-        hangerRatchet.set(setOpen);
-        SmartDashboard.putBoolean("Hanging", setOpen);
+    public void setOpen() {
+        hangerRatchet.set(true);
+    }
+
+    public void setClosed() {
+        hangerRatchet.set(false);
+    }
+
+    public String getLockState() {
+        String returnVal;
+        returnVal = ( hangerRatchet.get() ) ? "Unlocked" : "Locked";
+        return returnVal;
+    }
+
+    public boolean getLockStateBool() {
+        return hangerRatchet.get();
     }
 }

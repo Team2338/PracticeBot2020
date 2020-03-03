@@ -7,38 +7,42 @@ import team.gif.robot.OI;
 import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Hanger;
 
-public class SetHangerPosition extends CommandBase {
+public class ControlPanelPosition extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private int position = 0;
 
-    public SetHangerPosition(int positionVal) {
-        if (position > Constants.Hanger.MAX_POS) { position = Constants.Hanger.MAX_POS; }
-        if (position < Constants.Hanger.MIN_POS) { position = Constants.Hanger.MIN_POS; }
+    private static boolean finished = false;
 
-        position = positionVal;
+    public ControlPanelPosition() {
+        // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.hanger.setF();
-        Robot.hanger.setPoint(position);
+        Robot.hanger.setOpen();
+        finished = false;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if (Robot.hanger.getPosition() < Constants.Hanger.COLOR_WHEEL_POSITION) {
+            Robot.hanger.setSpeed(0.6);
+        } else {
+            finished = true;
+        }
+    }
+
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return finished;
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.hanger.setFGravity();
-    }
-
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        return false;
+        Robot.hanger.setSpeed(0);
     }
 }
