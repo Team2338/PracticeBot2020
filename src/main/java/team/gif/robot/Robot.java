@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static ShuffleboardTab Autotab;
+  public static ShuffleboardTab Callibrationtab;
 
   public static OI oi;
   public static Hanger hanger;

@@ -7,7 +7,10 @@
 
 package team.gif.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
@@ -25,6 +28,7 @@ public class ColorSensor extends SubsystemBase {
    */
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private static final I2C colorSensor = new I2C(I2C.Port.kOnboard, RobotMap.COLOR_SENSOR);
+  private static final VictorSPX colorWheel = new VictorSPX(RobotMap.COLOR_WHEEL);
 
   /**
    * A Rev Color Sensor V3 object is constructed with an I2C port as a
@@ -57,18 +61,18 @@ public class ColorSensor extends SubsystemBase {
   /** Above table
    *
    */
-  private final Color kBlueTarget = ColorMatch.makeColor(0.130, 0.427, 0.429);
-  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.551, 0.250);
-  private final Color kRedTarget = ColorMatch.makeColor(0.480, 0.370, 0.150);
-  private final Color kYellowTarget = ColorMatch.makeColor(0.320, 0.550, 0.130);
+//  private final Color kBlueTarget = ColorMatch.makeColor(0.130, 0.427, 0.429);
+//  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.551, 0.250);
+//  private final Color kRedTarget = ColorMatch.makeColor(0.480, 0.370, 0.150);
+//  private final Color kYellowTarget = ColorMatch.makeColor(0.320, 0.550, 0.130);
 
   /**
    * Under Table
    */
-//     private final Color kBlueTarget = ColorMatch.makeColor(0.198, 0.457, 0.345);
-//     private final Color kGreenTarget = ColorMatch.makeColor(0.224, 0.510, 0.266);
-//     private final Color kRedTarget = ColorMatch.makeColor(0.330, 0.442, 0.228);
-//     private final Color kYellowTarget = ColorMatch.makeColor(0.286, 0.518, 0.195);
+     private final Color kBlueTarget = ColorMatch.makeColor(0.198, 0.457, 0.345);
+     private final Color kGreenTarget = ColorMatch.makeColor(0.224, 0.510, 0.266);
+     private final Color kRedTarget = ColorMatch.makeColor(0.330, 0.442, 0.228);
+     private final Color kYellowTarget = ColorMatch.makeColor(0.286, 0.518, 0.195);
 
   public static ColorSensor getInstance() {
     if (instance == null) {
@@ -96,6 +100,10 @@ public class ColorSensor extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     getColor();
+  }
+
+  public void setColorSensor(double speed) {
+    colorWheel.set(ControlMode.PercentOutput, speed);
   }
 
   public String getColor() {
@@ -136,6 +144,10 @@ public class ColorSensor extends SubsystemBase {
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
+    Shuffleboard.getTab("Callibration").add("Red", detectedColor.red);
+    Shuffleboard.getTab("Callibration").add("Green", detectedColor.green);
+    Shuffleboard.getTab("Callibration").add("Blue", detectedColor.blue);
+
 
 
 //    SmartDashboard.putNumber("IR", IR);
