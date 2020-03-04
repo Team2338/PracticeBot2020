@@ -11,6 +11,7 @@ import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
+import team.gif.robot.commands.indexer.ServoButton;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
@@ -88,8 +89,11 @@ public class OI {
 
         // Aux Controls
         aLB.whileHeld(new RevFlywheel());
-        aRT.whileHeld(new Fire(false));
+        aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());
+        aX.whenPressed(new ServoButton().withTimeout(0.25));
+        aStart.whenPressed(new ControlPanelPosition());
+        aBack.whenPressed(new ControlPanelDown());
         aA.whileHeld(new Rotation());
         aB.whenPressed(new ControlPanelDown());
 

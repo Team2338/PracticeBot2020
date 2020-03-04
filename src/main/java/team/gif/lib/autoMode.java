@@ -3,6 +3,8 @@ package team.gif.lib;
 public enum autoMode {
 
     MOBILITY(0),
+    MOBILITY_FWD(0),
+    SAFE_3_BALL(0),
     SAFE_5_BALL(0),
     OPP_5_BALL(0);
 

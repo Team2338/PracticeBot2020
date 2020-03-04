@@ -15,8 +15,6 @@ public class OppFiveBall extends SequentialCommandGroup {
 
     public OppFiveBall() {
         System.out.println("********   opp 5 ball auto activated  *******");
-        Robot.limelight.setPipeline(0);
-
         /*
          * TODO: speed up moveback
          * */
@@ -31,8 +29,8 @@ public class OppFiveBall extends SequentialCommandGroup {
                 new ParallelDeadlineGroup(new AutoDrive(1.0,0,0), // hold to collect
                                           new IntakeRun()),
                 new AutoDrive(0.6,-.5,-.5),//OG 2.5  // drive forward
-                new AutoDrive(.65,-.5,.5),//OG 2.5   // turn clockwise //.65
-                new AutoDrive(2.3,-.6,-.6),//OG 2.5  // drive forward 2.5 @ .5
+                new AutoDrive(.55,-.5,.5),//OG 2.5   // turn clockwise //.65
+                new AutoDrive(2.1,-.6,-.6),//OG 2.5  // drive forward 2.5 @ .5
                 new AutoDrive(.55,.5,-.5),//OG 2.5   // turn counterclockwise
                 new AutoDrive(0.8,.3,.3),//OG 2.5    // drive backward
                 new ParallelCommandGroup(new Pivot(),                          // let it rip
