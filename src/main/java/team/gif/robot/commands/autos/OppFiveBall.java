@@ -15,8 +15,6 @@ public class OppFiveBall extends SequentialCommandGroup {
 
     public OppFiveBall() {
         System.out.println("********   opp 5 ball auto activated  *******");
-        Robot.limelight.setPipeline(0);
-
         /*
          * TODO: speed up moveback
          * */

@@ -39,7 +39,6 @@ public class Pivot extends CommandBase {
 
     @Override
     public void initialize() {
-        Robot.limelight.setPipeline(0);
         Robot.limelight.setLEDMode(3);
 
         System.out.println("pivot");

@@ -16,7 +16,7 @@ import team.gif.robot.commands.shooter.RevFlywheel;
 public class SafeFiveBall extends SequentialCommandGroup {
     public SafeFiveBall(){
         System.out.println("SafeFiveBallAuto Activated");
-        Robot.limelight.setPipeline(0);
+
         /*
         * TODO: speed up moveback
         * */
