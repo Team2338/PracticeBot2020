@@ -58,8 +58,6 @@ public class forward extends CommandBase {
     public void execute() {
 
         if(this.looped <= this.time){
-            SmartDashboard.putNumber("PowerL",this.powerL);
-            SmartDashboard.putNumber("PowerR",this.powerR);
             Drivetrain.getInstance().setSpeed(this.powerL, this.powerR);
             this.looped++;
         }else{

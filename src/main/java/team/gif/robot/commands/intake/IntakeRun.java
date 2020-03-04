@@ -7,10 +7,8 @@ import team.gif.robot.subsystems.Intake;
 public class IntakeRun extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Intake intake = Intake.getInstance();
-    public boolean buttonState = false;
 
-    public IntakeRun(boolean state) {
-        buttonState = state;
+    public IntakeRun() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Intake.getInstance());
     }
@@ -28,18 +26,17 @@ public class IntakeRun extends CommandBase {
         } else {
             intake.setSpeed(0);
         }
-        if (!buttonState) {
-            intake.setSpeed(0);
-        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        intake.setSpeed(0);
+    }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return !buttonState;
+        return false;
     }
 }

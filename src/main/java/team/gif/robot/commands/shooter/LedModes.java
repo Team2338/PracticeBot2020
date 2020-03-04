@@ -20,7 +20,6 @@ public class LedModes extends CommandBase {
             state = 0;
         }
         Robot.limelight.setLEDMode(state);
-        SmartDashboard.putNumber("limelight", state);
     }
 
     @Override
