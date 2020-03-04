@@ -33,6 +33,8 @@ public class Rotation extends CommandBase {
         // run the color sensor algorithm
         /* may not need if we can run this from teleopPeriodic */
         //ColorSensor.getInstance().periodic();
+
+        // turn the motor on
         ColorSensor.getInstance().setColorSensorSpeed(0.5);
     }
 
