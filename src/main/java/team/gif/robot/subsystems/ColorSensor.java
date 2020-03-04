@@ -183,11 +183,12 @@ public class ColorSensor extends SubsystemBase {
       }
       // display total count as {rotation}.{wedge} where wedge goes from 0 to 7
       totalCount = rotationCount + (incrementalCount/10);
-
+/*
       System.out.println("rotationCount: " + rotationCount);
       System.out.println("incrementalCount: " + incrementalCount);
       System.out.println("previousColor: " + previousColor);
       System.out.println("colorString: " + colorString);
+ */
     }
     SmartDashboard.putNumber("Rotation", totalCount);
     return colorString;

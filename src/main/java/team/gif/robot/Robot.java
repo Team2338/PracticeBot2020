@@ -128,13 +128,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Hang Position", Robot.hanger.getPosition());
 
     //ColorSensor
-    String detectedColor = ColorSensor.getInstance().getColor();
-//    SmartDashboard.putNumber("Red", detectedColor.red);
-//    SmartDashboard.putNumber("Green", detectedColor.green);
-//    SmartDashboard.putNumber("Blue", detectedColor.blue);
-//    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", detectedColor);
-
+    SmartDashboard.putString("Color", ColorSensor.getInstance().getColor());
   }
 
   /**
