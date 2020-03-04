@@ -16,7 +16,6 @@ import team.gif.robot.commands.shooter.RevFlywheel;
 public class ShootCollectShoot extends SequentialCommandGroup {
     public ShootCollectShoot(){
         System.out.println("shootcollectshoot acitivated");
-        Robot.limelight.setPipeline(0);
         /*
         * TODO: speed up moveback
         * */

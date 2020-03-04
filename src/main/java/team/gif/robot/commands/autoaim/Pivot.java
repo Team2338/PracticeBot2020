@@ -41,7 +41,6 @@ public class Pivot extends CommandBase {
     @Override
     public void initialize() {
         SmartDashboard.putBoolean("FIRE",false);
-        Robot.limelight.setPipeline(0);
         Robot.limelight.setLEDMode(3);
         if(!state) {
             SmartDashboard.putNumber("Ilooping",0);

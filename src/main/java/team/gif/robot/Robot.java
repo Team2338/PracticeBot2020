@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
   public OI oi;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
 
-  public static final boolean isCompBot = true;
+  public static final boolean isCompBot = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -74,11 +74,12 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     SmartDashboard.putBoolean("Hanging", false);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    tabsetup();
+
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     oi = new OI();
     limelight = new Limelight();
+    tabsetup();
     updateauto();
   }
 
@@ -152,6 +153,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    setAutoPipeline();
     SmartDashboard.putBoolean("Hanging", false);
     updateauto();
     compressor.stop();
@@ -182,6 +184,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    setAutoPipeline();
     SmartDashboard.putBoolean("Hanging", false);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -258,11 +261,11 @@ public class Robot extends TimedRobot {
 
     Autotab.add("Delay", delayChooser);
 
-    autopipeline();
+    setAutoPipeline();
   }
 
   public void updateauto(){
-    autopipeline();
+    setAutoPipeline();
     if(chosenAuto == autoMode.MOBILITY){
       m_autonomousCommand = new Mobility();
       System.out.println("mobility selected");
@@ -272,23 +275,19 @@ public class Robot extends TimedRobot {
     }else if(chosenAuto ==null) {
       System.out.println("Auto is null");
     }
-
     System.out.println("auto " + chosenAuto);
-
   }
 
-  public void autopipeline(){/**sets the limelight pipeline to redside or blue side**/
-
-    Autotab.add("pipeline selected", " !!ERROR!! alliance unselected !!ERROR!!");
-
+  public void setAutoPipeline(){/**sets the limelight pipeline to redside or blue side**/
+    SmartDashboard.putString("pipeline selected", " !!ERROR!! alliance unselected !!ERROR!!");
     if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
-      Autotab.add("pipeline selected", "Blue");
+      SmartDashboard.putString("pipeline selected", "Blue");
       limelight.setPipeline(0);
     }else if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
-      Autotab.add("pipeline selected", "Red");
+      SmartDashboard.putString("pipeline selected", "Red");
       limelight.setPipeline(1);
     }else{
-      Autotab.add("pipeline selected", " !!ERROR!! alliance unselected");
+      SmartDashboard.putString("pipeline selected", " !!ERROR!! alliance unselected");
     }
   }
 }
