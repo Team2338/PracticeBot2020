@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.RobotMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.sql.SQLOutput;
+
 
 public class ColorSensor extends SubsystemBase {
   private static ColorSensor instance = null;
@@ -93,8 +95,9 @@ public class ColorSensor extends SubsystemBase {
     System.out.println("Color Senor Initiated");
   }
 
-  public int incrementalCount = 0;
-  public int rotationCount = 0;
+  public double incrementalCount = 0;
+  public double rotationCount = 0;
+  public double totalCount = 0;
   public String previousColor = "";
   String[] colorOrder = {"yellow", "blue", "green", "red"};
   @Override
@@ -142,12 +145,12 @@ public class ColorSensor extends SubsystemBase {
      * Open Smart Dashboard or Shuffleboard to see the color detected by the
      * sensor.
      */
-//    SmartDashboard.putNumber("Red", detectedColor.red);
-//    SmartDashboard.putNumber("Green", detectedColor.green);
-//    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    Shuffleboard.getTab("Callibration").add("Red", detectedColor.red);
-    Shuffleboard.getTab("Callibration").add("Green", detectedColor.green);
-    Shuffleboard.getTab("Callibration").add("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+//    Shuffleboard.getTab("Callibration").add("Red", detectedColor.red);
+//    Shuffleboard.getTab("Callibration").add("Green", detectedColor.green);
+//    Shuffleboard.getTab("Callibration").add("Blue", detectedColor.blue);
 
 
 
@@ -155,20 +158,24 @@ public class ColorSensor extends SubsystemBase {
     /**
      * Attempting to count rotations
      */
-    if (previousColor != colorString) {
-      if (previousColor == "Blue" && colorString == "Yellow") {
+    if (!previousColor.equals(colorString)) {
+      if (previousColor.equals("")) {
+        previousColor = colorString;
+      }
+      if (previousColor.equals("Blue") && colorString.equals("Yellow")) {
+
         incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
-      if (previousColor == "Red" && colorString == "Green") {
+      if (previousColor.equals("Red") && colorString.equals("Green")) {
         incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
-      if (previousColor == "Green" && colorString == "Blue") {
+      if (previousColor.equals("Green") && colorString.equals("Blue")) {
         incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
-      if (previousColor == "Yellow" && colorString == "Red") {
+      if (previousColor.equals("Yellow") && colorString.equals("Red")) {
         incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
@@ -176,8 +183,13 @@ public class ColorSensor extends SubsystemBase {
         incrementalCount = 0;
         rotationCount = rotationCount + 1;
       }
+      totalCount = rotationCount + (incrementalCount/10);
+      System.out.println("rotationCount: " + rotationCount);
+      System.out.println("incrementalCount: " + incrementalCount);
+      System.out.println("previousColor: " + previousColor);
+      System.out.println("colorString: " + colorString);
     }
-    SmartDashboard.putNumber("Rotation Count", rotationCount + (incrementalCount/10));
+    SmartDashboard.putNumber("Rotation Count", totalCount);
     return colorString;
   }
 }
