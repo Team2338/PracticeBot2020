@@ -93,6 +93,7 @@ public class ColorSensor extends SubsystemBase {
     System.out.println("Color Senor Initiated");
   }
 
+  public int incrementalCount = 0;
   public int rotationCount = 0;
   public String previousColor = "";
   String[] colorOrder = {"yellow", "blue", "green", "red"};
@@ -141,9 +142,9 @@ public class ColorSensor extends SubsystemBase {
      * Open Smart Dashboard or Shuffleboard to see the color detected by the
      * sensor.
      */
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
+//    SmartDashboard.putNumber("Red", detectedColor.red);
+//    SmartDashboard.putNumber("Green", detectedColor.green);
+//    SmartDashboard.putNumber("Blue", detectedColor.blue);
     Shuffleboard.getTab("Callibration").add("Red", detectedColor.red);
     Shuffleboard.getTab("Callibration").add("Green", detectedColor.green);
     Shuffleboard.getTab("Callibration").add("Blue", detectedColor.blue);
@@ -156,23 +157,27 @@ public class ColorSensor extends SubsystemBase {
      */
     if (previousColor != colorString) {
       if (previousColor == "Blue" && colorString == "Yellow") {
-        rotationCount = rotationCount + 1;
+        incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
       if (previousColor == "Red" && colorString == "Green") {
-        rotationCount = rotationCount + 1;
+        incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
       if (previousColor == "Green" && colorString == "Blue") {
-        rotationCount = rotationCount + 1;
+        incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
       if (previousColor == "Yellow" && colorString == "Red") {
-        rotationCount = rotationCount + 1;
+        incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
+      if (incrementalCount > 7) {
+        incrementalCount = 0;
+        rotationCount = rotationCount + 1;
+      }
     }
-    SmartDashboard.putNumber("Rotation Count", rotationCount / 8);
+    SmartDashboard.putNumber("Rotation Count", rotationCount + (incrementalCount/10));
     return colorString;
   }
 }
