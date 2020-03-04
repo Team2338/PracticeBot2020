@@ -260,16 +260,16 @@ public class Robot extends TimedRobot {
 
   }
 
-  public void setLimelightPipeline(){/**sets the limelight pipeline to redside or blue side**/
-    SmartDashboard.putString("pipeline selected", " !!ERROR!! alliance unselected !!ERROR!!");
-    if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
-      SmartDashboard.putString("pipeline selected", "Blue");
+  public void setLimelightPipeline(){/**sets the limelight pipeline to red side or blue side**/
+    SmartDashboard.putString("Alliance", "!None!");
+    if( DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue ) {
+      SmartDashboard.putString("Alliance", "Blue");
       limelight.setPipeline(0);
-    }else if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
-      SmartDashboard.putString("pipeline selected", "Red");
+    } else if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
+      SmartDashboard.putString("Alliance", "Red");
       limelight.setPipeline(1);
-    }else{
-      SmartDashboard.putString("pipeline selected", " !!ERROR!! alliance unselected");
+    } else {
+      SmartDashboard.putString("Alliance", "!ERROR!");
     }
   }
 }
