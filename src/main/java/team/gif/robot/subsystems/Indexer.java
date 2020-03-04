@@ -57,7 +57,6 @@ public class Indexer extends SubsystemBase {
 
         stageFourMotorVictor.setInverted(Robot.isCompBot); // C:false P:true
 
-        //Robot.
     }
 
     public boolean getKnopf() {
@@ -86,24 +85,8 @@ public class Indexer extends SubsystemBase {
         stageFiveMotorVictor.set(ControlMode.PercentOutput, speed);
     }
 
-    /*public void servozero(){
-        stage4servo.setAngle(0);
-    }*/
-
     public void moveServo(double position){
         stage4servo.setAngle(position);
-    }
-
-    public double getServoPos(){
-        System.out.println("getting servo"+ stage4servo);
-        return stage4servo.get();
-
-    }
-
-    public void setServo(double set){
-        //stage4servo.setAngle(set);
-        stage4servo.set(set);
-        System.out.println(set);
     }
 
 }

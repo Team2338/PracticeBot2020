@@ -40,13 +40,12 @@ import team.gif.robot.subsystems.drivers.Limelight;
 public class Robot extends TimedRobot {
 
 
-  public static final boolean isCompBot = false;
+  public static final boolean isCompBot = true;
 
 
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
-  //private Command servo = new servobutton();
 
   private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
   private SendableChooser<delay> delayChooser = new SendableChooser<>();
@@ -124,9 +123,6 @@ public class Robot extends TimedRobot {
     // Hanger
     SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
     SmartDashboard.putNumber("Hang Position", Robot.hanger.getPosition());
-
-    //SmartDashboard.putNumber("servo position",Indexer.getInstance().getServoPos());
-    //System.out.println(Indexer.getInstance().getServoPos());
   }
 
   /**

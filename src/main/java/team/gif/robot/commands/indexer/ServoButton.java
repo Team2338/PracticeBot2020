@@ -5,17 +5,11 @@ import team.gif.robot.subsystems.Indexer;
 
 public class ServoButton extends CommandBase {
 
-    public int position =0;
-
-    public boolean state = false;
-
-    public ServoButton(/*boolean stateval*/){
+    public ServoButton(){
     }
 
     @Override
     public void initialize() {
-
-        System.out.println("moving"+this.position);
         Indexer.getInstance().moveServo(0);
     }
 
@@ -32,6 +26,5 @@ public class ServoButton extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Indexer.getInstance().moveServo(90);
-        System.out.println("done");
     }
 }

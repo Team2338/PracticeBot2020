@@ -90,7 +90,7 @@ public class OI {
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false));
         aY.toggleWhenPressed(new HangerManualControl());
-        aA.whenPressed(new ServoButton().withTimeout(0.25));
+        aX.whenPressed(new ServoButton().withTimeout(0.25));
         aStart.whenPressed(new ControlPanelPosition());
         aBack.whenPressed(new ControlPanelDown());
 
