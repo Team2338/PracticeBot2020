@@ -81,6 +81,7 @@ public class Robot extends TimedRobot {
     // hanger position as the 0 position. Does this by calling
     // the commandBase specifically made for this ResetHanger()
     SmartDashboard.putData("Hanger", new ResetHanger());
+    setAutoPipeline();
   }
 
   /**
@@ -139,6 +140,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    setAutoPipeline();
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -162,6 +164,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    setAutoPipeline();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -255,5 +258,18 @@ public class Robot extends TimedRobot {
 
     System.out.println("auto " + chosenAuto);
 
+  }
+
+  public void setAutoPipeline(){/**sets the limelight pipeline to redside or blue side**/
+    SmartDashboard.putString("pipeline selected", " !!ERROR!! alliance unselected !!ERROR!!");
+    if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
+      SmartDashboard.putString("pipeline selected", "Blue");
+      limelight.setPipeline(0);
+    }else if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
+      SmartDashboard.putString("pipeline selected", "Red");
+      limelight.setPipeline(1);
+    }else{
+      SmartDashboard.putString("pipeline selected", " !!ERROR!! alliance unselected");
+    }
   }
 }
