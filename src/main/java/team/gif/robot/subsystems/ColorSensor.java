@@ -104,14 +104,14 @@ public class ColorSensor extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     System.out.println("ColorSensor Periodic");
-    countRotation( getColor() );
+    getRotationCount( getColor() );
   }
 
   public void setColorSensorSpeed(double speed) {
     colorWheel.set(ControlMode.PercentOutput, speed);
   }
 
-  public void countRotation(String currColor) {
+  public void getRotationCount(String currColor) {
     /**
      * Attempting to count rotations
      *
