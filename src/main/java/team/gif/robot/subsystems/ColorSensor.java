@@ -106,7 +106,7 @@ public class ColorSensor extends SubsystemBase {
     getColor();
   }
 
-  public void setColorSensor(double speed) {
+  public void setColorSensorSpeed(double speed) {
     colorWheel.set(ControlMode.PercentOutput, speed);
   }
 
@@ -152,9 +152,6 @@ public class ColorSensor extends SubsystemBase {
 //    Shuffleboard.getTab("Callibration").add("Green", detectedColor.green);
 //    Shuffleboard.getTab("Callibration").add("Blue", detectedColor.blue);
 
-
-
-//    SmartDashboard.putNumber("IR", IR);
     /**
      * Attempting to count rotations
      */
@@ -163,7 +160,10 @@ public class ColorSensor extends SubsystemBase {
         previousColor = colorString;
       }
       if (previousColor.equals("Blue") && colorString.equals("Yellow")) {
-
+        incrementalCount = incrementalCount + 1;
+        previousColor = colorString;
+      }
+      if (previousColor.equals("Yellow") && colorString.equals("Red")) {
         incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
@@ -175,21 +175,21 @@ public class ColorSensor extends SubsystemBase {
         incrementalCount = incrementalCount + 1;
         previousColor = colorString;
       }
-      if (previousColor.equals("Yellow") && colorString.equals("Red")) {
-        incrementalCount = incrementalCount + 1;
-        previousColor = colorString;
-      }
+
+      // after 8 color changes, it has turned 1 full rotation
       if (incrementalCount > 7) {
         incrementalCount = 0;
         rotationCount = rotationCount + 1;
       }
+      // display total count as {rotation}.{wedge} where wedge goes from 0 to 7
       totalCount = rotationCount + (incrementalCount/10);
+
       System.out.println("rotationCount: " + rotationCount);
       System.out.println("incrementalCount: " + incrementalCount);
       System.out.println("previousColor: " + previousColor);
       System.out.println("colorString: " + colorString);
     }
-    SmartDashboard.putNumber("Rotation Count", totalCount);
+    SmartDashboard.putNumber("Rotation", totalCount);
     return colorString;
   }
 }
