@@ -20,25 +20,23 @@ public class Rotation extends CommandBase {
      *
      */
     public Rotation() {
-
     }
-    public boolean colorsResorted;
+
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
     }
     public enum WheelColor {YELLOW, BLUE, GREEN, RED};
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ColorSensor.getInstance().setColorSensor(0.5);
+        ColorSensor.getInstance().setColorSensorSpeed(0.5);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        ColorSensor.getInstance().setColorSensor(0.0);
+        ColorSensor.getInstance().setColorSensorSpeed(0.0);
     }
 
     // Returns true when the command should end.
