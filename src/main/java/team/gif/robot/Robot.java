@@ -59,7 +59,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  public static ShuffleboardTab Autotab;
+  public static ShuffleboardTab autoTab;
+  public static ShuffleboardTab calibrationTab;
 
   public static OI oi;
   public static Hanger hanger;
@@ -213,7 +214,7 @@ public class Robot extends TimedRobot {
 
   public void tabsetup(){
     //setp tabs
-    Autotab = Shuffleboard.getTab("auto");
+    autoTab = Shuffleboard.getTab("auto");
 
     autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
     autoModeChooser.addOption("Fwd Mobility", autoMode.MOBILITY_FWD);
@@ -221,7 +222,7 @@ public class Robot extends TimedRobot {
     autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
 
-    Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
+    autoTab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
     delayChooser.setDefaultOption("0", delay.DELAY_0);
     delayChooser.addOption("1", delay.DELAY_1);
@@ -240,8 +241,13 @@ public class Robot extends TimedRobot {
     delayChooser.addOption("14", delay.DELAY_14);
     delayChooser.addOption("15", delay.DELAY_15);
 
+    autoTab.add("Delay", delayChooser);
 
-    Autotab.add("Delay", delayChooser);
+    // adds the calibration tab to the shuffleboard
+    calibrationTab = Shuffleboard.getTab("Calibration");
+    Shuffleboard.getTab("Calibration").addPersistent("Red",0);
+    Shuffleboard.getTab("Calibration").addPersistent("Green",0);
+    Shuffleboard.getTab("Calibration").addPersistent("Blue",0);
   }
 
   public void updateauto(){

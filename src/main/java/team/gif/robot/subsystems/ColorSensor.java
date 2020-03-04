@@ -11,11 +11,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -93,6 +96,11 @@ public class ColorSensor extends SubsystemBase {
     m_colorMatcher.addColorMatch(kYellowTarget);
     System.out.println("Color Sensor Initiated");
   }
+
+  private ShuffleboardTab   tab        = Shuffleboard.getTab("Calibration");
+  private NetworkTableEntry redEntry   = tab.add("Red",   0).getEntry();
+  private NetworkTableEntry blueEntry  = tab.add("Blue",  0).getEntry();
+  private NetworkTableEntry greenEntry = tab.add("Green", 0).getEntry();
 
   public double incrementalCount = 0;
   public double rotationCount = 0;
@@ -188,15 +196,24 @@ public class ColorSensor extends SubsystemBase {
     }
 
     /**
-     * Open Smart Dashboard or Shuffleboard to see the color detected by the
-     * sensor.
+     * Display the RGB values detected by the sensor. This is for
+     * calibraion puposes only.
      */
+    Shuffleboard.getTab("Calibration").add("Red",0);
+    Shuffleboard.getTab("Calibration").add("Green",0);
+    Shuffleboard.getTab("Calibration").add("Blue",0);
+
+/*    Robot.calibrationTab.add("Red",0).getEntry();
+    Robot.calibrationTab.add("Green",0).getEntry();
+    Robot.calibrationTab.add("Blue",0).getEntry();
+*/
+    redEntry.setDouble(detectedColor.red);
+    greenEntry.setDouble(detectedColor.green);
+    blueEntry.setDouble(detectedColor.blue);
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
-//    Shuffleboard.getTab("Callibration").add("Red", detectedColor.red);
-//    Shuffleboard.getTab("Callibration").add("Green", detectedColor.green);
-//    Shuffleboard.getTab("Callibration").add("Blue", detectedColor.blue);
+
     return colorString;
   }
 }
