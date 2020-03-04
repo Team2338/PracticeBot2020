@@ -40,7 +40,7 @@ public abstract class RobotMap {
     public static final int PIGEON = 2;
 
     //Servo
-    public static final int STAGE_4_SERVO = 2;
+    public static final int STAGE_4_SERVO = 1;
 
 
 }

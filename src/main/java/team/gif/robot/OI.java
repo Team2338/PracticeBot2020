@@ -10,7 +10,7 @@ import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
-import team.gif.robot.commands.indexer.servobutton;
+import team.gif.robot.commands.indexer.ServoButton;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
@@ -90,7 +90,7 @@ public class OI {
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false));
         aY.toggleWhenPressed(new HangerManualControl());
-        aA.whenPressed(new servobutton());
+        aA.whenPressed(new ServoButton().withTimeout(0.25));
         aStart.whenPressed(new ControlPanelPosition());
         aBack.whenPressed(new ControlPanelDown());
 
