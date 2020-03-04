@@ -97,8 +97,9 @@ public class ColorSensor extends SubsystemBase {
     System.out.println("Color Sensor Initiated");
   }
 
-  private ShuffleboardTab   tab        = Shuffleboard.getTab("Calibration");
-  private NetworkTableEntry redEntry   = tab.add("Red",   0).getEntry();
+  // RGB_Shuffleboard
+  private ShuffleboardTab   tab        = Shuffleboard.getTab("Calibration"); //gets a reference to the shuffleboard tab
+  private NetworkTableEntry redEntry   = tab.add("Red",   0).getEntry();     // updates red
   private NetworkTableEntry blueEntry  = tab.add("Blue",  0).getEntry();
   private NetworkTableEntry greenEntry = tab.add("Green", 0).getEntry();
 
@@ -199,21 +200,31 @@ public class ColorSensor extends SubsystemBase {
      * Display the RGB values detected by the sensor. This is for
      * calibraion puposes only.
      */
+    // RGB_Shuffleboard
+    redEntry.setDouble(detectedColor.red);     // sets the red value for displaying
+    greenEntry.setDouble(detectedColor.green);
+    blueEntry.setDouble(detectedColor.blue);
+
+    // -- or --
+    tab.add("Red",   0).getEntry(); // not sure if this is needed since it is done above
+    tab.add("Blue",  0).getEntry();
+    tab.add("Green", 0).getEntry();
+/*
     Shuffleboard.getTab("Calibration").add("Red",0);
     Shuffleboard.getTab("Calibration").add("Green",0);
     Shuffleboard.getTab("Calibration").add("Blue",0);
-
-/*    Robot.calibrationTab.add("Red",0).getEntry();
+*/
+/*
+    Robot.calibrationTab.add("Red",0).getEntry(); // not sure if this is needed to be run periodically
     Robot.calibrationTab.add("Green",0).getEntry();
     Robot.calibrationTab.add("Blue",0).getEntry();
 */
-    redEntry.setDouble(detectedColor.red);
-    greenEntry.setDouble(detectedColor.green);
-    blueEntry.setDouble(detectedColor.blue);
+
+/*
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
-
+*/
     return colorString;
   }
 }
