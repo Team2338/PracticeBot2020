@@ -71,28 +71,27 @@ public class ColorSensor extends SubsystemBase {
   /**
    * Under Table
    */
-     private final Color kBlueTarget = ColorMatch.makeColor(0.198, 0.457, 0.345);
-     private final Color kGreenTarget = ColorMatch.makeColor(0.224, 0.510, 0.266);
-     private final Color kRedTarget = ColorMatch.makeColor(0.330, 0.442, 0.228);
-     private final Color kYellowTarget = ColorMatch.makeColor(0.286, 0.518, 0.195);
+  private final Color kBlueTarget = ColorMatch.makeColor(0.198, 0.457, 0.345);
+  private final Color kGreenTarget = ColorMatch.makeColor(0.224, 0.510, 0.266);
+  private final Color kRedTarget = ColorMatch.makeColor(0.330, 0.442, 0.228);
+  private final Color kYellowTarget = ColorMatch.makeColor(0.286, 0.518, 0.195);
 
   public static ColorSensor getInstance() {
     if (instance == null) {
       instance = new ColorSensor();
     }
-
     return instance;
   }
 
   /**
-   * Creates a new ExampleSubsystem.
+   * Creates a new Subsystem.
    */
   public ColorSensor() {
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
-    System.out.println("Color Senor Initiated");
+    System.out.println("Color Sensor Initiated");
   }
 
   public double incrementalCount = 0;
@@ -100,14 +99,61 @@ public class ColorSensor extends SubsystemBase {
   public double totalCount = 0;
   public String previousColor = "";
   String[] colorOrder = {"yellow", "blue", "green", "red"};
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    getColor();
+    System.out.println("ColorSensor Periodic");
+    countRotation( getColor() );
   }
 
   public void setColorSensorSpeed(double speed) {
     colorWheel.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void countRotation(String currColor) {
+    /**
+     * Attempting to count rotations
+     *
+     * If we detect a correct color change from the previous color, we
+     * consider that valid movement of the wheel, advancing 1 wedge of a color
+     */
+    if (!previousColor.equals(currColor)) {
+      if (previousColor.equals("")) {
+        previousColor = currColor;
+      }
+      if (previousColor.equals("Blue") && currColor.equals("Yellow")) {
+        incrementalCount = incrementalCount + 1;
+        previousColor = currColor;
+      }
+      if (previousColor.equals("Yellow") && currColor.equals("Red")) {
+        incrementalCount = incrementalCount + 1;
+        previousColor = currColor;
+      }
+      if (previousColor.equals("Red") && currColor.equals("Green")) {
+        incrementalCount = incrementalCount + 1;
+        previousColor = currColor;
+      }
+      if (previousColor.equals("Green") && currColor.equals("Blue")) {
+        incrementalCount = incrementalCount + 1;
+        previousColor = currColor;
+      }
+
+      // after 8 color changes, it has turned 1 full rotation
+      if (incrementalCount > 7) {
+        incrementalCount = 0;
+        rotationCount = rotationCount + 1;
+      }
+      // display total count as {rotation}.{wedge} where wedge goes from 0 to 7
+      totalCount = rotationCount + (incrementalCount/10);
+/*
+      System.out.println("rotationCount: " + rotationCount);
+      System.out.println("incrementalCount: " + incrementalCount);
+      System.out.println("previousColor: " + previousColor);
+      System.out.println("colorString: " + colorString);
+ */
+    }
+    SmartDashboard.putNumber("Rotation", totalCount);
   }
 
   public String getColor() {
@@ -151,46 +197,6 @@ public class ColorSensor extends SubsystemBase {
 //    Shuffleboard.getTab("Callibration").add("Red", detectedColor.red);
 //    Shuffleboard.getTab("Callibration").add("Green", detectedColor.green);
 //    Shuffleboard.getTab("Callibration").add("Blue", detectedColor.blue);
-
-    /**
-     * Attempting to count rotations
-     */
-    if (!previousColor.equals(colorString)) {
-      if (previousColor.equals("")) {
-        previousColor = colorString;
-      }
-      if (previousColor.equals("Blue") && colorString.equals("Yellow")) {
-        incrementalCount = incrementalCount + 1;
-        previousColor = colorString;
-      }
-      if (previousColor.equals("Yellow") && colorString.equals("Red")) {
-        incrementalCount = incrementalCount + 1;
-        previousColor = colorString;
-      }
-      if (previousColor.equals("Red") && colorString.equals("Green")) {
-        incrementalCount = incrementalCount + 1;
-        previousColor = colorString;
-      }
-      if (previousColor.equals("Green") && colorString.equals("Blue")) {
-        incrementalCount = incrementalCount + 1;
-        previousColor = colorString;
-      }
-
-      // after 8 color changes, it has turned 1 full rotation
-      if (incrementalCount > 7) {
-        incrementalCount = 0;
-        rotationCount = rotationCount + 1;
-      }
-      // display total count as {rotation}.{wedge} where wedge goes from 0 to 7
-      totalCount = rotationCount + (incrementalCount/10);
-/*
-      System.out.println("rotationCount: " + rotationCount);
-      System.out.println("incrementalCount: " + incrementalCount);
-      System.out.println("previousColor: " + previousColor);
-      System.out.println("colorString: " + colorString);
- */
-    }
-    SmartDashboard.putNumber("Rotation", totalCount);
     return colorString;
   }
 }

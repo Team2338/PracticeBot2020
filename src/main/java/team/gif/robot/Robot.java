@@ -126,9 +126,6 @@ public class Robot extends TimedRobot {
     // Hanger
     SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
     SmartDashboard.putNumber("Hang Position", Robot.hanger.getPosition());
-
-    //ColorSensor
-    SmartDashboard.putString("Color", ColorSensor.getInstance().getColor());
   }
 
   /**
