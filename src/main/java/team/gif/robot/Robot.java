@@ -188,6 +188,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+    // run the color sensor during teleop
+    /* may not need if periodic is called automatically */
+    ColorSensor.getInstance().periodic();
+
     // Rumble the joysticks at specified time
     // to notify the driver to begin to climb
     double matchTime = DriverStation.getInstance().getMatchTime();

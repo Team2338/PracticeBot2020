@@ -30,6 +30,9 @@ public class Rotation extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        // run the color sensor algorithm
+        /* may not need if we can run this from teleopPeriodic */
+        //ColorSensor.getInstance().periodic();
         ColorSensor.getInstance().setColorSensorSpeed(0.5);
     }
 
