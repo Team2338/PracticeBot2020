@@ -25,6 +25,7 @@ import team.gif.robot.commands.autos.SafeFiveBall;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.ResetHanger;
 import team.gif.robot.commands.indexer.IndexerScheduler;
+import team.gif.robot.commands.indexer.servobutton;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Hanger;
 import team.gif.robot.subsystems.Indexer;
@@ -40,12 +41,13 @@ import team.gif.robot.subsystems.drivers.Limelight;
 public class Robot extends TimedRobot {
 
 
-  public static final boolean isCompBot = true;
+  public static final boolean isCompBot = false;
 
 
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
+  //private Command servo = new servobutton();
 
   private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
   private SendableChooser<delay> delayChooser = new SendableChooser<>();
@@ -123,6 +125,9 @@ public class Robot extends TimedRobot {
     // Hanger
     SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
     SmartDashboard.putNumber("Hang Position", Robot.hanger.getPosition());
+
+    //SmartDashboard.putNumber("servo position",Indexer.getInstance().getServoPos());
+    //System.out.println(Indexer.getInstance().getServoPos());
   }
 
   /**

@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
@@ -39,6 +40,8 @@ public class Indexer extends SubsystemBase {
     private static final DigitalInput stageFourSensor  = new DigitalInput(RobotMap.SENSOR_FOUR);
     private static final DigitalInput stageFiveSensor  = new DigitalInput(RobotMap.SENSOR_FIVE);
 
+    public static final Servo stage4servo = new Servo(RobotMap.STAGE_4_SERVO);
+
     private Indexer() {
         super();
 
@@ -54,6 +57,7 @@ public class Indexer extends SubsystemBase {
 
         stageFourMotorVictor.setInverted(Robot.isCompBot); // C:false P:true
 
+        //Robot.
     }
 
     public boolean getKnopf() {
@@ -81,4 +85,25 @@ public class Indexer extends SubsystemBase {
         stageFiveMotor.set(ControlMode.PercentOutput, speed);
         stageFiveMotorVictor.set(ControlMode.PercentOutput, speed);
     }
+
+    public void servozero(){
+        stage4servo.setAngle(0);
+    }
+
+    public void MoveServo(double position){
+        stage4servo.setAngle(position);
+    }
+
+    public double getServoPos(){
+        System.out.println("getting servo"+ stage4servo);
+        return stage4servo.get();
+
+    }
+
+    public void setServo(double set){
+        //stage4servo.setAngle(set);
+        stage4servo.set(set);
+        System.out.println(set);
+    }
+
 }
