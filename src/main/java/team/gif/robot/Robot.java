@@ -68,6 +68,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
     // autonomous chooser on the dashboard.
@@ -82,6 +83,7 @@ public class Robot extends TimedRobot {
     // the commandBase specifically made for this ResetHanger()
     SmartDashboard.putData("Hanger", new ResetHanger());
     setLimelightPipeline();
+    limelight.setLEDMode(1);//force off
   }
 
   /**
@@ -129,6 +131,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    limelight.setLEDMode(1);//force off
   }
 
   @Override
@@ -140,7 +143,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+
     setLimelightPipeline();
+    limelight.setLEDMode(1);//force off
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -164,7 +169,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+
     setLimelightPipeline();
+    limelight.setLEDMode(1);//force off
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
