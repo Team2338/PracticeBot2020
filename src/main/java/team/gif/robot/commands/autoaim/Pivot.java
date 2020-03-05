@@ -50,6 +50,7 @@ public class Pivot extends CommandBase {
 
     @Override
     public void execute() {
+        Robot.limelight.setLEDMode(3);
         double xoffset = Robot.limelight.getXOffset();
 
         if((Math.abs(xoffset)<Constants.Pivot.marginxF)&&(loopedI<Ilooptime)){
@@ -85,6 +86,7 @@ public class Pivot extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Robot.limelight.setLEDMode(1);//force off
+
         /*
         OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
         OI.getInstance().aux.setRumble(GenericHID.RumbleType.kRightRumble,0);*/
