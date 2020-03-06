@@ -3,6 +3,7 @@ package team.gif.robot.commands.hanger;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.robot.Globals;
 import team.gif.robot.Robot;
 
 public class HangerManualControl extends CommandBase {
@@ -31,7 +32,7 @@ public class HangerManualControl extends CommandBase {
             speed = 0;
         }
 
-        Robot.hanger.setSpeed(speed);
+        if (!Globals.controlPanelMotorEnabled) { Robot.hanger.setSpeed(speed); }
     }
 
     // Called once the command ends or is interrupted.

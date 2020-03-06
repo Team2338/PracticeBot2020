@@ -8,6 +8,7 @@
 package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -95,6 +96,8 @@ public class ColorSensor extends SubsystemBase {
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
     System.out.println("Color Sensor Initiated");
+
+    colorWheel.setNeutralMode(NeutralMode.Brake);
   }
 
   // RGB_Shuffleboard
@@ -162,7 +165,9 @@ public class ColorSensor extends SubsystemBase {
       System.out.println("colorString: " + colorString);
  */
     }
-    SmartDashboard.putNumber("Rotation", totalCount);
+    String totalCountStr = String.valueOf(totalCount);
+    SmartDashboard.putString("Rotation", totalCountStr);
+//    SmartDashboard.putNumber("Rotation", totalCount);
   }
 
   public String getColor() {
@@ -195,6 +200,7 @@ public class ColorSensor extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
+    SmartDashboard.putString("Color", colorString);
 
     /**
      * Display the RGB values detected by the sensor. This is for
@@ -206,9 +212,9 @@ public class ColorSensor extends SubsystemBase {
     blueEntry.setDouble(detectedColor.blue);
 
     // -- or --
-    tab.add("Red",   0).getEntry(); // not sure if this is needed since it is done above
-    tab.add("Blue",  0).getEntry();
-    tab.add("Green", 0).getEntry();
+//    tab.add("Red",   0).getEntry(); // not sure if this is needed since it is done above
+//    tab.add("Blue",  0).getEntry();
+//    tab.add("Green", 0).getEntry();
 /*
     Shuffleboard.getTab("Calibration").add("Red",0);
     Shuffleboard.getTab("Calibration").add("Green",0);

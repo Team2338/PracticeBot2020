@@ -246,9 +246,9 @@ public class Robot extends TimedRobot {
     // calibration information
     // RGB_Shuffleboard
     calibrationTab = Shuffleboard.getTab("Calibration");          // adds the calibration tab to the shuffleboard (getTab creates if not exist)
-    Shuffleboard.getTab("Calibration").addPersistent("Red",0);    // adds the Red text box, persists over power down
-    Shuffleboard.getTab("Calibration").addPersistent("Green",0);  // adds the Green text box, persists over power down
-    Shuffleboard.getTab("Calibration").addPersistent("Blue",0);   // adds the Blue text box, persists over power down
+//    Shuffleboard.getTab("Calibration").add("Red",0);    // adds the Red text box, persists over power down
+//    Shuffleboard.getTab("Calibration").add("Green",0);  // adds the Green text box, persists over power down
+//    Shuffleboard.getTab("Calibration").add("Blue",0);   // adds the Blue text box, persists over power down
   }
 
   public void updateauto(){
