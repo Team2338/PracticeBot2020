@@ -2,6 +2,7 @@ package team.gif.robot.commands.hanger;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.lib.delay;
 import team.gif.robot.Constants;
 import team.gif.robot.Globals;
 import team.gif.robot.OI;
@@ -12,6 +13,7 @@ public class ControlPanelPosition extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     private static boolean finished = false;
+    private int delay;
 
     public ControlPanelPosition() {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -23,15 +25,20 @@ public class ControlPanelPosition extends CommandBase {
         Robot.hanger.setOpen();
         finished = false;
         Globals.controlPanelMotorEnabled = true;
+        delay = 0;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.hanger.getPosition() < Constants.Hanger.COLOR_WHEEL_POSITION) {
-            Robot.hanger.setSpeed(0.6);
-        } else {
-            finished = true;
+        delay++;
+
+        if (delay > 25) {
+            if (Robot.hanger.getPosition() < Constants.Hanger.COLOR_WHEEL_POSITION) {
+                Robot.hanger.setSpeed(0.6);
+            } else {
+                finished = true;
+            }
         }
     }
 
