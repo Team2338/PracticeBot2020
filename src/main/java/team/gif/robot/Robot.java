@@ -70,6 +70,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
+    //OI oi = new OI();
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     limelight = new Limelight();
