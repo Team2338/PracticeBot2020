@@ -21,8 +21,10 @@ public class OppFiveBall extends SequentialCommandGroup {
 
         addCommands(
                 new IntakeDown(),
+
                 new AutoDrive(.5,.30,.30), // slow rampup to reduce jitter when starting
                 new AutoDrive(1,.5,.5),
+
                 new ParallelDeadlineGroup(new AutoDrive(.5,.30,.30), // drive backwards),//OG 1.7 "1.9 @ .47" // 2.75
                                           new IntakeRun()),
 
