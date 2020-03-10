@@ -188,6 +188,9 @@ public class Robot extends TimedRobot {
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
+
+    // resets color indicator
+    SmartDashboard.putString("CP Pos", "");
   }
 
   /**
