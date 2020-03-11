@@ -204,6 +204,16 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
+  @Override
+  public void simulationInit(){
+    System.out.println("sim init");
+  }
+
+  @Override
+  public void simulationPeriodic(){
+    System.out.println("sim periodic");
+  }
+
   public void tabsetup(){
     //setp tabs
     Autotab = Shuffleboard.getTab("auto");
