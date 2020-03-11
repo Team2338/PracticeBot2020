@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
+import team.gif.robot.commands.controlpanel.Rotation;
 import team.gif.robot.commands.hanger.ControlPanelDown;
 import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
@@ -93,6 +94,8 @@ public class OI {
         aX.whenPressed(new ServoButton().withTimeout(0.25));
         aStart.whenPressed(new ControlPanelPosition());
         aBack.whenPressed(new ControlPanelDown());
+        aA.whileHeld(new Rotation());
+        aB.whenPressed(new ControlPanelDown());
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());

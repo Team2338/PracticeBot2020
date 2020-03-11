@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
@@ -28,6 +29,8 @@ import team.gif.robot.subsystems.Hanger;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
+import edu.wpi.first.wpilibj.DriverStation;
+import team.gif.robot.subsystems.ColorSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -56,11 +59,13 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  public static ShuffleboardTab Autotab;
+  public static ShuffleboardTab autoTab;
+  public static ShuffleboardTab calibrationTab;
 
   public static OI oi;
   public static Hanger hanger;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
+  private final ColorSensor colorsensor = ColorSensor.getInstance();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -68,6 +73,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
     // autonomous chooser on the dashboard.
@@ -82,6 +88,7 @@ public class Robot extends TimedRobot {
     // the commandBase specifically made for this ResetHanger()
     SmartDashboard.putData("Hanger", new ResetHanger());
     setLimelightPipeline();
+    limelight.setLEDMode(1);//force off
   }
 
   /**
@@ -129,6 +136,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    limelight.setLEDMode(1);//force off
   }
 
   @Override
@@ -140,7 +148,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+
     setLimelightPipeline();
+    limelight.setLEDMode(1);//force off
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -164,7 +174,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+
     setLimelightPipeline();
+    limelight.setLEDMode(1);//force off
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -176,6 +188,9 @@ public class Robot extends TimedRobot {
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
+
+    // resets color indicator
+    SmartDashboard.putString("CP Pos", "");
   }
 
   /**
@@ -183,6 +198,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+
+    // run the color sensor during teleop
+    /* may not need if periodic is called automatically */
+    ColorSensor.getInstance().periodic();
 
     // Rumble the joysticks at specified time
     // to notify the driver to begin to climb
@@ -205,7 +224,7 @@ public class Robot extends TimedRobot {
 
   public void tabsetup(){
     //setp tabs
-    Autotab = Shuffleboard.getTab("auto");
+    autoTab = Shuffleboard.getTab("auto");
 
     autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
     autoModeChooser.addOption("Fwd Mobility", autoMode.MOBILITY_FWD);
@@ -213,7 +232,7 @@ public class Robot extends TimedRobot {
     autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
 
-    Autotab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
+    autoTab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
 
     delayChooser.setDefaultOption("0", delay.DELAY_0);
     delayChooser.addOption("1", delay.DELAY_1);
@@ -232,8 +251,14 @@ public class Robot extends TimedRobot {
     delayChooser.addOption("14", delay.DELAY_14);
     delayChooser.addOption("15", delay.DELAY_15);
 
+    autoTab.add("Delay", delayChooser);
 
-    Autotab.add("Delay", delayChooser);
+    // calibration information
+    // RGB_Shuffleboard
+    calibrationTab = Shuffleboard.getTab("Calibration");          // adds the calibration tab to the shuffleboard (getTab creates if not exist)
+//    Shuffleboard.getTab("Calibration").add("Red",0);    // adds the Red text box, persists over power down
+//    Shuffleboard.getTab("Calibration").add("Green",0);  // adds the Green text box, persists over power down
+//    Shuffleboard.getTab("Calibration").add("Blue",0);   // adds the Blue text box, persists over power down
   }
 
   public void updateauto(){
