@@ -18,6 +18,7 @@ public class Shooter extends SubsystemBase {
     }
 
     private static final CANSparkMax flywheelMotor = new CANSparkMax(RobotMap.FLYWHEEL, CANSparkMaxLowLevel.MotorType.kBrushless);
+    private static final CANSparkMax flywheelMotorTwo = new CANSparkMax(RobotMap.FLYWHEEL_TWO, CANSparkMaxLowLevel.MotorType.kBrushless);
     private static final CANPIDController flywheelPIDController = flywheelMotor.getPIDController();
     private static final CANEncoder flywheelEncoder = flywheelMotor.getEncoder();
 
@@ -30,6 +31,8 @@ public class Shooter extends SubsystemBase {
         flywheelPIDController.setP(Constants.Shooter.kP);
         flywheelPIDController.setFF(Constants.Shooter.kF);
         flywheelPIDController.setOutputRange(0, 1);
+
+        flywheelMotorTwo.follow(flywheelMotor);
     }
 
     public void setVoltage(double voltage) {
