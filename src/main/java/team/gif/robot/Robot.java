@@ -41,7 +41,7 @@ import team.gif.robot.subsystems.ColorSensor;
 public class Robot extends TimedRobot {
 
 
-  public static final boolean isCompBot = true;
+  public static final boolean isCompBot = false;
 
 
   private Command m_autonomousCommand = null;
@@ -207,6 +207,11 @@ public class Robot extends TimedRobot {
     // to notify the driver to begin to climb
     double matchTime = DriverStation.getInstance().getMatchTime();
     oi.setRumble(matchTime > 18.0 && matchTime < 22.0);
+
+    // TEMP
+    //Shooter.getInstance().setSpeedMain(-oi.aux.getY(GenericHID.Hand.kLeft));
+    SmartDashboard.putNumber("FW 1", Shooter.getInstance().getOutput());
+    SmartDashboard.putNumber("FW 2", Shooter.getInstance().getOutputTwo());
   }
 
   @Override

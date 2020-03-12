@@ -26,13 +26,23 @@ public class Shooter extends SubsystemBase {
         super();
         flywheelMotor.restoreFactoryDefaults();
         flywheelMotor.enableVoltageCompensation(12);
-        flywheelMotor.setInverted(!Robot.isCompBot); // C:false P:true
+        flywheelMotor.setInverted(false); // C:false P:true
         flywheelMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         flywheelPIDController.setP(Constants.Shooter.kP);
         flywheelPIDController.setFF(Constants.Shooter.kF);
         flywheelPIDController.setOutputRange(0, 1);
 
-        flywheelMotorTwo.follow(flywheelMotor);
+        flywheelMotorTwo.restoreFactoryDefaults();
+        flywheelMotorTwo.enableVoltageCompensation(12);
+        flywheelMotorTwo.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        //flywheelMotorTwo.follow(flywheelMotor);
+        flywheelMotorTwo.setInverted(true);
+    }
+
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        flywheelMotorTwo.set(flywheelMotor.get());
     }
 
     public void setVoltage(double voltage) {
@@ -45,5 +55,20 @@ public class Shooter extends SubsystemBase {
     public double getVelocity () {
         double velocity = flywheelEncoder.getVelocity();
         return velocity;
+    }
+
+    public double getOutput() {
+        double output = flywheelMotor.getAppliedOutput();
+        return output;
+    }
+    public double getOutputTwo() {
+        double output = flywheelMotorTwo.getAppliedOutput();
+        return output;
+    }
+
+    // TEMP
+    public void setSpeedMain (double speed) {
+        flywheelMotor.set(speed);
+        //flywheelMotorTwo.set(speed);
     }
 }
