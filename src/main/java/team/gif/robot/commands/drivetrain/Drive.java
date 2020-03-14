@@ -71,8 +71,6 @@ public class Drive extends CommandBase {
         }
 */
         Drivetrain.getInstance().driveArcade(Speed, RotationSpeed);
-
-
     }
 
     // Called once the command ends or is interrupted.
