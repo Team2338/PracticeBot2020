@@ -24,10 +24,12 @@ public class Fire extends CommandBase {
         Robot.limelight.setLEDMode(3);
         // Fire is used in auto but OI isn't instantiated yet so need to check first
         double speed = (Robot.oi != null && Robot.oi.dRT.get()) ? Constants.Shooter.RPM_HIGH : Constants.Shooter.RPM_LOW;
-        if (((Shooter.getInstance().getVelocity()) > (speed - 300))
+        //System.out.println(Shooter.getInstance().getVelocity());
+        if ( ( Shooter.getInstance().getVelocity() > (speed - 20.0) )
                 && (Indexer.getInstance().getState()[5] == true)
                 && (!useLimelight || ((Math.abs(Robot.limelight.getXOffset()) < Constants.Pivot.marginxF) && Robot.limelight.hasTarget()))) {
 
+            System.out.println("Firing speed " + Shooter.getInstance().getVelocity());
             Indexer.getInstance().setSpeedFive(0.5);
         } else {
             Indexer.getInstance().setSpeedFive(0);
