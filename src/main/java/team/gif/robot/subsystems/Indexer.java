@@ -84,9 +84,9 @@ public class Indexer extends SubsystemBase {
         stageFiveMotor.set(ControlMode.PercentOutput, speed);
         stageFiveMotorVictor.set(ControlMode.PercentOutput, speed);
     }
-
+/*
     public void moveServo(double position){
         //stage4servo.setAngle(position);
     }
-
+*/
 }
