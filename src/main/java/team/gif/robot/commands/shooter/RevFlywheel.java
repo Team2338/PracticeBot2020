@@ -15,11 +15,14 @@ public class RevFlywheel extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        Robot.limelight.setLEDMode(3);//force on
+    }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        Robot.limelight.setLEDMode(3);
         // RevFlyWheel is used in auto but OI isn't instantiated yet so need to check first
         if (Robot.oi != null && Robot.oi.dRT.get()) {
             Shooter.getInstance().setPID(Constants.Shooter.RPM_HIGH);
@@ -36,6 +39,7 @@ public class RevFlywheel extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Shooter.getInstance().setVoltage(0);
+        Robot.limelight.setLEDMode(1);//force off
     }
 
 }
