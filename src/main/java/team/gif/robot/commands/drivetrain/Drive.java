@@ -33,8 +33,8 @@ public class Drive extends CommandBase {
         addRequirements(Drivetrain.getInstance());
     }
 
-    double leftSpeed;
-    double rightSpeed;
+    double Speed;
+    double RotationSpeed;
 
     // Called when the command is initially scheduled.
     @Override
@@ -44,33 +44,33 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        leftSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) - Robot.oi.driver.getX(GenericHID.Hand.kRight);
-        rightSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) + Robot.oi.driver.getX(GenericHID.Hand.kRight);
+        Speed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) ;
+        RotationSpeed =  Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
         if (Robot.isCompBot) { // Comp Bot
-            if (leftSpeed < 0.075 && leftSpeed > -0.075 ) {
-                leftSpeed = 0;
+            if (Speed < 0.075 && Speed > -0.075 ) {
+                Speed = 0;
             }
-            if (rightSpeed < 0.075 && rightSpeed > -0.075 ) {
-                rightSpeed = 0;
+            if (RotationSpeed < 0.075 && RotationSpeed > -0.075 ) {
+                RotationSpeed = 0;
             }
         } else { // Practice Bot
-            if (leftSpeed < 0.05 && leftSpeed > -0.05 ) {
-                leftSpeed = 0;
+            if (Speed < 0.05 && Speed > -0.05 ) {
+                Speed = 0;
             }
-            if (rightSpeed < 0.05 && rightSpeed > -0.05 ) {
-                rightSpeed = 0;
+            if (RotationSpeed < 0.05 && RotationSpeed > -0.05 ) {
+                RotationSpeed = 0;
             }
         }
 
-        if (leftSpeed < -1 || leftSpeed > 1) {
-            leftSpeed = leftSpeed / Math.abs(leftSpeed);
+        if (Speed < -1 || Speed > 1) {
+            Speed = Speed / Math.abs(Speed);
         }
-        if (rightSpeed < -1 || rightSpeed > 1) {
-            rightSpeed = rightSpeed / Math.abs(rightSpeed);
+        if (RotationSpeed < -1 || RotationSpeed > 1) {
+            RotationSpeed = RotationSpeed / Math.abs(RotationSpeed);
         }
 
-        Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
+        Drivetrain.getInstance().driveArcade(Speed, RotationSpeed);
 
 
     }
