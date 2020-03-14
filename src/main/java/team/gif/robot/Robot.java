@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   public static Hanger hanger;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
-  private final ColorSensor colorsensor = ColorSensor.getInstance();
+  //private final ColorSensor colorsensor = ColorSensor.getInstance();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -201,7 +201,7 @@ public class Robot extends TimedRobot {
 
     // run the color sensor during teleop
     /* may not need if periodic is called automatically */
-    ColorSensor.getInstance().periodic();
+//    ColorSensor.getInstance().periodic();
 
     // Rumble the joysticks at specified time
     // to notify the driver to begin to climb

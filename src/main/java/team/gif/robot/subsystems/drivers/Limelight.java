@@ -39,7 +39,7 @@ public class Limelight {
     public void setLEDMode(int mode) {
         if (mode >= 0 && mode <= 3) {
             table.getEntry("ledMode").setNumber(mode);
-            System.out.println("LedMode set to mode "+mode);
+            //System.out.println("LedMode set to mode "+mode);
         }
     }
 
