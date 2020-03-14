@@ -62,14 +62,14 @@ public class Drive extends CommandBase {
                 RotationSpeed = 0;
             }
         }
-
+/*
         if (Speed < -1 || Speed > 1) {
             Speed = Speed / Math.abs(Speed);
         }
         if (RotationSpeed < -1 || RotationSpeed > 1) {
             RotationSpeed = RotationSpeed / Math.abs(RotationSpeed);
         }
-
+*/
         Drivetrain.getInstance().driveArcade(Speed, RotationSpeed);
 
 
