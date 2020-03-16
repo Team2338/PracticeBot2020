@@ -14,18 +14,15 @@ public class Pigeon {
         }
         return instance;
     }
-    public void setYaw(double yaw){
 
+    public void setYaw(double yaw){
+        pidgeon.setYaw(yaw);
     }
 
     public double[] getYPR(){
         double[] ypr = new double[3];
         pidgeon.getYawPitchRoll(ypr);
         return ypr;
-    }
-
-    public void setyaw(double set){
-        pidgeon.setYaw(set);
     }
 
     public double[] getQuaternions() {
@@ -57,7 +54,7 @@ public class Pigeon {
         double[] rawGyro = new double[3];
         pidgeon.getRawGyro(rawGyro);
         return rawGyro;
-    }
+    }// angular velocities
 
     public double[] getAccelAngles() {
         double[] accelAngles = new double[3];
@@ -70,11 +67,13 @@ public class Pigeon {
         pidgeon.getBiasedMagnetometer(biasedMagnet);
         return biasedMagnet;
     }
-        // raw magnetometer
+
+    // raw magnetometer
     public short[] getRawMagnet() {
         short[] rawMagnet = new short[3];
         pidgeon.getRawMagnetometer(rawMagnet);
         return rawMagnet;
     }
+
 
 }

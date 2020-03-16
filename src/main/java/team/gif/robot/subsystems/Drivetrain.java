@@ -1,31 +1,39 @@
 package team.gif.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
-import team.gif.robot.commands.drivetrain.Drive;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class Drivetrain extends SubsystemBase {
+
     private static Drivetrain instance = null;
 
-    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_MASTER);
-    private static final WPI_TalonSRX leftSlave = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_SLAVE);
-    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_MASTER);
-    private static final WPI_TalonSRX rightSlave = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
+    public static WPI_TalonSRX leftMaster;
+    public static WPI_TalonSRX leftSlave;
+    public static WPI_TalonSRX rightMaster;
+    public static WPI_TalonSRX rightSlave;
 
-    public static SpeedControllerGroup left = new SpeedControllerGroup(leftMaster,leftSlave);
-    public static SpeedControllerGroup right = new SpeedControllerGroup(rightMaster,rightSlave);
-    public static DifferentialDrive drivetrain= new DifferentialDrive(left,right);
+    public static SpeedControllerGroup left;
+    public static SpeedControllerGroup right;
+    public static DifferentialDrive drivetrain;
+
+    public static Encoder leftEncoder;
+    public static Encoder rightEncoder;
+
+    public static DifferentialDriveOdometry driveOdometry;
 
     public static Drivetrain getInstance() {
+        leftMaster.getSelectedSensorPosition();
         if (instance == null) {
             instance = new Drivetrain();
         }
@@ -36,19 +44,29 @@ public class Drivetrain extends SubsystemBase {
     private Drivetrain() {
         super();
 
+        leftMaster = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_MASTER);
+        leftSlave = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_SLAVE);
+        rightMaster = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_MASTER);
+        rightSlave = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
+
+        left = new SpeedControllerGroup(leftMaster,leftSlave);
+        right = new SpeedControllerGroup(rightMaster,rightSlave);
+
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
-        //rightMaster.setInverted(true);
-        //rightSlave.setInverted(true);
-/*
+
         leftMaster.setNeutralMode(NeutralMode.Brake);
         leftSlave.setNeutralMode(NeutralMode.Brake);
         rightMaster.setNeutralMode(NeutralMode.Brake);
         rightSlave.setNeutralMode(NeutralMode.Brake);
 
-        leftSlave.follow(leftMaster);
-        rightSlave.follow(rightMaster);*/
+        setupOdometry();
+
+//        leftSlave.follow(leftMaster);
+//        rightSlave.follow(rightMaster);
     }
+
+    //<<<<<<<<<----------------driving----------------------->>>>>>>>>>>>>>>>>>>
 
     public void setSpeed(double left, double right) {/*
         leftMaster.set(ControlMode.PercentOutput, left);
@@ -56,7 +74,78 @@ public class Drivetrain extends SubsystemBase {
     */
         drivetrain.tankDrive(left,right);
     }
+
     public void driveArcade(double speed, double rotation){
         drivetrain.arcadeDrive(speed,rotation);
     }
+
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
+        left.setVoltage(leftVolts);
+        right.setVoltage(-rightVolts);
+        drivetrain.feed();
+    }
+
+    public void setMaxOutput(double maxOutput) {
+        drivetrain.setMaxOutput(maxOutput);
+    }
+
+    //<<<<<<<<<------------------------------pose-odometry-pigeon---------------------------------------->>>>>>>>>>>
+
+    public void setupOdometry(){
+
+        // i dont think this chunk gonna work that simply
+        leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_MASTER,RobotMap.DRIVE_LEFT_SLAVE);
+        rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_MASTER,RobotMap.DRIVE_RIGHT_SLAVE);
+
+        leftEncoder.setDistancePerPulse(Constants.drivetrain.distancePerTick);
+        rightEncoder.setDistancePerPulse(Constants.drivetrain.distancePerTick);
+
+        resetEncoders();
+
+        driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+
+    }
+
+    public void resetEncoders() {
+        leftEncoder.reset();
+        rightEncoder.reset();
+    }
+
+    public double getHeading() {
+        return Pigeon.getInstance().getYPR()[0]% 360;// TODO: turning right should be positive we gotta check if it is
+    }
+
+    @Override
+    public void periodic() {
+        // Update the odometry in the periodic block
+        driveOdometry.update(Rotation2d.fromDegrees(getHeading()),
+                leftEncoder.getDistance(),
+                rightEncoder.getDistance());
+    }
+
+    public Pose2d getPose() {
+        return driveOdometry.getPoseMeters();
+    }
+
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        resetEncoders();
+        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+    }
+
+    public void resetPigeon(){
+        Pigeon.getInstance().setYaw(0);
+    }
+
+    public double getAverageEncoderDistance() {
+        return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
+    }
+
+    public double getAngularVelocity(){
+        return Pigeon.getInstance().getrawGyro()[0];
+    }
+
 }

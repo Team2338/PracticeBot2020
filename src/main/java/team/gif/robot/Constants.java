@@ -63,5 +63,9 @@ public final class Constants {
         public static double kIx = .007;//from .025
     }
 
+    public static class drivetrain{
+        public static double distancePerTick = 100;// needs a legitimate number
+    }
+
 
 }
