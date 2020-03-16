@@ -3,6 +3,7 @@ package team.gif.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -15,10 +16,10 @@ import team.gif.robot.commands.drivetrain.Drive;
 public class Drivetrain extends SubsystemBase {
     private static Drivetrain instance = null;
 
-    private static final Talon leftMaster = new Talon(RobotMap.DRIVE_LEFT_MASTER);
-    private static final Talon leftSlave = new Talon(RobotMap.DRIVE_LEFT_SLAVE);
-    private static final Talon rightMaster = new Talon(RobotMap.DRIVE_RIGHT_MASTER);
-    private static final Talon rightSlave = new Talon(RobotMap.DRIVE_RIGHT_SLAVE);
+    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_MASTER);
+    private static final WPI_TalonSRX leftSlave = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_SLAVE);
+    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_MASTER);
+    private static final WPI_TalonSRX rightSlave = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
 
     public static SpeedControllerGroup left = new SpeedControllerGroup(leftMaster,leftSlave);
     public static SpeedControllerGroup right = new SpeedControllerGroup(rightMaster,rightSlave);
