@@ -92,8 +92,8 @@ public class Drivetrain extends SubsystemBase {
         leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ONE,RobotMap.DRIVE_LEFT_TWO);
         rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ONE,RobotMap.DRIVE_RIGHT_TWO);
 
-        leftEncoder.setDistancePerPulse(Constants.drivetrain.MetersPerTickLeft);
-        rightEncoder.setDistancePerPulse(Constants.drivetrain.MetersPerTickRight);
+        leftEncoder.setDistancePerPulse(Constants.drivetrain.METERS_PER_TICK_LEFT);
+        rightEncoder.setDistancePerPulse(Constants.drivetrain.METERS_PER_TICK_RIGHT);
 
         resetEncoders();
 
