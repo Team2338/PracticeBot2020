@@ -8,11 +8,8 @@
 package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import team.gif.robot.OI;
 import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Drivetrain;
-import team.gif.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -33,9 +30,6 @@ public class Drive extends CommandBase {
         addRequirements(Drivetrain.getInstance());
     }
 
-    double leftSpeed;
-    double rightSpeed;
-
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -44,35 +38,25 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        leftSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) - Robot.oi.driver.getX(GenericHID.Hand.kRight);
-        rightSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) + Robot.oi.driver.getX(GenericHID.Hand.kRight);
+        double currSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+        double currRotation = -Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
         if (Robot.isCompBot) { // Comp Bot
-            if (leftSpeed < 0.075 && leftSpeed > -0.075 ) {
-                leftSpeed = 0;
+            if (currRotation < 0.075 && currRotation > -0.075 ) {
+                currRotation = 0;
             }
-            if (rightSpeed < 0.075 && rightSpeed > -0.075 ) {
-                rightSpeed = 0;
+            if (currSpeed < 0.075 && currSpeed > -0.075 ) {
+                currSpeed = 0;
             }
         } else { // Practice Bot
-            if (leftSpeed < 0.05 && leftSpeed > -0.05 ) {
-                leftSpeed = 0;
+            if (currRotation < 0.05 && currRotation > -0.05 ) {
+                currRotation = 0;
             }
-            if (rightSpeed < 0.05 && rightSpeed > -0.05 ) {
-                rightSpeed = 0;
+            if (currSpeed < 0.05 && currSpeed > -0.05 ) {
+                currSpeed = 0;
             }
         }
-
-        if (leftSpeed < -1 || leftSpeed > 1) {
-            leftSpeed = leftSpeed / Math.abs(leftSpeed);
-        }
-        if (rightSpeed < -1 || rightSpeed > 1) {
-            rightSpeed = rightSpeed / Math.abs(rightSpeed);
-        }
-
-        Drivetrain.getInstance().setSpeed(leftSpeed, rightSpeed);
-
-
+        Drivetrain.getInstance().driveArcade(currSpeed, currRotation);
     }
 
     // Called once the command ends or is interrupted.

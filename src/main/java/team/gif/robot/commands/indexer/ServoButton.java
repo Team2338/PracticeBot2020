@@ -6,11 +6,12 @@ import team.gif.robot.subsystems.Indexer;
 public class ServoButton extends CommandBase {
 
     public ServoButton(){
+        System.out.println("button removed");
     }
 
     @Override
     public void initialize() {
-        Indexer.getInstance().moveServo(0);
+        //Indexer.getInstance().moveServo(0);
     }
 
 
@@ -25,6 +26,6 @@ public class ServoButton extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        Indexer.getInstance().moveServo(90);
+        //Indexer.getInstance().moveServo(90);
     }
 }

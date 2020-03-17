@@ -25,8 +25,6 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-
-
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -43,7 +41,6 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
   }
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

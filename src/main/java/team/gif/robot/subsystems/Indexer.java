@@ -40,7 +40,7 @@ public class Indexer extends SubsystemBase {
     private static final DigitalInput stageFourSensor  = new DigitalInput(RobotMap.SENSOR_FOUR);
     private static final DigitalInput stageFiveSensor  = new DigitalInput(RobotMap.SENSOR_FIVE);
 
-    public static final Servo stage4servo = new Servo(RobotMap.STAGE_4_SERVO);
+    //public static final Servo stage4servo = new Servo(RobotMap.STAGE_4_SERVO);
 
     private Indexer() {
         super();
@@ -84,9 +84,9 @@ public class Indexer extends SubsystemBase {
         stageFiveMotor.set(ControlMode.PercentOutput, speed);
         stageFiveMotorVictor.set(ControlMode.PercentOutput, speed);
     }
-
+/*
     public void moveServo(double position){
-        stage4servo.setAngle(position);
+        //stage4servo.setAngle(position);
     }
-
+*/
 }

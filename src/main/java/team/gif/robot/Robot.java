@@ -13,9 +13,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
@@ -30,7 +28,6 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
 import edu.wpi.first.wpilibj.DriverStation;
-import team.gif.robot.subsystems.ColorSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -40,9 +37,7 @@ import team.gif.robot.subsystems.ColorSensor;
  */
 public class Robot extends TimedRobot {
 
-
   public static final boolean isCompBot = true;
-
 
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
@@ -76,6 +71,8 @@ public class Robot extends TimedRobot {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     tabsetup();
+
+    System.out.println("robot init");
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     limelight = new Limelight();
@@ -100,11 +97,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
 
+    //System.out.println("robot periodic");
     chosenAuto = autoModeChooser.getSelected();
     chosenDelay = delayChooser.getSelected();
 
@@ -193,9 +187,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("CP Pos", "");
   }
 
-  /**
-   * This function is called periodically during operator control.
-   */
   @Override
   public void teleopPeriodic() {
 
@@ -215,24 +206,35 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
   @Override
   public void testPeriodic() {
   }
 
+  @Override
+  public void simulationInit() {
+    //System.out.println("simulation init");
+  }
+
+  @Override
+  public void simulationPeriodic(){
+    //System.out.println("simulation periodic" );
+  }
+
   public void tabsetup(){
     //setp tabs
+    System.out.println("tabsetup");
+
     autoTab = Shuffleboard.getTab("auto");
 
     autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
     autoModeChooser.addOption("Fwd Mobility", autoMode.MOBILITY_FWD);
-    autoModeChooser.addObject("3 Ball Auto", autoMode.SAFE_3_BALL);
-    autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
+    autoModeChooser.addOption("3 Ball Auto", autoMode.SAFE_3_BALL);
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
+    autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
 
     autoTab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
+
+    //autoTab.add("simulation",isSimulation());
 
     delayChooser.setDefaultOption("0", delay.DELAY_0);
     delayChooser.addOption("1", delay.DELAY_1);
@@ -262,6 +264,7 @@ public class Robot extends TimedRobot {
   }
 
   public void updateauto(){
+
     if(chosenAuto == autoMode.MOBILITY){
       m_autonomousCommand = new Mobility();
       System.out.println("Mobility selected");

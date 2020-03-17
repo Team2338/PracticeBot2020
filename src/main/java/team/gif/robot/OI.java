@@ -91,7 +91,7 @@ public class OI {
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());
-        aX.whenPressed(new ServoButton().withTimeout(0.25));
+        //aX.whenPressed(new ServoButton().withTimeout(0.25));
         aStart.whenPressed(new ControlPanelPosition());
         aBack.whenPressed(new ControlPanelDown());
         aA.whileHeld(new Rotation());

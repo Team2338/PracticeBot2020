@@ -7,6 +7,8 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -60,6 +62,9 @@ public final class Constants {
         public static double kPx = .05;//from .037
         public static double kIx = .007;//from .025
     }
-    public static double WheelDiameter = 0.127;
-    public static double encoderEPR;
+
+    public static class drivetrain{
+        public static double METERS_PER_TICK_LEFT  = 100;// needs a legitimate number
+        public static double METERS_PER_TICK_RIGHT = 100;// needs a legitimate number
+    }
 }
