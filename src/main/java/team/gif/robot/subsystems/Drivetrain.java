@@ -67,8 +67,12 @@ public class Drivetrain extends SubsystemBase {
         diffDriveTrain.tankDrive(leftPercent,rightPercent);
     }
 
-    public void driveArcade(double speed, double rotation){ // speed -1 <=> 1 and rotation -1 <=> 1
-        diffDriveTrain.arcadeDrive(speed,rotation);
+    public void driveArcade(double y, double x){
+        // arcadeDrive appears to flip the parameters.
+        // Tried inverting motors and talon assignments
+        // but nothing worked. Until we figure it out,
+        // flipping the parameters here.
+        diffDriveTrain.arcadeDrive(x,y);
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) { // in volts

@@ -8,11 +8,8 @@
 package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import team.gif.robot.OI;
 import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Drivetrain;
-import team.gif.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -33,9 +30,6 @@ public class Drive extends CommandBase {
         addRequirements(Drivetrain.getInstance());
     }
 
-    double Speed;
-    double RotationSpeed;
-
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
@@ -44,33 +38,25 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Speed = Robot.oi.driver.getX(GenericHID.Hand.kRight);
-        RotationSpeed =  Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+        double currSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+        double currRotation = -Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
         if (Robot.isCompBot) { // Comp Bot
-            if (Speed < 0.075 && Speed > -0.075 ) {
-                Speed = 0;
+            if (currRotation < 0.075 && currRotation > -0.075 ) {
+                currRotation = 0;
             }
-            if (RotationSpeed < 0.075 && RotationSpeed > -0.075 ) {
-                RotationSpeed = 0;
+            if (currSpeed < 0.075 && currSpeed > -0.075 ) {
+                currSpeed = 0;
             }
         } else { // Practice Bot
-            if (Speed < 0.05 && Speed > -0.05 ) {
-                Speed = 0;
+            if (currRotation < 0.05 && currRotation > -0.05 ) {
+                currRotation = 0;
             }
-            if (RotationSpeed < 0.05 && RotationSpeed > -0.05 ) {
-                RotationSpeed = 0;
+            if (currSpeed < 0.05 && currSpeed > -0.05 ) {
+                currSpeed = 0;
             }
         }
-/*
-        if (Speed < -1 || Speed > 1) {
-            Speed = Speed / Math.abs(Speed);
-        }
-        if (RotationSpeed < -1 || RotationSpeed > 1) {
-            RotationSpeed = RotationSpeed / Math.abs(RotationSpeed);
-        }
-*/
-        Drivetrain.getInstance().driveArcade(Speed, RotationSpeed);
+        Drivetrain.getInstance().driveArcade(currSpeed, currRotation);
     }
 
     // Called once the command ends or is interrupted.
