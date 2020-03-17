@@ -23,9 +23,9 @@ public class Drivetrain extends SubsystemBase {
     public static WPI_TalonSRX rightMaster;
     public static WPI_TalonSRX rightSlave;
 
-    public static SpeedControllerGroup left;
-    public static SpeedControllerGroup right;
-    public static DifferentialDrive drivetrain;
+    public static SpeedControllerGroup leftSpeedControl;
+    public static SpeedControllerGroup rightSpeedControl;
+    public static DifferentialDrive diffDrivetrain;
 
     public static Encoder leftEncoder;
     public static Encoder rightEncoder;
@@ -33,7 +33,7 @@ public class Drivetrain extends SubsystemBase {
     public static DifferentialDriveOdometry driveOdometry;
 
     public static Drivetrain getInstance() {
-        leftMaster.getSelectedSensorPosition();
+
         if (instance == null) {
             instance = new Drivetrain();
         }
@@ -49,8 +49,8 @@ public class Drivetrain extends SubsystemBase {
         rightMaster = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_MASTER);
         rightSlave = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
 
-        left = new SpeedControllerGroup(leftMaster,leftSlave);
-        right = new SpeedControllerGroup(rightMaster,rightSlave);
+        leftSpeedControl = new SpeedControllerGroup(leftMaster,leftSlave);
+        rightSpeedControl = new SpeedControllerGroup(rightMaster,rightSlave);
 
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
@@ -60,7 +60,9 @@ public class Drivetrain extends SubsystemBase {
         rightMaster.setNeutralMode(NeutralMode.Brake);
         rightSlave.setNeutralMode(NeutralMode.Brake);
 
-        setupOdometry();
+        diffDrivetrain = new DifferentialDrive(leftSpeedControl,rightSpeedControl);
+
+        //setupOdometry();
 
 //        leftSlave.follow(leftMaster);
 //        rightSlave.follow(rightMaster);
@@ -72,21 +74,21 @@ public class Drivetrain extends SubsystemBase {
         leftMaster.set(ControlMode.PercentOutput, left);
         rightMaster.set(ControlMode.PercentOutput, right);
     */
-        drivetrain.tankDrive(left,right);
+        diffDrivetrain.tankDrive(left,right);
     }
 
     public void driveArcade(double speed, double rotation){
-        drivetrain.arcadeDrive(speed,rotation);
+        diffDrivetrain.arcadeDrive(speed,rotation);
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
-        left.setVoltage(leftVolts);
-        right.setVoltage(-rightVolts);
-        drivetrain.feed();
+        leftSpeedControl.setVoltage(leftVolts);
+        rightSpeedControl.setVoltage(-rightVolts);
+        diffDrivetrain.feed();
     }
 
     public void setMaxOutput(double maxOutput) {
-        drivetrain.setMaxOutput(maxOutput);
+        diffDrivetrain.setMaxOutput(maxOutput);
     }
 
     //<<<<<<<<<------------------------------pose-odometry-pigeon---------------------------------------->>>>>>>>>>>
@@ -100,21 +102,23 @@ public class Drivetrain extends SubsystemBase {
         leftEncoder.setDistancePerPulse(Constants.drivetrain.distancePerTick);
         rightEncoder.setDistancePerPulse(Constants.drivetrain.distancePerTick);
 
-        resetEncoders();
 
-        driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+
+        //resetEncoders();
+
+        //driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
     }
-
+/*
     public void resetEncoders() {
         leftEncoder.reset();
         rightEncoder.reset();
     }
-
+*//*
     public double getHeading() {
         return Pigeon.getInstance().getYPR()[0]% 360;// TODO: turning right should be positive we gotta check if it is
     }
-
+*//*
     @Override
     public void periodic() {
         // Update the odometry in the periodic block
@@ -122,7 +126,8 @@ public class Drivetrain extends SubsystemBase {
                 leftEncoder.getDistance(),
                 rightEncoder.getDistance());
     }
-
+    */
+/*
     public Pose2d getPose() {
         return driveOdometry.getPoseMeters();
     }
@@ -147,5 +152,5 @@ public class Drivetrain extends SubsystemBase {
     public double getAngularVelocity(){
         return Pigeon.getInstance().getrawGyro()[0];
     }
-
+*/
 }

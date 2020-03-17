@@ -44,8 +44,8 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Speed = Robot.oi.driver.getY(GenericHID.Hand.kLeft) ;
-        RotationSpeed =  Robot.oi.driver.getX(GenericHID.Hand.kRight);
+        Speed = Robot.oi.driver.getX(GenericHID.Hand.kRight);
+        RotationSpeed =  Robot.oi.driver.getY(GenericHID.Hand.kLeft);
 
         if (Robot.isCompBot) { // Comp Bot
             if (Speed < 0.075 && Speed > -0.075 ) {
