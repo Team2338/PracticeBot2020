@@ -5,10 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -18,14 +16,14 @@ public class Drivetrain extends SubsystemBase {
 
     private static Drivetrain instance = null;
 
-    public static WPI_TalonSRX leftMaster;
-    public static WPI_TalonSRX leftSlave;
-    public static WPI_TalonSRX rightMaster;
-    public static WPI_TalonSRX rightSlave;
+    public static WPI_TalonSRX leftTalon1;
+    public static WPI_TalonSRX leftTalon2;
+    public static WPI_TalonSRX rightTalon1;
+    public static WPI_TalonSRX rightTalon2;
 
     public static SpeedControllerGroup leftSpeedControl;
     public static SpeedControllerGroup rightSpeedControl;
-    public static DifferentialDrive diffDrivetrain;
+    public static DifferentialDrive diffDriveTrain;
 
     public static Encoder leftEncoder;
     public static Encoder rightEncoder;
@@ -33,92 +31,81 @@ public class Drivetrain extends SubsystemBase {
     public static DifferentialDriveOdometry driveOdometry;
 
     public static Drivetrain getInstance() {
-
         if (instance == null) {
             instance = new Drivetrain();
         }
-
         return instance;
     }
 
     private Drivetrain() {
         super();
 
-        leftMaster = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_MASTER);
-        leftSlave = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_SLAVE);
-        rightMaster = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_MASTER);
-        rightSlave = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_SLAVE);
+        leftTalon1 = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_ONE);
+        leftTalon2 = new WPI_TalonSRX(RobotMap.DRIVE_LEFT_TWO);
+        rightTalon1 = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_ONE);
+        rightTalon2 = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_TWO);
 
-        leftSpeedControl = new SpeedControllerGroup(leftMaster,leftSlave);
-        rightSpeedControl = new SpeedControllerGroup(rightMaster,rightSlave);
+        leftSpeedControl = new SpeedControllerGroup(leftTalon1,leftTalon2);
+        rightSpeedControl = new SpeedControllerGroup(rightTalon1,rightTalon2);
 
-        leftMaster.setInverted(true);
-        leftSlave.setInverted(true);
+        leftTalon1.setInverted(true);
+        leftTalon2.setInverted(true);
 
-        leftMaster.setNeutralMode(NeutralMode.Brake);
-        leftSlave.setNeutralMode(NeutralMode.Brake);
-        rightMaster.setNeutralMode(NeutralMode.Brake);
-        rightSlave.setNeutralMode(NeutralMode.Brake);
+        leftTalon1.setNeutralMode(NeutralMode.Brake);
+        leftTalon2.setNeutralMode(NeutralMode.Brake);
+        rightTalon1.setNeutralMode(NeutralMode.Brake);
+        rightTalon2.setNeutralMode(NeutralMode.Brake);
 
-        diffDrivetrain = new DifferentialDrive(leftSpeedControl,rightSpeedControl);
+        diffDriveTrain = new DifferentialDrive(leftSpeedControl,rightSpeedControl);
 
         //setupOdometry();
-
-//        leftSlave.follow(leftMaster);
-//        rightSlave.follow(rightMaster);
     }
 
     //<<<<<<<<<----------------driving----------------------->>>>>>>>>>>>>>>>>>>
 
-    public void setSpeed(double left, double right) {/*
-        leftMaster.set(ControlMode.PercentOutput, left);
-        rightMaster.set(ControlMode.PercentOutput, right);
-    */
-        diffDrivetrain.tankDrive(left,right);
+    public void setSpeed(double leftPercent, double rightPercent) {
+        diffDriveTrain.tankDrive(leftPercent,rightPercent);
     }
 
-    public void driveArcade(double speed, double rotation){
-        diffDrivetrain.arcadeDrive(speed,rotation);
+    public void driveArcade(double speed, double rotation){ // speed -1 <=> 1 and rotation -1 <=> 1
+        diffDriveTrain.arcadeDrive(speed,rotation);
     }
 
-    public void tankDriveVolts(double leftVolts, double rightVolts) {
+    public void tankDriveVolts(double leftVolts, double rightVolts) { // in volts
         leftSpeedControl.setVoltage(leftVolts);
         rightSpeedControl.setVoltage(-rightVolts);
-        diffDrivetrain.feed();
+        diffDriveTrain.feed();
     }
 
-    public void setMaxOutput(double maxOutput) {
-        diffDrivetrain.setMaxOutput(maxOutput);
+    public void setMaxOutput(double maxOutput) { // not sure what the units are
+        diffDriveTrain.setMaxOutput(maxOutput);
     }
 
     //<<<<<<<<<------------------------------pose-odometry-pigeon---------------------------------------->>>>>>>>>>>
 
     public void setupOdometry(){
 
-        // i dont think this chunk gonna work that simply
-        leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_MASTER,RobotMap.DRIVE_LEFT_SLAVE);
-        rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_MASTER,RobotMap.DRIVE_RIGHT_SLAVE);
+        leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ONE,RobotMap.DRIVE_LEFT_TWO);
+        rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ONE,RobotMap.DRIVE_RIGHT_TWO);
 
-        leftEncoder.setDistancePerPulse(Constants.drivetrain.distancePerTick);
-        rightEncoder.setDistancePerPulse(Constants.drivetrain.distancePerTick);
+        leftEncoder.setDistancePerPulse(Constants.drivetrain.MetersPerTickLeft);
+        rightEncoder.setDistancePerPulse(Constants.drivetrain.MetersPerTickRight);
 
-
-
-        //resetEncoders();
+        resetEncoders();
 
         //driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-
     }
-/*
+
     public void resetEncoders() {
         leftEncoder.reset();
         rightEncoder.reset();
     }
-*//*
+/*
     public double getHeading() {
         return Pigeon.getInstance().getYPR()[0]% 360;// TODO: turning right should be positive we gotta check if it is
     }
-*//*
+*/
+/*
     @Override
     public void periodic() {
         // Update the odometry in the periodic block
@@ -126,7 +113,7 @@ public class Drivetrain extends SubsystemBase {
                 leftEncoder.getDistance(),
                 rightEncoder.getDistance());
     }
-    */
+*/
 /*
     public Pose2d getPose() {
         return driveOdometry.getPoseMeters();
@@ -141,7 +128,7 @@ public class Drivetrain extends SubsystemBase {
         driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
     }
 
-    public void resetPigeon(){
+    public void resetPigeonPosition(){
         Pigeon.getInstance().setYaw(0);
     }
 
@@ -150,7 +137,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getAngularVelocity(){
-        return Pigeon.getInstance().getrawGyro()[0];
+        return Pigeon.getInstance().getRawGyro()[0];
     }
 */
 }

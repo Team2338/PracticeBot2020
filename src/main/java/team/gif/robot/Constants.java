@@ -64,8 +64,7 @@ public final class Constants {
     }
 
     public static class drivetrain{
-        public static double distancePerTick = 100;// needs a legitimate number
+        public static double MetersPerTickLeft  = 100;// needs a legitimate number
+        public static double MetersPerTickRight = 100;// needs a legitimate number
     }
-
-
 }

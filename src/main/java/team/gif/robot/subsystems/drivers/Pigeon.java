@@ -50,7 +50,7 @@ public class Pigeon {
         return biasedAccel;
     }
 
-    public double[] getrawGyro(){
+    public double[] getRawGyro(){
         double[] rawGyro = new double[3];
         pidgeon.getRawGyro(rawGyro);
         return rawGyro;
