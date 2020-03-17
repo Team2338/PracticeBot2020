@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
 
-    System.out.println("robot periodic");
+    //System.out.println("robot periodic");
     chosenAuto = autoModeChooser.getSelected();
     chosenDelay = delayChooser.getSelected();
 
