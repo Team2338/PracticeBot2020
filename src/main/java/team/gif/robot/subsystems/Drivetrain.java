@@ -31,9 +31,6 @@ public class Drivetrain extends SubsystemBase {
     public static SpeedControllerGroup rightSpeedControl;
     public static DifferentialDrive diffDriveTrain;
 
-    public static Encoder leftEncoder;
-    public static Encoder rightEncoder;
-
     public static DifferentialDriveOdometry driveOdometry;
 
     public static DifferentialDriveKinematics drivekinematics;
@@ -41,8 +38,6 @@ public class Drivetrain extends SubsystemBase {
     public static ChassisSpeeds chassisSpeeds;
 
     public static DifferentialDriveWheelSpeeds wheelSpeeds;
-
-    public static double rightVelocity, leftVelocity;
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -91,7 +86,7 @@ public class Drivetrain extends SubsystemBase {
 
     public void tankDriveVolts(double leftVolts, double rightVolts) { // in volts
         leftSpeedControl.setVoltage(leftVolts);
-        rightSpeedControl.setVoltage(-rightVolts);
+        rightSpeedControl.setVoltage(-rightVolts);// this chunk was copied maybe flip dis
         diffDriveTrain.feed();
     }
 
@@ -143,8 +138,8 @@ public class Drivetrain extends SubsystemBase {
         // Update the odometry in the periodic block
 
         driveOdometry.update(Rotation2d.fromDegrees(getHeading()),
-                getLeftEncoderPos(),
-                getRightEncoderPos());
+                getLeftPosMeters(),
+                getRightPosMeters());
 
         SmartDashboard.putNumber("encoder read left",getLeftEncoderPos());
         SmartDashboard.putNumber("encoder read right",getRightEncoderPos());
@@ -160,7 +155,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        return new DifferentialDriveWheelSpeeds(getLeftVel(),getRightVel());
+        return new DifferentialDriveWheelSpeeds(getLeftVelMeters(),getRightVelMeters());
     }
 
     public void resetOdometry(Pose2d pose) {
@@ -173,7 +168,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getAverageEncoderDistance() {
-        return (getLeftEncoderPos() +getRightEncoderPos()) / 2.0;
+        return (getLeftPosMeters() +getRightPosMeters()) / 2.0;
     }
 
     public double getAngularVelocity(){
