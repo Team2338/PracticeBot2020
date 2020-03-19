@@ -73,7 +73,28 @@ public final class Constants {
         public static double TRACK_WIDTH = 10;//inches
 
 
-        public static double TICKS_TO_METERS = 1;
-        public static double DPS_TO_MPS = 1;
+        public static double WHEEL_DIAMETER = 0.127; // DIAMETER AND RADIUS ARE IN METERS
+        public static double WHEEL_RADIUS = 0.0635;
+        public static double ENCODER_EPR = 4096; // EPR = Edges per revolution (IN TICKS)
+
+        public static double TICKS_TO_METERS = (WHEEL_DIAMETER * Math.PI) / (ENCODER_EPR);
+        public static double DPS_TO_MPS = ((WHEEL_DIAMETER * 0.0254 * Math.PI) / (360) * (10)); // Degrees per sec. to meters per sec.
+
+        public static double kTrackWidth = 0.76884201;
+
+        // Must be tuned
+        public static double DRIVE_P = 0.0;
+        public static double DRIVE_I = 0.0;
+        public static double DRIVE_D = 0.0;
+        public static double DRIVE_ANGLE_P = 0.0;
+        public static double DRIVE_ANGLE_I = 0.0;
+        public static double DRIVE_ANGLE_D = 0.0;
+        public static double DRIVE_ANGLE_I_ZONE = 0.0;
+        public static double DRIVE_STRAIGHT_ANGLE_P = 0.0;
+        public static double DRIVE_DIST_TOLERANCE = 0;
+        public static double DRIVE_ANGLE_TOLERANCE = 0;
+
+        public static double WheelDiameter = 0.127;
+        public static double encoderEPR;
     }
 }

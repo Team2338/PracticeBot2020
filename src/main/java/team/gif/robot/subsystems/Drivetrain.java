@@ -146,11 +146,11 @@ public class Drivetrain extends SubsystemBase {
                 getLeftEncoderPos(),
                 getRightEncoderPos());
 
-        SmartDashboard.putNumber("encoderleft",getLeftEncoderPos());
-        SmartDashboard.putNumber("encoderright",getRightEncoderPos());
+        SmartDashboard.putNumber("encoder read left",getLeftEncoderPos());
+        SmartDashboard.putNumber("encoder read right",getRightEncoderPos());
 
-        SmartDashboard.putNumber("encoder read Y",driveOdometry.getPoseMeters().getTranslation().getY());
-        SmartDashboard.putNumber("encoder read X",driveOdometry.getPoseMeters().getTranslation().getX());
+        SmartDashboard.putNumber("encoder odometry Y",driveOdometry.getPoseMeters().getTranslation().getY());
+        SmartDashboard.putNumber("encoder odometry X",driveOdometry.getPoseMeters().getTranslation().getX());
         SmartDashboard.putNumber("encoder rotate",driveOdometry.getPoseMeters().getRotation().getDegrees());
 
     }
