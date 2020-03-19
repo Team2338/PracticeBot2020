@@ -4,15 +4,22 @@ import team.gif.robot.RobotMap;
 
 public class Pigeon {
 
-    public static PigeonIMU pidgeon = new PigeonIMU(RobotMap.PIGEON);
+    public static PigeonIMU pidgeon;
 
     private static Pigeon instance = null;
 
     public static Pigeon getInstance() {
         if (instance == null) {
             instance = new Pigeon();
+
         }
+        System.out.println("pigeon getting instance");
         return instance;
+    }
+
+    public Pigeon(){
+        pidgeon = new PigeonIMU(RobotMap.PIGEON);
+        System.out.println("pigeon constructed");
     }
 
     public void setYaw(double yaw){
@@ -22,6 +29,7 @@ public class Pigeon {
     public double[] getYPR(){
         double[] ypr = new double[3];
         pidgeon.getYawPitchRoll(ypr);
+        System.out.println("YPR"+ypr[0]+ypr[1]+ypr[2]);
         return ypr;
     }
 

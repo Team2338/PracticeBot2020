@@ -7,7 +7,10 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -66,5 +69,11 @@ public final class Constants {
     public static class drivetrain{
         public static double METERS_PER_TICK_LEFT  = 100;// needs a legitimate number
         public static double METERS_PER_TICK_RIGHT = 100;// needs a legitimate number
+
+        public static double TRACK_WIDTH = 10;//inches
+
+
+        public static double TICKS_TO_METERS = 1;
+        public static double DPS_TO_MPS = 1;
     }
 }
