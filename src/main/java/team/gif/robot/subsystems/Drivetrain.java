@@ -2,7 +2,7 @@ package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Encoder;
+import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
-import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -38,6 +38,10 @@ public class Drivetrain extends SubsystemBase {
     public static ChassisSpeeds chassisSpeeds;
 
     public static DifferentialDriveWheelSpeeds wheelSpeeds;
+
+    private static PigeonIMU _pigeon;
+
+    private PigeonIMU.GeneralStatus _pigeonGenStatus = new PigeonIMU.GeneralStatus();
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -67,6 +71,9 @@ public class Drivetrain extends SubsystemBase {
 
         diffDriveTrain = new DifferentialDrive(leftSpeedControl,rightSpeedControl);
 
+        _pigeon = Robot.isCompBot ? new PigeonIMU( leftTalon2 ) : new PigeonIMU( RobotMap.PIGEON ) ;
+
+        resetPigeonPosition(); // set initial heading to zero degrees
         setupOdometry();
     }
 
@@ -118,7 +125,10 @@ public class Drivetrain extends SubsystemBase {
         */
         resetEncoders();
 
-        driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+        _pigeon.getGeneralStatus(_pigeonGenStatus);
+        if (_pigeonGenStatus.state == PigeonIMU.PigeonState.Ready) {
+            driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+        }
     }
 
     /*
@@ -129,25 +139,37 @@ public class Drivetrain extends SubsystemBase {
     */
 
     public double getHeading() {
-        System.out.println("getting heading");
-        return Pigeon.getInstance().getYPR()[0]% 360;// TODO: turning right should be positive we gotta check if it is
+        double heading;
+        double[] ypr = new double[3];
+
+        _pigeon.getYawPitchRoll(ypr);
+
+        // get the heading. If the value is negative, need to make it relative to 360 (value is already negative so add)
+        heading = ypr[0] < 0 ? 360.0 + ypr[0] % 360 : ypr[0] % 360;
+
+        System.out.format("Yaw %.1f%n", heading);
+        return heading;
     }
 
     @Override
     public void periodic() {
-        // Update the odometry in the periodic block
+        // Update the odometry
 
-        driveOdometry.update(Rotation2d.fromDegrees(getHeading()),
-                getLeftPosMeters(),
-                getRightPosMeters());
+        _pigeon.getGeneralStatus(_pigeonGenStatus);
+        if (_pigeonGenStatus.state == PigeonIMU.PigeonState.Ready) {
+            driveOdometry.update(Rotation2d.fromDegrees(getHeading()),
+                    getLeftPosMeters(),
+                    getRightPosMeters());
 
-        SmartDashboard.putNumber("encoder read left",getLeftEncoderPos());
-        SmartDashboard.putNumber("encoder read right",getRightEncoderPos());
+            SmartDashboard.putNumber("encoder read left", getLeftEncoderPos());
+            SmartDashboard.putNumber("encoder read right", getRightEncoderPos());
 
-        SmartDashboard.putNumber("encoder odometry Y",driveOdometry.getPoseMeters().getTranslation().getY());
-        SmartDashboard.putNumber("encoder odometry X",driveOdometry.getPoseMeters().getTranslation().getX());
-        SmartDashboard.putNumber("encoder rotate",driveOdometry.getPoseMeters().getRotation().getDegrees());
-
+            SmartDashboard.putNumber("encoder odometry Y", driveOdometry.getPoseMeters().getTranslation().getY());
+            SmartDashboard.putNumber("encoder odometry X", driveOdometry.getPoseMeters().getTranslation().getX());
+            SmartDashboard.putNumber("encoder rotate", driveOdometry.getPoseMeters().getRotation().getDegrees());
+        } else {
+            System.out.println("Cannot set robot odemetry. Pigeon is not in ready state.");
+        }
     }
 
     public Pose2d getPose() {
@@ -158,23 +180,25 @@ public class Drivetrain extends SubsystemBase {
         return new DifferentialDriveWheelSpeeds(getLeftVelMeters(),getRightVelMeters());
     }
 
-    public void resetOdometry(Pose2d pose) {
-        resetEncoders();
-        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
-    }
-
     public void resetPigeonPosition(){
-        Pigeon.getInstance().setYaw(0);
+        _pigeon.setYaw(0);
     }
 
     public double getAverageEncoderDistance() {
         return (getLeftPosMeters() +getRightPosMeters()) / 2.0;
     }
 
-    public double getAngularVelocity(){
-        return Pigeon.getInstance().getRawGyro()[0];
-    }
+    /*    public void resetOdometry(Pose2d pose) {
+            resetEncoders();
+            driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+        }
 
+    public double getAngularVelocity(){
+        double[] rawGyro = new double[3];
+        _pigeon.getRawGyro(rawGyro);
+        return rawGyro[0];
+    }
+    */
     //<<<<---------------imported from cn-odometry------------------------>>>>>>>>>>>>>>>>>>>
 
     // Mag Encoder methods
