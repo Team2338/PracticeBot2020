@@ -7,6 +7,7 @@
 
 package team.gif.robot;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -21,6 +22,7 @@ import team.gif.lib.delay;
 import team.gif.robot.commands.autos.*;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.ResetHanger;
+import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.commands.indexer.IndexerScheduler;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Hanger;
@@ -59,8 +61,10 @@ public class Robot extends TimedRobot {
 
   public static OI oi;
   public static Hanger hanger;
+  public static PigeonIMU pigeon;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
   //private final ColorSensor colorsensor = ColorSensor.getInstance();
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -86,6 +90,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hanger", new ResetHanger());
     setLimelightPipeline();
     limelight.setLEDMode(1);//force off
+
+    SmartDashboard.putData("ResetHead", new ResetHeading());
   }
 
   /**

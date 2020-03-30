@@ -39,8 +39,6 @@ public class Drivetrain extends SubsystemBase {
 
     public static DifferentialDriveWheelSpeeds wheelSpeeds;
 
-    private static PigeonIMU _pigeon;
-
     private PigeonIMU.GeneralStatus _pigeonGenStatus = new PigeonIMU.GeneralStatus();
 
     public static Drivetrain getInstance() {
@@ -71,7 +69,7 @@ public class Drivetrain extends SubsystemBase {
 
         diffDriveTrain = new DifferentialDrive(leftSpeedControl,rightSpeedControl);
 
-        _pigeon = Robot.isCompBot ? new PigeonIMU( leftTalon2 ) : new PigeonIMU( RobotMap.PIGEON ) ;
+        Robot.pigeon = Robot.isCompBot ? new PigeonIMU( leftTalon2 ) : new PigeonIMU( RobotMap.PIGEON ) ;
 
         resetPigeonPosition(); // set initial heading to zero degrees
         setupOdometry();
@@ -125,7 +123,7 @@ public class Drivetrain extends SubsystemBase {
         */
         resetEncoders();
 
-        _pigeon.getGeneralStatus(_pigeonGenStatus);
+        Robot.pigeon.getGeneralStatus(_pigeonGenStatus);
         if (_pigeonGenStatus.state == PigeonIMU.PigeonState.Ready) {
             driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
         }
@@ -139,15 +137,17 @@ public class Drivetrain extends SubsystemBase {
     */
 
     public double getHeading() {
+
         double heading;
         double[] ypr = new double[3];
 
-        _pigeon.getYawPitchRoll(ypr);
+        Robot.pigeon.getYawPitchRoll(ypr);
 
         // get the heading. If the value is negative, need to make it relative to 360 (value is already negative so add)
         heading = ypr[0] < 0 ? 360.0 + ypr[0] % 360 : ypr[0] % 360;
 
-        System.out.format("Yaw %.1f%n", heading);
+        SmartDashboard.putString("Heading", String.format("%.1f",heading));
+
         return heading;
     }
 
@@ -155,7 +155,7 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
         // Update the odometry
 
-        _pigeon.getGeneralStatus(_pigeonGenStatus);
+        Robot.pigeon.getGeneralStatus(_pigeonGenStatus);
         if (_pigeonGenStatus.state == PigeonIMU.PigeonState.Ready) {
             driveOdometry.update(Rotation2d.fromDegrees(getHeading()),
                     getLeftPosMeters(),
@@ -181,7 +181,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void resetPigeonPosition(){
-        _pigeon.setYaw(0);
+        Robot.pigeon.setYaw(0);
     }
 
     public double getAverageEncoderDistance() {
