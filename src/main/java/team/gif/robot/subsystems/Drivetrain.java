@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -39,7 +40,7 @@ public class Drivetrain extends SubsystemBase {
 
     public static DifferentialDriveWheelSpeeds wheelSpeeds;
 
-    private PigeonIMU.GeneralStatus _pigeonGenStatus = new PigeonIMU.GeneralStatus();
+    private static Pigeon _pigeon;
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -69,9 +70,9 @@ public class Drivetrain extends SubsystemBase {
 
         diffDriveTrain = new DifferentialDrive(leftSpeedControl,rightSpeedControl);
 
-        Robot.pigeon = Robot.isCompBot ? new PigeonIMU( leftTalon2 ) : new PigeonIMU( RobotMap.PIGEON ) ;
+        _pigeon = Robot.isCompBot ? new Pigeon( leftTalon2 ) : new Pigeon() ;
 
-        resetPigeonPosition(); // set initial heading to zero degrees
+        _pigeon.resetPigeonPosition(); // set initial heading to zero degrees
         setupOdometry();
     }
 
@@ -123,9 +124,8 @@ public class Drivetrain extends SubsystemBase {
         */
         resetEncoders();
 
-        Robot.pigeon.getGeneralStatus(_pigeonGenStatus);
-        if (_pigeonGenStatus.state == PigeonIMU.PigeonState.Ready) {
-            driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+        if (_pigeon.isActive()){
+            driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(_pigeon.getHeading()));
         }
     }
 
@@ -136,28 +136,13 @@ public class Drivetrain extends SubsystemBase {
     }
     */
 
-    public double getHeading() {
-
-        double heading;
-        double[] ypr = new double[3];
-
-        Robot.pigeon.getYawPitchRoll(ypr);
-
-        // get the heading. If the value is negative, need to make it relative to 360 (value is already negative so add)
-        heading = ypr[0] < 0 ? 360.0 + ypr[0] % 360 : ypr[0] % 360;
-
-        SmartDashboard.putString("Heading", String.format("%.1f",heading));
-
-        return heading;
-    }
 
     @Override
     public void periodic() {
         // Update the odometry
 
-        Robot.pigeon.getGeneralStatus(_pigeonGenStatus);
-        if (_pigeonGenStatus.state == PigeonIMU.PigeonState.Ready) {
-            driveOdometry.update(Rotation2d.fromDegrees(getHeading()),
+        if (_pigeon.isActive()) {
+            driveOdometry.update(Rotation2d.fromDegrees(_pigeon.getHeading()),
                     getLeftPosMeters(),
                     getRightPosMeters());
 
@@ -180,9 +165,6 @@ public class Drivetrain extends SubsystemBase {
         return new DifferentialDriveWheelSpeeds(getLeftVelMeters(),getRightVelMeters());
     }
 
-    public void resetPigeonPosition(){
-        Robot.pigeon.setYaw(0);
-    }
 
     public double getAverageEncoderDistance() {
         return (getLeftPosMeters() +getRightPosMeters()) / 2.0;

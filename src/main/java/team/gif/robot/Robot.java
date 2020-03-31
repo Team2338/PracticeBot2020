@@ -7,7 +7,6 @@
 
 package team.gif.robot;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -61,7 +60,6 @@ public class Robot extends TimedRobot {
 
   public static OI oi;
   public static Hanger hanger;
-  public static PigeonIMU pigeon;
   private final Drivetrain drivetrain = Drivetrain.getInstance();
   //private final ColorSensor colorsensor = ColorSensor.getInstance();
 

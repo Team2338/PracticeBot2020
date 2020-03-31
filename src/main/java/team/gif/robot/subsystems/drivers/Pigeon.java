@@ -1,5 +1,7 @@
 package team.gif.robot.subsystems.drivers;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.robot.RobotMap;
 
 public class Pigeon {
@@ -7,6 +9,8 @@ public class Pigeon {
     public static PigeonIMU _pigeon;
 
     private static Pigeon instance = null;
+
+    private PigeonIMU.GeneralStatus _pigeonGenStatus = new PigeonIMU.GeneralStatus();
 
     public static Pigeon getInstance() {
         if (instance == null) {
@@ -17,6 +21,36 @@ public class Pigeon {
 
     public Pigeon(){
         _pigeon = new PigeonIMU(RobotMap.PIGEON);
+        instance = this;
+    }
+
+    public Pigeon(TalonSRX talon){
+        _pigeon = new PigeonIMU(talon);
+        instance = this;
+    }
+
+    public double getHeading() {
+        double heading;
+        double[] ypr = new double[3];
+
+        _pigeon.getYawPitchRoll(ypr);
+
+        // get the heading. If the value is negative, need to make it relative to 360 (value is already negative so add)
+        heading = ypr[0] < 0 ? 360.0 + ypr[0] % 360 : ypr[0] % 360;
+
+        SmartDashboard.putString("Heading", String.format("%.1f",heading));
+
+        return heading;
+    }
+
+    public boolean isActive() {
+        _pigeon.getGeneralStatus(_pigeonGenStatus);
+
+        return _pigeonGenStatus.state == PigeonIMU.PigeonState.Ready;
+    }
+
+    public void resetPigeonPosition() {
+        setYaw(0);
     }
 
     public void setYaw(double yaw){
