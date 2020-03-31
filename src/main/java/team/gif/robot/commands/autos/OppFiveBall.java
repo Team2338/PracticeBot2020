@@ -14,7 +14,7 @@ import team.gif.robot.commands.shooter.RevFlywheel;
 public class OppFiveBall extends SequentialCommandGroup {
 
     public OppFiveBall() {
-        System.out.println("********   opp 5 ball auto activated  *******");
+        System.out.println("Auto: Opponent 5 Ball Selected");
         /*
          * TODO: speed up moveback
          * */

@@ -15,7 +15,7 @@ import team.gif.robot.commands.shooter.RevFlywheel;
 
 public class SafeFiveBall extends SequentialCommandGroup {
     public SafeFiveBall(){
-        System.out.println("SafeFiveBallAuto Activated");
+        System.out.println("Auto: Safe Five Ball Selected");
 
         /*
         * TODO: speed up moveback

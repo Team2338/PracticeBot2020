@@ -32,6 +32,7 @@ public class Hanger extends SubsystemBase {
         hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.Hanger.MIN_POS);
 
         hangMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        SmartDashboard.putBoolean("Hang Control", false);
     }
 
     public void zeroEncoder() {
@@ -62,6 +63,10 @@ public class Hanger extends SubsystemBase {
         return hangEncoder.getPosition();
     }
 
+    public String getPosition_Shuffleboard() {
+        return String.format("%11.2f",hangEncoder.getPosition());
+    }
+
     public void setOpen() {
         hangerRatchet.set(true);
     }
@@ -71,9 +76,7 @@ public class Hanger extends SubsystemBase {
     }
 
     public String getLockState() {
-        String returnVal;
-        returnVal = ( hangerRatchet.get() ) ? "Unlocked" : "Locked";
-        return returnVal;
+        return  hangerRatchet.get() ? "   Unlocked" : "    Locked";
     }
 
     public boolean getLockStateBool() {

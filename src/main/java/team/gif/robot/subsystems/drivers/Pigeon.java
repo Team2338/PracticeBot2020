@@ -1,6 +1,11 @@
 package team.gif.robot.subsystems.drivers;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.robot.RobotMap;
 
@@ -27,6 +32,11 @@ public class Pigeon {
     public Pigeon(TalonSRX talon){
         _pigeon = new PigeonIMU(talon);
         instance = this;
+
+        // Puts a Gyro type widget on dashboard and assigns
+        // the function getHeading_Shuffleboard
+        ShuffleboardTab   tab  = Shuffleboard.getTab("SmartDashboard"); //gets a reference to the shuffleboard tab
+        tab.add("BotHead",(x)->{x.setSmartDashboardType("Gyro");x.addDoubleProperty("Value", ()->getHeading_Shuffleboard(),null);});
     }
 
     public double getHeading() {
@@ -38,7 +48,24 @@ public class Pigeon {
         // get the heading. If the value is negative, need to make it relative to 360 (value is already negative so add)
         heading = ypr[0] < 0 ? 360.0 + ypr[0] % 360 : ypr[0] % 360;
 
-        SmartDashboard.putString("Heading", String.format("%.1f",heading));
+        return heading;
+    }
+
+    // The Gyro Widget displays increasing degrees clockwise (0 North, 90 East, 180 South, 270 West)
+    // The value from the pigeon is opposite (counterclockwise with 90 West) so we need to flip
+    // the values around the compass
+    public double getHeading_Shuffleboard() {
+        double heading;
+        double[] ypr = new double[3];
+
+        _pigeon.getYawPitchRoll(ypr);
+
+        // get the heading. If the value is negative, need to flip it positive
+        // also need to subtract from 360 to flip the compass
+        heading = ypr[0] < 0 ? (0 - ypr[0] % 360) : (360 - (ypr[0] % 360));
+
+        // 0 degree will calculate to 360, so set it to 0
+        heading = heading == 360.0 ? 0 : heading;
 
         return heading;
     }

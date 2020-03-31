@@ -6,7 +6,7 @@ import team.gif.robot.commands.drivetrain.forward;
 public class Mobility extends SequentialCommandGroup {
 
     public Mobility() {
-        System.out.println("Mobility Selected");
+        System.out.println("Auto: Mobility Selected");
         addCommands(
                 new forward(1.3,.3,.3)
         );

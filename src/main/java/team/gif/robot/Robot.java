@@ -7,6 +7,7 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -40,6 +41,8 @@ public class Robot extends TimedRobot {
 
   public static final boolean isCompBot = true;
 
+  private boolean _runAutoScheduler = true;
+
   private Command m_autonomousCommand = null;
   private Command driveCommand = new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
@@ -55,8 +58,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  public static ShuffleboardTab autoTab;
-  public static ShuffleboardTab calibrationTab;
+  public static ShuffleboardTab autoTab = Shuffleboard.getTab("PreMatch");
+  private NetworkTableEntry allianceEntry = autoTab.add("Alliance","Startup").getEntry();
 
   public static OI oi;
   public static Hanger hanger;
@@ -115,7 +118,7 @@ public class Robot extends TimedRobot {
 //    SmartDashboard.putNumber("tx",limelight.getXOffset());
 //    SmartDashboard.putNumber("ty",limelight.getYOffset());
 
-    SmartDashboard.putNumber("RPM", Shooter.getInstance().getVelocity());
+    SmartDashboard.putString("RPM", Shooter.getInstance().getVelocity_Shuffleboard());
 //    SmartDashboard.putBoolean("hastarget",limelight.hasTarget());
     CommandScheduler.getInstance().run();
 
@@ -126,7 +129,7 @@ public class Robot extends TimedRobot {
 
     // Hanger
     SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
-    SmartDashboard.putNumber("Hang Position", Robot.hanger.getPosition());
+    SmartDashboard.putString("Hang Position", Robot.hanger.getPosition_Shuffleboard());
   }
 
   /**
@@ -152,6 +155,7 @@ public class Robot extends TimedRobot {
     updateauto();
     compressor.stop();
     indexCommand.schedule();
+    _runAutoScheduler = true;
   }
 
   /**
@@ -160,13 +164,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     double matchTime = DriverStation.getInstance().getMatchTime();
-    boolean runAuto = false;
 
-    if (matchTime < (15.0 - chosenDelay.getValue()) && !runAuto) {
+    if (matchTime < (15.0 - chosenDelay.getValue()) && _runAutoScheduler) {
       if (m_autonomousCommand != null) {
         m_autonomousCommand.schedule();
+        System.out.println("Delay over. Auto selection scheduler started.");
       }
-      runAuto = true;
+      _runAutoScheduler = false;
     }
   }
 
@@ -225,10 +229,8 @@ public class Robot extends TimedRobot {
   }
 
   public void tabsetup(){
-    //setp tabs
-    System.out.println("tabsetup");
 
-    autoTab = Shuffleboard.getTab("auto");
+//    autoTab = Shuffleboard.getTab("PreMatch");
 
     autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
     autoModeChooser.addOption("Fwd Mobility", autoMode.MOBILITY_FWD);
@@ -237,8 +239,6 @@ public class Robot extends TimedRobot {
     autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
 
     autoTab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
-
-    //autoTab.add("simulation",isSimulation());
 
     delayChooser.setDefaultOption("0", delay.DELAY_0);
     delayChooser.addOption("1", delay.DELAY_1);
@@ -261,7 +261,7 @@ public class Robot extends TimedRobot {
 
     // calibration information
     // RGB_Shuffleboard
-    calibrationTab = Shuffleboard.getTab("Calibration");          // adds the calibration tab to the shuffleboard (getTab creates if not exist)
+//    calibrationTab = Shuffleboard.getTab("Calibration");          // adds the calibration tab to the shuffleboard (getTab creates if not exist)
 //    Shuffleboard.getTab("Calibration").add("Red",0);    // adds the Red text box, persists over power down
 //    Shuffleboard.getTab("Calibration").add("Green",0);  // adds the Green text box, persists over power down
 //    Shuffleboard.getTab("Calibration").add("Blue",0);   // adds the Blue text box, persists over power down
@@ -271,37 +271,28 @@ public class Robot extends TimedRobot {
 
     if(chosenAuto == autoMode.MOBILITY){
       m_autonomousCommand = new Mobility();
-      System.out.println("Mobility selected");
     } else if(chosenAuto == autoMode.MOBILITY_FWD){
       m_autonomousCommand = new MobilityFwd();
-      System.out.println("Mobility Fwd selected");
     } else if(chosenAuto == autoMode.SAFE_3_BALL){
       m_autonomousCommand = new SafeThreeBall();
-      System.out.println("Safe 5 ball was chosen");
     } else if(chosenAuto == autoMode.SAFE_5_BALL){
       m_autonomousCommand = new SafeFiveBall();
-      System.out.println("Safe 5 ball was chosen");
     } else if(chosenAuto == autoMode.OPP_5_BALL){
       m_autonomousCommand = new OppFiveBall();
-      System.out.println("Opp 5 ball was chosen");
     }else if(chosenAuto ==null) {
-      System.out.println("Auto is null");
+      System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
-
-    System.out.println("auto " + chosenAuto);
-
   }
 
   public void setLimelightPipeline(){/**sets the limelight pipeline to red side or blue side**/
-    SmartDashboard.putString("Alliance", "!None!");
     if( DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue ) {
-      SmartDashboard.putString("Alliance", "Blue");
+      allianceEntry.setString("         Blue");
       limelight.setPipeline(0);
     } else if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-      SmartDashboard.putString("Alliance", "Red");
+      allianceEntry.setString("          Red");
       limelight.setPipeline(1);
     } else {
-      SmartDashboard.putString("Alliance", "!ERROR!");
+      allianceEntry.setString("  !ERROR!");
     }
   }
 }
