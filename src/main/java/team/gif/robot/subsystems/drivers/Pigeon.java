@@ -1,12 +1,8 @@
 package team.gif.robot.subsystems.drivers;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.robot.RobotMap;
 
 public class Pigeon {
@@ -36,35 +32,48 @@ public class Pigeon {
         // Puts a Gyro type widget on dashboard and assigns
         // the function getHeading_Shuffleboard
         ShuffleboardTab   tab  = Shuffleboard.getTab("SmartDashboard"); //gets a reference to the shuffleboard tab
-        tab.add("BotHead",(x)->{x.setSmartDashboardType("Gyro");x.addDoubleProperty("Value", ()->getHeading_Shuffleboard(),null);});
+        tab.add("BotHead",(x)->{x.setSmartDashboardType("Gyro");x.addDoubleProperty("Value", ()-> getCompassHeading(),null);});
     }
 
+
+    /**
+     * Returns heading from pigeon
+     *      turning counterclockwise, values increase
+     *      turning clockwise, values decrease
+     *      no rollover, can go negative
+     */
     public double getHeading() {
-        double heading;
         double[] ypr = new double[3];
 
         _pigeon.getYawPitchRoll(ypr);
 
-        // get the heading. If the value is negative, need to make it relative to 360 (value is already negative so add)
-        heading = ypr[0] < 0 ? 360.0 + ypr[0] % 360 : ypr[0] % 360;
-
-        return heading;
+        return ypr[0];
     }
 
-    // The Gyro Widget displays increasing degrees clockwise (0 North, 90 East, 180 South, 270 West)
-    // The value from the pigeon is opposite (counterclockwise with 90 West) so we need to flip
-    // the values around the compass
-    public double getHeading_Shuffleboard() {
-        double heading;
-        double[] ypr = new double[3];
+    /**
+     * Returns heading values between -180 and 180
+     * Does this by using the IEEEremainder function which
+     * splits the remainder in half and returns anything greater than
+     * half as negative.
+     */
+    public double get180Heading() {
+        return Math.IEEEremainder(getHeading(), 360.0d) ;
+    }
 
-        _pigeon.getYawPitchRoll(ypr);
+    /**
+     * The heading value from the pigeon increases counterclockwise (0 North, 90 West, 180 South, 270 East)
+     * Some features need degrees to look like a compass,
+     * increasing clockwise (0 North, 90 East, 180 South, 270 West)
+     * with rollover (max value 360, min 0)
+     */
+    public double getCompassHeading() {
+        double heading = getHeading();
 
         // get the heading. If the value is negative, need to flip it positive
-        // also need to subtract from 360 to flip the compass
-        heading = ypr[0] < 0 ? (0 - ypr[0] % 360) : (360 - (ypr[0] % 360));
+        // also need to subtract from 360 to flip value to the correct compass heading
+        heading = heading < 0 ? (0 - heading % 360) : (360 - (heading % 360));
 
-        // 0 degree will calculate to 360, so set it to 0
+        // 0 degree will result in 360, so set it back to 0
         heading = heading == 360.0 ? 0 : heading;
 
         return heading;

@@ -15,8 +15,8 @@ public class Limelight {
      * @param key NetworkTable key specified in limelight web config
      */
     public Limelight(String key) {
+        System.out.println("limelight init");
         table = NetworkTableInstance.getDefault().getTable(key);
-        System.out.println("                               limelight init");
         setLEDMode(3);
     }
 

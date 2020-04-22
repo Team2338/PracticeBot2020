@@ -66,18 +66,21 @@ public final class Constants {
         public static double kIx = .007;//from .025
     }
 
-    public static class drivetrain{
-        public static double METERS_PER_TICK_LEFT  = 100;// needs a legitimate number
+    public static class drivetrain {
+        public static double METERS_PER_TICK_LEFT = 100;// needs a legitimate number
         public static double METERS_PER_TICK_RIGHT = 100;// needs a legitimate number
 
         public static double TRACK_WIDTH = 10;//inches
 
 
-        public static double WHEEL_DIAMETER = 0.127; // DIAMETER AND RADIUS ARE IN METERS
+        public static double WHEEL_DIAMETER = 0.127; // IN METERS
+        public static double WHEEL_CICUMFERENCE = WHEEL_DIAMETER * 3.14159; // IN METERS
         public static double WHEEL_RADIUS = 0.0635;
         public static double ENCODER_EPR = 4096; // EPR = Edges per revolution (IN TICKS)
 
-        public static double TICKS_TO_METERS = (WHEEL_DIAMETER * Math.PI) / (ENCODER_EPR);
+        public static double TICKS_TO_METERS = 10000;
+        public static double TICKS_TO_METERS_LEFT = 10115; //10058; // Pushed bot 17 feet, recorded ticks (51816), converted to meters
+        public static double TICKS_TO_METERS_RIGHT = 10005; // 9915; // 9915; // Pushed bot 17 feet, recorded ticks (51816), converted to meters
         public static double DPS_TO_MPS = ((WHEEL_DIAMETER * 0.0254 * Math.PI) / (360) * (10)); // Degrees per sec. to meters per sec.
 
         public static double kTrackWidth = 0.76884201;
@@ -96,5 +99,22 @@ public final class Constants {
 
         public static double WheelDiameter = 0.127;
         public static double encoderEPR;
+
+        // trajectory
+        // from FRC Characterization Tool
+        public static final double ksVolts = 1.1; // 1.02;
+        public static final double kvVoltSecondsPerMeter = 2.79; // 2.75;
+        public static final double kaVoltSecondsSquaredPerMeter = 1.05; // 1.08;
+        public static final double kPDriveVelLeft = 1.0; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
+        public static final double kPDriveVelRight = kPDriveVelLeft; // character 0.0266; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
+        public static final double kTrackwidthMeters = 0.7112; // <- measured characterization -> 0.799136 and 0.788582959;
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+    }
+    public static class autoConstants {
+        // part of trajectory but numbers are from example
+        public static final double kMaxSpeedMetersPerSecond = 1.0; // 3
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1.0; // 3
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
     }
 }

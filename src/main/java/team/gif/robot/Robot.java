@@ -10,6 +10,7 @@ package team.gif.robot;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -44,7 +45,8 @@ public class Robot extends TimedRobot {
   private boolean _runAutoScheduler = true;
 
   private Command m_autonomousCommand = null;
-  private Command driveCommand = new Drive(Drivetrain.getInstance());
+
+  private Command driveCommand = null; // new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
   private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
@@ -52,6 +54,8 @@ public class Robot extends TimedRobot {
 
   private autoMode chosenAuto;
   private delay chosenDelay;
+  private Timer _elapsedTime = new Timer();
+
 
   public static Limelight limelight;
   private final Compressor compressor = new Compressor();
@@ -59,11 +63,14 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static ShuffleboardTab autoTab = Shuffleboard.getTab("PreMatch");
-  private NetworkTableEntry allianceEntry = autoTab.add("Alliance","Startup").getEntry();
+  private NetworkTableEntry allianceEntry = autoTab.add("Alliance","Startup")
+                                                    .withPosition(3,0)
+                                                    .withSize(1,1)
+                                                    .getEntry();
 
   public static OI oi;
   public static Hanger hanger;
-  private final Drivetrain drivetrain = Drivetrain.getInstance();
+  private Drivetrain drivetrain = null; // Drivetrain.getInstance();
   //private final ColorSensor colorsensor = ColorSensor.getInstance();
 
 
@@ -73,17 +80,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    tabsetup();
-
     System.out.println("robot init");
+    tabsetup();
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    limelight = new Limelight();
-    updateauto();
     hanger = new Hanger();
     hanger.zeroEncoder();
+
+    driveCommand = new Drive(Drivetrain.getInstance());
+    drivetrain = Drivetrain.getInstance();
+    limelight = new Limelight();
 
     // Puts a button on the dashboard which sets the current
     // hanger position as the 0 position. Does this by calling
@@ -149,9 +156,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    System.out.println("autonomous init");
+
+    // used for delaying the start of autonomous
+    _elapsedTime.reset();
+    _elapsedTime.start();
+
+    drivetrain.resetEncoders();
+    drivetrain.resetPose();
+    drivetrain.resetPigeon();
 
     setLimelightPipeline();
     limelight.setLEDMode(1);//force off
+    //- _autonomousCommands.clear();
+    //- _autonomousCommands.add(null); // m_robotContainer.getAutonomousCommand()); // set the first command to null to allow for an auto delay.
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -163,19 +181,93 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    double matchTime = DriverStation.getInstance().getMatchTime();
 
-    if (matchTime < (15.0 - chosenDelay.getValue()) && _runAutoScheduler) {
-      if (m_autonomousCommand != null) {
-        m_autonomousCommand.schedule();
+      if ( (_elapsedTime.get() > (chosenDelay.getValue())) && _runAutoScheduler) {
+          if (m_autonomousCommand != null) {
+              System.out.println("Delay over. Auto selection scheduler started.");
+              m_autonomousCommand.schedule();
+          }
+          _runAutoScheduler = false;
+          _elapsedTime.stop();
+      }
+
+/*
+    if( _autoCommandIndex == -1 ) {
+      if ( _elapsedTime.get() > (chosenDelay.getValue())) {
         System.out.println("Delay over. Auto selection scheduler started.");
+        _elapsedTime.stop();
+        _autoCommandIndex++;
+        _runAutoScheduler = true;
+      }
+    } else {
+      if ( _autoCommandIndex < _autonomousCommands.size() ) {
+        if (_autonomousCommands.get(_autoCommandIndex) != null && _runAutoScheduler) {
+          System.out.println("** Starting Auto Path " + (_autoCommandIndex+1) + " **");
+          m_autonomousCommand = _autonomousCommands.get(_autoCommandIndex);
+          m_autonomousCommand.schedule();
+          _runAutoScheduler = false;
+        }
+        if (!m_autonomousCommand.isScheduled()) {
+          System.out.println("* Auto path " + (_autoCommandIndex+1) + " is complete *");
+          m_autonomousCommand.cancel();
+          _autoCommandIndex++;
+          _runAutoScheduler = true;
+        }
+      } else {
+        if( _runAutoScheduler) {
+          System.out.println("*** Auto path is complete ***");
+          _runAutoScheduler = false;
+        }
+      }
+    }
+*/
+
+    /*
+
+    if ( (_elapsedTime.get() > (chosenDelay.getValue())) && _runAutoScheduler) {
+      if (_autonomousCommands.get(_autoCommandIndex) != null) {
+        System.out.println("Starting Auto Sequence " + _autoCommandIndex+1);
+        _autonomousCommands.get(_autoCommandIndex).schedule();
       }
       _runAutoScheduler = false;
+      _elapsedTime.stop();
     }
+
+    // first path is complete. If there is a second, run that one
+    if( !_autonomousCommands.get(_autoCommandIndex).isScheduled() && _runAutoScheduler_2) {
+      System.out.println("** First path complete **");
+      m_autonomousCommand.cancel();
+      _runAutoScheduler_2 = false;
+      if (m_autonomousCommand_2 != null) {
+        System.out.println("Starting 2nd path");
+        m_autonomousCommand_2.schedule();
+      }
+    }
+/*
+    if ( (_elapsedTime.get() > (chosenDelay.getValue())) && _runAutoScheduler) {
+      if (m_autonomousCommand != null) {
+        System.out.println("Delay over. Auto selection scheduler started.");
+        m_autonomousCommand.schedule();
+      }
+      _runAutoScheduler = false;
+      _elapsedTime.stop();
+    }
+
+    // first path is complete. If there is a second, run that one
+    if( !m_autonomousCommand.isScheduled() && _runAutoScheduler_2) {
+      System.out.println("** First path complete **");
+      m_autonomousCommand.cancel();
+      _runAutoScheduler_2 = false;
+      if (m_autonomousCommand_2 != null) {
+        System.out.println("Starting 2nd path");
+        m_autonomousCommand_2.schedule();
+      }
+    } */
   }
 
   @Override
   public void teleopInit() {
+    System.out.println("teleop init");
 
     setLimelightPipeline();
     limelight.setLEDMode(1);//force off
@@ -190,9 +282,6 @@ public class Robot extends TimedRobot {
     compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
-
-    // resets color indicator
-    SmartDashboard.putString("CP Pos", "");
   }
 
   @Override
@@ -230,7 +319,7 @@ public class Robot extends TimedRobot {
 
   public void tabsetup(){
 
-//    autoTab = Shuffleboard.getTab("PreMatch");
+    autoTab = Shuffleboard.getTab("PreMatch");
 
     autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
     autoModeChooser.addOption("Fwd Mobility", autoMode.MOBILITY_FWD);
@@ -238,7 +327,10 @@ public class Robot extends TimedRobot {
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
     autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
 
-    autoTab.add("Auto Select",autoModeChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
+    autoTab.add("Auto Select",autoModeChooser)
+            .withWidget(BuiltInWidgets.kComboBoxChooser)
+            .withPosition(1,0)
+            .withSize(2,1);
 
     delayChooser.setDefaultOption("0", delay.DELAY_0);
     delayChooser.addOption("1", delay.DELAY_1);
@@ -257,7 +349,9 @@ public class Robot extends TimedRobot {
     delayChooser.addOption("14", delay.DELAY_14);
     delayChooser.addOption("15", delay.DELAY_15);
 
-    autoTab.add("Delay", delayChooser);
+    autoTab.add("Delay", delayChooser)
+            .withPosition(0,0)
+            .withSize(1,1);
 
     // calibration information
     // RGB_Shuffleboard
@@ -270,17 +364,17 @@ public class Robot extends TimedRobot {
   public void updateauto(){
 
     if(chosenAuto == autoMode.MOBILITY){
-      m_autonomousCommand = new Mobility();
+        m_autonomousCommand = new Mobility();
     } else if(chosenAuto == autoMode.MOBILITY_FWD){
-      m_autonomousCommand = new MobilityFwd();
+        m_autonomousCommand = new MobilityFwd();
     } else if(chosenAuto == autoMode.SAFE_3_BALL){
-      m_autonomousCommand = new SafeThreeBall();
+        m_autonomousCommand = new SafeThreeBall();
     } else if(chosenAuto == autoMode.SAFE_5_BALL){
-      m_autonomousCommand = new SafeFiveBall();
+        m_autonomousCommand = new SafeFiveBall();
     } else if(chosenAuto == autoMode.OPP_5_BALL){
-      m_autonomousCommand = new OppFiveBall();
+        m_autonomousCommand = new OppFiveBall();
     }else if(chosenAuto ==null) {
-      System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
+        System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
   }
 
