@@ -25,7 +25,7 @@ public class SafeThreeBall extends SequentialCommandGroup {
             List.of(
                 new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),
                // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
-                new Pose2d(Units.feetToMeters(-9.0), Units.feetToMeters(-9.0), new Rotation2d(Units.degreesToRadians(45.0)))
+                new Pose2d(Units.feetToMeters(-3.0), Units.feetToMeters(-3.0), new Rotation2d(Units.degreesToRadians(90.0)))
             ),
             RobotTrajectory.getInstance().configReverse
         );

@@ -105,9 +105,9 @@ public final class Constants {
         public static final double ksVolts = 1.37; // 1.26; // <- RL // 1.1; // 1.02;
         public static final double kvVoltSecondsPerMeter = 2.46; // 2.59; //<- RL // 2.79; // 2.75;
         public static final double kaVoltSecondsSquaredPerMeter = 0.773; // 0.984; // <- RL // 1.05; // 1.08;
-        public static final double kPDriveVelLeft = 20.0; //0.01265; //0.0253; // 0.00579; // <- RL // 1.0; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
+        public static final double kPDriveVelLeft = 10.0; //0.01265; //0.0253; // 0.00579; // <- RL // 1.0; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
         public static final double kPDriveVelRight = kPDriveVelLeft; // character 0.0266; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
-        public static final double kTrackwidthMeters = 0.775; // 0.77678; // <- RL // 0.7112; // <- measured characterization -> 0.799136 and 0.788582959;
+        public static final double kTrackwidthMeters = 1.0; //0.775; // 0.77678; // <- RL // 0.7112; // <- measured characterization -> 0.799136 and 0.788582959;
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
     }
     public static class autoConstants {

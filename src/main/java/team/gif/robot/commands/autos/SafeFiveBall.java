@@ -1,9 +1,12 @@
 package team.gif.robot.commands.autos;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.util.Units;
+import edu.wpi.first.wpilibj2.command.*;
+import team.gif.lib.RobotTrajectory;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.drivetrain.AutoDrive;
@@ -12,14 +15,80 @@ import team.gif.robot.commands.intake.IntakeDown;
 import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
+import team.gif.robot.subsystems.Drivetrain;
+
+import java.util.List;
+
 
 public class SafeFiveBall extends SequentialCommandGroup {
-    public SafeFiveBall(){
+    public Command reverse () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),
+                        // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(-11.0), Units.feetToMeters(0.0), new Rotation2d(Units.degreesToRadians(0)))
+                ),
+                RobotTrajectory.getInstance().configReverse
+        );
+        // create the command using the trajectory
+        RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
+    }
+    public Command forward () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2d(Units.feetToMeters(-11.0), 0, new Rotation2d(0)),
+                        // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(15.0)))
+                ),
+                RobotTrajectory.getInstance().configForward
+        );
+        // create the command using the trajectory
+        RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
+    }
+    public Command reverseAgain () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(15)),
+                        // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(-14.0), Units.feetToMeters(0.0), new Rotation2d(Units.degreesToRadians(0)))
+                ),
+                RobotTrajectory.getInstance().configReverse
+        );
+        // create the command using the trajectory
+        RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
+    }
+
+    public SafeFiveBall() {
+        System.out.println("Auto: Safe Five Ball Selected");
+
+        // still under development, right now just drives backward and
+        // turns ~45 degrees, moving to the right 3 feet
+        addCommands(
+                new PrintCommand("Auto: Safe Five Ball Started"),
+                new IntakeDown(),
+                new ParallelDeadlineGroup(reverse(),
+                        new IntakeRun()),
+                forward(),
+                new RevFlywheel().withTimeout(2.5),
+                new ParallelDeadlineGroup(new RevFlywheel().withTimeout(4.0),
+                        new Fire(false)),
+                new ParallelDeadlineGroup(reverseAgain(),
+                        new IntakeRun())
+        );
+    }
+
+    /*public SafeFiveBall(){
         System.out.println("Auto: Safe Five Ball Selected");
 
         /*
         * TODO: speed up moveback
-        * */
+        *
 
         addCommands(
                 new IntakeDown(),
@@ -32,5 +101,5 @@ public class SafeFiveBall extends SequentialCommandGroup {
                                          new RevFlywheel(),
                                          new Fire(true))
         );
-    }
+    }*/
 }
