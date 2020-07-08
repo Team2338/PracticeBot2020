@@ -18,7 +18,7 @@ public class Mobility extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
                 new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),
-                new Pose2d(Units.feetToMeters(9.0), 0, new Rotation2d(0))
+                new Pose2d(Units.feetToMeters(20.0), 0, new Rotation2d(0))
             ),
             RobotTrajectory.getInstance().configForward
         );
@@ -31,7 +31,7 @@ public class Mobility extends SequentialCommandGroup {
     public Command reverse () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                new Pose2d(Units.feetToMeters(9.0), 0, new Rotation2d(0)),
+                new Pose2d(Units.feetToMeters(20.0), 0, new Rotation2d(0)),
                 new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0))
             ),
             RobotTrajectory.getInstance().configReverse
@@ -46,7 +46,7 @@ public class Mobility extends SequentialCommandGroup {
         System.out.println("Auto: Mobility Selected");
 
         // still under development, Used as a test path
-        // For now, drives 9 feet forward, backward, forward, backward
+        // For now, drives 15 feet forward, backward, forward, backward
         addCommands(
             new PrintCommand("Auto: Mobility Started"),
             forward(),

@@ -83,8 +83,12 @@ public class RobotContainer {
     *       + angle is counterclockwise
     *       - angle is clockwise
     *
+    *   Position:
+    *       +x is forward
+    *       +y is left
+    *
     *   Use configForward for driving forward
-    *   USe configReverse for driving backward
+    *   Use configReverse for driving backward
     *   Can not combine forward and reverse into same trajectory
     *
     *   If initially driving backward, start at 0,0 and go to -x
