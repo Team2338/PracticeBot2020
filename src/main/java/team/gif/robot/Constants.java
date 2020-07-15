@@ -108,6 +108,7 @@ public final class Constants {
         public static final double kPDriveVelLeft = 1.0; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
         public static final double kPDriveVelRight = kPDriveVelLeft; // character 0.0266; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
         public static final double kTrackwidthMeters = 0.7112; // <- measured characterization -> 0.799136 and 0.788582959;
+        //Calculated value for ktrackwidth = 27.875 inch to 0.708025 meters
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
     }
     public static class autoConstants {
