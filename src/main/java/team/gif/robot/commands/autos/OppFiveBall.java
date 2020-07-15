@@ -44,7 +44,7 @@ public class OppFiveBall extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2d(Units.feetToMeters(0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(4), 0, new Rotation2d(0))
+                        new Pose2d(Units.feetToMeters(94.36/12), 0, new Rotation2d(0))
                 ),
                 RobotTrajectory.getInstance().configReverse
         );
@@ -59,7 +59,7 @@ public class OppFiveBall extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),//zerod
-                        new Pose2d(Units.feetToMeters(4), 0, new Rotation2d(35))
+                        new Pose2d(Units.feetToMeters(4), 0, new Rotation2d(-35))
                 ),
                 RobotTrajectory.getInstance().configReverse
         );
