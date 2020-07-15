@@ -30,7 +30,7 @@ public class OppFiveBall extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),//zerod
-                        new Pose2d(Units.feetToMeters(-130.36/12), 0, new Rotation2d(0))// move backward 6ft
+                        new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0))// move backward 6ft
                 ),
                 RobotTrajectory.getInstance().configReverse
         );
@@ -43,10 +43,10 @@ public class OppFiveBall extends SequentialCommandGroup {
     public Command drive2 (){
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(94.36/12), 0, new Rotation2d(0))
+                        new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(-58/12.0), Units.feetToMeters(-10.0), new Rotation2d(Units.degreesToRadians(0)))
                 ),
-                RobotTrajectory.getInstance().configReverse
+                RobotTrajectory.getInstance().configForward
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
@@ -55,11 +55,11 @@ public class OppFiveBall extends SequentialCommandGroup {
 
     }
 
-    public Command drive3(){
+    /*public Command drive3(){
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),//zerod
-                        new Pose2d(Units.feetToMeters(4), 0, new Rotation2d(-35))
+                        new Pose2d(Units.feetToMeters(94.36/12), 0, new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(4), -, new Rotation2d(-35))
                 ),
                 RobotTrajectory.getInstance().configReverse
         );
@@ -67,7 +67,7 @@ public class OppFiveBall extends SequentialCommandGroup {
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
         // Run path following command, then stop at the end.
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
-    }
+    }*/
 
     public OppFiveBall() {
 
@@ -101,12 +101,13 @@ public class OppFiveBall extends SequentialCommandGroup {
                 new PrintCommand("Auto: Opponent 5 Ball Selected"),// init
                 new IntakeDown(),
                 new ParallelDeadlineGroup(drive1(),new IntakeRun()),//enemy ball heist
+                new IntakeRun().withTimeout(1),
                 drive2(),//get out of there
-                drive3(), //turn and move forward
+                //drive3(), //turn and move forward
                 new ParallelCommandGroup(
-                        new Pivot(),                          // let it rip
+                        // let it rip
                         new RevFlywheel(),
-                        new Fire(true))
+                        new Fire(false))
         );
     }
 }
