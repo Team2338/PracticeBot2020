@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.*;
 import team.gif.lib.RobotTrajectory;/*
@@ -26,6 +27,8 @@ import java.util.List;
 
 public class OppFiveBall extends SequentialCommandGroup {
 
+
+
     public Command drive1 () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
@@ -41,12 +44,13 @@ public class OppFiveBall extends SequentialCommandGroup {
     }
 
     public Command drive2 (){
+        CentripetalAccelerationConstraint constraint = new CentripetalAccelerationConstraint(30);
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)),
                         new Pose2d(Units.feetToMeters(-58/12.0), Units.feetToMeters(-10.0), new Rotation2d(Units.degreesToRadians(0)))
                 ),
-                RobotTrajectory.getInstance().configForward
+                RobotTrajectory.getInstance().configForward.addConstraint(constraint)// this is what was added
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
