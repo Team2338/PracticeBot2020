@@ -1,7 +1,6 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Indexer;
