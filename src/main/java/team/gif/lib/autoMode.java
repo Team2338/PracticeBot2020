@@ -6,6 +6,7 @@ public enum autoMode {
     MOBILITY_FWD(0),
     SAFE_3_BALL(0),
     SAFE_5_BALL(0),
+    SAFE_8_BALL(0),
     OPP_5_BALL(0);
 
     private int value;

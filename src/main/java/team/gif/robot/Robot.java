@@ -325,6 +325,7 @@ public class Robot extends TimedRobot {
     autoModeChooser.addOption("Fwd Mobility", autoMode.MOBILITY_FWD);
     autoModeChooser.addOption("3 Ball Auto", autoMode.SAFE_3_BALL);
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
+    autoModeChooser.addOption("8 Ball Auto", autoMode.SAFE_8_BALL);
     autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
 
     autoTab.add("Auto Select",autoModeChooser)
@@ -373,6 +374,8 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = new SafeFiveBall();
     } else if(chosenAuto == autoMode.OPP_5_BALL){
         m_autonomousCommand = new OppFiveBall();
+    } else if(chosenAuto == autoMode.SAFE_8_BALL){
+      m_autonomousCommand = new SafeEightBall();
     }else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
