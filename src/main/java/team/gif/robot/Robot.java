@@ -362,6 +362,7 @@ public class Robot extends TimedRobot {
   }
 
   public void updateauto(){
+    chosenAuto= autoMode.OPP_5_BALL;
 
     if(chosenAuto == autoMode.MOBILITY){
         m_autonomousCommand = new Mobility();

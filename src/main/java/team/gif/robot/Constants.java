@@ -112,8 +112,8 @@ public final class Constants {
     }
     public static class autoConstants {
         // part of trajectory but numbers are from example
-        public static final double kMaxSpeedMetersPerSecond = 1.5; // .8; // 3
-        public static final double kMaxAccelerationMetersPerSecondSquared = 1.5; // 3.0; // 3
+        public static final double kMaxSpeedMetersPerSecond = 3; // .8; // 3
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 3.0; // 3
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
     }

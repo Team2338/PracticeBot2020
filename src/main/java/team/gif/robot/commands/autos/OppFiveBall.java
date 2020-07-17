@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.trajectory.constraint.*;
+import edu.wpi.first.wpilibj.trajectory.constraint.TrajectoryConstraint;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.*;
 import team.gif.lib.RobotTrajectory;/*
@@ -23,6 +25,7 @@ import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import team.gif.robot.subsystems.Drivetrain;
 
+import javax.swing.*;
 import java.util.List;
 
 public class OppFiveBall extends SequentialCommandGroup {
@@ -30,12 +33,13 @@ public class OppFiveBall extends SequentialCommandGroup {
 
 
     public Command drive1 () {
+        //TrajectoryConstraint accelconstraint = new TrajectoryConstraint ();
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),//zerod
                         new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0))// move backward 6ft
                 ),
-                RobotTrajectory.getInstance().configReverse
+                RobotTrajectory.getInstance().configReverseSlow
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
@@ -44,17 +48,21 @@ public class OppFiveBall extends SequentialCommandGroup {
     }
 
     public Command drive2 (){
-        CentripetalAccelerationConstraint constraint = new CentripetalAccelerationConstraint(30);
+        //CentripetalAccelerationConstraint constraint = new CentripetalAccelerationConstraint(30);
+        //TrajectoryConstraint.MinMax accelconstraint = new TrajectoryConstraint.MinMax(3,0);
+
+
+
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-58/12.0), Units.feetToMeters(-10.0), new Rotation2d(Units.degreesToRadians(0)))
+                        new Pose2d(Units.feetToMeters(-2), Units.feetToMeters(-14.0), new Rotation2d(Units.degreesToRadians(-7)))
                 ),
-                RobotTrajectory.getInstance().configForward.addConstraint(constraint)// this is what was added
+                RobotTrajectory.getInstance().configForward// this is what was added
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
-        // Run path following command, then stop at the end.
+        // Run path following command, then stop at the end.MaxVelocityConstraint
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
 
     }
@@ -105,8 +113,10 @@ public class OppFiveBall extends SequentialCommandGroup {
                 new PrintCommand("Auto: Opponent 5 Ball Selected"),// init
                 new IntakeDown(),
                 new ParallelDeadlineGroup(drive1(),new IntakeRun()),//enemy ball heist
-                new IntakeRun().withTimeout(1),
-                drive2(),//get out of there
+                new IntakeRun().withTimeout(.75),
+                new ParallelDeadlineGroup(
+                    drive2(),//get out of there
+                    new RevFlywheel()),
                 //drive3(), //turn and move forward
                 new ParallelCommandGroup(
                         // let it rip
