@@ -7,14 +7,6 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.*;
 import team.gif.lib.RobotTrajectory;
-import team.gif.robot.Robot;
-import team.gif.robot.RobotContainer;
-import team.gif.robot.commands.autoaim.Pivot;
-import team.gif.robot.commands.drivetrain.AutoDrive;
-import team.gif.robot.commands.intake.IntakeDown;
-import team.gif.robot.commands.intake.IntakeRun;
-import team.gif.robot.commands.shooter.Fire;
-import team.gif.robot.commands.shooter.RevFlywheel;
 import team.gif.robot.subsystems.Drivetrain;
 
 import java.util.List;

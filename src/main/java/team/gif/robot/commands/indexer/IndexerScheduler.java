@@ -2,7 +2,6 @@ package team.gif.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-//import jdk.jshell.Snippet;
 import team.gif.robot.Globals;
 import team.gif.robot.subsystems.Indexer;
 

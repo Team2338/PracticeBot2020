@@ -1,9 +1,6 @@
 package team.gif.robot.commands.autoaim;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import team.gif.robot.OI;
 import team.gif.robot.Robot;
 import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
