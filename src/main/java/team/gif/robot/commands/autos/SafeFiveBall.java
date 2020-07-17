@@ -40,7 +40,7 @@ public class SafeFiveBall extends SequentialCommandGroup {
                 List.of(
                         new Pose2d(Units.feetToMeters(-11.0), 0, new Rotation2d(0)),
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(15.0)))
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(12)))
                 ),
                 RobotTrajectory.getInstance().configForward
         );
@@ -52,11 +52,25 @@ public class SafeFiveBall extends SequentialCommandGroup {
     public Command reverseAgain () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(15)),
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(12)),
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
                         new Pose2d(Units.feetToMeters(-14.0), Units.feetToMeters(0.0), new Rotation2d(Units.degreesToRadians(0)))
                 ),
                 RobotTrajectory.getInstance().configReverse
+        );
+        // create the command using the trajectory
+        RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
+    }
+    public Command forwardAgain () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2d(Units.feetToMeters(-14.0), Units.feetToMeters(0.0), new Rotation2d(0)),
+                        // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(-11.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(12)))
+                ),
+                RobotTrajectory.getInstance().configForward
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
@@ -72,14 +86,24 @@ public class SafeFiveBall extends SequentialCommandGroup {
         addCommands(
                 new PrintCommand("Auto: Safe Five Ball Started"),
                 new IntakeDown(),
-                new ParallelDeadlineGroup(reverse(),
+                new ParallelDeadlineGroup(
+                        reverse(),
                         new IntakeRun()),
-                forward(),
-                new RevFlywheel().withTimeout(2.5),
-                new ParallelDeadlineGroup(new RevFlywheel().withTimeout(4.0),
+                new ParallelDeadlineGroup(
+                        forward(),
+                        new RevFlywheel()),
+                new ParallelDeadlineGroup(
+                        new RevFlywheel().withTimeout(2.5),
                         new Fire(false)),
-                new ParallelDeadlineGroup(reverseAgain(),
-                        new IntakeRun())
+                new ParallelDeadlineGroup(
+                        reverseAgain(),
+                        new IntakeRun()),
+                new ParallelDeadlineGroup(
+                        forwardAgain(),
+                        new RevFlywheel()),
+                new ParallelDeadlineGroup(
+                        new RevFlywheel().withTimeout(0.5),
+                        new Fire(false))
         );
     }
 
