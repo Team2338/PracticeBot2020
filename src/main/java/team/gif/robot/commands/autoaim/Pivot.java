@@ -1,9 +1,11 @@
 package team.gif.robot.commands.autoaim;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.robot.Globals;
 import team.gif.robot.Robot;
 import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class Pivot extends CommandBase {
     public Pivot() {
@@ -36,6 +38,7 @@ public class Pivot extends CommandBase {
 
     @Override
     public void initialize() {
+        initialx = Pigeon.getInstance().get180Heading();
         Robot.limelight.setLEDMode(3);//force on
 
         System.out.println("pivot");
@@ -48,6 +51,7 @@ public class Pivot extends CommandBase {
     @Override
     public void execute() {
         Robot.limelight.setLEDMode(3);
+
         double xoffset = Robot.limelight.getXOffset();
 
         if((Math.abs(xoffset)<Constants.Pivot.marginxF)&&(loopedI<Ilooptime)){
@@ -82,6 +86,11 @@ public class Pivot extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        finalx = Pigeon.getInstance().get180Heading();
+
+        Globals.Pivotglobals.finalangle= finalx;
+        Globals.Pivotglobals.initialangle=initialx;
+
         Robot.limelight.setLEDMode(1);//force off
 
         /*

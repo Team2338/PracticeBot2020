@@ -20,7 +20,9 @@ public class Fire extends CommandBase {
 
     @Override
     public void execute() {
-        Robot.limelight.setLEDMode(3);
+        if(useLimelight){
+            Robot.limelight.setLEDMode(3);
+        }
         // Fire is used in auto but OI isn't instantiated yet so need to check first
         double speed = (Robot.oi != null && Robot.oi.dRT.get()) ? Constants.Shooter.RPM_HIGH : Constants.Shooter.RPM_LOW;
         //System.out.println(Shooter.getInstance().getVelocity());
@@ -43,7 +45,9 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        Robot.limelight.setLEDMode(1);
+        if(useLimelight){
+            Robot.limelight.setLEDMode(1);
+        }
         Indexer.getInstance().setSpeedFive(0);
     }
 }
