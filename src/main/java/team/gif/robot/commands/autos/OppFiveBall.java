@@ -57,7 +57,7 @@ public class OppFiveBall extends SequentialCommandGroup {
                 List.of(
                         new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)),
                         new Pose2d(Units.feetToMeters(-2), Units.feetToMeters(-14.0), new Rotation2d(Units.degreesToRadians(-7)))
-                ),
+                ),// og above -2 -14 -7
                 RobotTrajectory.getInstance().configForward// this is what was added
         );
         // create the command using the trajectory
@@ -112,16 +112,21 @@ public class OppFiveBall extends SequentialCommandGroup {
         addCommands(
                 new PrintCommand("Auto: Opponent 5 Ball Selected"),// init
                 new IntakeDown(),
-                new ParallelDeadlineGroup(drive1(),new IntakeRun()),//enemy ball heist
+                new ParallelDeadlineGroup(
+                        drive1(),
+                        new IntakeRun()
+                ),//enemy ball heist
                 new IntakeRun().withTimeout(.75),
                 new ParallelDeadlineGroup(
                     drive2(),//get out of there
-                    new RevFlywheel()),
+                    new RevFlywheel()
+                ),
                 //drive3(), //turn and move forward
                 new ParallelCommandGroup(
                         // let it rip
                         new RevFlywheel(),
-                        new Fire(false))
+                        new Fire(false)
+                )
 
         );
     }

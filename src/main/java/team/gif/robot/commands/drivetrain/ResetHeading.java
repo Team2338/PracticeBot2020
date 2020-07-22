@@ -22,6 +22,7 @@ public class ResetHeading extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+
     }
 
     // Returns true when the command should end.
@@ -34,4 +35,5 @@ public class ResetHeading extends CommandBase {
     @Override
     public void end(boolean interrupted) {
     }
+
 }
