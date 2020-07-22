@@ -40,7 +40,7 @@ public class SafeEightBall extends SequentialCommandGroup {
                 List.of(
                         new Pose2d(Units.feetToMeters(-11.0), 0, new Rotation2d(0)),
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(12)))
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(14)))
                 ),
                 RobotTrajectory.getInstance().configForward
         );
@@ -52,10 +52,10 @@ public class SafeEightBall extends SequentialCommandGroup {
     public Command reverseAgain () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(12))),
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(14))),
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-14.0), Units.feetToMeters(0.0), new Rotation2d(Units.degreesToRadians(0))),
-                        new Pose2d(Units.feetToMeters(-17.0), Units.feetToMeters(0.0), new Rotation2d(Units.degreesToRadians(0)))
+                        new Pose2d(Units.feetToMeters(-14.0), Units.feetToMeters(0.57), new Rotation2d(Units.degreesToRadians(0))),
+                        new Pose2d(Units.feetToMeters(-18.75), Units.feetToMeters(0.57), new Rotation2d(Units.degreesToRadians(0)))
                 ),
                 RobotTrajectory.getInstance().configReverse
         );
@@ -67,10 +67,10 @@ public class SafeEightBall extends SequentialCommandGroup {
     public Command forwardAgain () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(-17.0), Units.feetToMeters(0.0), new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-14.0), Units.feetToMeters(0.0), new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(-18.75), Units.feetToMeters(0.57), new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(-14.0), Units.feetToMeters(0.57), new Rotation2d(0)),
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-11.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(12)))
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(14)))
                 ),
                 RobotTrajectory.getInstance().configForward
         );
@@ -95,16 +95,17 @@ public class SafeEightBall extends SequentialCommandGroup {
                         forward(),
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
-                        new RevFlywheel().withTimeout(2.5),
+                        new RevFlywheel().withTimeout(2.25),
                         new Fire(false)),
                 new ParallelDeadlineGroup(
                         reverseAgain(),
                         new IntakeRun()),
+                new IntakeRun().withTimeout(0.75),
                 new ParallelDeadlineGroup(
                         forwardAgain(),
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
-                        new RevFlywheel().withTimeout(0.5),
+                        new RevFlywheel().withTimeout(2.0),
                         new Fire(false))
         );
     }

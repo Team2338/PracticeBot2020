@@ -39,8 +39,10 @@ public class RobotTrajectory {
      * Creates a config for Forward trajectory
      */
     public TrajectoryConfig configForward = new TrajectoryConfig(
-        Constants.autoConstants.kMaxSpeedMetersPerSecond,
-        Constants.autoConstants.kMaxAccelerationMetersPerSecondSquared)
+       // Constants.autoConstants.kMaxSpeedMetersPerSecond,
+            4.0,
+        //Constants.autoConstants.kMaxAccelerationMetersPerSecondSquared)
+            4.0)
         // Add kinematics to ensure max speed is actually obeyed
         .setKinematics(Constants.drivetrain.kDriveKinematics)
         //.setReversed(false)
