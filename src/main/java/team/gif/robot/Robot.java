@@ -162,8 +162,6 @@ public class Robot extends TimedRobot {
 
     setLimelightPipeline();
     limelight.setLEDMode(1);//force off
-    //- _autonomousCommands.clear();
-    //- _autonomousCommands.add(null); // m_robotContainer.getAutonomousCommand()); // set the first command to null to allow for an auto delay.
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -184,79 +182,6 @@ public class Robot extends TimedRobot {
           _runAutoScheduler = false;
           _elapsedTime.stop();
       }
-
-/*
-    if( _autoCommandIndex == -1 ) {
-      if ( _elapsedTime.get() > (chosenDelay.getValue())) {
-        System.out.println("Delay over. Auto selection scheduler started.");
-        _elapsedTime.stop();
-        _autoCommandIndex++;
-        _runAutoScheduler = true;
-      }
-    } else {
-      if ( _autoCommandIndex < _autonomousCommands.size() ) {
-        if (_autonomousCommands.get(_autoCommandIndex) != null && _runAutoScheduler) {
-          System.out.println("** Starting Auto Path " + (_autoCommandIndex+1) + " **");
-          m_autonomousCommand = _autonomousCommands.get(_autoCommandIndex);
-          m_autonomousCommand.schedule();
-          _runAutoScheduler = false;
-        }
-        if (!m_autonomousCommand.isScheduled()) {
-          System.out.println("* Auto path " + (_autoCommandIndex+1) + " is complete *");
-          m_autonomousCommand.cancel();
-          _autoCommandIndex++;
-          _runAutoScheduler = true;
-        }
-      } else {
-        if( _runAutoScheduler) {
-          System.out.println("*** Auto path is complete ***");
-          _runAutoScheduler = false;
-        }
-      }
-    }
-*/
-
-    /*
-
-    if ( (_elapsedTime.get() > (chosenDelay.getValue())) && _runAutoScheduler) {
-      if (_autonomousCommands.get(_autoCommandIndex) != null) {
-        System.out.println("Starting Auto Sequence " + _autoCommandIndex+1);
-        _autonomousCommands.get(_autoCommandIndex).schedule();
-      }
-      _runAutoScheduler = false;
-      _elapsedTime.stop();
-    }
-
-    // first path is complete. If there is a second, run that one
-    if( !_autonomousCommands.get(_autoCommandIndex).isScheduled() && _runAutoScheduler_2) {
-      System.out.println("** First path complete **");
-      m_autonomousCommand.cancel();
-      _runAutoScheduler_2 = false;
-      if (m_autonomousCommand_2 != null) {
-        System.out.println("Starting 2nd path");
-        m_autonomousCommand_2.schedule();
-      }
-    }
-/*
-    if ( (_elapsedTime.get() > (chosenDelay.getValue())) && _runAutoScheduler) {
-      if (m_autonomousCommand != null) {
-        System.out.println("Delay over. Auto selection scheduler started.");
-        m_autonomousCommand.schedule();
-      }
-      _runAutoScheduler = false;
-      _elapsedTime.stop();
-    }
-
-    // first path is complete. If there is a second, run that one
-    if( !m_autonomousCommand.isScheduled() && _runAutoScheduler_2) {
-      System.out.println("** First path complete **");
-      m_autonomousCommand.cancel();
-      _runAutoScheduler_2 = false;
-      if (m_autonomousCommand_2 != null) {
-        System.out.println("Starting 2nd path");
-        m_autonomousCommand_2.schedule();
-      }
-    } */
   }
 
   @Override
