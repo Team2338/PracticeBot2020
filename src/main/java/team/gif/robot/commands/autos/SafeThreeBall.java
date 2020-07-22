@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.*;
 import team.gif.lib.RobotTrajectory;
+import team.gif.robot.commands.shooter.Fire;
+import team.gif.robot.commands.shooter.RevFlywheel;
 import team.gif.robot.subsystems.Drivetrain;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class SafeThreeBall extends SequentialCommandGroup {
             List.of(
                 new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),
                // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
-                new Pose2d(Units.feetToMeters(-3.0), Units.feetToMeters(-3.0), new Rotation2d(Units.degreesToRadians(90.0)))
+                new Pose2d(Units.feetToMeters(-3.0), Units.feetToMeters(0.0), new Rotation2d(Units.degreesToRadians(0.0)))
             ),
             RobotTrajectory.getInstance().configReverse
         );
@@ -27,27 +29,18 @@ public class SafeThreeBall extends SequentialCommandGroup {
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     }
 
+    /* needs testing */
     public SafeThreeBall() {
         System.out.println("Auto: Safe Three Ball Selected");
 
-        // still under development, right now just drives backward and
-        // turns ~45 degrees, moving to the right 3 feet
         addCommands(
             new PrintCommand("Auto: Safe Three Ball Started"),
-            reverse()
+            new ParallelDeadlineGroup(
+                reverse(),
+                new RevFlywheel()),
+            new ParallelDeadlineGroup(
+                new RevFlywheel().withTimeout(1.5),
+                new Fire(false))
         );
     }
-
-/*    public SafeThreeBall(){
-        System.out.println("Auto: Safe Three Ball Selected");
-        addCommands(
-                new AutoDrive(1.0,.47,.47),
-                new ParallelCommandGroup(new Pivot(),
-                                         new RevFlywheel()).withTimeout(2.5),
-                new ParallelCommandGroup(new Pivot(),
-                                         new RevFlywheel(),
-                                         new Fire(true))
-        );
-    }
-*/
 }
