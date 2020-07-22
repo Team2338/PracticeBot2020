@@ -1,16 +1,8 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+
 
 package team.gif.robot;
 
-import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -112,8 +104,8 @@ public final class Constants {
     }
     public static class autoConstants {
         // part of trajectory but numbers are from example
-        public static final double kMaxSpeedMetersPerSecond = 1.5; // .8; // 3
-        public static final double kMaxAccelerationMetersPerSecondSquared = 1.5; // 3.0; // 3
+        public static final double kMaxSpeedMetersPerSecond = 3; // .8; // 3
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 3.0; // 3
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
     }

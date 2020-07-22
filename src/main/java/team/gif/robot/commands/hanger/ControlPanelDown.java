@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Globals;
 import team.gif.robot.Robot;
-import team.gif.robot.subsystems.Hanger;
 
 public class ControlPanelDown extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

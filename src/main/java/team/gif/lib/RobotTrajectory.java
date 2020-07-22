@@ -5,10 +5,14 @@ import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj.trajectory.constraint.TrajectoryConstraint;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
+
+import java.awt.*;
 
 public class RobotTrajectory {
 
@@ -45,7 +49,8 @@ public class RobotTrajectory {
         .setKinematics(Constants.drivetrain.kDriveKinematics)
         //.setReversed(false)
         // Apply the voltage constraint
-        .addConstraint(autoVoltageConstraint);
+        .addConstraint(autoVoltageConstraint)
+        .addConstraint( new CentripetalAccelerationConstraint(1));
 
     /**
      * Creates a config for Reverse trajectory
@@ -59,6 +64,17 @@ public class RobotTrajectory {
         // Apply the voltage constraint
         .addConstraint(autoVoltageConstraint);
 
+    /**
+     * Creates a config for Reverse trajectory
+     */
+    public TrajectoryConfig configReverseSlow = new TrajectoryConfig(
+            1.5,
+            1.5)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.drivetrain.kDriveKinematics)
+            .setReversed(true)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
     /**
      * Creates a Ramsete command given the defined trajectory
      */

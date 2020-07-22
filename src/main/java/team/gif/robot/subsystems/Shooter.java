@@ -1,7 +1,6 @@
 package team.gif.robot.subsystems;
 
 import com.revrobotics.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;

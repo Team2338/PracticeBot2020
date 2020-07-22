@@ -1,7 +1,6 @@
 package team.gif.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import team.gif.robot.subsystems.Indexer;
 
 public class ServoButton extends CommandBase {
 
