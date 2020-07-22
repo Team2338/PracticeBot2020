@@ -36,7 +36,7 @@ public class SafeFiveBall extends SequentialCommandGroup {
                 List.of(
                         new Pose2d(Units.feetToMeters(-11.0), 0, new Rotation2d(0)),
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(12)))
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(12.0)))
                 ),
                 RobotTrajectory.getInstance().configForward
         );
@@ -48,7 +48,7 @@ public class SafeFiveBall extends SequentialCommandGroup {
     public Command reverseAgain () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(12)),
+                        new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(12.0))),
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
                         new Pose2d(Units.feetToMeters(-14.0), Units.feetToMeters(0.0), new Rotation2d(Units.degreesToRadians(0)))
                 ),
