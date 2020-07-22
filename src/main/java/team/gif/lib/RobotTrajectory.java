@@ -68,9 +68,9 @@ public class RobotTrajectory {
      * Creates a config for Reverse trajectory
      */
     public TrajectoryConfig configReverseSlow = new TrajectoryConfig(
-            1.5,
-            1.5)
-            // Add kinematics to ensure max speed is actually obeyed
+        Constants.autoConstants.kSlowSpeedMetersPerSecond,
+        Constants.autoConstants.kSlowAccelerationMetersPerSecondSquared)
+        // Add kinematics to ensure max speed is actually obeyed
             .setKinematics(Constants.drivetrain.kDriveKinematics)
             .setReversed(true)
             // Apply the voltage constraint

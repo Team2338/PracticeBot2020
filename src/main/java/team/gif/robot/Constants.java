@@ -94,18 +94,20 @@ public final class Constants {
 
         // trajectory
         // from FRC Characterization Tool
-        public static final double ksVolts = 1.37; // 1.26; // <- RL // 1.1; // 1.02;
-        public static final double kvVoltSecondsPerMeter = 2.46; // 2.59; //<- RL // 2.79; // 2.75;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.773; // 0.984; // <- RL // 1.05; // 1.08;
-        public static final double kPDriveVelLeft = 10.0; //0.01265; //0.0253; // 0.00579; // <- RL // 1.0; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
-        public static final double kPDriveVelRight = kPDriveVelLeft; // character 0.0266; // 0.65; // << -smooth .0879; .0268;// <- using talon controller in characterization tool
-        public static final double kTrackwidthMeters = 1.0; //0.775; // 0.77678; // <- RL // 0.7112; // <- measured characterization -> 0.799136 and 0.788582959;
+        public static final double ksVolts = 1.37;
+        public static final double kvVoltSecondsPerMeter = 2.46;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.773;
+        public static final double kPDriveVelLeft = 10.0;
+        public static final double kPDriveVelRight = kPDriveVelLeft;
+        public static final double kTrackwidthMeters = 1.0;
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
     }
     public static class autoConstants {
         // part of trajectory but numbers are from example
-        public static final double kMaxSpeedMetersPerSecond = 3; // .8; // 3
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 3.0; // 3
+        public static final double kMaxSpeedMetersPerSecond = 3.0;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3.0;
+        public static final double kSlowSpeedMetersPerSecond = 1.5;
+        public static final double kSlowAccelerationMetersPerSecondSquared = 1.5;
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
     }
