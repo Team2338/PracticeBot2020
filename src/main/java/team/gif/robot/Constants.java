@@ -64,8 +64,8 @@ public final class Constants {
         public static final double kaVoltSecondsSquaredPerMeter = 0.773;
         public static final double kPDriveVelLeft = 10.0;
         public static final double kPDriveVelRight = kPDriveVelLeft;
-        public static final double kTrackwidthMeters = 1.0;
-        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+        public static final double kTrackWidthMeters = 1.0;
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
     }
     public static class autoConstants {
         // part of trajectory but numbers are from example
