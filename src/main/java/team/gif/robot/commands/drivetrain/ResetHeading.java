@@ -34,4 +34,9 @@ public class ResetHeading extends CommandBase {
     @Override
     public void end(boolean interrupted) {
     }
+
+    @Override
+    public boolean runsWhenDisabled() {
+        return true;
+    }
 }
