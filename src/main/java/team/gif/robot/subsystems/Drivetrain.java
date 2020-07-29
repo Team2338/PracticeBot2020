@@ -121,7 +121,6 @@ public class Drivetrain extends SubsystemBase {
         } else {
             System.out.println("Cannot set robot odemetry. Pigeon is not in ready state.");
         }
-        System.out.println(m_odometry.getPoseMeters());
     }
 
     /**
