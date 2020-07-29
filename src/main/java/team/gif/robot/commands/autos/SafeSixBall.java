@@ -16,7 +16,7 @@ import team.gif.robot.subsystems.Drivetrain;
 import java.util.List;
 
 
-public class SafeFiveBall extends SequentialCommandGroup {
+public class SafeSixBall extends SequentialCommandGroup {
     public Command reverse () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
@@ -74,7 +74,7 @@ public class SafeFiveBall extends SequentialCommandGroup {
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     }
 
-    public SafeFiveBall() {
+    public SafeSixBall() {
         System.out.println("Auto: Safe Five Ball Selected");
 
         // still under development, right now just drives backward and
@@ -89,7 +89,7 @@ public class SafeFiveBall extends SequentialCommandGroup {
                         forward(),
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
-                        new RevFlywheel().withTimeout(2.5),
+                        new RevFlywheel().withTimeout(2.25),
                         new Fire(false)),
                 new ParallelDeadlineGroup(
                         reverseAgain(),

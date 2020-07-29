@@ -245,7 +245,7 @@ public class Robot extends TimedRobot {
     autoModeChooser.addOption("3 Ball Auto", autoMode.SAFE_3_BALL);
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
     autoModeChooser.addOption("8 Ball Auto", autoMode.SAFE_8_BALL);
-    autoModeChooser.setDefaultOption("5 Ball Auto", autoMode.SAFE_5_BALL);
+    autoModeChooser.setDefaultOption("6 Ball Auto", autoMode.SAFE_6_BALL);
 
     autoTab.add("Auto Select",autoModeChooser)
             .withWidget(BuiltInWidgets.kComboBoxChooser)
@@ -289,8 +289,8 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = new MobilityFwd();
     } else if(chosenAuto == autoMode.SAFE_3_BALL){
         m_autonomousCommand = new SafeThreeBall();
-    } else if(chosenAuto == autoMode.SAFE_5_BALL){
-        m_autonomousCommand = new SafeFiveBall();
+    } else if(chosenAuto == autoMode.SAFE_6_BALL){
+        m_autonomousCommand = new SafeSixBall();
     } else if(chosenAuto == autoMode.OPP_5_BALL){
         m_autonomousCommand = new OppFiveBall();
     } else if(chosenAuto == autoMode.SAFE_8_BALL){
