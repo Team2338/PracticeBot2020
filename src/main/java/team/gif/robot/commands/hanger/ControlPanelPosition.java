@@ -1,15 +1,11 @@
 package team.gif.robot.commands.hanger;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import team.gif.lib.delay;
 import team.gif.robot.Constants;
 import team.gif.robot.Globals;
-import team.gif.robot.OI;
 import team.gif.robot.Robot;
-import team.gif.robot.subsystems.Hanger;
 
 public class ControlPanelPosition extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -28,23 +24,23 @@ public class ControlPanelPosition extends CommandBase {
         if (gameSpecificMsg.length() > 0) {
             switch (gameSpecificMsg.charAt(0)) {
                 case 'B' :
-                    displayGSM = "Blue";
+                    displayGSM = "      Blue";
                     break;
                 case 'G' :
-                    displayGSM = "Green";
+                    displayGSM = "     Green";
                     break;
                 case 'R' :
-                    displayGSM = "Red";
+                    displayGSM = "      Red";
                     break;
                 case 'Y' :
-                    displayGSM = "Yellow";
+                    displayGSM = "     Yellow";
                     break;
                 default :
-                    displayGSM = "none";
+                    displayGSM = "      none";
                     break;
             }
         }
-        SmartDashboard.putString("CP Pos", displayGSM);
+        SmartDashboard.putString("Goto", displayGSM);
     }
 
     // Called when the command is initially scheduled.

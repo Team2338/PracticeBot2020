@@ -1,9 +1,4 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+
 
 package team.gif.robot.subsystems;
 
@@ -11,19 +6,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.sql.SQLOutput;
 
 
 public class ColorSensor extends SubsystemBase {
@@ -34,7 +21,7 @@ public class ColorSensor extends SubsystemBase {
    */
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private static final I2C colorSensor = new I2C(I2C.Port.kOnboard, RobotMap.COLOR_SENSOR);
-  private static final VictorSPX colorWheel = new VictorSPX(RobotMap.COLOR_WHEEL);
+  private static final VictorSPX colorWheelSpinner = new VictorSPX(RobotMap.COLOR_WHEEL);
 
   /**
    * A Rev Color Sensor V3 object is constructed with an I2C port as a
@@ -97,14 +84,14 @@ public class ColorSensor extends SubsystemBase {
     m_colorMatcher.addColorMatch(kYellowTarget);
     System.out.println("Color Sensor Initiated");
 
-    colorWheel.setNeutralMode(NeutralMode.Brake);
+    colorWheelSpinner.setNeutralMode(NeutralMode.Brake);
   }
 
   // RGB_Shuffleboard
-  private ShuffleboardTab   tab        = Shuffleboard.getTab("Calibration"); //gets a reference to the shuffleboard tab
-  private NetworkTableEntry redEntry   = tab.add("Red",   0).getEntry();     // updates red
-  private NetworkTableEntry blueEntry  = tab.add("Blue",  0).getEntry();
-  private NetworkTableEntry greenEntry = tab.add("Green", 0).getEntry();
+//-  private ShuffleboardTab   tab        = Shuffleboard.getTab("Calibration"); //gets a reference to the shuffleboard tab
+//-  private NetworkTableEntry redEntry   = tab.add("Red",   0).getEntry();     // updates red
+//-  private NetworkTableEntry blueEntry  = tab.add("Blue",  0).getEntry();
+//-  private NetworkTableEntry greenEntry = tab.add("Green", 0).getEntry();
 
   public double incrementalCount = 0;
   public double rotationCount = 0;
@@ -115,12 +102,11 @@ public class ColorSensor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.println("ColorSensor Periodic");
     getRotationCount( getColor() );
   }
 
   public void setColorSensorSpeed(double speed) {
-    colorWheel.set(ControlMode.PercentOutput, speed);
+    colorWheelSpinner.set(ControlMode.PercentOutput, speed);
   }
 
   public void getRotationCount(String currColor) {
@@ -166,7 +152,7 @@ public class ColorSensor extends SubsystemBase {
  */
     }
     String totalCountStr = String.valueOf(totalCount);
-    SmartDashboard.putString("Rotation", totalCountStr);
+//-    SmartDashboard.putString("Rotation", totalCountStr);
 //    SmartDashboard.putNumber("Rotation", totalCount);
   }
 
@@ -184,7 +170,7 @@ public class ColorSensor extends SubsystemBase {
      * an object is the more light from the surroundings will bleed into the
      * measurements and make it difficult to accurately determine its color.
      */
-    Color detectedColor = m_colorSensor.getColor();
+/*    Color detectedColor = m_colorSensor.getColor();
 
     String colorString;
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
@@ -200,16 +186,17 @@ public class ColorSensor extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
-    SmartDashboard.putString("Color", colorString);
+*/
+//-    SmartDashboard.putString("Color", colorString);
 
     /**
      * Display the RGB values detected by the sensor. This is for
      * calibraion puposes only.
      */
     // RGB_Shuffleboard
-    redEntry.setDouble(detectedColor.red);     // sets the red value for displaying
-    greenEntry.setDouble(detectedColor.green);
-    blueEntry.setDouble(detectedColor.blue);
+//-    redEntry.setDouble(detectedColor.red);     // sets the red value for displaying
+//-    greenEntry.setDouble(detectedColor.green);
+//-    blueEntry.setDouble(detectedColor.blue);
 
     // -- or --
 //    tab.add("Red",   0).getEntry(); // not sure if this is needed since it is done above
@@ -231,6 +218,7 @@ public class ColorSensor extends SubsystemBase {
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
 */
-    return colorString;
+//-    return colorString;
+    return "Unknown";
   }
 }

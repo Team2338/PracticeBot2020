@@ -1,7 +1,6 @@
 package team.gif.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Intake;
 
 public class IntakeReverse extends CommandBase {

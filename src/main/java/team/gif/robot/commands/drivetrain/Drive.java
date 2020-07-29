@@ -1,9 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
 package team.gif.robot.commands.drivetrain;
 
@@ -38,31 +32,29 @@ public class Drive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double currSpeed = Robot.oi.driver.getY(GenericHID.Hand.kLeft);
-        double currRotation = -Robot.oi.driver.getX(GenericHID.Hand.kRight);
-
-        if (Robot.isCompBot) { // Comp Bot
-            if (currRotation < 0.075 && currRotation > -0.075 ) {
-                currRotation = 0;
-            }
-            if (currSpeed < 0.075 && currSpeed > -0.075 ) {
-                currSpeed = 0;
-            }
-        } else { // Practice Bot
-            if (currRotation < 0.05 && currRotation > -0.05 ) {
-                currRotation = 0;
-            }
-            if (currSpeed < 0.05 && currSpeed > -0.05 ) {
-                currSpeed = 0;
-            }
-        }
+        /**
+         *                Arcade Drive
+         */
+        // Y-axis on X-box controller is negative when pushed away
+        double currSpeed = -Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+        double currRotation = Robot.oi.driver.getX(GenericHID.Hand.kRight);
         Drivetrain.getInstance().driveArcade(currSpeed, currRotation);
+
+        /**
+         *                Tank Drive
+         */
+        // Y-axis on X-box controller is negative when pushed away
+        /*
+        double currLeft = -Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+        double currRight = -Robot.oi.driver.getY(GenericHID.Hand.kRight);
+        Drivetrain.getInstance().setSpeed(currLeft, currRight);
+        */
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Drivetrain.getInstance().setSpeed(0, 0);
+        Drivetrain.getInstance().driveArcade(0, 0);
     }
 
     // Returns true when the command should end.

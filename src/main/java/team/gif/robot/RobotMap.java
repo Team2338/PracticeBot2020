@@ -41,7 +41,7 @@ public abstract class RobotMap {
     public static final int AUX_CONTROLLER_ID = 1;
 
     //pigeon
-    public static final int PIGEON = 2;
+    public static final int PIGEON = 2; // ony used on practice bot
 
     //Servo
     public static final int STAGE_4_SERVO = 1;

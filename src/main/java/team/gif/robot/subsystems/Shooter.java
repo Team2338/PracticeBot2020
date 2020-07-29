@@ -1,7 +1,6 @@
 package team.gif.robot.subsystems;
 
 import com.revrobotics.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
@@ -39,8 +38,7 @@ public class Shooter extends SubsystemBase {
     public void setPID (double setPoint) {
         flywheelPIDController.setReference(setPoint, ControlType.kVelocity);
     }
-    public double getVelocity () {
-        double velocity = flywheelEncoder.getVelocity();
-        return velocity;
-    }
+    public double getVelocity () { return flywheelEncoder.getVelocity();}
+
+    public String getVelocity_Shuffleboard(){ return String.format("%12.0f",getVelocity());}
 }

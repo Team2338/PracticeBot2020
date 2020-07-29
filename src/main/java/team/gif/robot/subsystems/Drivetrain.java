@@ -2,13 +2,16 @@ package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
@@ -21,17 +24,25 @@ public class Drivetrain extends SubsystemBase {
     public static WPI_TalonSRX rightTalon1;
     public static WPI_TalonSRX rightTalon2;
 
-    public static SpeedControllerGroup leftSpeedControl;
-    public static SpeedControllerGroup rightSpeedControl;
-    public static DifferentialDrive diffDriveTrain;
+    public static SpeedControllerGroup m_leftMotors;
+    public static SpeedControllerGroup m_rightMotors;
+    public static DifferentialDrive m_drive;
 
-    public static Encoder leftEncoder;
-    public static Encoder rightEncoder;
-
-    public static DifferentialDriveOdometry driveOdometry;
+    // ------------ Variables for Trajectory ---------------
+    public static WPI_TalonSRX _leftEncoderTalon;
+    public static WPI_TalonSRX _rightEncoderTalon;
+    public static DifferentialDriveOdometry m_odometry;
+    private static Pigeon m_pigeon;
+    /*    public static DifferentialDriveKinematics drivekinematics;
+    public static ChassisSpeeds chassisSpeeds;
+    public static DifferentialDriveWheelSpeeds wheelSpeeds;
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(Constants.drivetrain.kTrackwidthMeters);
+*/
+    // ------------ Variables for Trajectory End) ----------
 
     public static Drivetrain getInstance() {
         if (instance == null) {
+            System.out.println("drivetrain init");
             instance = new Drivetrain();
         }
         return instance;
@@ -45,103 +56,138 @@ public class Drivetrain extends SubsystemBase {
         rightTalon1 = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_ONE);
         rightTalon2 = new WPI_TalonSRX(RobotMap.DRIVE_RIGHT_TWO);
 
-        leftSpeedControl = new SpeedControllerGroup(leftTalon1,leftTalon2);
-        rightSpeedControl = new SpeedControllerGroup(rightTalon1,rightTalon2);
-
-        leftTalon1.setInverted(true);
-        leftTalon2.setInverted(true);
-
         leftTalon1.setNeutralMode(NeutralMode.Brake);
         leftTalon2.setNeutralMode(NeutralMode.Brake);
         rightTalon1.setNeutralMode(NeutralMode.Brake);
         rightTalon2.setNeutralMode(NeutralMode.Brake);
 
-        diffDriveTrain = new DifferentialDrive(leftSpeedControl,rightSpeedControl);
+        m_leftMotors = new SpeedControllerGroup(leftTalon1, leftTalon2);
+        m_rightMotors = new SpeedControllerGroup(rightTalon1, rightTalon2);
+        m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-        //setupOdometry();
-    }
+        // turn off the drive train watchdog - otherwise it outputs unnecessary errors on the console
+        m_drive.setSafetyEnabled(false);
 
-    //<<<<<<<<<----------------driving----------------------->>>>>>>>>>>>>>>>>>>
+        // any input to the motors less than this number will be converted to 0
+        // any input about this number will scale from 0 to 1.0
+        m_drive.setDeadband(Robot.isCompBot ? .02 : .05);
 
-    public void setSpeed(double leftPercent, double rightPercent) {
-        diffDriveTrain.tankDrive(leftPercent,rightPercent);
-    }
+        // ------------  Trajectory Functionality ----------
+        _leftEncoderTalon = leftTalon1;
+        _rightEncoderTalon = rightTalon1;
 
-    public void driveArcade(double y, double x){
-        // arcadeDrive appears to flip the parameters.
-        // Tried inverting motors and talon assignments
-        // but nothing worked. Until we figure it out,
-        // flipping the parameters here.
-        diffDriveTrain.arcadeDrive(x,y);
-    }
+        _leftEncoderTalon.setSelectedSensorPosition(0);
+        _rightEncoderTalon.setSelectedSensorPosition(0);
 
-    public void tankDriveVolts(double leftVolts, double rightVolts) { // in volts
-        leftSpeedControl.setVoltage(leftVolts);
-        rightSpeedControl.setVoltage(-rightVolts);
-        diffDriveTrain.feed();
-    }
+        // left sensor needs to be inverted to match the drive train
+        _leftEncoderTalon.setSensorPhase(true);
 
-    public void setMaxOutput(double maxOutput) { // not sure what the units are
-        diffDriveTrain.setMaxOutput(maxOutput);
-    }
+        // Per WPILib, motor outputs for the right side are negated
+        // within the differentialDrive class. No need to negate them again.
+        leftTalon1.setInverted(false);
+        leftTalon2.setInverted(false);
+        rightTalon1.setInverted(false);
+        rightTalon2.setInverted(false);
 
-    //<<<<<<<<<------------------------------pose-odometry-pigeon---------------------------------------->>>>>>>>>>>
+        m_pigeon = Robot.isCompBot ? new Pigeon(leftTalon2) : new Pigeon();
 
-    public void setupOdometry(){
-
-        leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ONE,RobotMap.DRIVE_LEFT_TWO);
-        rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ONE,RobotMap.DRIVE_RIGHT_TWO);
-
-        leftEncoder.setDistancePerPulse(Constants.drivetrain.METERS_PER_TICK_LEFT);
-        rightEncoder.setDistancePerPulse(Constants.drivetrain.METERS_PER_TICK_RIGHT);
+        m_pigeon.resetPigeonPosition(); // set initial heading of pigeon to zero degrees
 
         resetEncoders();
+        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
+        resetPose();
+    }
 
-        //driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+    // -------------- Teleop Driving -----------------------
+    public void driveArcade(double speed, double rotation){
+        m_drive.arcadeDrive(speed,rotation);
+    }
+
+    // ---------- Previous Auto Driving & Tank Drive -------
+    public void setSpeed(double leftPercent, double rightPercent) {
+        m_drive.tankDrive(leftPercent,rightPercent);
+    }
+
+
+    // -------------- new for Trajectory -------------------
+    @Override
+    public void periodic() {
+        // Update the odometry
+
+        if (m_pigeon.isActive()) {
+            m_odometry.update( Rotation2d.fromDegrees(m_pigeon.get180Heading()),
+                getLeftEncoderPos_Meters(),
+                getRightEncoderPos_Meters());
+        } else {
+            System.out.println("Cannot set robot odemetry. Pigeon is not in ready state.");
+        }
+    }
+
+    /**
+     * Returns the currently-estimated pose of the robot.
+     *
+     * @return The pose.
+     */
+    public Pose2d getPose() {
+        return m_odometry.getPoseMeters();
+    }
+
+    /**
+     * Returns the current wheel speeds of the robot.
+     *
+     * @return The current wheel speeds.
+     */
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(_leftEncoderTalon.getSelectedSensorVelocity() * (10.0/4096) * Constants.drivetrain.WHEEL_CICUMFERENCE,
+                                                _rightEncoderTalon.getSelectedSensorVelocity()* (10.0/4096) * Constants.drivetrain.WHEEL_CICUMFERENCE );
+    }
+
+    /**
+     * Controls the left and right sides of the drive directly with voltages.
+     *
+     * @param leftVolts  the commanded left output
+     * @param rightVolts the commanded right output
+     */
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
+        SmartDashboard.putNumber("Left", leftVolts);
+        SmartDashboard.putNumber("Right", rightVolts);
+//        System.out.format("LV: %.2f   RV: %.2f\n", leftVolts,rightVolts);
+        m_leftMotors.setVoltage(leftVolts);
+        m_rightMotors.setVoltage(-rightVolts);
     }
 
     public void resetEncoders() {
-        leftEncoder.reset();
-        rightEncoder.reset();
-    }
-/*
-    public double getHeading() {
-        return Pigeon.getInstance().getYPR()[0]% 360;// TODO: turning right should be positive we gotta check if it is
-    }
-*/
-/*
-    @Override
-    public void periodic() {
-        // Update the odometry in the periodic block
-        driveOdometry.update(Rotation2d.fromDegrees(getHeading()),
-                leftEncoder.getDistance(),
-                rightEncoder.getDistance());
-    }
-*/
-/*
-    public Pose2d getPose() {
-        return driveOdometry.getPoseMeters();
+        _leftEncoderTalon.setSelectedSensorPosition(0);
+        _rightEncoderTalon.setSelectedSensorPosition(0);
     }
 
-    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
+    public void resetPose(){
+        m_odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     }
 
-    public void resetOdometry(Pose2d pose) {
-        resetEncoders();
-        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+    public void resetPigeon() {
+        m_pigeon.resetPigeonPosition();
     }
 
-    public void resetPigeonPosition(){
-        Pigeon.getInstance().setYaw(0);
+    //encoder positions in Ticks
+    public double getLeftEncoderPos_Ticks() {
+        return _leftEncoderTalon.getSelectedSensorPosition();
     }
 
-    public double getAverageEncoderDistance() {
-        return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
+    public double getRightEncoderPos_Ticks() {
+        return _rightEncoderTalon.getSelectedSensorPosition();
     }
 
-    public double getAngularVelocity(){
-        return Pigeon.getInstance().getRawGyro()[0];
+    //encoder positions in Meters
+    public double getLeftEncoderPos_Meters() {
+        return _leftEncoderTalon.getSelectedSensorPosition() / Constants.drivetrain.TICKS_TO_METERS_LEFT;
     }
-*/
+
+    public double getRightEncoderPos_Meters() {
+        return _rightEncoderTalon.getSelectedSensorPosition() / Constants.drivetrain.TICKS_TO_METERS_RIGHT;
+    }
+
+    public double Ticks2Feet(double ticks) {
+        return ticks / Constants.drivetrain.TICKS_TO_METERS * 3.28084; // 3.28084 = feet to meters
+    }
 }

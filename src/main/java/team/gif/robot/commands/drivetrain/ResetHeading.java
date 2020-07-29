@@ -1,22 +1,22 @@
-package team.gif.robot.commands.hanger;
-
+package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import team.gif.robot.Robot;
+import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
-
-public class ToggleHangerLock extends CommandBase {
+public class ResetHeading extends CommandBase {
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-    public ToggleHangerLock() {
+    public ResetHeading() {
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        System.out.println("hello");
-        Robot.hanger.zeroEncoder();
+        Pigeon.getInstance().resetPigeonPosition();
+        Drivetrain.getInstance().resetEncoders();
+        Drivetrain.getInstance().resetPose();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -33,5 +33,10 @@ public class ToggleHangerLock extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+    }
+
+    @Override
+    public boolean runsWhenDisabled() {
+        return true;
     }
 }
