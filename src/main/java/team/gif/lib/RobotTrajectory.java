@@ -39,13 +39,22 @@ public class RobotTrajectory {
      * Creates a config for Forward trajectory
      */
     public TrajectoryConfig configForward = new TrajectoryConfig(
-        Constants.autoConstants.kFastSpeedMetersPerSecond,
-        Constants.autoConstants.kFastAccelerationMetersPerSecondSquared)
+        Constants.autoConstants.kMaxSpeedMetersPerSecond,
+        Constants.autoConstants.kMaxAccelerationMetersPerSecondSquared)
         // Add kinematics to ensure max speed is actually obeyed
         .setKinematics(Constants.drivetrain.kDriveKinematics)
         //.setReversed(false)
         // Apply the voltage constraint
         .addConstraint(autoVoltageConstraint);
+
+    public TrajectoryConfig configForwardFast = new TrajectoryConfig(
+            Constants.autoConstants.kFastSpeedMetersPerSecond,
+            Constants.autoConstants.kFastAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.drivetrain.kDriveKinematics)
+            //.setReversed(false)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
 
     /**
      * Creates a config for Reverse trajectory

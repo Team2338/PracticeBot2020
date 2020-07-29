@@ -42,7 +42,7 @@ public class SafeEightBall extends SequentialCommandGroup {
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
                         new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(14)))
                 ),
-                RobotTrajectory.getInstance().configForward
+                RobotTrajectory.getInstance().configForwardFast
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
@@ -72,7 +72,7 @@ public class SafeEightBall extends SequentialCommandGroup {
                         // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
                         new Pose2d(Units.feetToMeters(-7.0), Units.feetToMeters(1.0), new Rotation2d(Units.degreesToRadians(14)))
                 ),
-                RobotTrajectory.getInstance().configForward
+                RobotTrajectory.getInstance().configForwardFast
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
