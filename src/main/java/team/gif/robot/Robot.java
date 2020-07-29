@@ -25,6 +25,7 @@ import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
 import edu.wpi.first.wpilibj.DriverStation;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -166,6 +167,9 @@ public class Robot extends TimedRobot {
     compressor.stop();
     indexCommand.schedule();
     _runAutoScheduler = true;
+
+    // Reset Heading for Auto
+    Pigeon.getInstance().resetPigeonPosition();
   }
 
   /**
