@@ -22,8 +22,8 @@ public class OppSixBall extends SequentialCommandGroup {
     public Command reverse() {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),     //zerod
-                        new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)) // move backward 6ft
+                        new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0.0)),     //zerod
+                        new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0.0)) // move backward 6ft
                 ),
                 RobotTrajectory.getInstance().configReverseSlow
         );
@@ -36,22 +36,37 @@ public class OppSixBall extends SequentialCommandGroup {
     public Command forward(){
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-2.0), Units.feetToMeters(-9.0), new Rotation2d(Units.degreesToRadians(-15.0)))
+                        new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0.0)),
+                        new Pose2d(Units.feetToMeters(-2.0), Units.feetToMeters(-7.5), new Rotation2d(Units.degreesToRadians(-20.0)))
                 ),
                 RobotTrajectory.getInstance().configForwardFast
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
         // Run path following command, then stop at the end.MaxVelocityConstraint
-        return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
+      return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     }
+
+    /*public Command midPoint() {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2d(Units.feetToMeters(-2.0),  Units.feetToMeters(-7.5), new Rotation2d(Units.degreesToRadians(-18.0))),
+                        new Pose2d(Units.feetToMeters(-2.0), Units.feetToMeters(-12.5), new Rotation2d(Units.degreesToRadians(125.0)))
+                ),
+                RobotTrajectory.getInstance().configReverse
+        );
+        // create the command using the trajectory
+        RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return rc; //return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
+    }*/
 
     public Command reverseAgain() {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(-2.0),  Units.feetToMeters(-9.0), new Rotation2d(Units.degreesToRadians(-15.0))),     //zerod
-                        new Pose2d(Units.feetToMeters(-92/12.0), Units.feetToMeters(-245/12.0), new Rotation2d(0)) // move backward 6ft
+                        new Pose2d(Units.feetToMeters(-2.0),  Units.feetToMeters(-7.5), new Rotation2d(Units.degreesToRadians(-20.0))),
+                        new Pose2d(Units.feetToMeters(-2.0), Units.feetToMeters(-12.5), new Rotation2d(Units.degreesToRadians(125.0))),
+                        new Pose2d(Units.feetToMeters(-90/12.0), Units.feetToMeters(-261/12.0), new Rotation2d(0.0)) // move backward 6ft
                 ),
                 RobotTrajectory.getInstance().configReverse
         );
@@ -64,10 +79,10 @@ public class OppSixBall extends SequentialCommandGroup {
     public Command forwardAgain(){
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(-92/12.0), Units.feetToMeters(-245/12.0), new Rotation2d(0)),
-                        new Pose2d(Units.feetToMeters(-2.0), Units.feetToMeters(-220/12.0), new Rotation2d(Units.degreesToRadians(10.0)))
+                        new Pose2d(Units.feetToMeters(-90/12.0), Units.feetToMeters(-261/12.0), new Rotation2d(0.0)),
+                        new Pose2d(Units.feetToMeters(-4.0), Units.feetToMeters(-232/12.0), new Rotation2d(Units.degreesToRadians(15.0)))
                 ),
-                RobotTrajectory.getInstance().configForwardFast
+                RobotTrajectory.getInstance().configForward
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
@@ -77,10 +92,10 @@ public class OppSixBall extends SequentialCommandGroup {
 
     public OppSixBall() {
         addCommands(
-                new PrintCommand("Auto: Opponent 6 Ball Selected"),
-                new IntakeDown(),
+                //new PrintCommand("Auto: Opponent 6 Ball Selected"),
                 new ParallelDeadlineGroup(
                         reverse(),
+                        new IntakeDown(),
                         new IntakeRun()),//enemy ball heist
                 new IntakeRun().withTimeout(.75),
                 new ParallelDeadlineGroup(
@@ -90,9 +105,11 @@ public class OppSixBall extends SequentialCommandGroup {
                         // let it rip
                         new RevFlywheel().withTimeout(2.25),
                         new Fire(false)),
+                //midPoint(),
                 new ParallelDeadlineGroup(
                         reverseAgain(),
                         new IntakeRun()),
+                new IntakeRun().withTimeout(0.4),
                 new ParallelDeadlineGroup(
                         forwardAgain(),    //get out of there #2
                         new RevFlywheel()),
