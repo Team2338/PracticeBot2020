@@ -302,6 +302,7 @@ public class Robot extends TimedRobot {
     }else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
+    m_autonomousCommand = new Opp_angled_pickup();
   }
 
   public void setLimelightPipeline(){/**sets the limelight pipeline to red side or blue side**/

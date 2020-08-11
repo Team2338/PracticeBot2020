@@ -18,28 +18,26 @@ import java.util.List;
 public class Opp_angled_pickup extends SequentialCommandGroup {
 
     //only 2 tunable #s
-    public double theta = 15;
-    public double y = -12/12;
-    public double x1df =10;// x1 distance factor
+    public double theta = -20;
+    public double y = 24/12;
+
 
     // for sake of not having to tune as much, math
-    public double x1 = 10/12;
+    public double x1 = -10/12;
     public double x2 = 10/12;
 
-    // measured numbers
-    public double linetoball = 129/12;
-    public double robotlongth = 35.5/12;
+
 
     public Command reverse() {
 
-        x2 = y*Math.tan(theta);
-        x1 = ((linetoball-robotlongth)-x2)+x1df;
+        x2 = -y*Math.tan(theta);
+        //x1 = ((linetoball-robotlongth)-x2)+x1df;
 
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),     //zerod
-                new Pose2d(Units.feetToMeters(x1), 0, new Rotation2d(0)), // move backward 6ft
-                new Pose2d(Units.feetToMeters(x2),y, new Rotation2d(theta))
+                new Pose2d(Units.feetToMeters(0.0), 0.0, new Rotation2d(0)),     //zerod
+                new Pose2d(Units.feetToMeters(-36/12), 0.0, new Rotation2d(0)), // move backward 6ft
+                new Pose2d(Units.feetToMeters(-125/12),Units.feetToMeters(34/12), new Rotation2d(Units.degreesToRadians(theta)))
             ),
             RobotTrajectory.getInstance().configReverseSlow
         );
@@ -52,8 +50,8 @@ public class Opp_angled_pickup extends SequentialCommandGroup {
     public Command forward(){
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(x2),y, new Rotation2d(theta)),
-                        new Pose2d(Units.feetToMeters(-2), Units.feetToMeters(-14.0), new Rotation2d(Units.degreesToRadians(-7.0)))
+                        new Pose2d(Units.feetToMeters(-125/12),Units.feetToMeters(34/12), new Rotation2d(Units.degreesToRadians(theta))),
+                        new Pose2d(Units.feetToMeters(-2), Units.feetToMeters(0), new Rotation2d(Units.degreesToRadians(theta)))
                 ),
                 RobotTrajectory.getInstance().configForward
         );
@@ -65,7 +63,7 @@ public class Opp_angled_pickup extends SequentialCommandGroup {
 
     public Opp_angled_pickup() {
         addCommands(
-                new PrintCommand("Auto: Opponent 5 Ball Selected"),
+                new PrintCommand("Auto: angle thingy"),
                 new IntakeDown(),
                 new ParallelDeadlineGroup(
                     reverse(),
