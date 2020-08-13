@@ -6,14 +6,14 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class rotate extends CommandBase {
 
-    public double rightvolts =0;
-    public double leftvolts =0;
-    public double deltadegrees = 0;
+    public double rightVolts =0;
+    public double leftVolts =0;
+    public double deltaDegrees = 0;
     public double kPvolts = Constants.drivetrain.kPDriveVelLeft;
     public double kSvolts = Constants.drivetrain.ksVolts;
     public double margin_degrees = 2;
     // we will be +- margin degrees degrees of zero
-    public double steering_adjustvolts = 0;
+    public double motorVolts = 0;
     public double target = 0;
     public double pos = 0;
     public double current_heading_degrees = 0;
@@ -32,35 +32,38 @@ public class rotate extends CommandBase {
     public void execute() {
 
         current_heading_degrees = Pigeon.getInstance().getHeading();
-        deltadegrees = ((((target - pos)+ 540)%360)-180);
+        deltaDegrees = ((((target - pos)+ 540)%360)-180);
         // result is between -180 and 180 where positive is clockwise and - is counter clockwise
         // above math came from the math stack exchange ie stackoverflow but with nerds
         // + offset turn right by convention
-
-        if (deltadegrees < -margin_degrees) {
-            steering_adjustvolts = Math.abs(kPvolts *deltadegrees) < kSvolts ? kSvolts : kPvolts*deltadegrees;
-            rightvolts = steering_adjustvolts;
-            rightvolts = -steering_adjustvolts;
-        } else if (deltadegrees > margin_degrees) {
-            steering_adjustvolts = Math.abs(kPvolts *deltadegrees) < kSvolts ? -kSvolts : kPvolts*deltadegrees;
-            rightvolts = steering_adjustvolts;
-            rightvolts = -steering_adjustvolts;
-        } else if (Math.abs(deltadegrees) <= margin_degrees){
-            rightvolts = 0;
-            rightvolts = 0;
+/*
+        if (deltaDegrees < -margin_degrees) {
+            steering_adjustvolts = Math.abs(kPvolts *deltaDegrees) < kSvolts ? kSvolts : kPvolts*deltaDegrees;
+            rightVolts = steering_adjustvolts;
+            rightVolts = -steering_adjustvolts;
+        } else if (deltaDegrees > margin_degrees) {
+            steering_adjustvolts = Math.abs(kPvolts *deltaDegrees) < kSvolts ? -kSvolts : kPvolts*deltaDegrees;
+            rightVolts = steering_adjustvolts;
+            rightVolts = -steering_adjustvolts;
+        } else if (Math.abs(deltaDegrees) <= margin_degrees){
+            rightVolts = 0;
+            rightVolts = 0;
             exitCommand = true;
         }
-
-
-
-        Drivetrain.getInstance().tankDriveVolts(leftvolts, rightvolts);
+ */
+        motorVolts = deltaDegrees<0 ? kSvolts : -kSvolts;
+        if (Math.abs(deltaDegrees) <= margin_degrees){
+            motorVolts = 0;
+            exitCommand = true;
+        }
+        Drivetrain.getInstance().tankDriveVolts(motorVolts, -motorVolts);
     }
 
     @Override
     public void end(boolean interrupted) {
-        leftvolts = 0;
-        rightvolts = 0;
-        Drivetrain.getInstance().setSpeed(leftvolts, rightvolts);
+        leftVolts = 0;
+        rightVolts = 0;
+        Drivetrain.getInstance().setSpeed(leftVolts, rightVolts);
     }
 
     @Override
