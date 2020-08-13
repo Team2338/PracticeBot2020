@@ -6,17 +6,14 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class rotate extends CommandBase {
 
-    public double rightVolts =0;
-    public double leftVolts =0;
     public double deltaDegrees = 0;
     public double kPvolts = Constants.drivetrain.kPDriveVelLeft;
     public double kSvolts = Constants.drivetrain.ksVolts;
-    public double margin_degrees = 2;
+    public double marginDegrees = 0;
     // we will be +- margin degrees degrees of zero
     public double motorVolts = 0;
-    public double target = 0;
-    public double pos = 0;
-    public double current_heading_degrees = 0;
+    public double targetHeadingDegrees = 0;
+    public double currentHeadingDegrees = 0;
     public boolean exitCommand = false;
 
     public rotate(){
@@ -31,12 +28,13 @@ public class rotate extends CommandBase {
     @Override
     public void execute() {
 
-        current_heading_degrees = Pigeon.getInstance().getHeading();
-        deltaDegrees = ((((target - pos)+ 540)%360)-180);
+        currentHeadingDegrees = Pigeon.getInstance().getHeading();
+        deltaDegrees = ((((targetHeadingDegrees - currentHeadingDegrees)+ 540)%360)-180);
+
         // result is between -180 and 180 where positive is clockwise and - is counter clockwise
         // above math came from the math stack exchange ie stackoverflow but with nerds
         // + offset turn right by convention
-/*
+        /*
         if (deltaDegrees < -margin_degrees) {
             steering_adjustvolts = Math.abs(kPvolts *deltaDegrees) < kSvolts ? kSvolts : kPvolts*deltaDegrees;
             rightVolts = steering_adjustvolts;
@@ -51,19 +49,20 @@ public class rotate extends CommandBase {
             exitCommand = true;
         }
  */
+
         motorVolts = deltaDegrees<0 ? kSvolts : -kSvolts;
-        if (Math.abs(deltaDegrees) <= margin_degrees){
+
+        if (Math.abs(deltaDegrees) <= marginDegrees){
             motorVolts = 0;
             exitCommand = true;
         }
+
         Drivetrain.getInstance().tankDriveVolts(motorVolts, -motorVolts);
     }
 
     @Override
     public void end(boolean interrupted) {
-        leftVolts = 0;
-        rightVolts = 0;
-        Drivetrain.getInstance().setSpeed(leftVolts, rightVolts);
+        Drivetrain.getInstance().setSpeed(0,0);
     }
 
     @Override
