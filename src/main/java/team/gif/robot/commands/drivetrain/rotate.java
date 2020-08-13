@@ -6,15 +6,18 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class rotate extends CommandBase {
 
-    public double rightpower =0;
-    public double leftpower =0;
-    public double offset = 0;
-    public double kP = Constants.drivetrain.kPDriveVelLeft;
-    public double kF = Constants.drivetrain.ksVolts;
-    public double margin = 2;
-    public double steering_adjust = 0;
+    public double rightvolts =0;
+    public double leftvolts =0;
+    public double deltadegrees = 0;
+    public double kPvolts = Constants.drivetrain.kPDriveVelLeft;
+    public double kSvolts = Constants.drivetrain.ksVolts;
+    public double margin_degrees = 2;
+    // we will be +- margin degrees degrees of zero
+    public double steering_adjustvolts = 0;
     public double target = 0;
     public double pos = 0;
+    public double current_heading_degrees = 0;
+    public boolean exitCommand = false;
 
     public rotate(){
         System.out.println("rotate");
@@ -28,43 +31,40 @@ public class rotate extends CommandBase {
     @Override
     public void execute() {
 
-        pos = Pigeon.getInstance().getYPR()[0];
-        offset = ((((target - pos)+ 540)%360)-180);
+        current_heading_degrees = Pigeon.getInstance().getHeading();
+        deltadegrees = ((((target - pos)+ 540)%360)-180);
+        // result is between -180 and 180 where positive is clockwise and - is counter clockwise
         // above math came from the math stack exchange ie stackoverflow but with nerds
         // + offset turn right by convention
-        if (offset < -margin/2) {
-            steering_adjust = kP*offset - kF;
-            leftpower += steering_adjust;
-            rightpower -= steering_adjust;
-        } else if (offset > margin/2) {
-            steering_adjust = kP*offset + kF;
-            leftpower += steering_adjust;
-            rightpower -= steering_adjust;
-        } else if (Math.abs(offset) <= margin/2){
-            leftpower = 0;
-            rightpower = 0;
+
+        if (deltadegrees < -margin_degrees) {
+            steering_adjustvolts = Math.abs(kPvolts *deltadegrees) < kSvolts ? kSvolts : kPvolts*deltadegrees;
+            rightvolts = steering_adjustvolts;
+            rightvolts = -steering_adjustvolts;
+        } else if (deltadegrees > margin_degrees) {
+            steering_adjustvolts = Math.abs(kPvolts *deltadegrees) < kSvolts ? -kSvolts : kPvolts*deltadegrees;
+            rightvolts = steering_adjustvolts;
+            rightvolts = -steering_adjustvolts;
+        } else if (Math.abs(deltadegrees) <= margin_degrees){
+            rightvolts = 0;
+            rightvolts = 0;
+            exitCommand = true;
         }
 
-        // i thought that leftpower = kP
-        // in the limelight docs they use += instead
-        // this does not make sense to me because if it is not at the target but close it still acelerates towards it
-        // just not as fast and
-        // In their offset they have offset > or < 1 which does not make sense to me
-        // if that was a deadband of sorts then it should have been < -1 or > 1 making a margin of 2 degrees
-        // i just noticed that the indentations for all the files are not consistant so can we go to the standard 5 space
 
-        Drivetrain.getInstance().tankDriveVolts(leftpower,rightpower);
+
+        Drivetrain.getInstance().tankDriveVolts(leftvolts, rightvolts);
     }
 
     @Override
     public void end(boolean interrupted) {
-        leftpower = 0;
-        rightpower = 0;
-        Drivetrain.getInstance().setSpeed(leftpower,rightpower);
+        leftvolts = 0;
+        rightvolts = 0;
+        Drivetrain.getInstance().setSpeed(leftvolts, rightvolts);
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return exitCommand;
     }
 }
