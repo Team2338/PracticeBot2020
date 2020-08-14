@@ -42,6 +42,7 @@ public class Pigeon {
      *      turning counterclockwise, values increase
      *      turning clockwise, values decrease
      *      no rollover, can go negative
+     *      valid range is 23040 to -23040
      */
     public double getHeading() {
         double[] ypr = new double[3];
@@ -62,10 +63,26 @@ public class Pigeon {
     }
 
     /**
+     * Returns heading from pigeon
+     *      from 0 to 359.99 turning counterclockwise
+     */
+    public double get360Heading() {
+        double heading = getHeading(); // returns heading from 23040 to -23040
+
+        // Need to convert the heading to a value between 0 and 360
+        heading = heading < 0 ? 360 + (heading % 360) : heading % 360;
+
+        return heading;
+    }
+
+    /**
      * The heading value from the pigeon increases counterclockwise (0 North, 90 West, 180 South, 270 East)
      * Some features need degrees to look like a compass,
      * increasing clockwise (0 North, 90 East, 180 South, 270 West)
-     * with rollover (max value 360, min 0)
+     * with rollover (max value 359.99, min 0)
+     *
+     * Returns heading from pigeon
+     *      from 0 to 359.99 turning clockwise
      */
     public double getCompassHeading() {
         double heading = getHeading();

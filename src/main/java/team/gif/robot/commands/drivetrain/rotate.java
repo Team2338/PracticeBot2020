@@ -7,14 +7,18 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class rotate extends CommandBase {
 
     public double deltaDegrees = 0;
-    public double kPvolts = Constants.drivetrain.kPDriveVelLeft;
-    public double kSvolts = Constants.drivetrain.ksVolts;
+    public double kPVolts = Constants.drivetrain.kPDriveVelLeft;
+    public double kSVolts = Constants.drivetrain.ksVolts;
     public double marginDegrees = 0;
     // we will be +- margin degrees degrees of zero
-    public double motorVolts = 0;
-    public double targetHeadingDegrees = 0;
-    public double currentHeadingDegrees = 0;
+
+    public double targetHeadingDegrees = 0;  // 0 to 360 counterclockwise
+    public double currentHeadingDegrees = 0; // 0 to 360 counterclockwise
+    public double initialHeadingDegrees = 0;  // 0 to 360 counterclockwise
     public boolean exitCommand = false;
+
+    // amount of voltage we want to apply to the motors for this test
+    public double motorVolts = 6.0;
 
     public rotate(){
         System.out.println("rotate");
@@ -22,16 +26,22 @@ public class rotate extends CommandBase {
 
     @Override
     public void initialize() {
+        initialHeadingDegrees = Pigeon.getInstance().get360Heading();
+        deltaDegrees = ((((targetHeadingDegrees - initialHeadingDegrees)+ 540)%360)-180);
+        // result is between 179.99 and -180 where positive is counterclockwise and negative is clockwise
 
+        // applied voltage must be at least the voltage which will make the robot move
+        motorVolts = motorVolts < kSVolts ? kSVolts : motorVolts;
+
+        // if degrees are negative, turn clockwise, otherwise turn counterclockwise
+        motorVolts = deltaDegrees < 0 ? motorVolts : -motorVolts;
+
+        Drivetrain.getInstance().tankDriveVolts(motorVolts, -motorVolts);
     }
 
     @Override
     public void execute() {
 
-        currentHeadingDegrees = Pigeon.getInstance().getHeading();
-        deltaDegrees = ((((targetHeadingDegrees - currentHeadingDegrees)+ 540)%360)-180);
-
-        // result is between -180 and 180 where positive is clockwise and - is counter clockwise
         // above math came from the math stack exchange ie stackoverflow but with nerds
         // + offset turn right by convention
         /*
@@ -49,20 +59,19 @@ public class rotate extends CommandBase {
             exitCommand = true;
         }
  */
+        double degreesTurned;
 
-        motorVolts = deltaDegrees<0 ? kSvolts : -kSvolts;
+        currentHeadingDegrees = Pigeon.getInstance().get360Heading();
+        degreesTurned = Math.abs( ((((initialHeadingDegrees - currentHeadingDegrees)+ 540)%360)-180) );
 
-        if (Math.abs(deltaDegrees) <= marginDegrees){
-            motorVolts = 0;
+        if (degreesTurned >= Math.abs(deltaDegrees)){
+            Drivetrain.getInstance().setSpeed(0,0);
             exitCommand = true;
         }
-
-        Drivetrain.getInstance().tankDriveVolts(motorVolts, -motorVolts);
     }
 
     @Override
     public void end(boolean interrupted) {
-        Drivetrain.getInstance().setSpeed(0,0);
     }
 
     @Override

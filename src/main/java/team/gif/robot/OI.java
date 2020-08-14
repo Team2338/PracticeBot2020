@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.controlpanel.Rotation;
+import team.gif.robot.commands.drivetrain.rotate;
 import team.gif.robot.commands.hanger.ControlPanelDown;
 import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
@@ -79,7 +80,8 @@ public class OI {
          */
 
         // Driver Controls
-        dLT.whileHeld(new Pivot());
+//        dLT.whileHeld(new Pivot());
+        dLT.whenPressed(new rotate());
         dRB.whileHeld(new IntakeRun());
         dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
         dLB.whileHeld(new IntakeReverse());
