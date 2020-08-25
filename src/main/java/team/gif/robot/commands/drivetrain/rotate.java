@@ -1,6 +1,7 @@
 package team.gif.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
@@ -9,7 +10,7 @@ public class rotate extends CommandBase {
     public double deltaDegrees = 0;
     public double kPVolts = Constants.drivetrain.kPDriveVelLeft;
     public double kSVolts = Constants.drivetrain.ksVolts;
-    public double marginDegrees = 0;
+    public double marginDegrees = 1;
     // we will be +- margin degrees degrees of zero
 
     public double targetHeadingDegrees = 0;  // 0 to 360 counterclockwise
@@ -18,16 +19,23 @@ public class rotate extends CommandBase {
     public boolean exitCommand = false;
 
     // amount of voltage we want to apply to the motors for this test
-    public double motorVolts = 6.0;
+    public double motorVolts = 9.0;
+    public double slowmotorVolts = 4.5;
 
     public rotate(){
+
         System.out.println("rotate");
     }
 
     @Override
     public void initialize() {
+        exitCommand = false;
+        Robot.limelight.setLEDMode(3);
         initialHeadingDegrees = Pigeon.getInstance().get360Heading();
-        deltaDegrees = ((((targetHeadingDegrees - initialHeadingDegrees)+ 540)%360)-180);
+        //deltaDegrees = ((((targetHeadingDegrees - initialHeadingDegrees)+ 540)%360)-180);
+        System.out.println(deltaDegrees);
+        deltaDegrees = -Robot.limelight.getXOffset();
+
         // result is between 179.99 and -180 where positive is counterclockwise and negative is clockwise
 
         // applied voltage must be at least the voltage which will make the robot move
@@ -35,6 +43,7 @@ public class rotate extends CommandBase {
 
         // if degrees are negative, turn clockwise, otherwise turn counterclockwise
         motorVolts = deltaDegrees < 0 ? motorVolts : -motorVolts;
+        slowmotorVolts = deltaDegrees < 0 ? slowmotorVolts : -slowmotorVolts;
 
         Drivetrain.getInstance().tankDriveVolts(motorVolts, -motorVolts);
     }
@@ -63,19 +72,33 @@ public class rotate extends CommandBase {
 
         currentHeadingDegrees = Pigeon.getInstance().get360Heading();
         degreesTurned = Math.abs( ((((initialHeadingDegrees - currentHeadingDegrees)+ 540)%360)-180) );
+        System.out.println("degrees turned: "+degreesTurned+"     deltadegrees: "+Math.abs(deltaDegrees));
+        //System.out.println("current heading :"+currentHeadingDegrees);
 
-        if (degreesTurned >= Math.abs(deltaDegrees)){
+        if(Math.abs(deltaDegrees) - degreesTurned<=90){
+            Drivetrain.getInstance().tankDriveVolts(slowmotorVolts, -slowmotorVolts);
+            System.out.println("slowing down");
+        }
+
+        if (degreesTurned >= Math.abs(deltaDegrees)-marginDegrees){
+//        if(currentHeadingDegrees<180){
             Drivetrain.getInstance().setSpeed(0,0);
             exitCommand = true;
+            System.out.println("                        attempting to exit");
         }
     }
 
     @Override
     public void end(boolean interrupted) {
+        System.out.println("   ending");
     }
 
     @Override
     public boolean isFinished() {
-        return exitCommand;
+        if(exitCommand) {
+            System.out.println("               is finishing");
+        }
+            return exitCommand;
+
     }
 }
