@@ -81,7 +81,7 @@ public class OI {
 
         // Driver Controls
 //        dLT.whileHeld(new Pivot());
-        dLT.whenPressed(new rotate());
+
         dRB.whileHeld(new IntakeRun());
         dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
         dLB.whileHeld(new IntakeReverse());
@@ -89,6 +89,7 @@ public class OI {
         dY.toggleWhenActive(new ToggleIndexer());
 
         // Aux Controls
+        aLT.whenPressed(new rotate());
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());

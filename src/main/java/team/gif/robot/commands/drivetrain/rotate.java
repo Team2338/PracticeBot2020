@@ -29,27 +29,33 @@ public class rotate extends CommandBase {
 
     @Override
     public void initialize() {
+        motorVolts = 9.0;
+        slowmotorVolts = 4.5;
+        System.out.println("                                         init rotate");
         exitCommand = false;
         Robot.limelight.setLEDMode(3);
         initialHeadingDegrees = Pigeon.getInstance().get360Heading();
         //deltaDegrees = ((((targetHeadingDegrees - initialHeadingDegrees)+ 540)%360)-180);
-        System.out.println(deltaDegrees);
         deltaDegrees = -Robot.limelight.getXOffset();
+        System.out.println(deltaDegrees);
 
         // result is between 179.99 and -180 where positive is counterclockwise and negative is clockwise
 
         // applied voltage must be at least the voltage which will make the robot move
-        motorVolts = motorVolts < kSVolts ? kSVolts : motorVolts;
+        //motorVolts = motorVolts < kSVolts ? kSVolts : motorVolts;
 
         // if degrees are negative, turn clockwise, otherwise turn counterclockwise
         motorVolts = deltaDegrees < 0 ? motorVolts : -motorVolts;
         slowmotorVolts = deltaDegrees < 0 ? slowmotorVolts : -slowmotorVolts;
+        //System.out.println("motorvolts: "+motorVolts);
+        //System.out.println("slow:"+slowmotorVolts);
 
         Drivetrain.getInstance().tankDriveVolts(motorVolts, -motorVolts);
     }
 
     @Override
     public void execute() {
+        //System.out.println("                                executing");
 
         // above math came from the math stack exchange ie stackoverflow but with nerds
         // + offset turn right by convention
@@ -69,36 +75,38 @@ public class rotate extends CommandBase {
         }
  */
         double degreesTurned;
-
         currentHeadingDegrees = Pigeon.getInstance().get360Heading();
         degreesTurned = Math.abs( ((((initialHeadingDegrees - currentHeadingDegrees)+ 540)%360)-180) );
-        System.out.println("degrees turned: "+degreesTurned+"     deltadegrees: "+Math.abs(deltaDegrees));
+        //System.out.println("degrees turned: "+degreesTurned+"     deltadegrees: "+Math.abs(deltaDegrees));
         //System.out.println("current heading :"+currentHeadingDegrees);
 
         if(Math.abs(deltaDegrees) - degreesTurned<=90){
             Drivetrain.getInstance().tankDriveVolts(slowmotorVolts, -slowmotorVolts);
-            System.out.println("slowing down");
+            //System.out.println("slowing down");
         }
 
         if (degreesTurned >= Math.abs(deltaDegrees)-marginDegrees){
 //        if(currentHeadingDegrees<180){
             Drivetrain.getInstance().setSpeed(0,0);
             exitCommand = true;
-            System.out.println("                        attempting to exit");
+            //System.out.println("                        attempting to exit");
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("   ending");
+        System.out.println("                                               ending rotate");
+        Robot.limelight.setLEDMode(3);
+        double xoffset = Robot.limelight.getXOffset();
+        System.out.println("xoffset: "+xoffset);
     }
 
     @Override
     public boolean isFinished() {
         if(exitCommand) {
-            System.out.println("               is finishing");
-        }
-            return exitCommand;
 
+        }
+        //System.out.println("finished: "+exitCommand);
+            return exitCommand;
     }
 }

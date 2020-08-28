@@ -16,7 +16,6 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.autos.*;
 import team.gif.robot.commands.drivetrain.Drive;
-import team.gif.robot.commands.drivetrain.rotate;
 import team.gif.robot.commands.hanger.ResetHanger;
 import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.commands.indexer.IndexerScheduler;
@@ -93,7 +92,7 @@ public class Robot extends TimedRobot {
     // the commandBase specifically made for this ResetHanger()
     SmartDashboard.putData("Hanger", new ResetHanger());
     setLimelightPipeline();
-    limelight.setLEDMode(3);//force off
+    limelight.setLEDMode(3);//force on
 
     SmartDashboard.putData("ResetHead", new ResetHeading());
   }
@@ -140,7 +139,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    limelight.setLEDMode(3);//force off
+    limelight.setLEDMode(3);//force on
   }
 
   @Override
@@ -163,7 +162,7 @@ public class Robot extends TimedRobot {
     //drivetrain.resetPigeon();
 
     setLimelightPipeline();
-    limelight.setLEDMode(3);//force off
+    limelight.setLEDMode(3);//force on
     updateauto();
     compressor.stop();
     indexCommand.schedule();
@@ -194,7 +193,7 @@ public class Robot extends TimedRobot {
     System.out.println("teleop init");
 
     setLimelightPipeline();
-    limelight.setLEDMode(3);//force off
+    limelight.setLEDMode(3);//force on
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -303,7 +302,6 @@ public class Robot extends TimedRobot {
     }else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
-    m_autonomousCommand = new rotate();
   }
 
   public void setLimelightPipeline(){/**sets the limelight pipeline to red side or blue side**/

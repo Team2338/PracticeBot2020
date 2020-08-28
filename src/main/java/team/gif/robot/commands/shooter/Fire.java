@@ -15,6 +15,7 @@ public class Fire extends CommandBase {
 
     @Override
     public void initialize() {
+        Robot.limelight.setLEDMode(3);
 
     }
 
@@ -43,7 +44,7 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        Robot.limelight.setLEDMode(1);
+        Robot.limelight.setLEDMode(3);
         Indexer.getInstance().setSpeedFive(0);
     }
 }
