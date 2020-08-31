@@ -1,4 +1,4 @@
-package team.gif.robot.commands.drivetrain;
+package team.gif.robot.commands.autoaim;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
@@ -42,7 +42,6 @@ public class rotate extends CommandBase {
         // result is between 179.99 and -180 where positive is counterclockwise and negative is clockwise
 
         // applied voltage must be at least the voltage which will make the robot move
-        //motorVolts = motorVolts < kSVolts ? kSVolts : motorVolts;
 
         // if degrees are negative, turn clockwise, otherwise turn counterclockwise
         motorVolts = deltaDegrees < 0 ? motorVolts : -motorVolts;
@@ -55,25 +54,7 @@ public class rotate extends CommandBase {
 
     @Override
     public void execute() {
-        //System.out.println("                                executing");
 
-        // above math came from the math stack exchange ie stackoverflow but with nerds
-        // + offset turn right by convention
-        /*
-        if (deltaDegrees < -margin_degrees) {
-            steering_adjustvolts = Math.abs(kPvolts *deltaDegrees) < kSvolts ? kSvolts : kPvolts*deltaDegrees;
-            rightVolts = steering_adjustvolts;
-            rightVolts = -steering_adjustvolts;
-        } else if (deltaDegrees > margin_degrees) {
-            steering_adjustvolts = Math.abs(kPvolts *deltaDegrees) < kSvolts ? -kSvolts : kPvolts*deltaDegrees;
-            rightVolts = steering_adjustvolts;
-            rightVolts = -steering_adjustvolts;
-        } else if (Math.abs(deltaDegrees) <= margin_degrees){
-            rightVolts = 0;
-            rightVolts = 0;
-            exitCommand = true;
-        }
- */
         double degreesTurned;
         currentHeadingDegrees = Pigeon.getInstance().get360Heading();
         degreesTurned = Math.abs( ((((initialHeadingDegrees - currentHeadingDegrees)+ 540)%360)-180) );

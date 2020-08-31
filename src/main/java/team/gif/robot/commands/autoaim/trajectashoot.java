@@ -1,4 +1,4 @@
-package team.gif.robot.commands.autos;
+package team.gif.robot.commands.autoaim;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.*;
 import team.gif.lib.RobotTrajectory;
+import team.gif.robot.Robot;
 import team.gif.robot.commands.intake.IntakeDown;
 import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
@@ -15,15 +16,31 @@ import team.gif.robot.subsystems.Drivetrain;
 
 import java.util.List;
 
-public class OppFiveBall extends SequentialCommandGroup {
+public class trajectashoot extends SequentialCommandGroup {
 
-    public Command reverse() {
+    public double xoffset = 0;
+
+    public Command forward() {
+        Drivetrain.getInstance().resetPose();
+        // this should zero the position of the bot
+        /**theory
+         * trajectory has a bunch more constants, and accounts for much more
+         * physics than we have time to, and is incredibly accurate
+         * so we use it to move in position to the target
+         * for use in teleop only bc we have to zero our position
+         *
+         * where is target
+         * move forward
+         * back into shooting spot
+         * O yeah
+         **/
+        xoffset = Robot.limelight.getXOffset();
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
                 new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),     //zerod
-                new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)) // move backward 6ft
+                new Pose2d(Units.feetToMeters(1), 0, new Rotation2d(0)) // move backward 6ft
             ),
-            RobotTrajectory.getInstance().configReverseSlow
+            RobotTrajectory.getInstance().configForward
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
@@ -31,35 +48,26 @@ public class OppFiveBall extends SequentialCommandGroup {
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     }
 
-    public Command forward(){
+    public Command aim() {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-            List.of(
-                new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)),
-                new Pose2d(Units.feetToMeters(-2), Units.feetToMeters(-14.0), new Rotation2d(Units.degreesToRadians(-7.0)))
-            ),
-            RobotTrajectory.getInstance().configForward
+                List.of(
+                        new Pose2d(Units.feetToMeters(1), 0, new Rotation2d(0)),
+                        new Pose2d(Units.feetToMeters(0), 0, new Rotation2d(xoffset)) // move backward 6ft
+                ),
+                RobotTrajectory.getInstance().configReverseSlow
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
-        // Run path following command, then stop at the end.MaxVelocityConstraint
+        // Run path following command, then stop at the end.
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     }
 
-    public OppFiveBall() {
+    public trajectashoot() {
         addCommands(
-                new PrintCommand("Auto: Opponent 5 Ball Selected"),
-                new IntakeDown(),
-                new ParallelDeadlineGroup(
-                    reverse(),
-                    new IntakeRun()),//enemy ball heist
-                new IntakeRun().withTimeout(.75),
-                new ParallelDeadlineGroup(
-                    forward(),    //get out of there
-                    new RevFlywheel()),
-                new ParallelCommandGroup(
-                    // let it rip
-                    new RevFlywheel(),
-                    new Fire(false))
+                new PrintCommand("trajectashoot aimbot"),
+                forward(),
+                aim(),
+                new PrintCommand("error: "+ Robot.limelight.getXOffset())
         );
     }
 }

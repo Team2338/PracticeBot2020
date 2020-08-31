@@ -11,11 +11,6 @@ public class AutoDrive extends CommandBase {
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     //private final Drivetrain m_subsystem;
 
-    /**
-     * Creates a new ExampleCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
     public int time = 0;
     public double powerL = 0;
     public double powerR = 0;
