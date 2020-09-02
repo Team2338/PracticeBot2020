@@ -7,7 +7,7 @@ import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
-public class LimelightAutoAim {
+public class LimelightAutoAim extends CommandBase {
 
     public double deltaDegrees = 0;
     public double kPVolts = Constants.drivetrain.kPDriveVelLeft;
@@ -22,7 +22,7 @@ public class LimelightAutoAim {
 
     // amount of voltage we want to apply to the motors for this test
     public double motorVolts = 9.0;
-    public double slowmotorVolts = 4.5;
+    public double slowmotorVolts = 4.0;
 
 
     @Override
@@ -31,23 +31,29 @@ public class LimelightAutoAim {
 
     @Override
     public void execute() {
-        Drivetrain.getInstance().tankDriveVolts(slowmotorVolts, -slowmotorVolts);
+        double offset = Robot.limelight.getXOffset();
+        System.out.println("Offset: " + offset);
+        if(offset < 1.0 && offset > -1.0 ) {
+            Drivetrain.getInstance().tankDriveVolts(0,0);
+            exitCommand = true;
+        }
+        else {
+            if ( offset < 0 ) {
+                Drivetrain.getInstance().tankDriveVolts(-slowmotorVolts, slowmotorVolts);
+            }
+            else {
+                Drivetrain.getInstance().tankDriveVolts(slowmotorVolts, -slowmotorVolts);
+            }
+            exitCommand = false;
+        }
     }
 
     @Override
     public void end(boolean interrupted) {
-        Drivetrain.getInstance().tankDriveVolts(0,0);
     }
 
     @Override
     public boolean isFinished() {
-        double offset = Robot.limelight.getXOffset();
-        System.out.println("Offset: " + offset);
-        if(offset < 1.0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return exitCommand;
     }
 }

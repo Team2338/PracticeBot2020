@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
+import team.gif.robot.commands.autoaim.LimelightAutoAim;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.controlpanel.Rotation;
 import team.gif.robot.commands.drivetrain.rotate;
@@ -89,7 +90,7 @@ public class OI {
         dY.toggleWhenActive(new ToggleIndexer());
 
         // Aux Controls
-        aLT.whenPressed(new rotate());
+        aLT.whenPressed(new LimelightAutoAim());
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());
