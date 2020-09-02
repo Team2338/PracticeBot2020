@@ -52,6 +52,15 @@ public class RobotTrajectory {
         .addConstraint(autoVoltageConstraint)
         .addConstraint( new CentripetalAccelerationConstraint(1));
 
+    public TrajectoryConfig configForwardSlow = new TrajectoryConfig(
+            Constants.autoConstants.kSlowSpeedMetersPerSecond,
+            Constants.autoConstants.kSlowAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.drivetrain.kDriveKinematics)
+            .setReversed(false)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
     public TrajectoryConfig configForwardFast = new TrajectoryConfig(
             Constants.autoConstants.kFastSpeedMetersPerSecond,
             Constants.autoConstants.kFastAccelerationMetersPerSecondSquared)
