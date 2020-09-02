@@ -22,11 +22,12 @@ public class LimelightAutoAim extends CommandBase {
 
     // amount of voltage we want to apply to the motors for this test
     public double motorVolts = 9.0;
-    public double slowmotorVolts = 4.0;
+    public double slowmotorVolts = 3.25;
 
 
     @Override
     public void initialize() {
+        System.out.println("Auto Aim Start");
     }
 
     @Override
@@ -50,6 +51,7 @@ public class LimelightAutoAim extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        System.out.println("Auto Aim Finished");
     }
 
     @Override
