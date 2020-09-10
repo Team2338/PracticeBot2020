@@ -162,6 +162,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void resetPose(){
+        this.resetEncoders();
         System.out.println("pose reset");
         m_odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     }
