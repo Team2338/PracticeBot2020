@@ -90,7 +90,8 @@ public class OI {
         dY.toggleWhenActive(new ToggleIndexer());
 
         // Aux Controls
-        aLT.whenPressed(new LimelightAutoAim());
+        //-aLT.whenPressed(new LimelightAutoAim());
+        dLT.whileHeld(new LimelightAutoAim());
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());
