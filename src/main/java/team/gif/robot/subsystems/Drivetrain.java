@@ -151,6 +151,8 @@ public class Drivetrain extends SubsystemBase {
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         SmartDashboard.putNumber("Left", leftVolts);
         SmartDashboard.putNumber("Right", rightVolts);
+        System.out.println("left: "+leftVolts);
+        System.out.println("right: "+rightVolts);
 //        System.out.format("LV: %.2f   RV: %.2f\n", leftVolts,rightVolts);
         m_leftMotors.setVoltage(leftVolts);
         m_rightMotors.setVoltage(-rightVolts);
@@ -163,6 +165,7 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetPose(){
         this.resetEncoders();
+        this.resetPigeon();
         System.out.println("pose reset");
         m_odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     }

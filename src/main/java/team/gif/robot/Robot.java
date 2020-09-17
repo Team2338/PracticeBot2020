@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
 import team.gif.lib.delay;
+import team.gif.robot.commands.autoaim.trajectashoot;
 import team.gif.robot.commands.autos.*;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.ResetHanger;
@@ -41,8 +42,8 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand = null;
 
-  private Command driveCommand = null; // new Drive(Drivetrain.getInstance());
-  private Command indexCommand = new IndexerScheduler();
+  public static Command driveCommand = null; // new Drive(Drivetrain.getInstance());
+  public static Command indexCommand = new IndexerScheduler();
 
   private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
   private SendableChooser<delay> delayChooser = new SendableChooser<>();
@@ -165,7 +166,7 @@ public class Robot extends TimedRobot {
     limelight.setLEDMode(3);//force on
     updateauto();
     compressor.stop();
-    indexCommand.schedule();
+    indexCommand.schedule(false);
     _runAutoScheduler = true;
 
     // Reset Heading for Auto

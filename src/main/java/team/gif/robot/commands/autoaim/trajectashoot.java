@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.*;
 import team.gif.lib.RobotTrajectory;
+import team.gif.robot.OI;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.intake.IntakeDown;
@@ -21,6 +22,9 @@ import java.util.List;
 public class trajectashoot extends CommandBase {
 
     public double xoffset = 0;
+    public RamseteCommand forward;
+    public RamseteCommand aim;
+
     /*
     public Command forward() {
         Drivetrain.getInstance().resetPose();
@@ -65,102 +69,57 @@ public class trajectashoot extends CommandBase {
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     } */
     public trajectashoot() {
-        /*
-        if(!targeting){
-            targeting = true;
-            addCommands(
-                    new PrintCommand("trajectashoot aimbot"),
-                    new PrintCommand("test"),
-                    forward(),
-                    new PrintCommand("forward complete"),
-                    aim(),
-                    new PrintCommand("offset: "+ Robot.limelight.getXOffset())
-            );
-            targeting = false;
-        } else{
-            addCommands(
-                    new PrintCommand("                  abort")
-            );
-
-        }*/
 
     }
 
     @Override
     public void initialize() {
-        Pose2d pose = Drivetrain.getInstance().getPose();
-        double degrees = pose.getRotation().getDegrees();
-        double y = pose.getTranslation().getY();
-        double x = pose.getTranslation().getX();
-        System.out.println("init degrees: "+ degrees);
-        System.out.println("init x: "+ x);
-        System.out.println("init y: "+ y);
+        System.out.println("             trajectashooting");
+
         Drivetrain.getInstance().resetPose();
-        pose = Drivetrain.getInstance().getPose();
-        degrees = pose.getRotation().getDegrees();
-        y = pose.getTranslation().getY();
-        x = pose.getTranslation().getX();
-        System.out.println("degrees: "+ degrees);
-        System.out.println("x: "+ x);
-        System.out.println("y: "+ y);
-
-
         xoffset = Robot.limelight.getXOffset();
 
-        // this should zero the position of the bot
-        /**theory
-         * trajectory has a bunch more constants, and accounts for much more
-         * physics than we have time to, and is incredibly accurate
-         * so we use it to move in position to the target
-         * for use in teleop only bc we have to zero our position
-         *
-         * where is target
-         * move forward
-         * back into shooting spot
-         * O yeah
-         **/
+        // this should zero the position of the
 
-
-
-        System.out.println("              forward");
         Trajectory forwardtrajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2d(Units.feetToMeters(0), 0, new Rotation2d(Units.degreesToRadians(0))),     //zerod
-                        new Pose2d(Units.feetToMeters(2), 0,new Rotation2d(Units.degreesToRadians(0))) // move backward 6ft
+                        new Pose2d(Units.feetToMeters(4), 0,new Rotation2d(Units.degreesToRadians(0))) // move backward 6ft
                 ),
                 RobotTrajectory.getInstance().configForwardSlow
         );
 
         // create the command using the trajectory
-        RamseteCommand forward = RobotTrajectory.getInstance().createRamseteCommand(forwardtrajectory);
+        forward = RobotTrajectory.getInstance().createRamseteCommand(forwardtrajectory);
 
         Trajectory aimtrajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2d(Units.feetToMeters(2), 0, new Rotation2d(Units.degreesToRadians(0))),
+                        new Pose2d(Units.feetToMeters(4), 0, new Rotation2d(Units.degreesToRadians(0))),
                         new Pose2d(Units.feetToMeters(0), 0, new Rotation2d(Units.degreesToRadians(-xoffset)))
                 ),
                 RobotTrajectory.getInstance().configReverseSlow
         );
         // create the command using the trajectory
-        RamseteCommand aim = RobotTrajectory.getInstance().createRamseteCommand(aimtrajectory);
+        aim = RobotTrajectory.getInstance().createRamseteCommand(aimtrajectory);
         // Run path following command, then stop at the end.
 
         CommandScheduler.getInstance().schedule(
             new SequentialCommandGroup(
-                forward.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0)),
-                aim.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0))
+                    forward.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0)),
+                    aim.andThen(() -> {
+                        Drivetrain.getInstance().tankDriveVolts(0, 0);
+                        Robot.indexCommand.schedule();
+                        Robot.driveCommand.schedule();
+                        //Robot.oi = new OI();
+                    })
+
             )
         );
-
     }
-
-    @Override
-    public boolean isFinished() {
-        return true;
-    }
-
     @Override
     public void end(boolean interrupted) {
-        System.out.println("            ending");
+        Robot.driveCommand.schedule();
+        Robot.indexCommand.schedule();
+        System.out.println("ended");
     }
 }
