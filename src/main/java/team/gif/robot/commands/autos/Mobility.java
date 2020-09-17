@@ -34,7 +34,8 @@ public class Mobility extends SequentialCommandGroup {
 
         addCommands(
             new PrintCommand("Auto: Mobility Started"),
-            reverse()
+            reverse(),
+            new PrintCommand("Auto: Mobility Ended")
         );
     }
 }

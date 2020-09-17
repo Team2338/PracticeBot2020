@@ -151,22 +151,32 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    System.out.println("autonomous init");
+    System.out.println("autonomous init start");
 
     // used for delaying the start of autonomous
     _elapsedTime.reset();
     _elapsedTime.start();
+    System.out.println("Auto: Timers Reset");
 
     drivetrain.resetEncoders();
     drivetrain.resetPose();
     //drivetrain.resetPigeon();
+    System.out.println("Auto: Sensors Reset");
 
     setLimelightPipeline();
+      System.out.println("Auto: Pipeline Reset");
     limelight.setLEDMode(3);//force on
+      System.out.println("Auto: LED Reset");
     updateauto();
+      System.out.println("Auto: auto selection updated");
     compressor.stop();
+      System.out.println("Auto: Compressor stopped");
     indexCommand.schedule();
+      System.out.println("Auto: Indexer scheduled");
+
     _runAutoScheduler = true;
+
+    System.out.println("autonomous init end");
 
     // Reset Heading for Auto
     //Pigeon.getInstance().resetPigeonPosition();
@@ -178,7 +188,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 
-      if ( (_elapsedTime.get() > (chosenDelay.getValue())) && _runAutoScheduler) {
+      if ( _runAutoScheduler && (_elapsedTime.get() > (chosenDelay.getValue()))) {
           if (m_autonomousCommand != null) {
               System.out.println("Delay over. Auto selection scheduler started.");
               m_autonomousCommand.schedule();
