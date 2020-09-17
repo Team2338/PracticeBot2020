@@ -103,6 +103,11 @@ public class Drivetrain extends SubsystemBase {
         m_drive.arcadeDrive(speed,rotation);
     }
 
+    // -------------- Teleop Driving -----------------------
+    public void driveCurvature(double speed, double rotation, boolean isQuick){
+        m_drive.curvatureDrive(speed,rotation,isQuick);
+    }
+
     // ---------- Previous Auto Driving & Tank Drive -------
     public void setSpeed(double leftPercent, double rightPercent) {
         m_drive.tankDrive(leftPercent,rightPercent);
