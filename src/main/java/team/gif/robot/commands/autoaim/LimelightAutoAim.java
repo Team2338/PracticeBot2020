@@ -15,6 +15,7 @@ public class LimelightAutoAim extends CommandBase {
 
     private boolean targetLocked = false;
     private boolean robotHasSettled = false;
+    private double velocitycap = .5;
 
     // amount of voltage we want to apply to the motors for this test
     private double motorVolts = 3.25;
@@ -27,12 +28,14 @@ public class LimelightAutoAim extends CommandBase {
 
     @Override
     public void execute() {
-        Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW);
+        if ( Math.abs (Robot.limelight.getXOffset()) < 5 ) {
+            Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW);
+        }
 
         // bot must not be moving anymore
         if ( !robotHasSettled ) {
             DifferentialDriveWheelSpeeds wheelSpeeds = Drivetrain.getInstance().getWheelSpeeds();
-            if ( wheelSpeeds.leftMetersPerSecond == 0 && wheelSpeeds.rightMetersPerSecond == 0 ){
+            if ( Math.abs(wheelSpeeds.leftMetersPerSecond) < velocitycap && Math.abs(wheelSpeeds.rightMetersPerSecond)< velocitycap ){
                 robotHasSettled = true;
                 System.out.println("AutoFire: Robot has settled");
             }
@@ -47,10 +50,11 @@ public class LimelightAutoAim extends CommandBase {
                         Indexer.getInstance().setSpeedFive(0.5);
                         System.out.println("Firing at: " + Shooter.getInstance().getVelocity());
                     } else {
+                        System.out.println("no ball");
                         //Indexer.getInstance().setSpeedFive(0);
                     }
                 } else {
-                    System.out.println("Firing Complete");
+
                     Indexer.getInstance().setSpeedFive(0);
                 }
 
@@ -62,15 +66,15 @@ public class LimelightAutoAim extends CommandBase {
                     targetLocked = true;
                 } else {
                     if (offset < 0) {
-//                        Drivetrain.getInstance().tankDriveVolts(-motorVolts, motorVolts);
-                        Drivetrain.getInstance().driveArcade( 0 , 0.4);
-                        //Drivetrain.getInstance().driveCurvature(0,0.4,true);
+                        Drivetrain.getInstance().tankDriveVolts(-motorVolts, motorVolts);
+
                     } else {
-//                        Drivetrain.getInstance().tankDriveVolts(motorVolts, -motorVolts);
-                        Drivetrain.getInstance().driveArcade( 0 , -0.4);
-                        //Drivetrain.getInstance().driveCurvature(0,-0.4,true);
+                        Drivetrain.getInstance().tankDriveVolts(motorVolts, -motorVolts);
+
                     }
                     targetLocked = false;
+
+
                 }
             }
         }
@@ -81,6 +85,7 @@ public class LimelightAutoAim extends CommandBase {
     //
     @Override
     public void end(boolean interrupted) {
+        robotHasSettled = false;
         Shooter.getInstance().setVoltage(0);
         Indexer.getInstance().setSpeedFive(0);
         System.out.println("Auto Aim Finished");
