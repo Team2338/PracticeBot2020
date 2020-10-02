@@ -22,6 +22,12 @@ public class LimelightAutoAim extends CommandBase {
 
     @Override
     public void initialize() {
+
+        Drivetrain.getInstance().leftTalon1.enableCurrentLimit(false);
+        Drivetrain.getInstance().leftTalon2.enableCurrentLimit(false);
+        Drivetrain.getInstance().rightTalon1.enableCurrentLimit(false);
+        Drivetrain.getInstance().rightTalon2.enableCurrentLimit(false);
+
         System.out.println("Auto Aim Start");
         targetLocked = false;
     }
@@ -88,6 +94,12 @@ public class LimelightAutoAim extends CommandBase {
         robotHasSettled = false;
         Shooter.getInstance().setVoltage(0);
         Indexer.getInstance().setSpeedFive(0);
+
+        Drivetrain.getInstance().leftTalon1.enableCurrentLimit(true);
+        Drivetrain.getInstance().leftTalon2.enableCurrentLimit(true);
+        Drivetrain.getInstance().rightTalon1.enableCurrentLimit(true);
+        Drivetrain.getInstance().rightTalon2.enableCurrentLimit(true);
+
         System.out.println("Auto Aim Finished");
     }
 

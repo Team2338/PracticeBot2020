@@ -33,6 +33,9 @@ public class Drivetrain extends SubsystemBase {
     public static WPI_TalonSRX _rightEncoderTalon;
     public static DifferentialDriveOdometry m_odometry;
     private static Pigeon m_pigeon;
+
+    private static int maxCurrentAmps = 15;
+
     /*    public static DifferentialDriveKinematics drivekinematics;
     public static ChassisSpeeds chassisSpeeds;
     public static DifferentialDriveWheelSpeeds wheelSpeeds;
@@ -81,6 +84,21 @@ public class Drivetrain extends SubsystemBase {
 
         // left sensor needs to be inverted to match the drive train
         _leftEncoderTalon.setSensorPhase(true);
+
+        leftTalon1.configContinuousCurrentLimit(maxCurrentAmps);
+        leftTalon2.configContinuousCurrentLimit(maxCurrentAmps);
+        rightTalon1.configContinuousCurrentLimit(maxCurrentAmps);
+        rightTalon2.configContinuousCurrentLimit(maxCurrentAmps);
+
+        leftTalon1.configPeakCurrentLimit(maxCurrentAmps);
+        leftTalon2.configPeakCurrentLimit(maxCurrentAmps);
+        rightTalon1.configPeakCurrentLimit(maxCurrentAmps);
+        rightTalon2.configPeakCurrentLimit(maxCurrentAmps);
+
+        leftTalon1.enableCurrentLimit(true);
+        leftTalon2.enableCurrentLimit(true);
+        rightTalon1.enableCurrentLimit(true);
+        rightTalon2.enableCurrentLimit(true);
 
         // Per WPILib, motor outputs for the right side are negated
         // within the differentialDrive class. No need to negate them again.
