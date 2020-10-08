@@ -85,7 +85,8 @@ public class Drivetrain extends SubsystemBase {
         // left sensor needs to be inverted to match the drive train
         _leftEncoderTalon.setSensorPhase(true);
 
-        currentSetup(true);
+        currentSetup();
+        currentEnable(true);
 
         // Per WPILib, motor outputs for the right side are negated
         // within the differentialDrive class. No need to negate them again.
@@ -103,7 +104,7 @@ public class Drivetrain extends SubsystemBase {
         resetPose();
     }
 
-    public void currentSetup(boolean enable){
+    public void currentSetup(){
 
         leftTalon1.configContinuousCurrentLimit(maxCurrentAmps);
         leftTalon2.configContinuousCurrentLimit(maxCurrentAmps);
@@ -115,11 +116,13 @@ public class Drivetrain extends SubsystemBase {
         rightTalon1.configPeakCurrentLimit(maxCurrentAmps);
         rightTalon2.configPeakCurrentLimit(maxCurrentAmps);
 
-        leftTalon1.enableCurrentLimit(enable);
-        leftTalon2.enableCurrentLimit(enable);
-        rightTalon1.enableCurrentLimit(enable);
-        rightTalon2.enableCurrentLimit(enable);
+    }
 
+    public void currentEnable(boolean enableLimit){
+        leftTalon1.enableCurrentLimit(enableLimit);
+        leftTalon2.enableCurrentLimit(enableLimit);
+        rightTalon1.enableCurrentLimit(enableLimit);
+        rightTalon2.enableCurrentLimit(enableLimit);
     }
 
     // -------------- Teleop Driving -----------------------

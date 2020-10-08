@@ -34,7 +34,8 @@ public class MobilityFwd extends SequentialCommandGroup {
 
         addCommands(
             new PrintCommand("Auto: Mobility Forward Started"),
-            forward()
+            forward(),
+            new PrintCommand("Auto: Mobility Forward Ended")
         );
     }
 

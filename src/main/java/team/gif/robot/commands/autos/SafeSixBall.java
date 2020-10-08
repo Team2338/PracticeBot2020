@@ -75,12 +75,12 @@ public class SafeSixBall extends SequentialCommandGroup {
     }
 
     public SafeSixBall() {
-        System.out.println("Auto: Safe Five Ball Selected");
+        System.out.println("Auto: Safe Six Ball Selected");
 
         // still under development, right now just drives backward and
         // turns ~45 degrees, moving to the right 3 feet
         addCommands(
-                new PrintCommand("Auto: Safe Five Ball Started"),
+                new PrintCommand("Auto: Safe Six Ball Started"),
                 new IntakeDown(),
                 new ParallelDeadlineGroup(
                         reverse(),
@@ -99,7 +99,8 @@ public class SafeSixBall extends SequentialCommandGroup {
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
                         new RevFlywheel().withTimeout(0.5),
-                        new Fire(false))
+                        new Fire(false)),
+                new PrintCommand("Auto: Safe Six Ball Ended")
         );
     }
 }

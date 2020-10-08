@@ -46,8 +46,11 @@ public class OppFiveBall extends SequentialCommandGroup {
     }
 
     public OppFiveBall() {
+
+        System.out.println("Auto: OppFiveBall Selected");
+
         addCommands(
-                new PrintCommand("Auto: Opponent 5 Ball Selected"),
+                new PrintCommand("Auto: OppFiveBall Started"),
                 new IntakeDown(),
                 new ParallelDeadlineGroup(
                     reverse(),
@@ -59,7 +62,8 @@ public class OppFiveBall extends SequentialCommandGroup {
                 new ParallelCommandGroup(
                     // let it rip
                     new RevFlywheel(),
-                    new Fire(false))
+                    new Fire(false)),
+                new PrintCommand("Auto: OppFiveBall Ended")
         );
     }
 }

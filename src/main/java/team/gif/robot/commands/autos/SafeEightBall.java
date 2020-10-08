@@ -86,6 +86,7 @@ public class SafeEightBall extends SequentialCommandGroup {
         // still under development, right now just drives backward and
         // turns ~45 degrees, moving to the right 3 feet
         addCommands(
+
                 new PrintCommand("Auto: Safe Eight Ball Started"),
                 new IntakeDown(),
                 new ParallelDeadlineGroup(
@@ -106,7 +107,8 @@ public class SafeEightBall extends SequentialCommandGroup {
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
                         new RevFlywheel().withTimeout(2.0),
-                        new Fire(false))
+                        new Fire(false)),
+                new PrintCommand("Auto: Safe Eight Ball Ended")
         );
     }
 }

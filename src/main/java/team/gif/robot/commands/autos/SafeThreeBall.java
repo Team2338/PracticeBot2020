@@ -40,7 +40,8 @@ public class SafeThreeBall extends SequentialCommandGroup {
                 new RevFlywheel()),
             new ParallelDeadlineGroup(
                 new RevFlywheel().withTimeout(1.5),
-                new Fire(false))
+                new Fire(false)),
+            new PrintCommand("Auto: Safe Three Ball Ended")
         );
     }
 }
