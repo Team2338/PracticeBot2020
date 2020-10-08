@@ -85,20 +85,7 @@ public class Drivetrain extends SubsystemBase {
         // left sensor needs to be inverted to match the drive train
         _leftEncoderTalon.setSensorPhase(true);
 
-        leftTalon1.configContinuousCurrentLimit(maxCurrentAmps);
-        leftTalon2.configContinuousCurrentLimit(maxCurrentAmps);
-        rightTalon1.configContinuousCurrentLimit(maxCurrentAmps);
-        rightTalon2.configContinuousCurrentLimit(maxCurrentAmps);
-
-        leftTalon1.configPeakCurrentLimit(maxCurrentAmps);
-        leftTalon2.configPeakCurrentLimit(maxCurrentAmps);
-        rightTalon1.configPeakCurrentLimit(maxCurrentAmps);
-        rightTalon2.configPeakCurrentLimit(maxCurrentAmps);
-
-        leftTalon1.enableCurrentLimit(true);
-        leftTalon2.enableCurrentLimit(true);
-        rightTalon1.enableCurrentLimit(true);
-        rightTalon2.enableCurrentLimit(true);
+        currentSetup(true);
 
         // Per WPILib, motor outputs for the right side are negated
         // within the differentialDrive class. No need to negate them again.
@@ -114,6 +101,25 @@ public class Drivetrain extends SubsystemBase {
         resetEncoders();
         m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
         resetPose();
+    }
+
+    public void currentSetup(boolean enable){
+
+        leftTalon1.configContinuousCurrentLimit(maxCurrentAmps);
+        leftTalon2.configContinuousCurrentLimit(maxCurrentAmps);
+        rightTalon1.configContinuousCurrentLimit(maxCurrentAmps);
+        rightTalon2.configContinuousCurrentLimit(maxCurrentAmps);
+
+        leftTalon1.configPeakCurrentLimit(maxCurrentAmps);
+        leftTalon2.configPeakCurrentLimit(maxCurrentAmps);
+        rightTalon1.configPeakCurrentLimit(maxCurrentAmps);
+        rightTalon2.configPeakCurrentLimit(maxCurrentAmps);
+
+        leftTalon1.enableCurrentLimit(enable);
+        leftTalon2.enableCurrentLimit(enable);
+        rightTalon1.enableCurrentLimit(enable);
+        rightTalon2.enableCurrentLimit(enable);
+
     }
 
     // -------------- Teleop Driving -----------------------
