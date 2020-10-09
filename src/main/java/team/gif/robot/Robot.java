@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
     // the commandBase specifically made for this ResetHanger()
     SmartDashboard.putData("Hanger", new ResetHanger());
     setLimelightPipeline();
-    limelight.setLEDMode(3);//force on
+    limelight.setLEDMode(1);//force off
 
     SmartDashboard.putData("ResetHead", new ResetHeading());
   }
@@ -139,7 +139,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    limelight.setLEDMode(3);//force on
+    limelight.setLEDMode(1);//force off
   }
 
   @Override
@@ -203,7 +203,7 @@ public class Robot extends TimedRobot {
     System.out.println("teleop init");
 
     setLimelightPipeline();
-    limelight.setLEDMode(3);//force on
+    limelight.setLEDMode(1);//force off
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

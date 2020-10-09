@@ -37,7 +37,7 @@ public class RevFlywheel extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Shooter.getInstance().setVoltage(0);
-        Robot.limelight.setLEDMode(3);//force off
+        Robot.limelight.setLEDMode(1);//force off
     }
 
 }

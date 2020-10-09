@@ -82,7 +82,7 @@ public class Pivot extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        Robot.limelight.setLEDMode(3);//force off
+        Robot.limelight.setLEDMode(1);//force off
 
         /*
         OI.getInstance().aux.setRumble(GenericHID.RumbleType.kLeftRumble,0);
