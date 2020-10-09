@@ -7,6 +7,7 @@ import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.LimelightAutoAim;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.controlpanel.Rotation;
+import team.gif.robot.commands.drivetrain.DriveLimitDisable;
 import team.gif.robot.commands.drivetrain.rotate;
 import team.gif.robot.commands.hanger.ControlPanelDown;
 import team.gif.robot.commands.hanger.ControlPanelPosition;
@@ -88,6 +89,7 @@ public class OI {
         dLB.whileHeld(new IntakeReverse());
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
+        dRT.whileHeld(new DriveLimitDisable());
 
         // Aux Controls
         //-aLT.whenPressed(new LimelightAutoAim());
