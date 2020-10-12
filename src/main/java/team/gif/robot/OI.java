@@ -16,6 +16,7 @@ import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
+import team.gif.robot.commands.shooter.RapidFire;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import edu.wpi.first.wpilibj.GenericHID;
 
@@ -102,6 +103,9 @@ public class OI {
         aBack.whenPressed(new ControlPanelDown());
         aA.whileHeld(new Rotation());
         aB.whenPressed(new ControlPanelDown());
+
+        // TODO: Get better button
+        aX.whileHeld(new RapidFire(true));
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());
