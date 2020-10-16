@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
                                                     .getEntry();
 
   public static OI oi;
-  public static Hanger hanger;
+  //public static Hanger hanger;
   private Drivetrain drivetrain = null; // Drivetrain.getInstance();
   //private final ColorSensor colorsensor = ColorSensor.getInstance();
 
@@ -80,21 +80,21 @@ public class Robot extends TimedRobot {
     tabsetup();
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    hanger = new Hanger();
-    hanger.zeroEncoder();
+    //hanger = new Hanger();
+    //hanger.zeroEncoder();
 
-    driveCommand = new Drive(Drivetrain.getInstance());
-    drivetrain = Drivetrain.getInstance();
+    //driveCommand = new Drive(Drivetrain.getInstance());
+    //drivetrain = Drivetrain.getInstance();
     limelight = new Limelight();
 
     // Puts a button on the dashboard which sets the current
     // hanger position as the 0 position. Does this by calling
     // the commandBase specifically made for this ResetHanger()
-    SmartDashboard.putData("Hanger", new ResetHanger());
-    setLimelightPipeline();
-    limelight.setLEDMode(3);//force on
+    //SmartDashboard.putData("Hanger", new ResetHanger());
+    //setLimelightPipeline();
+    //limelight.setLEDMode(3);//force on
 
-    SmartDashboard.putData("ResetHead", new ResetHeading());
+    //SmartDashboard.putData("ResetHead", new ResetHeading());
   }
 
   /**
@@ -130,8 +130,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
 
     // Hanger
-    SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
-    SmartDashboard.putString("Hang Position", Robot.hanger.getPosition_Shuffleboard());
+    //SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
+    //SmartDashboard.putString("Hang Position", Robot.hanger.getPosition_Shuffleboard());
   }
 
   /**
@@ -158,8 +158,8 @@ public class Robot extends TimedRobot {
     _elapsedTime.start();
     System.out.println("Auto: Timers Reset");
 
-    drivetrain.resetEncoders();
-    drivetrain.resetPose();
+    //drivetrain.resetEncoders();
+    //drivetrain.resetPose();
     //drivetrain.resetPigeon();
     System.out.println("Auto: Sensors Reset");
 
@@ -212,8 +212,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     oi = new OI();
-    compressor.start();
-    driveCommand.schedule();
+    //compressor.start();
+    //driveCommand.schedule();
     indexCommand.schedule();
   }
 

@@ -83,27 +83,28 @@ public class OI {
         // Driver Controls
 //        dLT.whileHeld(new Pivot());
 
-        dRB.whileHeld(new IntakeRun());
-        dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
+        //dRB.whileHeld(new IntakeRun());
+        //dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
         dLB.whileHeld(new IntakeReverse());
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
 
         // Aux Controls
         //-aLT.whenPressed(new LimelightAutoAim());
-        dLT.whileHeld(new LimelightAutoAim());
+        //dLT.whileHeld(new LimelightAutoAim());
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
-        aY.toggleWhenPressed(new HangerManualControl());
+        //aY.toggleWhenPressed(new HangerManualControl());
         //aX.whenPressed(new ServoButton().withTimeout(0.25));
-        aStart.whenPressed(new ControlPanelPosition());
-        aBack.whenPressed(new ControlPanelDown());
-        aA.whileHeld(new Rotation());
-        aB.whenPressed(new ControlPanelDown());
+        //aStart.whenPressed(new ControlPanelPosition());
+        //aBack.whenPressed(new ControlPanelDown());
+        //aA.whileHeld(new Rotation());
+        //aB.whenPressed(new ControlPanelDown());
 
-        aDPadDown.whenPressed(new IntakeDown());
-        aDPadLeft.whenPressed(new IntakeMid());
-        aDPadUp.whenPressed(new IntakeUp().withTimeout(0.05));
+        //aDPadDown.whenPressed(new IntakeDown());
+        //aDPadLeft.whenPressed(new IntakeMid());
+        //aDPadUp.whenPressed(new IntakeUp().withTimeout(0.05));
+
     }
 
     public void setRumble(boolean rumble) {
