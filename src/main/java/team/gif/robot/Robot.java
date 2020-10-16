@@ -19,10 +19,8 @@ import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.ResetHanger;
 import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.commands.indexer.IndexerScheduler;
-import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.*;
 import team.gif.robot.subsystems.Hanger;
-import team.gif.robot.subsystems.Indexer;
-import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
 import edu.wpi.first.wpilibj.DriverStation;
 import team.gif.robot.subsystems.drivers.Pigeon;
@@ -41,7 +39,7 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand = null;
 
-  private Command driveCommand = null; // new Drive(Drivetrain.getInstance());
+  //private Command driveCommand = null; // new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
   private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
@@ -64,9 +62,9 @@ public class Robot extends TimedRobot {
                                                     .getEntry();
 
   public static OI oi;
-  //public static Hanger hanger;
+  public static Hanger hanger;
   private Drivetrain drivetrain = null; // Drivetrain.getInstance();
-  //private final ColorSensor colorsensor = ColorSensor.getInstance();
+  private final ColorSensor colorsensor = ColorSensor.getInstance();
 
 
   /**
