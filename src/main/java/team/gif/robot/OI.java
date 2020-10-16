@@ -105,7 +105,7 @@ public class OI {
         aB.whenPressed(new ControlPanelDown());
 
         // TODO: Get better button
-        aX.whileHeld(new RapidFire(true));
+        aX.whileHeld(new RapidFire(false));
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());
