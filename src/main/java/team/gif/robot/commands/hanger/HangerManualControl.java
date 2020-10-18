@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Globals;
 import team.gif.robot.Robot;
+import team.gif.robot.subsystems.Hanger;
 
 public class HangerManualControl extends CommandBase {
 
@@ -19,7 +20,7 @@ public class HangerManualControl extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.hanger.setOpen();
+        Hanger.getInstance().setOpen();
         SmartDashboard.putBoolean("Hang Control", true);
     }
 
@@ -32,14 +33,14 @@ public class HangerManualControl extends CommandBase {
             speed = 0;
         }
 
-        if (!Globals.controlPanelMotorEnabled) { Robot.hanger.setSpeed(speed); }
+        if (!Globals.controlPanelMotorEnabled) { Hanger.getInstance().setSpeed(speed); }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.hanger.setClosed();
-        Robot.hanger.setSpeed(0);
+        Hanger.getInstance().setClosed();
+        Hanger.getInstance().setSpeed(0);
         SmartDashboard.putBoolean("Hang Control", false);
     }
 

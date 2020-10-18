@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Globals;
 import team.gif.robot.Robot;
+import team.gif.robot.subsystems.Hanger;
 
 public class ControlPanelPosition extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -47,7 +48,7 @@ public class ControlPanelPosition extends CommandBase {
     @Override
     public void initialize() {
         showDisplayGSM();
-        Robot.hanger.setOpen();
+        Hanger.getInstance().setOpen();
         finished = false;
         Globals.controlPanelMotorEnabled = true;
         delay = 0;
@@ -61,8 +62,8 @@ public class ControlPanelPosition extends CommandBase {
         showDisplayGSM();
 
         if (delay > 25) {
-            if (Robot.hanger.getPosition() < Constants.Hanger.COLOR_WHEEL_POSITION) {
-                Robot.hanger.setSpeed(0.6);
+            if (Hanger.getInstance().getPosition() < Constants.Hanger.COLOR_WHEEL_POSITION) {
+                Hanger.getInstance().setSpeed(0.6);
             } else {
                 finished = true;
             }
@@ -79,7 +80,7 @@ public class ControlPanelPosition extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.hanger.setSpeed(0);
+        Hanger.getInstance().setSpeed(0);
         Globals.controlPanelMotorEnabled = false;
     }
 }

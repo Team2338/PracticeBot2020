@@ -2,6 +2,7 @@ package team.gif.robot.commands.hanger;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Robot;
+import team.gif.robot.subsystems.Hanger;
 
 public class ResetHanger extends CommandBase {
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -13,7 +14,7 @@ public class ResetHanger extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.hanger.zeroEncoder();
+        Hanger.getInstance().zeroEncoder();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
