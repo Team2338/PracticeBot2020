@@ -6,6 +6,7 @@ import team.gif.robot.subsystems.Hanger;
 
 
 public class ToggleHangerLock extends CommandBase {
+    /*
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     public ToggleHangerLock() {
@@ -34,4 +35,6 @@ public class ToggleHangerLock extends CommandBase {
     @Override
     public void end(boolean interrupted) {
     }
+
+     */
 }

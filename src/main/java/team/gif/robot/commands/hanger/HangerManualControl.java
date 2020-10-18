@@ -8,7 +8,7 @@ import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Hanger;
 
 public class HangerManualControl extends CommandBase {
-
+/*
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     public static final double ClimberupGain = 1;
@@ -49,4 +49,6 @@ public class HangerManualControl extends CommandBase {
     public boolean isFinished() {
         return false;
     }
+
+ */
 }
