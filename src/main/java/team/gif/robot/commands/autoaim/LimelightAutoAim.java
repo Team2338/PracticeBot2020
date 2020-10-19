@@ -3,11 +3,13 @@ package team.gif.robot.commands.autoaim;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import team.gif.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import team.gif.robot.Globals;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Intake;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
@@ -30,6 +32,8 @@ public class LimelightAutoAim extends CommandBase {
 
         System.out.println("Auto Aim Start");
         targetLocked = false;
+
+        Globals.indexerEnabled = false;
     }
 
     @Override
@@ -52,16 +56,19 @@ public class LimelightAutoAim extends CommandBase {
                 double targetSpeed = Constants.Shooter.RPM_LOW;
                 //System.out.println(Shooter.getInstance().getVelocity());
                 if (Shooter.getInstance().getVelocity() > (targetSpeed - 20.0)) {
-                    if (Indexer.getInstance().getState()[5] == true) {
-                        Indexer.getInstance().setSpeedFive(0.5);
-                        System.out.println("Firing at: " + Shooter.getInstance().getVelocity());
-                    } else {
-                        System.out.println("no ball");
-                        //Indexer.getInstance().setSpeedFive(0);
-                    }
-                } else {
 
+                    Indexer.getInstance().setSpeedFive(0.5); // 0.5
+                    Indexer.getInstance().setSpeedFour(0.4); // 0.4
+                    Indexer.getInstance().setSpeedThree(0.3); // 0.35
+                    Indexer.getInstance().setSpeedTwo(0.3); // 0.35
+                    Intake.getInstance().setSpeed(0.3); // 0.35
+
+                } else {
                     Indexer.getInstance().setSpeedFive(0);
+                    Indexer.getInstance().setSpeedFour(0);
+                    Indexer.getInstance().setSpeedThree(0);
+                    Indexer.getInstance().setSpeedTwo(0);
+                    Intake.getInstance().setSpeed(0);
                 }
 
             } else {
@@ -94,6 +101,10 @@ public class LimelightAutoAim extends CommandBase {
         robotHasSettled = false;
         Shooter.getInstance().setVoltage(0);
         Indexer.getInstance().setSpeedFive(0);
+        Indexer.getInstance().setSpeedFour(0);
+        Indexer.getInstance().setSpeedThree(0);
+        Indexer.getInstance().setSpeedTwo(0);
+        Intake.getInstance().setSpeed(0);
 
         Drivetrain.getInstance().leftTalon1.enableCurrentLimit(true);
         Drivetrain.getInstance().leftTalon2.enableCurrentLimit(true);
@@ -101,6 +112,8 @@ public class LimelightAutoAim extends CommandBase {
         Drivetrain.getInstance().rightTalon2.enableCurrentLimit(true);
 
         System.out.println("Auto Aim Finished");
+
+        Globals.indexerEnabled = true;
     }
 
     @Override
