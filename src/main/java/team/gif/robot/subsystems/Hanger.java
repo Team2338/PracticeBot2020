@@ -17,6 +17,15 @@ public class Hanger extends SubsystemBase {
 
     private static final Solenoid hangerRatchet = new Solenoid(RobotMap.SOLENOID_HANGER);
 
+    private static Hanger instance = null;
+
+    public static Hanger getInstance() {
+        if (instance == null) {
+            instance = new Hanger();
+        }
+        return instance;
+    }
+
     public Hanger() {
         super();
         hangMotor.setInverted(false);

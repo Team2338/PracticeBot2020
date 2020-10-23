@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Globals;
 import team.gif.robot.Robot;
+import team.gif.robot.subsystems.Hanger;
 
 public class ControlPanelDown extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -17,7 +18,7 @@ public class ControlPanelDown extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.hanger.setOpen();
+        Hanger.getInstance().setOpen();
         finished = false;
         Globals.controlPanelMotorEnabled = true;
     }
@@ -25,8 +26,8 @@ public class ControlPanelDown extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.hanger.getPosition() > Constants.Hanger.MIN_POS) {
-            Robot.hanger.setSpeed(-0.6);
+        if (Hanger.getInstance().getPosition() > Constants.Hanger.MIN_POS) {
+            Hanger.getInstance().setSpeed(-0.6);
         } else {
             finished = true;
         }
@@ -42,7 +43,7 @@ public class ControlPanelDown extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.hanger.setSpeed(0);
+        Hanger.getInstance().setSpeed(0);
         Globals.controlPanelMotorEnabled = false;
     }
 }

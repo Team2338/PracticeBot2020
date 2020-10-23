@@ -19,10 +19,8 @@ import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.ResetHanger;
 import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.commands.indexer.IndexerScheduler;
-import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.*;
 import team.gif.robot.subsystems.Hanger;
-import team.gif.robot.subsystems.Indexer;
-import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
 import edu.wpi.first.wpilibj.DriverStation;
 import team.gif.robot.subsystems.drivers.Pigeon;
@@ -41,7 +39,7 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand = null;
 
-  private Command driveCommand = null; // new Drive(Drivetrain.getInstance());
+  //private Command driveCommand = null; // new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
   private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
@@ -66,7 +64,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   public static Hanger hanger;
   private Drivetrain drivetrain = null; // Drivetrain.getInstance();
-  //private final ColorSensor colorsensor = ColorSensor.getInstance();
+  private final ColorSensor colorsensor = ColorSensor.getInstance();
 
 
   /**
@@ -80,21 +78,27 @@ public class Robot extends TimedRobot {
     tabsetup();
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    hanger = new Hanger();
-    hanger.zeroEncoder();
+    //hanger = new Hanger();
+    //hanger.zeroEncoder();
 
-    driveCommand = new Drive(Drivetrain.getInstance());
-    drivetrain = Drivetrain.getInstance();
+    //driveCommand = new Drive(Drivetrain.getInstance());
+    //drivetrain = Drivetrain.getInstance();
     limelight = new Limelight();
 
     // Puts a button on the dashboard which sets the current
     // hanger position as the 0 position. Does this by calling
     // the commandBase specifically made for this ResetHanger()
+<<<<<<< HEAD
     SmartDashboard.putData("Hanger", new ResetHanger());
     setLimelightPipeline();
     limelight.setLEDMode(1);//force off
+=======
+    //SmartDashboard.putData("Hanger", new ResetHanger());
+    //setLimelightPipeline();
+    //limelight.setLEDMode(3);//force on
+>>>>>>> 73748fb03697684f7cde428842b0e8591c73e3c5
 
-    SmartDashboard.putData("ResetHead", new ResetHeading());
+    //SmartDashboard.putData("ResetHead", new ResetHeading());
   }
 
   /**
@@ -130,8 +134,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
 
     // Hanger
-    SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
-    SmartDashboard.putString("Hang Position", Robot.hanger.getPosition_Shuffleboard());
+    //SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
+    //SmartDashboard.putString("Hang Position", Robot.hanger.getPosition_Shuffleboard());
   }
 
   /**
@@ -158,8 +162,8 @@ public class Robot extends TimedRobot {
     _elapsedTime.start();
     System.out.println("Auto: Timers Reset");
 
-    drivetrain.resetEncoders();
-    drivetrain.resetPose();
+    //drivetrain.resetEncoders();
+    //drivetrain.resetPose();
     //drivetrain.resetPigeon();
     System.out.println("Auto: Sensors Reset");
 
@@ -213,7 +217,11 @@ public class Robot extends TimedRobot {
     }
     oi = new OI();
     //compressor.start();
+<<<<<<< HEAD
     driveCommand.schedule();
+=======
+    //driveCommand.schedule();
+>>>>>>> 73748fb03697684f7cde428842b0e8591c73e3c5
     indexCommand.schedule();
   }
 

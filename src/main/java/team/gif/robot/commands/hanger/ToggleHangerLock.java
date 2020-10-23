@@ -2,10 +2,11 @@ package team.gif.robot.commands.hanger;
 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import team.gif.robot.Robot;
+import team.gif.robot.subsystems.Hanger;
 
 
 public class ToggleHangerLock extends CommandBase {
+    /*
     //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     public ToggleHangerLock() {
@@ -16,7 +17,7 @@ public class ToggleHangerLock extends CommandBase {
     @Override
     public void initialize() {
         System.out.println("hello");
-        Robot.hanger.zeroEncoder();
+        Hanger.getInstance().zeroEncoder();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -34,4 +35,6 @@ public class ToggleHangerLock extends CommandBase {
     @Override
     public void end(boolean interrupted) {
     }
+
+     */
 }
