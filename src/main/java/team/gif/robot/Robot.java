@@ -164,15 +164,15 @@ public class Robot extends TimedRobot {
     System.out.println("Auto: Sensors Reset");
 
     setLimelightPipeline();
-      System.out.println("Auto: Pipeline Reset");
+    System.out.println("Auto: Pipeline Reset");
     limelight.setLEDMode(3);//force on
-      System.out.println("Auto: LED Reset");
+    System.out.println("Auto: LED Reset");
     updateauto();
-      System.out.println("Auto: auto selection updated");
+    System.out.println("Auto: auto selection updated");
     compressor.stop();
-      System.out.println("Auto: Compressor stopped");
+    System.out.println("Auto: Compressor stopped");
     indexCommand.schedule();
-      System.out.println("Auto: Indexer scheduled");
+    System.out.println("Auto: Indexer scheduled");
 
     _runAutoScheduler = true;
 
@@ -212,7 +212,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     oi = new OI();
-    compressor.start();
+    //compressor.start();
     driveCommand.schedule();
     indexCommand.schedule();
   }
