@@ -33,6 +33,9 @@ public class Drivetrain extends SubsystemBase {
     public static WPI_TalonSRX _rightEncoderTalon;
     public static DifferentialDriveOdometry m_odometry;
     private static Pigeon m_pigeon;
+
+    private static int maxCurrentAmps = 15;
+
     /*    public static DifferentialDriveKinematics drivekinematics;
     public static ChassisSpeeds chassisSpeeds;
     public static DifferentialDriveWheelSpeeds wheelSpeeds;
@@ -82,6 +85,9 @@ public class Drivetrain extends SubsystemBase {
         // left sensor needs to be inverted to match the drive train
         _leftEncoderTalon.setSensorPhase(true);
 
+        currentLimitingSetup();
+        currentLimitingEnable(true);
+
         // Per WPILib, motor outputs for the right side are negated
         // within the differentialDrive class. No need to negate them again.
         leftTalon1.setInverted(false);
@@ -98,9 +104,35 @@ public class Drivetrain extends SubsystemBase {
         resetPose();
     }
 
+    public void currentLimitingSetup(){
+
+        leftTalon1.configContinuousCurrentLimit(maxCurrentAmps);
+        leftTalon2.configContinuousCurrentLimit(maxCurrentAmps);
+        rightTalon1.configContinuousCurrentLimit(maxCurrentAmps);
+        rightTalon2.configContinuousCurrentLimit(maxCurrentAmps);
+
+        leftTalon1.configPeakCurrentLimit(maxCurrentAmps);
+        leftTalon2.configPeakCurrentLimit(maxCurrentAmps);
+        rightTalon1.configPeakCurrentLimit(maxCurrentAmps);
+        rightTalon2.configPeakCurrentLimit(maxCurrentAmps);
+
+    }
+
+    public void currentLimitingEnable(boolean enableLimit){
+        leftTalon1.enableCurrentLimit(enableLimit);
+        leftTalon2.enableCurrentLimit(enableLimit);
+        rightTalon1.enableCurrentLimit(enableLimit);
+        rightTalon2.enableCurrentLimit(enableLimit);
+    }
+
     // -------------- Teleop Driving -----------------------
     public void driveArcade(double speed, double rotation){
         m_drive.arcadeDrive(speed,rotation);
+    }
+
+    // -------------- Teleop Driving -----------------------
+    public void driveCurvature(double speed, double rotation, boolean isQuick){
+        m_drive.curvatureDrive(speed,rotation,isQuick);
     }
 
     // ---------- Previous Auto Driving & Tank Drive -------

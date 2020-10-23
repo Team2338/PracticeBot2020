@@ -21,6 +21,7 @@ public final class Constants {
         public static final double kP = 0.0007; // 0.0005; // set to 0 and find
         public static final double kF = 0.000175; // 0.000166;
         public static final double RPM_LOW = Robot.isCompBot ? 4400 : 4600; // C:4300 P: 4600 // P was 4500
+        public static final double RPM_RAPID_FIRE = 4300;
         public static final double RPM_HIGH = 4550; // was 4550
     }
 

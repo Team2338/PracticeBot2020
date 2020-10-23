@@ -20,15 +20,24 @@ public class Shooter extends SubsystemBase {
     private static final CANPIDController flywheelPIDController = flywheelMotor.getPIDController();
     private static final CANEncoder flywheelEncoder = flywheelMotor.getEncoder();
 
+    int stallMaxAmps = 40;
+
+
     private Shooter() {
         super();
         flywheelMotor.restoreFactoryDefaults();
         flywheelMotor.enableVoltageCompensation(12);
         flywheelMotor.setInverted(!Robot.isCompBot); // C:false P:true
         flywheelMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+
         flywheelPIDController.setP(Constants.Shooter.kP);
         flywheelPIDController.setFF(Constants.Shooter.kF);
         flywheelPIDController.setOutputRange(0, 1);
+
+        flywheelMotor.setSmartCurrentLimit(stallMaxAmps,stallMaxAmps);
+
+        flywheelMotor.burnFlash();
+        //https://www.chiefdelphi.com/t/spark-max-current-limit/354333/3
     }
 
     public void setVoltage(double voltage) {

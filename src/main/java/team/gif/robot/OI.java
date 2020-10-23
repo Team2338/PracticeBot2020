@@ -4,8 +4,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
+import team.gif.robot.commands.autoaim.LimelightAutoAim;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.controlpanel.Rotation;
+import team.gif.robot.commands.drivetrain.DriveLimitDisable;
+import team.gif.robot.commands.drivetrain.rotate;
 import team.gif.robot.commands.hanger.ControlPanelDown;
 import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
@@ -13,6 +16,7 @@ import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
+import team.gif.robot.commands.shooter.RapidFire;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import edu.wpi.first.wpilibj.GenericHID;
 
@@ -79,14 +83,18 @@ public class OI {
          */
 
         // Driver Controls
-        dLT.whileHeld(new Pivot());
+//        dLT.whileHeld(new Pivot());
+
         dRB.whileHeld(new IntakeRun());
         dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
         dLB.whileHeld(new IntakeReverse());
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
+        dRT.whileHeld(new DriveLimitDisable());
 
         // Aux Controls
+        //-aLT.whenPressed(new LimelightAutoAim());
+        dLT.whileHeld(new LimelightAutoAim());
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());
@@ -95,6 +103,9 @@ public class OI {
         aBack.whenPressed(new ControlPanelDown());
         aA.whileHeld(new Rotation());
         aB.whenPressed(new ControlPanelDown());
+
+        // TODO: Get better button
+        aX.whileHeld(new RapidFire(false));
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());
