@@ -63,12 +63,6 @@ public class LimelightAutoAim extends CommandBase {
                     Indexer.getInstance().setSpeedTwo(0.3); // 0.35
                     Intake.getInstance().setSpeed(0.3); // 0.35
 
-                } else {
-                    Indexer.getInstance().setSpeedFive(0);
-                    Indexer.getInstance().setSpeedFour(0);
-                    Indexer.getInstance().setSpeedThree(0);
-                    Indexer.getInstance().setSpeedTwo(0);
-                    Intake.getInstance().setSpeed(0);
                 }
 
             } else {
