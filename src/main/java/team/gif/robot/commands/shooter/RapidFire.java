@@ -45,7 +45,7 @@ public class RapidFire extends CommandBase {
             Indexer.getInstance().setSpeedTwo(0.3); // 0.35
             Intake.getInstance().setSpeed(0.3); // 0.35
         } else {
-            if (isFarShot) {
+            if (isFarShot) { // allows flywheel to rev up for far shot (not needed for close shot)
                 Indexer.getInstance().setSpeedFive(0);
                 Indexer.getInstance().setSpeedFour(0);
                 Indexer.getInstance().setSpeedThree(0);
