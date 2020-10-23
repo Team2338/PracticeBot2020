@@ -18,26 +18,34 @@ public class LimelightAutoAim extends CommandBase {
     private boolean targetLocked = false;
     private boolean robotHasSettled = false;
     private double velocitycap = .5;
+    private int delayCounter;
 
     // amount of voltage we want to apply to the motors for this test
-    private double motorVolts = 3.25;
+    private double motorVolts = 3.50;
 
     @Override
     public void initialize() {
+        System.out.println("Auto Aim Start");
+
+        Robot.limelight.setLEDMode(3);
 
         Drivetrain.getInstance().leftTalon1.enableCurrentLimit(false);
         Drivetrain.getInstance().leftTalon2.enableCurrentLimit(false);
         Drivetrain.getInstance().rightTalon1.enableCurrentLimit(false);
         Drivetrain.getInstance().rightTalon2.enableCurrentLimit(false);
 
-        System.out.println("Auto Aim Start");
         targetLocked = false;
 
         Globals.indexerEnabled = false;
+
+        delayCounter = 0;
     }
 
     @Override
     public void execute() {
+
+        if (++delayCounter < 12) return; // Give limelight enough time to turn on LEDs before taking snapshot
+
         if ( Math.abs (Robot.limelight.getXOffset()) < 5 ) {
             Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW);
         }
