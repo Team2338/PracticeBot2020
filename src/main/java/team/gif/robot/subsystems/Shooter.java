@@ -21,44 +21,51 @@ public class Shooter extends SubsystemBase {
     private static final CANEncoder flywheelEncoder_ONE = flywheelMotor_ONE.getEncoder();
 
     private static final CANSparkMax flywheelMotor_TWO = new CANSparkMax(RobotMap.FLYWHEEL_TWO, CANSparkMaxLowLevel.MotorType.kBrushless);
-    private static final CANEncoder flywheelEncoder_TWO = flywheelMotor_TWO.getEncoder();
-
+    private static final CANPIDController flywheelPIDController_TWO = flywheelMotor_TWO.getPIDController();
     int stallMaxAmps = 40;
+    int maxAmps = 20;
 
 
     private Shooter() {
         super();
 
-<<<<<<< HEAD
-        flywheelPIDController.setP(Constants.Shooter.kP);
-        flywheelPIDController.setFF(Constants.Shooter.kF);
-        flywheelPIDController.setOutputRange(0, 1);
 
-        flywheelMotor.setSmartCurrentLimit(stallMaxAmps,stallMaxAmps);
 
-        flywheelMotor.burnFlash();
-=======
+
+        //flywheelMotor.setSmartCurrentLimit(stallMaxAmps,stallMaxAmps);
+//
+        //flywheelMotor.burnFlash();
+
         flywheelMotor_TWO.restoreFactoryDefaults();
         flywheelMotor_ONE.restoreFactoryDefaults();
 
         flywheelMotor_ONE.enableVoltageCompensation(12);
+        flywheelMotor_TWO.enableVoltageCompensation(12);
+
         flywheelMotor_ONE.setInverted(!Robot.isCompBot); // C:false P:true
+        flywheelMotor_TWO.setInverted(!Robot.isCompBot);
 
         flywheelMotor_ONE.setIdleMode(CANSparkMax.IdleMode.kCoast);
         flywheelMotor_TWO.setIdleMode(CANSparkMax.IdleMode.kCoast);
 
         flywheelMotor_ONE.setSmartCurrentLimit(maxAmps);
 
+        flywheelPIDController_TWO.setP(Constants.Shooter.kP);
+        flywheelPIDController_TWO.setFF(Constants.Shooter.kF);
+        flywheelPIDController_TWO.setOutputRange(0, 1);
+
         flywheelPIDController_ONE.setP(Constants.Shooter.kP);
         flywheelPIDController_ONE.setFF(Constants.Shooter.kF);
         flywheelPIDController_ONE.setOutputRange(0, 1);
+
+
 
         flywheelMotor_TWO.follow(flywheelMotor_ONE);
 
         flywheelMotor_ONE.burnFlash();
         flywheelMotor_TWO.burnFlash();
 
->>>>>>> 73748fb03697684f7cde428842b0e8591c73e3c5
+
         //https://www.chiefdelphi.com/t/spark-max-current-limit/354333/3
     }
 

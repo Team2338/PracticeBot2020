@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
-<<<<<<< HEAD
+
 import team.gif.robot.commands.autoaim.LimelightAutoAim;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.controlpanel.Rotation;
@@ -13,7 +13,7 @@ import team.gif.robot.commands.drivetrain.rotate;
 import team.gif.robot.commands.hanger.ControlPanelDown;
 import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
-=======
+
 //import team.gif.robot.commands.autoaim.LimelightAutoAim;
 //import team.gif.robot.commands.autoaim.Pivot;
 //import team.gif.robot.commands.controlpanel.Rotation;
@@ -21,7 +21,7 @@ import team.gif.robot.commands.hanger.HangerManualControl;
 //import team.gif.robot.commands.hanger.ControlPanelDown;
 //import team.gif.robot.commands.hanger.ControlPanelPosition;
 //import team.gif.robot.commands.hanger.HangerManualControl;
->>>>>>> 73748fb03697684f7cde428842b0e8591c73e3c5
+
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;

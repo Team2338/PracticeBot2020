@@ -27,6 +27,7 @@ public class RevFlywheel extends CommandBase {
         } else {
             Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW);
         }
+        System.out.println("revvvv");
     }
 
     // Returns true when the command should end.

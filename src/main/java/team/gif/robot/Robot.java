@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand = null;
 
-  //private Command driveCommand = null; // new Drive(Drivetrain.getInstance());
+  private Command driveCommand = null; // new Drive(Drivetrain.getInstance());
   private Command indexCommand = new IndexerScheduler();
 
   private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
@@ -81,22 +81,22 @@ public class Robot extends TimedRobot {
     //hanger = new Hanger();
     //hanger.zeroEncoder();
 
-    //driveCommand = new Drive(Drivetrain.getInstance());
-    //drivetrain = Drivetrain.getInstance();
+    driveCommand = new Drive(Drivetrain.getInstance());
+    drivetrain = Drivetrain.getInstance();
     limelight = new Limelight();
 
     // Puts a button on the dashboard which sets the current
     // hanger position as the 0 position. Does this by calling
     // the commandBase specifically made for this ResetHanger()
-<<<<<<< HEAD
+
     SmartDashboard.putData("Hanger", new ResetHanger());
     setLimelightPipeline();
     limelight.setLEDMode(1);//force off
-=======
+
     //SmartDashboard.putData("Hanger", new ResetHanger());
     //setLimelightPipeline();
     //limelight.setLEDMode(3);//force on
->>>>>>> 73748fb03697684f7cde428842b0e8591c73e3c5
+
 
     //SmartDashboard.putData("ResetHead", new ResetHeading());
   }
@@ -216,12 +216,12 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     oi = new OI();
-    //compressor.start();
-<<<<<<< HEAD
+    compressor.stop();
+
     driveCommand.schedule();
-=======
+
     //driveCommand.schedule();
->>>>>>> 73748fb03697684f7cde428842b0e8591c73e3c5
+
     indexCommand.schedule();
   }
 
