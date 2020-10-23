@@ -16,7 +16,6 @@ import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
-import team.gif.robot.commands.shooter.LimelightLEDControl;
 import team.gif.robot.commands.shooter.RapidFire;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -93,10 +92,9 @@ public class OI {
         dY.toggleWhenActive(new ToggleIndexer());
         dRT.whileHeld(new DriveLimitDisable());
 
-        dLT.whileHeld(new LimelightAutoAim());
-
         // Aux Controls
-        aLT.whileHeld(new LimelightLEDControl());
+        //-aLT.whenPressed(new LimelightAutoAim());
+        dLT.whileHeld(new LimelightAutoAim());
         aLB.whileHeld(new RevFlywheel());
         aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());
