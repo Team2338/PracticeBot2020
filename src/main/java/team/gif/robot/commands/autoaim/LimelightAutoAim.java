@@ -65,18 +65,24 @@ public class LimelightAutoAim extends CommandBase {
                 //System.out.println(Shooter.getInstance().getVelocity());
                 if (Shooter.getInstance().getVelocity() > (targetSpeed - 20.0)) {
 
-                    Indexer.getInstance().setSpeedFive(0.5); // 0.5
-                    Indexer.getInstance().setSpeedFour(0.4); // 0.4
-                    Indexer.getInstance().setSpeedThree(0.3); // 0.35
-                    Indexer.getInstance().setSpeedTwo(0.3); // 0.35
-                    Intake.getInstance().setSpeed(0.3); // 0.35
-
+                    // we need to check again to make sure the robot hasn't overshot the target
+                    double offset = Robot.limelight.getXOffset();
+                    if (offset > -1.0 && offset < 1.0) {
+                        Indexer.getInstance().setSpeedFive(0.5); // 0.5
+                        Indexer.getInstance().setSpeedFour(0.4); // 0.4
+                        Indexer.getInstance().setSpeedThree(0.3); // 0.35
+                        Indexer.getInstance().setSpeedTwo(0.3); // 0.35
+                        Intake.getInstance().setSpeed(0.3); // 0.35
+                    } else {
+                        System.out.println("Offset Adjusting at: " + offset);
+                        // need to relock
+                        targetLocked = false;
+                        robotHasSettled = false;
+                    }
                 }
-
             } else {
                 double offset = Robot.limelight.getXOffset();
-                System.out.println("Offset: " + offset);
-                if (offset < 1.0 && offset > -1.0) {
+                if (offset > -1.0 && offset < 1.0) {
                     Drivetrain.getInstance().tankDriveVolts(0, 0);
                     targetLocked = true;
                 } else {
@@ -88,8 +94,6 @@ public class LimelightAutoAim extends CommandBase {
 
                     }
                     targetLocked = false;
-
-
                 }
             }
         }
@@ -114,6 +118,7 @@ public class LimelightAutoAim extends CommandBase {
         Drivetrain.getInstance().rightTalon2.enableCurrentLimit(true);
 
         System.out.println("Auto Aim Finished");
+        Robot.limelight.setLEDMode(1);
 
         Globals.indexerEnabled = true;
     }
