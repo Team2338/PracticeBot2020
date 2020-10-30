@@ -14,6 +14,7 @@ import team.gif.robot.commands.drivetrain.forward;
 import team.gif.robot.commands.intake.IntakeDown;
 import team.gif.robot.commands.intake.IntakeRun;
 import team.gif.robot.commands.shooter.Fire;
+import team.gif.robot.commands.shooter.RapidFire;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import team.gif.robot.subsystems.Drivetrain;
 
@@ -97,7 +98,7 @@ public class SafeEightBall extends SequentialCommandGroup {
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
                         new RevFlywheel().withTimeout(2.25),
-                        new Fire(false)),
+                        new RapidFire(false)),
                 new ParallelDeadlineGroup(
                         reverseAgain(),
                         new IntakeRun()),
@@ -107,7 +108,7 @@ public class SafeEightBall extends SequentialCommandGroup {
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
                         new RevFlywheel().withTimeout(2.0),
-                        new Fire(false)),
+                        new RapidFire(false)),
                 new PrintCommand("Auto: Safe Eight Ball Ended")
         );
     }
