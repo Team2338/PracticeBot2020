@@ -224,6 +224,11 @@ public class Robot extends TimedRobot {
     /* may not need if periodic is called automatically */
 //    ColorSensor.getInstance().periodic();
 
+    if (Globals.resetOI) {
+      oi = new OI();
+      Globals.resetOI = false;
+    }
+
     // Rumble the joysticks at specified time
     // to notify the driver to begin to climb
     double matchTime = DriverStation.getInstance().getMatchTime();

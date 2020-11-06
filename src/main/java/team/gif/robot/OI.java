@@ -96,22 +96,28 @@ public class OI {
         dLT.whileHeld(new LimelightAutoAim());
 
         // Aux Controls
-        aLT.whileHeld(new LimelightLEDControl());
-        aLB.whileHeld(new RevFlywheel());
-        aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
-        aY.toggleWhenPressed(new HangerManualControl());
-        //aX.whenPressed(new ServoButton().withTimeout(0.25));
-        aStart.whenPressed(new ControlPanelPosition());
-        aBack.whenPressed(new ControlPanelDown());
-        aA.whileHeld(new Rotation());
-        aB.whenPressed(new ControlPanelDown());
+        //aRB.whenPressed();
 
-        // TODO: Get better button
-        aX.whileHeld(new RapidFire(false));
+        if (Globals.primaryAuxMode) {
+            aLT.whileHeld(new LimelightLEDControl());
+            aLB.whileHeld(new RevFlywheel());
+            aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
+            aY.toggleWhenPressed(new HangerManualControl());
+            //aX.whenPressed(new ServoButton().withTimeout(0.25));
+            aStart.whenPressed(new ControlPanelPosition());
+            aBack.whenPressed(new ControlPanelDown());
+            aA.whileHeld(new Rotation());
+            aB.whenPressed(new ControlPanelDown());
 
-        aDPadDown.whenPressed(new IntakeDown());
-        aDPadLeft.whenPressed(new IntakeMid());
-        aDPadUp.whenPressed(new IntakeUp().withTimeout(0.05));
+            // TODO: Get better button
+            aX.whileHeld(new RapidFire(false));
+
+            aDPadDown.whenPressed(new IntakeDown());
+            aDPadLeft.whenPressed(new IntakeMid());
+            aDPadUp.whenPressed(new IntakeUp().withTimeout(0.05));
+        } else {
+            aDPadDown.whenPressed(new IntakeUp());
+        }
     }
 
     public void setRumble(boolean rumble) {
