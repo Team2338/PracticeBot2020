@@ -99,7 +99,7 @@ public class OI {
         // Aux Controls
         aLS.whileHeld(new JoystickTestMode());
 
-        if (Globals.primaryAuxMode) {
+        if (!Globals.gJoystickTestMode) {
             aLT.whileHeld(new LimelightLEDControl());
             aLB.whileHeld(new RevFlywheel());
             aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first

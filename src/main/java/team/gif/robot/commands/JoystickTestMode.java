@@ -26,6 +26,8 @@ public class JoystickTestMode extends CommandBase {
         if (loopCounter == 250){
             Globals.gJoystickTestMode = !Globals.gJoystickTestMode;
             System.out.println(Globals.gJoystickTestMode);
+
+            Globals.resetOI = true;
         }
     }
 
