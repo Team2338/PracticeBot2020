@@ -20,7 +20,7 @@ public class IntakeReverse extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        intake.setSpeed(-0.5);
+        intake.setSpeed(-0.75); // was -0.5
     }
 
     // Called once the command ends or is interrupted.

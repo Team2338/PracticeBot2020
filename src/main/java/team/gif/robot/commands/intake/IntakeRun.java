@@ -22,7 +22,7 @@ public class IntakeRun extends CommandBase {
     @Override
     public void execute() {
         if (!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2]) {
-            intake.setSpeed(0.75);
+            intake.setSpeed(1.0); // was 0.75
         } else {
             intake.setSpeed(0);
         }
