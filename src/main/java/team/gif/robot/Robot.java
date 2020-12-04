@@ -128,7 +128,7 @@ public class Robot extends TimedRobot {
 //    SmartDashboard.putBoolean("Pressure", compressor.getPressureSwitchValue());
 
     SmartDashboard.putBoolean("Enable Indexer", Globals.indexerEnabled);
-
+  // stuff
     // Hanger
     SmartDashboard.putString("Hanger Brake", Robot.hanger.getLockState());
     SmartDashboard.putString("Hang Position", Robot.hanger.getPosition_Shuffleboard());
