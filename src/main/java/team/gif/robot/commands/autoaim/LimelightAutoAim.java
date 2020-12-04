@@ -22,6 +22,11 @@ public class LimelightAutoAim extends CommandBase {
 
     // amount of voltage we want to apply to the motors for this test
     private double motorVolts = 3.50;
+    private boolean isFarShot;
+    private double targetSpeed = Constants.Shooter.RPM_LOW;
+    private double targetArea = 0;
+    private double areaCount = 1;
+
 
     @Override
     public void initialize() {
@@ -36,6 +41,8 @@ public class LimelightAutoAim extends CommandBase {
 
         targetLocked = false;
 
+        targetArea = 0;
+        areaCount = 1;
         Globals.indexerEnabled = false;
 
         delayCounter = 0;
@@ -46,8 +53,23 @@ public class LimelightAutoAim extends CommandBase {
 
         if (++delayCounter < 12) return; // Give limelight enough time to turn on LEDs before taking snapshot
 
-        if ( Math.abs (Robot.limelight.getXOffset()) < 5 ) {
-            Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW);
+        System.out.println( Robot.limelight.getYOffset());
+
+        double ta = Robot.limelight.getArea();
+
+        if( ta > 0.1) {
+            targetArea = ta + targetArea;
+            double aveArea = targetArea / areaCount++;
+            targetSpeed = aveArea < 0.38 ? Constants.Shooter.RPM_HIGH : Constants.Shooter.RPM_LOW;
+            if ((aveArea) < 0.38) {
+                System.out.println(ta + " Shooting         far shot");
+            } else {
+                System.out.println(ta + " Shooting close shot");
+            }
+
+            if (Math.abs(Robot.limelight.getXOffset()) < 5) {
+                Shooter.getInstance().setPID(targetSpeed);
+            }
         }
 
         // bot must not be moving anymore
@@ -61,7 +83,7 @@ public class LimelightAutoAim extends CommandBase {
 
         if ( robotHasSettled ) {
             if (targetLocked) {
-                double targetSpeed = Constants.Shooter.RPM_LOW;
+                //double targetSpeed = Constants.Shooter.RPM_LOW;
                 //System.out.println(Shooter.getInstance().getVelocity());
                 if (Shooter.getInstance().getVelocity() > (targetSpeed - 20.0)) {
 
