@@ -53,6 +53,8 @@ public class LimelightAutoAim extends CommandBase {
 
         if (++delayCounter < 12) return; // Give limelight enough time to turn on LEDs before taking snapshot
 
+        // TODO this all needs to be tested
+
         System.out.println( Robot.limelight.getYOffset());
 
         double ta = Robot.limelight.getArea();

@@ -26,7 +26,7 @@ public class OI {
     private static OI instance = null;
 
     /*
-     * TODO: Instantiate all joysticks/controllers and their buttons here
+     * Instantiate all joysticks/controllers and their buttons here
      *
      * Examples:
      * public final Joystick leftStick = new Joystick(0);
@@ -75,7 +75,7 @@ public class OI {
 
     public OI() {
         /*
-         * TODO: Define what each button does
+         * Define what each button does
          *
          * Examples:
          * leftTrigger.whenPressed(new CollectCommand());
@@ -106,7 +106,7 @@ public class OI {
         aA.whileHeld(new Rotation());
         aB.whenPressed(new ControlPanelDown());
 
-        // TODO: Get better button
+        // TODO: Get better button  do we need to change this?
         aX.whileHeld(new RapidFire(false));
 
         aDPadDown.whenPressed(new IntakeDown());
