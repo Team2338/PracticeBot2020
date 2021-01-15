@@ -36,7 +36,7 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class Robot extends TimedRobot {
 
   public static final boolean isCompBot = true;
-
+//hi
   private boolean _runAutoScheduler = true;
 
   private Command m_autonomousCommand = null;
