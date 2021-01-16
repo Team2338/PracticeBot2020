@@ -309,7 +309,9 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = new OppFiveBall();
     } else if(chosenAuto == autoMode.SAFE_8_BALL){
       m_autonomousCommand = new SafeEightBall();
-    }else if(chosenAuto ==null) {
+    } else if(chosenAuto == autoMode.SLALOM) {
+      m_autonomousCommand = new Slalom();
+    } else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
   }
