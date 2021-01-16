@@ -14,7 +14,7 @@ import team.gif.robot.subsystems.Drivetrain;
 
 import java.util.List;
 
-public class Slalom extends SequentialCommandGroup {
+public class BarrelRacing extends SequentialCommandGroup {
 
     /*
      * Lengthwise Field
@@ -29,13 +29,11 @@ public class Slalom extends SequentialCommandGroup {
     public Command forward () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                    new Pose2d(Units.feetToMeters(2.5), Units.feetToMeters(2.5), new Rotation2d(Units.degreesToRadians(0))),
-                    new Pose2d(Units.feetToMeters(7.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(45))),
-                    new Pose2d(Units.feetToMeters(22.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(-45))),
-                    new Pose2d(Units.feetToMeters(27.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(90))),
-                    new Pose2d(Units.feetToMeters(22.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(-135))),
-                    new Pose2d(Units.feetToMeters(7.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(135))),
-                    new Pose2d(Units.feetToMeters(2.5), Units.feetToMeters(7.5), new Rotation2d(Units.degreesToRadians(180)))
+                    new Pose2d(Units.feetToMeters(2.5), Units.feetToMeters(7.5), new Rotation2d(Units.degreesToRadians(0))),
+                    new Pose2d(Units.feetToMeters(12.5), Units.feetToMeters(7.5), new Rotation2d(Units.degreesToRadians(-45))),
+                    new Pose2d(Units.feetToMeters(12.5), Units.feetToMeters(2.5), new Rotation2d(Units.degreesToRadians(-180))),
+                    new Pose2d(Units.feetToMeters(12.5), Units.feetToMeters(7.5), new Rotation2d(Units.degreesToRadians(0)))
+                    // First Loop Completed (D5)
             ),
             RobotTrajectory.getInstance().configForward
         );
@@ -45,7 +43,7 @@ public class Slalom extends SequentialCommandGroup {
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     }
 
-    public Slalom() {
+    public BarrelRacing() {
         System.out.println("Auto: Slalom Selected");
 
         addCommands(

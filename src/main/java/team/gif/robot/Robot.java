@@ -259,6 +259,8 @@ public class Robot extends TimedRobot {
     autoModeChooser.addOption("3 Ball Auto", autoMode.SAFE_3_BALL);
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
     autoModeChooser.addOption("8 Ball Auto", autoMode.SAFE_8_BALL);
+    autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
+    autoModeChooser.addOption("Slalom", autoMode.SLALOM);
     autoModeChooser.setDefaultOption("6 Ball Auto", autoMode.SAFE_6_BALL);
 
     autoTab.add("Auto Select",autoModeChooser)
@@ -309,6 +311,8 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = new OppFiveBall();
     } else if(chosenAuto == autoMode.SAFE_8_BALL){
       m_autonomousCommand = new SafeEightBall();
+    } else if (chosenAuto == autoMode.BARREL_RACING){
+      m_autonomousCommand = new BarrelRacing();
     } else if(chosenAuto == autoMode.SLALOM) {
       m_autonomousCommand = new Slalom();
     } else if(chosenAuto ==null) {
