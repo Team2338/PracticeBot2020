@@ -29,13 +29,17 @@ public class Slalom extends SequentialCommandGroup {
     public Command forward () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                    new Pose2d(Units.feetToMeters(2.5), Units.feetToMeters(2.5), new Rotation2d(Units.degreesToRadians(0))),
-                    new Pose2d(Units.feetToMeters(7.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(45))),
-                    new Pose2d(Units.feetToMeters(22.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(-45))),
-                    new Pose2d(Units.feetToMeters(27.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(90))),
-                    new Pose2d(Units.feetToMeters(22.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(-135))),
-                    new Pose2d(Units.feetToMeters(7.5), Units.feetToMeters(5.0), new Rotation2d(Units.degreesToRadians(135))),
-                    new Pose2d(Units.feetToMeters(2.5), Units.feetToMeters(7.5), new Rotation2d(Units.degreesToRadians(180)))
+                    new Pose2d(Units.feetToMeters(2.5 - 2.5), Units.feetToMeters(2.5 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
+                    new Pose2d(Units.feetToMeters(7.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(55))),
+                    new Pose2d(Units.feetToMeters(15.0 - 2.5), Units.feetToMeters(10.0 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
+                    new Pose2d(Units.feetToMeters(22.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(-90))),
+                    new Pose2d(Units.feetToMeters(25.0 - 2.5), Units.feetToMeters(2.5 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
+                    new Pose2d(Units.feetToMeters(27.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(90))),
+                    new Pose2d(Units.feetToMeters(25.0 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
+                    new Pose2d(Units.feetToMeters(22.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(-145))),
+                    new Pose2d(Units.feetToMeters(15.0 - 2.5), Units.feetToMeters(2.5 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
+                    new Pose2d(Units.feetToMeters(7.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(145))),
+                    new Pose2d(Units.feetToMeters(2.5 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180)))
             ),
             RobotTrajectory.getInstance().configForward
         );
