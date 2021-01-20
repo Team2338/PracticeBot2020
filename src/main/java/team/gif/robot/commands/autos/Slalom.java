@@ -40,11 +40,11 @@ public class Slalom extends SequentialCommandGroup {
             /* ~D9 */new Pose2d(Units.feetToMeters(23.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(-90))),
             /* ~E8 */new Pose2d(Units.feetToMeters(20.0 - 2.5), Units.feetToMeters(2.0 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
             /* ~E4 */new Pose2d(Units.feetToMeters(11.0 - 2.5), Units.feetToMeters(2.0 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
-            /* D3 */new Pose2d(Units.feetToMeters(7.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(90))),
+            /* D3 */new Pose2d(Units.feetToMeters(8.0 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(90))),
             /* C2 */new Pose2d(Units.feetToMeters(5.0 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
             /* C1 */new Pose2d(Units.feetToMeters(2.5 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180)))
             ),
-            RobotTrajectory.getInstance().configForward
+            RobotTrajectory.getInstance().configForwardIRFast
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
