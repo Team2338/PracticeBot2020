@@ -29,20 +29,20 @@ public class Slalom extends SequentialCommandGroup {
     public Command forward () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                    new Pose2d(Units.feetToMeters(2.5 - 2.5), Units.feetToMeters(2.5 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
-                    new Pose2d(Units.feetToMeters(5.0 - 2.5), Units.feetToMeters(2.5 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
-                    new Pose2d(Units.feetToMeters(7.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(55))),
-                    new Pose2d(Units.feetToMeters(15.0 - 2.5), Units.feetToMeters(10.0 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
-                    new Pose2d(Units.feetToMeters(23.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(-90))),
-                    new Pose2d(Units.feetToMeters(26.0 - 2.5), Units.feetToMeters(2.0 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
-                    new Pose2d(Units.feetToMeters(29.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(90))),
-                    new Pose2d(Units.feetToMeters(26.0 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
-                    new Pose2d(Units.feetToMeters(23.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(-90))),
-                    new Pose2d(Units.feetToMeters(20.0 - 2.5), Units.feetToMeters(2.0 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
-                    new Pose2d(Units.feetToMeters(11.0 - 2.5), Units.feetToMeters(2.0 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
-                    new Pose2d(Units.feetToMeters(7.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(90))),
-                    new Pose2d(Units.feetToMeters(5.0 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
-                    new Pose2d(Units.feetToMeters(2.5 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180)))
+            /* E1 */new Pose2d(Units.feetToMeters(2.5 - 2.5), Units.feetToMeters(2.5 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
+            /* E2 */new Pose2d(Units.feetToMeters(5.0 - 2.5), Units.feetToMeters(2.5 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
+            /* D3 */new Pose2d(Units.feetToMeters(7.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(55))),
+            /* B6 */new Pose2d(Units.feetToMeters(15.0 - 2.5), Units.feetToMeters(10.0 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
+            /* ~D9 */new Pose2d(Units.feetToMeters(23.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(-90))),
+            /* ~E10 */new Pose2d(Units.feetToMeters(26.0 - 2.5), Units.feetToMeters(2.0 - 2.5), new Rotation2d(Units.degreesToRadians(0))),
+            /* ~D11 */new Pose2d(Units.feetToMeters(29.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(90))),
+            /* ~C10 */new Pose2d(Units.feetToMeters(26.0 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
+            /* ~D9 */new Pose2d(Units.feetToMeters(23.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(-90))),
+            /* ~E8 */new Pose2d(Units.feetToMeters(20.0 - 2.5), Units.feetToMeters(2.0 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
+            /* ~E4 */new Pose2d(Units.feetToMeters(11.0 - 2.5), Units.feetToMeters(2.0 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
+            /* D3 */new Pose2d(Units.feetToMeters(7.5 - 2.5), Units.feetToMeters(5.0 - 2.5), new Rotation2d(Units.degreesToRadians(90))),
+            /* C2 */new Pose2d(Units.feetToMeters(5.0 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180))),
+            /* C1 */new Pose2d(Units.feetToMeters(2.5 - 2.5), Units.feetToMeters(7.5 - 2.5), new Rotation2d(Units.degreesToRadians(180)))
             ),
             RobotTrajectory.getInstance().configForward
         );
