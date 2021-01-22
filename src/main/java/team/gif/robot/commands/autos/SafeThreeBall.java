@@ -1,11 +1,9 @@
 package team.gif.robot.commands.autos;
 
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.*;
+import team.gif.lib.Pose2dFeet;
 import team.gif.lib.RobotTrajectory;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.RevFlywheel;
@@ -17,9 +15,8 @@ public class SafeThreeBall extends SequentialCommandGroup {
     public Command reverse () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),
-               // new Pose2d(Units.feetToMeters(-6.0), 0, new Rotation2d(0)),
-                new Pose2d(Units.feetToMeters(-3.0), Units.feetToMeters(0.0), new Rotation2d(Units.degreesToRadians(0.0)))
+                new Pose2dFeet( 0, 0, 0).get(),
+                new Pose2dFeet(-3, 0, 0).get()
             ),
             RobotTrajectory.getInstance().configReverse
         );
