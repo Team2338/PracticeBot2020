@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Units;
 
-public class Pose2dFeet extends Pose2d {
+public class Pose2dFeet {
     Pose2d poseFeet;
     /*                      0
     *   Forward            +x    Heading can be -180 to 180 or 0 to 359, either will work
