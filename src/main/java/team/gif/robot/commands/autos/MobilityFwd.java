@@ -20,7 +20,7 @@ public class MobilityFwd extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
                     new Pose2dFeet().set(0.0, 0.0, 0.0),
-                    new Pose2dFeet().set(4.0, 0.0, 0.0)
+                    new Pose2dFeet().set(15.0, 0.0, 0.0)
             ),
             RobotTrajectory.getInstance().configForward
         );

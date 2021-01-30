@@ -261,6 +261,7 @@ public class Robot extends TimedRobot {
     autoModeChooser.addOption("8 Ball Auto", autoMode.SAFE_8_BALL);
     autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
     autoModeChooser.addOption("Slalom", autoMode.SLALOM);
+    autoModeChooser.addOption("Bounce", autoMode.BOUNCE);
     autoModeChooser.setDefaultOption("6 Ball Auto", autoMode.SAFE_6_BALL);
 
     autoTab.add("Auto Select",autoModeChooser)
@@ -315,6 +316,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand = new BarrelRacing();
     } else if(chosenAuto == autoMode.SLALOM) {
       m_autonomousCommand = new Slalom();
+    } else if(chosenAuto == autoMode.BOUNCE){
+      m_autonomousCommand = new Bounce();
     } else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
