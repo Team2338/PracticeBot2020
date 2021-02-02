@@ -300,7 +300,7 @@ public class Robot extends TimedRobot {
   public void updateauto(){
 
     if(chosenAuto == autoMode.MOBILITY){
-        m_autonomousCommand = new Mobility();
+        m_autonomousCommand = new MobilityPW();
     } else if(chosenAuto == autoMode.MOBILITY_FWD){
         m_autonomousCommand = new MobilityFwd();
     } else if(chosenAuto == autoMode.SAFE_3_BALL){
