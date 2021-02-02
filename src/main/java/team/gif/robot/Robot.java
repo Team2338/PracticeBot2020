@@ -165,7 +165,7 @@ public class Robot extends TimedRobot {
 
     setLimelightPipeline();
       System.out.println("Auto: Pipeline Reset");
-    limelight.setLEDMode(3);//force on
+    limelight.setLEDMode(1);//turn off
       System.out.println("Auto: LED Reset");
     updateauto();
       System.out.println("Auto: auto selection updated");
