@@ -20,13 +20,14 @@ import java.util.List;
 public class MobilityPW extends SequentialCommandGroup {
 
     public Command reverse () {
-        String trajectoryJSON = "paths/MobilityPW.wpilib.json";
-        Trajectory trajectory = null;
+        String trajectoryJSON = "C:\\Users\\2338-DS-1\\IdeaProjects\\PracticeBot2020\\PathWeaver\\output\\MobilityPW.wpilib.json";
+        Trajectory trajectory;
         try {
             Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
             trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
         } catch (IOException ex) {
-           // DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+            System.out.println("Unable to open trajectory file");
+            trajectory = null;
         }
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
