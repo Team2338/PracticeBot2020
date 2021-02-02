@@ -81,7 +81,7 @@ public class Bounce extends SequentialCommandGroup {
                         new Pose2dFeet().set(23.0 - xInit, 11.5 - yInit, -90.0), // A9 *
                         new Pose2dFeet().set(27.5 - xInit, 7.5 - yInit, 180.0) // C11
                 ),
-                RobotTrajectory.getInstance().configReverse
+                RobotTrajectory.getInstance().configReverseIRFast
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
