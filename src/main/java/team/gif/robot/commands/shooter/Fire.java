@@ -8,6 +8,8 @@ import team.gif.robot.subsystems.Shooter;
 
 public class Fire extends CommandBase {
     boolean useLimelight = false;
+    int counter;
+    boolean justFired;
 
     public Fire(boolean useLimelightVal) {
         useLimelight = useLimelightVal;
@@ -15,11 +17,13 @@ public class Fire extends CommandBase {
 
     @Override
     public void initialize() {
-
+        counter = 1000;
+        justFired = false;
     }
 
     @Override
     public void execute() {
+        counter++;
         Robot.limelight.setLEDMode(3);
         // Fire is used in auto but OI isn't instantiated yet so need to check first
         double speed = (Robot.oi != null && Robot.oi.dRT.get()) ? Constants.Shooter.RPM_HIGH : Constants.Shooter.RPM_LOW;
@@ -27,12 +31,18 @@ public class Fire extends CommandBase {
         //System.out.println(Shooter.getInstance().getVelocity());
         if ( ( Shooter.getInstance().getVelocity() > (speed - 20.0) )
                 && (Indexer.getInstance().getState()[5] == true)
-                && (!useLimelight || ((Math.abs(Robot.limelight.getXOffset()) < Constants.Pivot.marginxF) && Robot.limelight.hasTarget()))) {
+                && (!useLimelight || ((Math.abs(Robot.limelight.getXOffset()) < Constants.Pivot.marginxF) && Robot.limelight.hasTarget()))
+                && counter >= 50) {
 
             System.out.println("Firing speed " + Shooter.getInstance().getVelocity());
             Indexer.getInstance().setSpeedFive(0.5);
+            justFired = true;
         } else {
             Indexer.getInstance().setSpeedFive(0);
+            if (justFired) {
+                justFired = false;
+                counter = 0;
+            }
         }
     }
 
