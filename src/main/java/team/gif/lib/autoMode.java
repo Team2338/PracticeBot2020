@@ -9,7 +9,8 @@ public enum autoMode {
     SAFE_8_BALL(0),
     OPP_5_BALL(0),
     BARREL_RACING(0),
-    SLALOM (0);
+    SLALOM (0),
+    BOUNCE(0);
 
     private int value;
     autoMode(int value) {
