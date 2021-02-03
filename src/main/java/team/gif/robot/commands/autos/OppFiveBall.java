@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.*;
+import team.gif.lib.Pose2dFeet;
 import team.gif.lib.RobotTrajectory;
 import team.gif.robot.commands.intake.IntakeDown;
 import team.gif.robot.commands.intake.IntakeRun;
@@ -20,8 +21,8 @@ public class OppFiveBall extends SequentialCommandGroup {
     public Command reverse() {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                new Pose2d(Units.feetToMeters(0.0), 0, new Rotation2d(0)),     //zerod
-                new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)) // move backward 6ft
+                    new Pose2dFeet().set(0.0, 0.0, 0.0), //zerod
+                    new Pose2dFeet().set(-92/12.0, 0.0, 0.0) // move backward 6ft
             ),
             RobotTrajectory.getInstance().configReverseSlow
         );
@@ -34,8 +35,8 @@ public class OppFiveBall extends SequentialCommandGroup {
     public Command forward(){
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                new Pose2d(Units.feetToMeters(-92/12.0), 0, new Rotation2d(0)),
-                new Pose2d(Units.feetToMeters(-2), Units.feetToMeters(-14.0), new Rotation2d(Units.degreesToRadians(-7.0)))
+                    new Pose2dFeet().set(-92/12.0, 0.0, 0.0),
+                    new Pose2dFeet().set(-2.0, -14.0, 7.0)
             ),
             RobotTrajectory.getInstance().configForward
         );
