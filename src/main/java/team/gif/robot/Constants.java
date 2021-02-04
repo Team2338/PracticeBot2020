@@ -24,10 +24,12 @@ public final class Constants {
         //public static final double RPM_RAPID_FIRE = 4650; // 4300
         public static final double RPM_HIGH = 4650; // was 4550
 
-        public static final double RPM_LOW = 1000;
+        public static final double RPM_LOW = 2250;
         /*
-         * 1000 Green low (single)
-         *
+         * Green  - 1000 / 1200 low (single)
+         * Yellow - 2250 INCONSISTENT low (single)
+         * Blue   - 4100 high (3) (single)
+         * Red    - 4300 high (3) (single)
          */
     }
 
