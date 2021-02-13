@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import team.gif.lib.Pose2dFeet;
 import team.gif.lib.RobotTrajectory;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.autoaim.LimelightAutoAim;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.drivetrain.AutoDrive;
 import team.gif.robot.commands.drivetrain.forward;
@@ -23,6 +24,9 @@ import java.util.List;
 
 
 public class SafeEightBall extends SequentialCommandGroup {
+
+    private static double m_reverseOffset = 0.3;  // larger numbers move bot left (away from sideline)
+
     public Command reverse () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
@@ -53,8 +57,8 @@ public class SafeEightBall extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2dFeet().set(-7.0, 1.0, -14.0),
-                        new Pose2dFeet().set(-14.0, 0.57, 0.0),
-                        new Pose2dFeet().set(-18.75, 0.57, 0.0)
+                        new Pose2dFeet().set(-14.0, m_reverseOffset, 0.0),
+                        new Pose2dFeet().set(-19, m_reverseOffset, 0.0)
                 ),
                 RobotTrajectory.getInstance().configReverseSlow
         );
@@ -66,9 +70,9 @@ public class SafeEightBall extends SequentialCommandGroup {
     public Command forwardAgain () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2dFeet().set(-18.75, 0.57, 0.0),
-                        new Pose2dFeet().set(-14.0, 0.57, 0.0),
-                        new Pose2dFeet().set(-7.0, 1.0, -14.0)
+                        new Pose2dFeet().set(-19, m_reverseOffset, 0.0),
+                        new Pose2dFeet().set(-14.0, m_reverseOffset, 0.0),
+                        new Pose2dFeet().set(-7.0, 1.0, 0.0) // -9
                 ),
                 RobotTrajectory.getInstance().configForwardFast
         );
@@ -105,7 +109,7 @@ public class SafeEightBall extends SequentialCommandGroup {
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
                         new RevFlywheel().withTimeout(1.75),
-                        new Fire(false)),
+                        new LimelightAutoAim()),
                 new PrintCommand("Auto: Safe Eight Ball Ended")
         );
     }
