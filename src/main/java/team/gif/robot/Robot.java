@@ -196,6 +196,10 @@ public class Robot extends TimedRobot {
           _runAutoScheduler = false;
           _elapsedTime.stop();
       }
+
+      if (m_autonomousCommand.isFinished()) {
+        System.out.println("*** Auto Command Finished ***");
+      }
   }
 
   @Override
