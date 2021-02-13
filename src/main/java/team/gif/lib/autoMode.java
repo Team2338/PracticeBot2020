@@ -10,7 +10,8 @@ public enum autoMode {
     OPP_5_BALL(0),
     BARREL_RACING(0),
     SLALOM (0),
-    BOUNCE(0);
+    BOUNCE(0),
+    GALACTIC_SEARCH(0);
 
     private int value;
     autoMode(int value) {

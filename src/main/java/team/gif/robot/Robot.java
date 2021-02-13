@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
   public static final boolean isCompBot = true;
 
   private boolean _runAutoScheduler = true;
+  private boolean _runSecondAutoScheduler = false;
 
   private Command m_autonomousCommand = null;
 
@@ -197,8 +198,20 @@ public class Robot extends TimedRobot {
           _elapsedTime.stop();
       }
 
-      if (m_autonomousCommand.isFinished()) {
-        System.out.println("*** Auto Command Finished ***");
+      // code for second path
+      if (_runSecondAutoScheduler && !m_autonomousCommand.isScheduled() ) { // first auto is done
+          Pigeon.getInstance().resetPigeonPosition();
+          drivetrain.resetEncoders();
+          drivetrain.resetPose();
+
+          if ( Indexer.getInstance().getState()[5]) {
+              m_autonomousCommand = new MobilityFwd();
+              System.out.println("Changing to forward");
+          } else {
+              m_autonomousCommand = new Mobility();
+          }
+          m_autonomousCommand.schedule();
+          _runSecondAutoScheduler = false;
       }
   }
 
@@ -266,6 +279,7 @@ public class Robot extends TimedRobot {
     autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
     autoModeChooser.addOption("Slalom", autoMode.SLALOM);
     autoModeChooser.addOption("Bounce", autoMode.BOUNCE);
+    autoModeChooser.addOption("Galactic Search", autoMode.GALACTIC_SEARCH);
     autoModeChooser.setDefaultOption("6 Ball Auto", autoMode.SAFE_6_BALL);
 
     autoTab.add("Auto Select",autoModeChooser)
@@ -322,10 +336,13 @@ public class Robot extends TimedRobot {
       m_autonomousCommand = new Slalom();
     } else if(chosenAuto == autoMode.BOUNCE){
       m_autonomousCommand = new Bounce();
+    } else if(chosenAuto == autoMode.GALACTIC_SEARCH){
+        m_autonomousCommand = new GalacticSearchDetermination();
+        _runSecondAutoScheduler = true;
     } else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
-  }
+   }
 
   public void setLimelightPipeline(){/**sets the limelight pipeline to red side or blue side**/
     if( DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue ) {
