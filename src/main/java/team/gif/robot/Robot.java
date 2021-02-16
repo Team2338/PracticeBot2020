@@ -39,6 +39,8 @@ public class Robot extends TimedRobot {
 
   private boolean _runAutoScheduler = true;
   private boolean _runSecondAutoScheduler = false;
+  private boolean _runThirdAutoScheduler = false;
+  private boolean isRedPath = false;
 
   private Command m_autonomousCommand = null;
 
@@ -176,6 +178,7 @@ public class Robot extends TimedRobot {
       System.out.println("Auto: Indexer scheduled");
 
     _runAutoScheduler = true;
+    isRedPath = false;
 
     System.out.println("autonomous init end");
 
@@ -205,13 +208,40 @@ public class Robot extends TimedRobot {
           drivetrain.resetPose();
 
           if ( Indexer.getInstance().getState()[5]) {
-              m_autonomousCommand = new MobilityFwd();
-              System.out.println("Changing to forward");
+              m_autonomousCommand = new GalacticSearchRed();
+              isRedPath = true;
+              System.out.println("Changing to Red");
           } else {
-              m_autonomousCommand = new Mobility();
+              m_autonomousCommand = new GalacticSearchBlue();
           }
           m_autonomousCommand.schedule();
           _runSecondAutoScheduler = false;
+          _runThirdAutoScheduler = true;
+      }
+
+      // code for third path
+      if (_runThirdAutoScheduler && !m_autonomousCommand.isScheduled() ) { // second auto is done
+          Pigeon.getInstance().resetPigeonPosition();
+          drivetrain.resetEncoders();
+          drivetrain.resetPose();
+
+          if (isRedPath) {
+              if ( Indexer.getInstance().getState()[4]) {
+                  m_autonomousCommand = new MobilityFwd();
+                  System.out.println("Changing to Red B");
+              } else {
+                  m_autonomousCommand = new Mobility();
+              }
+          } else { // Blue Path
+              if ( Indexer.getInstance().getState()[5]) {
+                  m_autonomousCommand = new GalacticSearchBlueB();
+                  System.out.println("Changing to Blue B");
+              } else {
+                  m_autonomousCommand = new GalacticSearchBlueA();
+              }
+          }
+          m_autonomousCommand.schedule();
+          _runThirdAutoScheduler = false;
       }
   }
 
@@ -337,8 +367,9 @@ public class Robot extends TimedRobot {
     } else if(chosenAuto == autoMode.BOUNCE){
       m_autonomousCommand = new Bounce();
     } else if(chosenAuto == autoMode.GALACTIC_SEARCH){
-        m_autonomousCommand = new GalacticSearchDetermination();
+        m_autonomousCommand = new GalacticSearchColor();
         _runSecondAutoScheduler = true;
+        _runThirdAutoScheduler = false;
     } else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }

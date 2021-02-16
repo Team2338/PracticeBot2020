@@ -17,12 +17,16 @@ import team.gif.robot.subsystems.Drivetrain;
 import java.util.List;
 
 
-public class GalacticSearchDetermination extends SequentialCommandGroup {
+public class GalacticSearchColor extends SequentialCommandGroup {
+
+    private double xInit = 6.0 + (5.0/12.0);
+    private double yInit = 5.0;
+
     public Command reverse () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
                 new Pose2dFeet().set(0.0, 0.0, 0.0),
-                new Pose2dFeet().set(-5.0, 0.0, 0.0)
+                new Pose2dFeet().set(xInit - 12.5, yInit - 5.0, 0.0)
             ),
             RobotTrajectory.getInstance().configReverseSlow
         );
@@ -32,7 +36,7 @@ public class GalacticSearchDetermination extends SequentialCommandGroup {
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     }
 
-    public GalacticSearchDetermination() {
+    public GalacticSearchColor() {
         System.out.println("Auto: Galactic Search Selected");
 
         addCommands(
@@ -41,7 +45,7 @@ public class GalacticSearchDetermination extends SequentialCommandGroup {
             new ParallelDeadlineGroup(
                 reverse(),
                 new IntakeRun()),
-            new PrintCommand("Auto: Galactic Search  Ended")
+            new PrintCommand("Auto: Galactic Search Ended")
         );
     }
 }
