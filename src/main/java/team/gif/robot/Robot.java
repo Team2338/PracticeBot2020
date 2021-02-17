@@ -227,10 +227,10 @@ public class Robot extends TimedRobot {
 
           if (isRedPath) {
               if ( Indexer.getInstance().getState()[4]) {
-                  m_autonomousCommand = new MobilityFwd();
+                  m_autonomousCommand = new GalacticSearchRedB();
                   System.out.println("Changing to Red B");
               } else {
-                  m_autonomousCommand = new Mobility();
+                  m_autonomousCommand = new GalacticSearchRedA();
               }
           } else { // Blue Path
               if ( Indexer.getInstance().getState()[5]) {
