@@ -18,7 +18,8 @@ public class GalacticSearchBlueB extends SequentialCommandGroup {
             List.of(
                 new Pose2dFeet().set(0.0, 0.0, 0.0),
                 new Pose2dFeet().set(-5.0, -5.0, 0.0),
-                new Pose2dFeet().set(-10.0, 0.0, 0.0)
+                new Pose2dFeet().set(-10.0, 0.0, 0.0),
+                new Pose2dFeet().set(-15.0, 0.0, 0.0)
             ),
             RobotTrajectory.getInstance().configReverseSlow
         );

@@ -17,7 +17,8 @@ public class GalacticSearchRedB extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
                 new Pose2dFeet().set(0.0, 0.0, 0.0),
-                new Pose2dFeet().set(0.0, -10.0, 180.0),
+                new Pose2dFeet().set(-2.5, -5.0,-90.0),
+                new Pose2dFeet().set(0.0, -9.0, 180.0),
                 new Pose2dFeet().set(0.0, 10.0, 90.0)
             ),
             RobotTrajectory.getInstance().configReverseSlow

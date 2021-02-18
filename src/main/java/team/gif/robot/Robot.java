@@ -210,9 +210,10 @@ public class Robot extends TimedRobot {
           if ( Indexer.getInstance().getState()[5]) {
               m_autonomousCommand = new GalacticSearchRed();
               isRedPath = true;
-              System.out.println("Changing to Red");
+              System.out.println("Path is RED");
           } else {
               m_autonomousCommand = new GalacticSearchBlue();
+              System.out.println("Path is BLUE");
           }
           m_autonomousCommand.schedule();
           _runSecondAutoScheduler = false;
@@ -231,6 +232,7 @@ public class Robot extends TimedRobot {
                   System.out.println("Changing to Red B");
               } else {
                   m_autonomousCommand = new GalacticSearchRedA();
+                  System.out.println("Changing to Red A");
               }
           } else { // Blue Path
               if ( Indexer.getInstance().getState()[5]) {
@@ -238,6 +240,7 @@ public class Robot extends TimedRobot {
                   System.out.println("Changing to Blue B");
               } else {
                   m_autonomousCommand = new GalacticSearchBlueA();
+                  System.out.println("Changing to Blue A");
               }
           }
           m_autonomousCommand.schedule();

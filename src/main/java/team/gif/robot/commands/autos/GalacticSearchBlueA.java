@@ -27,6 +27,36 @@ public class GalacticSearchBlueA extends SequentialCommandGroup {
         return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
     }
 
+    public Command forward () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2dFeet().set(0.0, 2.5, 90.0),
+                        new Pose2dFeet().set(0.0, -8.0, 90.0)
+                ),
+                RobotTrajectory.getInstance().configForwardSlow
+        );
+        // create the command using the trajectory
+        RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
+    }
+
+    public Command reverseAgain () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2dFeet().set(0.0, -8.0, 90.0),
+                        new Pose2dFeet().set(-2.5,-6.0,45.0),
+                        new Pose2dFeet().set(-7.5, -2.5, 0.0),
+                        new Pose2dFeet().set(-12.5,-2.5, 0.0)
+                ),
+                RobotTrajectory.getInstance().configReverseSlow
+        );
+        // create the command using the trajectory
+        RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return rc.andThen(() -> Drivetrain.getInstance().tankDriveVolts(0, 0));
+    }
+
     public GalacticSearchBlueA() {
         System.out.println("Auto: Galactic Search Blue B Selected");
 
@@ -36,6 +66,10 @@ public class GalacticSearchBlueA extends SequentialCommandGroup {
             new ParallelDeadlineGroup(
                 reverse(),
                 new IntakeRun()),
+            forward(),
+            new ParallelDeadlineGroup(
+                    reverseAgain(),
+                    new IntakeRun()),
             new PrintCommand("Auto: Galactic Search Blue B Ended")
         );
     }

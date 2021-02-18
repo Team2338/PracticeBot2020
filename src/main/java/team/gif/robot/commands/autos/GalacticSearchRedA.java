@@ -19,7 +19,8 @@ public class GalacticSearchRedA extends SequentialCommandGroup {
                 new Pose2dFeet().set(0.0, 0.0, 0.0),
                 new Pose2dFeet().set(-2.5, -2.5, -90.0),
                 new Pose2dFeet().set(2.5, -10.0, -180.0),
-                new Pose2dFeet().set(5.0, -5.0, 90.0)
+                new Pose2dFeet().set(5.0, -5.0, 90.0),
+                new Pose2dFeet().set(5.0, 10.0, 90.0)
             ),
             RobotTrajectory.getInstance().configReverseSlow
         );
