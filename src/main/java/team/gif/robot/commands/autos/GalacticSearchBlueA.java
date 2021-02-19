@@ -33,7 +33,7 @@ public class GalacticSearchBlueA extends SequentialCommandGroup {
                         new Pose2dFeet().set(0.0, 2.5, 90.0),
                         new Pose2dFeet().set(0.0, -8.0, 90.0)
                 ),
-                RobotTrajectory.getInstance().configForwardSlow
+                RobotTrajectory.getInstance().configForward
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
@@ -47,9 +47,9 @@ public class GalacticSearchBlueA extends SequentialCommandGroup {
                         new Pose2dFeet().set(0.0, -8.0, 90.0),
                         new Pose2dFeet().set(-2.5,-6.0,45.0),
                         new Pose2dFeet().set(-7.5, -2.5, 0.0),
-                        new Pose2dFeet().set(-12.5,-2.5, 0.0)
+                        new Pose2dFeet().set(-15.0,-2.5, 0.0)
                 ),
-                RobotTrajectory.getInstance().configReverseSlow
+                RobotTrajectory.getInstance().configReverse
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);

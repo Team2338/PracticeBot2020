@@ -22,7 +22,7 @@ public class GalacticSearchRedA extends SequentialCommandGroup {
                 new Pose2dFeet().set(5.0, -5.0, 90.0),
                 new Pose2dFeet().set(5.0, 10.0, 90.0)
             ),
-            RobotTrajectory.getInstance().configReverseSlow
+            RobotTrajectory.getInstance().configReverse
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);

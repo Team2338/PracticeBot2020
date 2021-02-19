@@ -186,6 +186,15 @@ public class Robot extends TimedRobot {
     //Pigeon.getInstance().resetPigeonPosition();
   }
 
+  public boolean anySensor() {
+      return (
+          Indexer.getInstance().getState()[5]
+          || Indexer.getInstance().getState()[4]
+          || Indexer.getInstance().getState()[3]
+          || Indexer.getInstance().getState()[2]
+          || Indexer.getInstance().getState()[1]);
+  }
+
   /**
    * This function is called periodically during autonomous.
    */
@@ -207,7 +216,7 @@ public class Robot extends TimedRobot {
           drivetrain.resetEncoders();
           drivetrain.resetPose();
 
-          if ( Indexer.getInstance().getState()[5]) {
+          if (anySensor()) {
               m_autonomousCommand = new GalacticSearchRed();
               isRedPath = true;
               System.out.println("Path is RED");
@@ -227,7 +236,10 @@ public class Robot extends TimedRobot {
           drivetrain.resetPose();
 
           if (isRedPath) {
-              if ( Indexer.getInstance().getState()[4]) {
+              if ( Indexer.getInstance().getState()[4]
+                  || Indexer.getInstance().getState()[3]
+                  || Indexer.getInstance().getState()[2]
+                  || Indexer.getInstance().getState()[1]) {
                   m_autonomousCommand = new GalacticSearchRedB();
                   System.out.println("Changing to Red B");
               } else {
@@ -235,7 +247,7 @@ public class Robot extends TimedRobot {
                   System.out.println("Changing to Red A");
               }
           } else { // Blue Path
-              if ( Indexer.getInstance().getState()[5]) {
+              if (anySensor()) {
                   m_autonomousCommand = new GalacticSearchBlueB();
                   System.out.println("Changing to Blue B");
               } else {

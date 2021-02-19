@@ -19,7 +19,7 @@ public class GalacticSearchRed extends SequentialCommandGroup {
                 new Pose2dFeet().set(0.0, 0.0, 0.0),
                 new Pose2dFeet().set(-5.0, -5.0, -90.0)
             ),
-            RobotTrajectory.getInstance().configReverseSlow
+            RobotTrajectory.getInstance().configReverse
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
@@ -35,7 +35,7 @@ public class GalacticSearchRed extends SequentialCommandGroup {
             //new IntakeDown(),
             new ParallelDeadlineGroup(
                 reverse(),
-                new IntakeRun()),
+                new IntakeRun().withTimeout(5)), // TODO: Time this
             new PrintCommand("Auto: Galactic Search Red Ended")
         );
     }

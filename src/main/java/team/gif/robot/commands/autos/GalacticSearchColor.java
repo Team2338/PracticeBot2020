@@ -19,7 +19,7 @@ import java.util.List;
 
 public class GalacticSearchColor extends SequentialCommandGroup {
 
-    private double xInit = 6.0 + (5.0/12.0);
+    private double xInit = 4.0;
     private double yInit = 5.0;
 
     public Command reverse () {
@@ -28,7 +28,7 @@ public class GalacticSearchColor extends SequentialCommandGroup {
                 new Pose2dFeet().set(0.0, 0.0, 0.0),
                 new Pose2dFeet().set(xInit - 12.5, yInit - 5.0, 0.0)
             ),
-            RobotTrajectory.getInstance().configReverseSlow
+            RobotTrajectory.getInstance().configReverse
         );
         // create the command using the trajectory
         RamseteCommand rc = RobotTrajectory.getInstance().createRamseteCommand(trajectory);
