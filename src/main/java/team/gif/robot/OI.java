@@ -91,13 +91,16 @@ public class OI {
         dLB.whileHeld(new IntakeReverse());
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
-        dRT.whileHeld(new DriveLimitDisable());
+        //dRT.whileHeld(new DriveLimitDisable());
+        dRT.whileHeld(new RapidFire(false));
+        dA.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
 
         dLT.whileHeld(new LimelightAutoAim());
 
         // Aux Controls
         aLT.whileHeld(new LimelightLEDControl());
         aLB.whileHeld(new RevFlywheel());
+        aRB.whileHeld(new RapidFire(false));
         aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
         aY.toggleWhenPressed(new HangerManualControl());
         //aX.whenPressed(new ServoButton().withTimeout(0.25));

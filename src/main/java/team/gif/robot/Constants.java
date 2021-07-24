@@ -35,7 +35,7 @@ public final class Constants {
 
         public static final double GRAV_FEED_FORWARD = 300 / 1023.0; // Percent constant to counteract gravity
 
-        public static final int MAX_POS = 160;
+        public static final int MAX_POS = 150; // 160;
         public static final int MIN_POS = 1;
 
         // Color Wheel
