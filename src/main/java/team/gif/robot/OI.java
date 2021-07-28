@@ -42,36 +42,36 @@ public class OI {
     public final JoystickButton dB = new JoystickButton(driver, 2);
     public final JoystickButton dX = new JoystickButton(driver, 3);
     public final JoystickButton dY = new JoystickButton(driver, 4);
-    public final JoystickButton dLB = new JoystickButton(driver, 5);
-    public final JoystickButton dRB = new JoystickButton(driver, 6);
+    public final JoystickButton dLBump = new JoystickButton(driver, 5);
+    public final JoystickButton dRBump = new JoystickButton(driver, 6);
     public final JoystickButton dBack = new JoystickButton(driver, 7);
     public final JoystickButton dStart = new JoystickButton(driver, 8);
-    public final JoystickButton dLS = new JoystickButton(driver, 9);
-    public final JoystickButton dRS = new JoystickButton(driver, 10);
-    public final AxisButton dRT = new AxisButton(driver,3,.05);
-    public final AxisButton dLT = new AxisButton(driver,2,.05);
+    public final JoystickButton dLStickBtn = new JoystickButton(driver, 9);
+    public final JoystickButton dRStickBtn = new JoystickButton(driver, 10);
+    public final AxisButton dRTrigger = new AxisButton(driver,3,.05);
+    public final AxisButton dLTrigger = new AxisButton(driver,2,.05);
 
     public final POVButton dDPadUp = new POVButton(driver, 0);
     public final POVButton dDPadRight = new POVButton(driver, 90);
     public final POVButton dDPadDown = new POVButton(driver, 180);
     public final POVButton dDPadLeft = new POVButton(driver, 270);
-    public final POVButton aDPadUp = new POVButton(aux, 0);
-    public final POVButton aDPadRight = new POVButton(aux, 90);
-    public final POVButton aDPadDown = new POVButton(aux, 180);
-    public final POVButton aDPadLeft = new POVButton(aux, 270);
 
     public final JoystickButton aA = new JoystickButton(aux, 1);
     public final JoystickButton aB = new JoystickButton(aux, 2);
     public final JoystickButton aX = new JoystickButton(aux, 3);
     public final JoystickButton aY = new JoystickButton(aux, 4);
-    public final JoystickButton aLB = new JoystickButton(aux, 5);
-    public final JoystickButton aRB = new JoystickButton(aux, 6);
+    public final JoystickButton aLBump = new JoystickButton(aux, 5);
+    public final JoystickButton aRBump = new JoystickButton(aux, 6);
     public final JoystickButton aBack = new JoystickButton(aux, 7);
     public final JoystickButton aStart = new JoystickButton(aux, 8);
-    public final JoystickButton aLS = new JoystickButton(aux, 9);
-    public final JoystickButton aRS = new JoystickButton(aux, 10);
-    public final AxisButton aRT = new AxisButton(aux,3,.05);
-    public final AxisButton aLT = new AxisButton(aux,2,.05);
+    public final JoystickButton aLStickBtn = new JoystickButton(aux, 9);
+    public final JoystickButton aRStickBtn = new JoystickButton(aux, 10);
+    public final AxisButton aRTrigger = new AxisButton(aux,3,.05);
+    public final AxisButton aLTrigger = new AxisButton(aux,2,.05);
+    public final POVButton aDPadUp = new POVButton(aux, 0);
+    public final POVButton aDPadRight = new POVButton(aux, 90);
+    public final POVButton aDPadDown = new POVButton(aux, 180);
+    public final POVButton aDPadLeft = new POVButton(aux, 270);
 
     public OI() {
         /*
@@ -86,23 +86,24 @@ public class OI {
         // Driver Controls
 //        dLT.whileHeld(new Pivot());
 
-        dRB.whileHeld(new IntakeRun());
-        dRB.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
-        dLB.whileHeld(new IntakeReverse());
+        dRBump.whileHeld(new IntakeRun());
+        dRBump.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
+        dLBump.whileHeld(new IntakeReverse());
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
         //dRT.whileHeld(new DriveLimitDisable());
-        dRT.whileHeld(new RapidFire());
+        dRTrigger.whileHeld(new RapidFire());
         dA.whileHeld(new Fire());
 
-        dLT.whileHeld(new LimelightAutoAim());
+        dLTrigger.whileHeld(new LimelightAutoAim());
         dBack.whileHeld( new RevFlywheel());
+        //dDPadLeft used for Fire and RapidFire far shot
 
         // Aux Controls
-        aLT.whileHeld(new LimelightLEDControl());
-        aLB.whileHeld(new RevFlywheel());
-        aRB.whileHeld(new RapidFire());
-        aRT.whileHeld(new Fire());
+        aLTrigger.whileHeld(new LimelightLEDControl());
+        aLBump.whileHeld(new RevFlywheel());
+        aRBump.whileHeld(new RapidFire());
+        aRTrigger.whileHeld(new Fire());
         aY.toggleWhenPressed(new HangerManualControl());
         //aX.whenPressed(new ServoButton().withTimeout(0.25));
         aStart.whenPressed(new ControlPanelPosition());

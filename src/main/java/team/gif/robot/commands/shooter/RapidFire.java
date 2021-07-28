@@ -23,7 +23,7 @@ public class RapidFire extends CommandBase {
     public void execute() {
         Robot.limelight.setLEDMode(3);
 
-//        boolean isFarShot = Robot.oi != null && Robot.oi.dRT.get();
+//        boolean isFarShot = Robot.oi != null && (Robot.oi.dDPadRight.get() || Robot.oi.aDPadRight.get());
 //        double speed = isFarShot ? Constants.Shooter.RPM_HIGH : Constants.Shooter.RPM_LOW;
 
 //        if ( ( Shooter.getInstance().getVelocity() > (speed - 20.0) )
