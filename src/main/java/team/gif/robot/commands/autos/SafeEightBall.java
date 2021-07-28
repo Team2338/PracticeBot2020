@@ -99,7 +99,7 @@ public class SafeEightBall extends SequentialCommandGroup {
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
                         new RevFlywheel().withTimeout(1.75),
-                        new RapidFire(false)),
+                        new RapidFire()),
                 new ParallelDeadlineGroup(
                         reverseAgain(),
                         new IntakeRun()),

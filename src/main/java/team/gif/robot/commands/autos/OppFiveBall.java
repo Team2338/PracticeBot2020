@@ -63,7 +63,7 @@ public class OppFiveBall extends SequentialCommandGroup {
                 new ParallelCommandGroup(
                     // let it rip
                     new RevFlywheel(),
-                    new Fire(false)),
+                    new Fire()),
                 new PrintCommand("Auto: OppFiveBall Ended")
         );
     }

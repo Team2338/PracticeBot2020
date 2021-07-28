@@ -92,8 +92,8 @@ public class OI {
         dB.whenPressed(new ReverseIndexScheduler());
         dY.toggleWhenActive(new ToggleIndexer());
         //dRT.whileHeld(new DriveLimitDisable());
-        dRT.whileHeld(new RapidFire(false));
-        dA.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
+        dRT.whileHeld(new RapidFire());
+        dA.whileHeld(new Fire());
 
         dLT.whileHeld(new LimelightAutoAim());
         dBack.whileHeld( new RevFlywheel());
@@ -101,8 +101,8 @@ public class OI {
         // Aux Controls
         aLT.whileHeld(new LimelightLEDControl());
         aLB.whileHeld(new RevFlywheel());
-        aRB.whileHeld(new RapidFire(false));
-        aRT.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
+        aRB.whileHeld(new RapidFire());
+        aRT.whileHeld(new Fire());
         aY.toggleWhenPressed(new HangerManualControl());
         //aX.whenPressed(new ServoButton().withTimeout(0.25));
         aStart.whenPressed(new ControlPanelPosition());
@@ -111,7 +111,7 @@ public class OI {
         aB.whenPressed(new ControlPanelDown());
 
         // TODO: Get better button
-        aX.whileHeld(new RapidFire(false));
+        aX.whileHeld(new RapidFire());
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());
