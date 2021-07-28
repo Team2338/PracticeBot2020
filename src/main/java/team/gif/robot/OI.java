@@ -96,6 +96,7 @@ public class OI {
         dA.whileHeld(new Fire(false)); // passing a param works here because auto uses true and is called first
 
         dLT.whileHeld(new LimelightAutoAim());
+        dBack.whileHeld( new RevFlywheel());
 
         // Aux Controls
         aLT.whileHeld(new LimelightLEDControl());
