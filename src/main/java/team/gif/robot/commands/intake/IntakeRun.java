@@ -7,7 +7,6 @@ import team.gif.robot.subsystems.Intake;
 public class IntakeRun extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Intake intake = Intake.getInstance();
-    private final Indexer indexer = Indexer.getInstance();
 
     public IntakeRun() {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -23,10 +22,8 @@ public class IntakeRun extends CommandBase {
     @Override
     public void execute() {
         if (!Indexer.getInstance().getState()[1] || !Indexer.getInstance().getState()[2]) {
-//            indexer.setSpeedTwo(0.6);
-            intake.setSpeed(0.6);
+            intake.setSpeed(0.75);
         } else {
-//            indexer.setSpeedTwo(0);
             intake.setSpeed(0);
         }
     }
@@ -34,7 +31,6 @@ public class IntakeRun extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-///        indexer.setSpeedTwo(0);
         intake.setSpeed(0);
     }
 
