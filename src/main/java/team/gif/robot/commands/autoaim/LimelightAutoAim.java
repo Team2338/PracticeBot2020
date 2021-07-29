@@ -46,8 +46,14 @@ public class LimelightAutoAim extends CommandBase {
 
         if (++delayCounter < 12) return; // Give limelight enough time to turn on LEDs before taking snapshot
 
+        double targetSpeed = Constants.Shooter.RPM_LOW;
+
+        if (Robot.oi != null && (Robot.oi.dStart.get() || Robot.oi.aDPadRight.get())) {
+            targetSpeed = Constants.Shooter.RPM_HIGH;
+        }
+
         if ( Math.abs (Robot.limelight.getXOffset()) < 5 ) {
-            Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW);
+            Shooter.getInstance().setPID(targetSpeed);
         }
 
         // bot must not be moving anymore
@@ -61,7 +67,6 @@ public class LimelightAutoAim extends CommandBase {
 
         if ( robotHasSettled ) {
             if (targetLocked) {
-                double targetSpeed = Constants.Shooter.RPM_LOW;
                 //System.out.println(Shooter.getInstance().getVelocity());
                 if (Shooter.getInstance().getVelocity() > (targetSpeed - 20.0)) {
 

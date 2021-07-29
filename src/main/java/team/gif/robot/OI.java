@@ -97,7 +97,7 @@ public class OI {
 
         dLTrigger.whileHeld(new LimelightAutoAim());
         dBack.whileHeld( new RevFlywheel());
-        //dDPadLeft used for Fire and RapidFire far shot
+        //dStart used for Fire and RapidFire far shot
 
         // Aux Controls
         aLTrigger.whileHeld(new LimelightLEDControl());
