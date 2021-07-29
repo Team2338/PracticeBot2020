@@ -1,5 +1,6 @@
 package team.gif.robot.commands.hanger;
 
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -32,7 +33,21 @@ public class HangerManualControl extends CommandBase {
             speed = 0;
         }
 
-        if (!Globals.controlPanelMotorEnabled) { Robot.hanger.setSpeed(speed); }
+        if (!Globals.controlPanelMotorEnabled) {
+            // do not allow the elevator to go below the lowest point
+            // overrides if the Aux A button is pressed
+            // This prevents the elevator for overrunning in normal condition
+            // but allows us to reset the 0 position when the robot is turned on
+            // and the elevator is not in the starting position
+            if (Robot.oi.aux.getAButton()) {
+                Robot.hanger.enableLowerSoftLimit(false);
+            } else {
+                Robot.hanger.enableLowerSoftLimit(true);
+            }
+
+            // run the elevator either up or down
+            Robot.hanger.setSpeed(speed);
+        }
     }
 
     // Called once the command ends or is interrupted.

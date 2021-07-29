@@ -26,7 +26,7 @@ public class Hanger extends SubsystemBase {
         limitSwitch.enableLimitSwitch(true);
         // Soft Limits
         hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-        hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, false);
+        hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
         hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.Hanger.MAX_POS);
         hangMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.Hanger.MIN_POS);
@@ -70,6 +70,8 @@ public class Hanger extends SubsystemBase {
     public void setOpen() {
         hangerRatchet.set(true);
     }
+
+    public void enableLowerSoftLimit(boolean engage){hangMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, engage);};
 
     public void setClosed() {
         hangerRatchet.set(false);

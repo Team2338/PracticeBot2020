@@ -87,7 +87,7 @@ public class SafeSixBall extends SequentialCommandGroup {
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
                         new RevFlywheel().withTimeout(2.25),
-                        new Fire(false)),
+                        new Fire()),
                 new ParallelDeadlineGroup(
                         reverseAgain(),
                         new IntakeRun()),
@@ -96,7 +96,7 @@ public class SafeSixBall extends SequentialCommandGroup {
                         new RevFlywheel()),
                 new ParallelDeadlineGroup(
                         new RevFlywheel().withTimeout(0.5),
-                        new Fire(false)),
+                        new Fire()),
                 new PrintCommand("Auto: Safe Six Ball Ended")
         );
     }

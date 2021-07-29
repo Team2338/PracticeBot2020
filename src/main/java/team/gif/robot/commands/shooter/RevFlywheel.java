@@ -22,7 +22,7 @@ public class RevFlywheel extends CommandBase {
     public void execute() {
         Robot.limelight.setLEDMode(3);
         // RevFlyWheel is used in auto but OI isn't instantiated yet so need to check first
-        if (Robot.oi != null && Robot.oi.dRT.get()) {
+        if (Robot.oi != null && (Robot.oi.dStart.get() || Robot.oi.aDPadRight.get())) {
             Shooter.getInstance().setPID(Constants.Shooter.RPM_HIGH); // RPM_HIGH
         } else {
             Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW); // RPM_LOW
