@@ -104,7 +104,7 @@ public class OI {
         // Aux Controls
         aLBump.whileHeld(new RevFlywheel());
         aRBump.whileHeld(new RapidFire());
-        aLTrigger.whileHeld(new LimelightLEDControl());
+        aLTrigger.whileHeld(new LimelightAutoAim());
         aRTrigger.whileHeld(new Fire());
 
         aA.whileHeld(new Rotation());
