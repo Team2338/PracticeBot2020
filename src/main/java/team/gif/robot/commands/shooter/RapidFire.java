@@ -30,7 +30,7 @@ public class RapidFire extends CommandBase {
 //        if ( ( Shooter.getInstance().getVelocity() > (Constants.Shooter.RPM_LOW - 20.0) )
         ) {
 
-            System.out.println("Firing speed " + Shooter.getInstance().getVelocity());
+//            System.out.println("Firing speed " + Shooter.getInstance().getVelocity());
 
             Indexer.getInstance().setSpeedFive(0.5); // 0.5
             Indexer.getInstance().setSpeedFour(0.4); // 0.4

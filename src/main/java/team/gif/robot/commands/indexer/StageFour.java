@@ -18,13 +18,13 @@ public class StageFour extends CommandBase {
     @Override
     public void initialize() {
         _timer = 0;
+        indexer.setSpeedThree(1);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
         _timer++;
-        indexer.setSpeedThree(1);
     }
 
     // Called once the command ends or is interrupted.
@@ -36,9 +36,10 @@ public class StageFour extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (_timer >= 150){ // 3 seconds (counter increases every 20ms)
+        if (_timer >= 150 && Globals.autonomousModeActive == false){ // 3 seconds (counter increases every 20ms)
                             // if it's taking longer than 3 seconds to move the power cell, something is wrong
             Globals.indexerEnabled = false; // kill the indexer
+            System.out.println("Killing the indexer");
         }
         if (!Globals.indexerEnabled) { // stops this command if directed to stop the indexer
             return true;

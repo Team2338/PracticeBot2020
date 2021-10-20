@@ -24,7 +24,7 @@ public class Fire extends CommandBase {
         if ( ( Shooter.getInstance().getVelocity() > (speed - 20.0) )
                 && (Indexer.getInstance().getState()[5] == true)) {
 
-            System.out.println("Firing speed " + Shooter.getInstance().getVelocity());
+//            System.out.println("Firing speed " + Shooter.getInstance().getVelocity());
             Indexer.getInstance().setSpeedFive(0.5);
             // The indexer will move the remaining power cells forward. No need to move them here.
         } else {

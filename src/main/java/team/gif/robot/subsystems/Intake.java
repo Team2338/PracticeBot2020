@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase {
         return instance;
     }
 
-    private static final TalonSRX intakeMotor = new TalonSRX(RobotMap.INTAKE);
+//    private static final TalonSRX intakeMotor = new TalonSRX(RobotMap.INTAKE);
     private static final VictorSPX intakeMotorVictor = new VictorSPX(RobotMap.INTAKE);
 
     private static final Solenoid solenoidZero = new Solenoid(RobotMap.SOLENOID_ZERO);
@@ -27,15 +27,15 @@ public class Intake extends SubsystemBase {
 
     private Intake() {
         super();
-        intakeMotor.setInverted(true);
-        intakeMotor.setNeutralMode(NeutralMode.Brake);
+//        intakeMotor.setInverted(true);
+//        intakeMotor.setNeutralMode(NeutralMode.Brake);
 
         intakeMotorVictor.setInverted(true);
         intakeMotorVictor.setNeutralMode(NeutralMode.Brake);
     }
 
     public void setSpeed(double speed) {
-        intakeMotor.set(ControlMode.PercentOutput, speed);
+//        intakeMotor.set(ControlMode.PercentOutput, speed);
         intakeMotorVictor.set(ControlMode.PercentOutput, speed);
     }
 

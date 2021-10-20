@@ -153,6 +153,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     System.out.println("autonomous init start");
 
+    Globals.autonomousModeActive = true;
     // used for delaying the start of autonomous
     _elapsedTime.reset();
     _elapsedTime.start();
@@ -201,7 +202,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     System.out.println("teleop init");
-
+    Globals.autonomousModeActive = false;
     setLimelightPipeline();
     limelight.setLEDMode(1);//force off
     // This makes sure that the autonomous stops running when
