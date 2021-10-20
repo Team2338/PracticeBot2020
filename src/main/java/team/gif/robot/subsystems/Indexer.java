@@ -20,10 +20,10 @@ public class Indexer extends SubsystemBase {
     }
 
     // Talons
-    private static final TalonSRX stageTwoMotor   = new TalonSRX(RobotMap.STAGE_TWO);
-    private static final TalonSRX stageThreeMotor = new TalonSRX(RobotMap.STAGE_THREE);
-    private static final TalonSRX stageFourMotor  = new TalonSRX(RobotMap.STAGE_FOUR);
-    private static final TalonSRX stageFiveMotor  = new TalonSRX(RobotMap.STAGE_FIVE);
+//    private static final TalonSRX stageTwoMotor   = new TalonSRX(RobotMap.STAGE_TWO);
+//    private static final TalonSRX stageThreeMotor = new TalonSRX(RobotMap.STAGE_THREE);
+//    private static final TalonSRX stageFourMotor  = new TalonSRX(RobotMap.STAGE_FOUR);
+//    private static final TalonSRX stageFiveMotor  = new TalonSRX(RobotMap.STAGE_FIVE);
 
     // Victors
     private static final VictorSPX stageTwoMotorVictor   = new VictorSPX(RobotMap.STAGE_TWO);
@@ -44,10 +44,10 @@ public class Indexer extends SubsystemBase {
     private Indexer() {
         super();
 
-        stageTwoMotor.setNeutralMode(  NeutralMode.Brake);
-        stageThreeMotor.setNeutralMode(NeutralMode.Brake);
-        stageFourMotor.setNeutralMode( NeutralMode.Brake);
-        stageFiveMotor.setNeutralMode( NeutralMode.Brake);
+//        stageTwoMotor.setNeutralMode(  NeutralMode.Brake);
+//        stageThreeMotor.setNeutralMode(NeutralMode.Brake);
+//        stageFourMotor.setNeutralMode( NeutralMode.Brake);
+//        stageFiveMotor.setNeutralMode( NeutralMode.Brake);
 
         stageTwoMotorVictor.setNeutralMode(  NeutralMode.Brake);
         stageThreeMotorVictor.setNeutralMode(NeutralMode.Brake);
@@ -68,19 +68,19 @@ public class Indexer extends SubsystemBase {
     }
 
     public void setSpeedTwo(double speed) {
-        stageTwoMotor.set(ControlMode.PercentOutput, speed);
+//        stageTwoMotor.set(ControlMode.PercentOutput, speed);
         stageTwoMotorVictor.set(ControlMode.PercentOutput, speed);
     }
     public void setSpeedThree(double speed) {
-        stageThreeMotor.set(ControlMode.PercentOutput, speed);
+//        stageThreeMotor.set(ControlMode.PercentOutput, speed);
         stageThreeMotorVictor.set(ControlMode.PercentOutput, speed);
     }
     public void setSpeedFour(double speed) {
-        stageFourMotor.set(ControlMode.PercentOutput, speed);
+//        stageFourMotor.set(ControlMode.PercentOutput, speed);
         stageFourMotorVictor.set(ControlMode.PercentOutput, speed);
     }
     public void setSpeedFive(double speed) {
-        stageFiveMotor.set(ControlMode.PercentOutput, speed);
+//        stageFiveMotor.set(ControlMode.PercentOutput, speed);
         stageFiveMotorVictor.set(ControlMode.PercentOutput, speed);
     }
 /*

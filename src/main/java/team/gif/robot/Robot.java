@@ -153,6 +153,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     System.out.println("autonomous init start");
 
+    Globals.autonomousModeActive = true;
     // used for delaying the start of autonomous
     _elapsedTime.reset();
     _elapsedTime.start();
@@ -201,7 +202,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     System.out.println("teleop init");
-
+    Globals.autonomousModeActive = false;
     setLimelightPipeline();
     limelight.setLEDMode(1);//force off
     // This makes sure that the autonomous stops running when
@@ -259,9 +260,9 @@ public class Robot extends TimedRobot {
     autoModeChooser.addOption("3 Ball Auto", autoMode.SAFE_3_BALL);
     autoModeChooser.addOption("Opp 5 Ball Auto", autoMode.OPP_5_BALL);
     autoModeChooser.addOption("8 Ball Auto", autoMode.SAFE_8_BALL);
-    autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
-    autoModeChooser.addOption("Slalom", autoMode.SLALOM);
-    autoModeChooser.addOption("Bounce", autoMode.BOUNCE);
+//    autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
+//    autoModeChooser.addOption("Slalom", autoMode.SLALOM);
+//    autoModeChooser.addOption("Bounce", autoMode.BOUNCE);
     autoModeChooser.setDefaultOption("6 Ball Auto", autoMode.SAFE_6_BALL);
 
     autoTab.add("Auto Select",autoModeChooser)
@@ -312,12 +313,12 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = new OppFiveBall();
     } else if(chosenAuto == autoMode.SAFE_8_BALL){
       m_autonomousCommand = new SafeEightBall();
-    } else if (chosenAuto == autoMode.BARREL_RACING){
+/*    } else if (chosenAuto == autoMode.BARREL_RACING){
       m_autonomousCommand = new BarrelRacing();
     } else if(chosenAuto == autoMode.SLALOM) {
       m_autonomousCommand = new Slalom();
     } else if(chosenAuto == autoMode.BOUNCE){
-      m_autonomousCommand = new Bounce();
+      m_autonomousCommand = new Bounce(); */
     } else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }

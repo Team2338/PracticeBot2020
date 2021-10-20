@@ -86,33 +86,35 @@ public class OI {
         // Driver Controls
 //        dLT.whileHeld(new Pivot());
 
+        dLBump.whileHeld(new IntakeReverse());
         dRBump.whileHeld(new IntakeRun());
         dRBump.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
-        dLBump.whileHeld(new IntakeReverse());
+        dLTrigger.whileHeld(new LimelightAutoAim());
+        dRTrigger.whileHeld(new RapidFire());
+
+        dA.whileHeld(new Fire());
         dB.whenPressed(new ReverseIndexScheduler());
+        //dX. does nothing
         dY.toggleWhenActive(new ToggleIndexer());
         //dRT.whileHeld(new DriveLimitDisable());
-        dRTrigger.whileHeld(new RapidFire());
-        dA.whileHeld(new Fire());
 
-        dLTrigger.whileHeld(new LimelightAutoAim());
+        //dStart increases Flywheel RPM used for far shot (works for both Fire and RapidFire)
         dBack.whileHeld( new RevFlywheel());
-        //dStart used for Fire and RapidFire far shot
 
         // Aux Controls
-        aLTrigger.whileHeld(new LimelightLEDControl());
         aLBump.whileHeld(new RevFlywheel());
         aRBump.whileHeld(new RapidFire());
+        aLTrigger.whileHeld(new LimelightAutoAim());
         aRTrigger.whileHeld(new Fire());
-        aY.toggleWhenPressed(new HangerManualControl());
-        //aX.whenPressed(new ServoButton().withTimeout(0.25));
-        aStart.whenPressed(new ControlPanelPosition());
-        aBack.whenPressed(new ControlPanelDown());
+
         aA.whileHeld(new Rotation());
         aB.whenPressed(new ControlPanelDown());
-
-        // TODO: Get better button
         aX.whileHeld(new RapidFire());
+        //aX.whenPressed(new ServoButton().withTimeout(0.25));
+        aY.toggleWhenPressed(new HangerManualControl());
+
+        aStart.whenPressed(new ControlPanelPosition());
+        aBack.whenPressed(new ControlPanelDown());
 
         aDPadDown.whenPressed(new IntakeDown());
         aDPadLeft.whenPressed(new IntakeMid());
