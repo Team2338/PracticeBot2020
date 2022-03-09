@@ -62,6 +62,8 @@ public class Robot extends TimedRobot {
                                                     .withPosition(3,0)
                                                     .withSize(1,1)
                                                     .getEntry();
+  
+  private static ShuffleboardTab defenseTab = Shuffleboard.getTab("Defense");
 
   public static OI oi;
   public static Hanger hanger;
@@ -95,6 +97,8 @@ public class Robot extends TimedRobot {
     limelight.setLEDMode(1);//force off
 
     SmartDashboard.putData("ResetHead", new ResetHeading());
+    defenseTab.add("Tank", new Drive(true));
+    defenseTab.add("Arcade", new Drive(false));
   }
 
   /**

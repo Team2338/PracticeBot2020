@@ -85,8 +85,8 @@ public class Drivetrain extends SubsystemBase {
         // left sensor needs to be inverted to match the drive train
         _leftEncoderTalon.setSensorPhase(true);
 
-        currentLimitingSetup();
-        currentLimitingEnable(true);
+//        currentLimitingSetup();
+//        currentLimitingEnable(true);
 
         // Per WPILib, motor outputs for the right side are negated
         // within the differentialDrive class. No need to negate them again.

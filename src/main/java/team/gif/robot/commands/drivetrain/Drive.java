@@ -10,8 +10,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class Drive extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    //private final Drivetrain m_subsystem;
+    
+    private final Runnable driveCommand;
+    private final boolean isTank;
 
     /**
      * Creates a new ExampleCommand.
@@ -19,36 +20,49 @@ public class Drive extends CommandBase {
      * @param subsystem The subsystem used by this command.
      */
     public Drive(Drivetrain subsystem) {
-        //m_subsystem = subsystem;
-        // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Drivetrain.getInstance());
+        this.isTank = false;
+    
+        // Arcade drive
+        driveCommand = () -> {
+            double currSpeed = -Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+            double currRotation = Robot.oi.driver.getX(GenericHID.Hand.kRight);
+            Drivetrain.getInstance().driveArcade(currSpeed, currRotation);
+        };
+    }
+    
+    public Drive(boolean isTank) {
+        this.isTank = isTank;
+        
+        if (isTank) {
+            // Tank drive with joysticks
+            driveCommand = () -> {
+                double left = -Robot.oi.leftStick.getY();
+                double right = -Robot.oi.rightStick.getY();
+                Drivetrain.getInstance().setSpeed(left, right);
+            };
+            
+            return;
+        }
+        
+        // Arcade drive with controller
+        driveCommand = () -> {
+            double currSpeed = -Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+            double currRotation = Robot.oi.driver.getX(GenericHID.Hand.kRight);
+            Drivetrain.getInstance().driveArcade(currSpeed, currRotation);
+        };
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        Drivetrain.getInstance().currentLimitingEnable(!isTank);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        /**
-         *                Arcade Drive
-         */
-        // Y-axis on X-box controller is negative when pushed away
-        double currSpeed = -Robot.oi.driver.getY(GenericHID.Hand.kLeft);
-        double currRotation = Robot.oi.driver.getX(GenericHID.Hand.kRight);
-        Drivetrain.getInstance().driveArcade(currSpeed, currRotation);
-
-        /**
-         *                Tank Drive
-         */
-        // Y-axis on X-box controller is negative when pushed away
-        /*
-        double currLeft = -Robot.oi.driver.getY(GenericHID.Hand.kLeft);
-        double currRight = -Robot.oi.driver.getY(GenericHID.Hand.kRight);
-        Drivetrain.getInstance().setSpeed(currLeft, currRight);
-        */
+        this.driveCommand.run();
     }
 
     // Called once the command ends or is interrupted.

@@ -1,14 +1,12 @@
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.autoaim.LimelightAutoAim;
-import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.controlpanel.Rotation;
-import team.gif.robot.commands.drivetrain.DriveLimitDisable;
-import team.gif.robot.commands.drivetrain.rotate;
 import team.gif.robot.commands.hanger.ControlPanelDown;
 import team.gif.robot.commands.hanger.ControlPanelPosition;
 import team.gif.robot.commands.hanger.HangerManualControl;
@@ -16,14 +14,12 @@ import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;
 import team.gif.robot.commands.shooter.Fire;
-import team.gif.robot.commands.shooter.LimelightLEDControl;
 import team.gif.robot.commands.shooter.RapidFire;
 import team.gif.robot.commands.shooter.RevFlywheel;
 import edu.wpi.first.wpilibj.GenericHID;
 
 
 public class OI {
-    private static OI instance = null;
 
     /*
      * TODO: Instantiate all joysticks/controllers and their buttons here
@@ -37,6 +33,9 @@ public class OI {
 
     public final XboxController driver = new XboxController(RobotMap.DRIVER_CONTROLLER_ID);
     public final XboxController aux = new XboxController(RobotMap.AUX_CONTROLLER_ID);
+    
+    public final Joystick leftStick = new Joystick(2);
+    public final Joystick rightStick = new Joystick(3);
 
     public final JoystickButton dA = new JoystickButton(driver, 1);
     public final JoystickButton dB = new JoystickButton(driver, 2);
