@@ -38,7 +38,7 @@ public class Drive extends CommandBase {
         // Y-axis on X-box controller is negative when pushed away
         double currSpeed = -Robot.oi.driver.getY(GenericHID.Hand.kLeft);
         double currRotation = Robot.oi.driver.getX(GenericHID.Hand.kRight);
-        Drivetrain.getInstance().driveArcade(currSpeed, currRotation);
+        Drivetrain.getInstance().driveArcade(0.5 * currSpeed, 0.5 * currRotation);
 
         /**
          *                Tank Drive
