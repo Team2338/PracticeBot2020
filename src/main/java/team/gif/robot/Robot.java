@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
 import team.gif.lib.delay;
-import team.gif.robot.commands.autos.*;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.hanger.ResetHanger;
 import team.gif.robot.commands.drivetrain.ResetHeading;
@@ -160,7 +159,6 @@ public class Robot extends TimedRobot {
 
       System.out.println("Auto: Pipeline Reset");
       System.out.println("Auto: LED Reset");
-    updateauto();
       System.out.println("Auto: auto selection updated");
     compressor.stop();
       System.out.println("Auto: Compressor stopped");
@@ -287,30 +285,5 @@ public class Robot extends TimedRobot {
 //    Shuffleboard.getTab("Calibration").add("Red",0);    // adds the Red text box, persists over power down
 //    Shuffleboard.getTab("Calibration").add("Green",0);  // adds the Green text box, persists over power down
 //    Shuffleboard.getTab("Calibration").add("Blue",0);   // adds the Blue text box, persists over power down
-  }
-
-  public void updateauto(){
-
-    if(chosenAuto == autoMode.MOBILITY){
-        m_autonomousCommand = new Mobility();
-    } else if(chosenAuto == autoMode.MOBILITY_FWD){
-        m_autonomousCommand = new MobilityFwd();
-    } else if(chosenAuto == autoMode.SAFE_3_BALL){
-        m_autonomousCommand = new SafeThreeBall();
-    } else if(chosenAuto == autoMode.SAFE_6_BALL){
-        m_autonomousCommand = new SafeSixBall();
-    } else if(chosenAuto == autoMode.OPP_5_BALL){
-        m_autonomousCommand = new OppFiveBall();
-    } else if(chosenAuto == autoMode.SAFE_8_BALL){
-      m_autonomousCommand = new SafeEightBall();
-/*    } else if (chosenAuto == autoMode.BARREL_RACING){
-      m_autonomousCommand = new BarrelRacing();
-    } else if(chosenAuto == autoMode.SLALOM) {
-      m_autonomousCommand = new Slalom();
-    } else if(chosenAuto == autoMode.BOUNCE){
-      m_autonomousCommand = new Bounce(); */
-    } else if(chosenAuto ==null) {
-        System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
-    }
   }
 }

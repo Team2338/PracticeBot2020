@@ -1,3 +1,4 @@
+/*
 package team.gif.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Constants;
@@ -73,7 +74,7 @@ public class rotate extends CommandBase {
             rightVolts = 0;
             exitCommand = true;
         }
- */
+
         double degreesTurned;
         currentHeadingDegrees = Pigeon.getInstance().get360Heading();
         degreesTurned = Math.abs( ((((initialHeadingDegrees - currentHeadingDegrees)+ 540)%360)-180) );
@@ -110,3 +111,4 @@ public class rotate extends CommandBase {
             return exitCommand;
     }
 }
+*/
