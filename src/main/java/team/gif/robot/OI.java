@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
-import team.gif.robot.commands.autoaim.LimelightAutoAim;
 import team.gif.robot.commands.autoaim.Pivot;
 import team.gif.robot.commands.controlpanel.Rotation;
 import team.gif.robot.commands.drivetrain.DriveLimitDisable;
@@ -15,7 +14,6 @@ import team.gif.robot.commands.hanger.HangerManualControl;
 import team.gif.robot.commands.indexer.ReverseIndexScheduler;
 import team.gif.robot.commands.indexer.ToggleIndexer;
 import team.gif.robot.commands.intake.*;
-import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.LimelightLEDControl;
 import team.gif.robot.commands.shooter.RapidFire;
 import team.gif.robot.commands.shooter.RevFlywheel;
@@ -89,10 +87,8 @@ public class OI {
         dLBump.whileHeld(new IntakeReverse());
         dRBump.whileHeld(new IntakeRun());
         dRBump.whenPressed(new IntakeDown()); // Moves collector to down position at start of intake.
-        dLTrigger.whileHeld(new LimelightAutoAim());
         dRTrigger.whileHeld(new RapidFire());
 
-        dA.whileHeld(new Fire());
         dB.whenPressed(new ReverseIndexScheduler());
         //dX. does nothing
         dY.toggleWhenActive(new ToggleIndexer());
@@ -102,10 +98,7 @@ public class OI {
         dBack.whileHeld( new RevFlywheel());
 
         // Aux Controls
-        aLBump.whileHeld(new RevFlywheel());
         aRBump.whileHeld(new RapidFire());
-        aLTrigger.whileHeld(new LimelightAutoAim());
-        aRTrigger.whileHeld(new Fire());
 
         aA.whileHeld(new Rotation());
         aB.whenPressed(new ControlPanelDown());

@@ -1,4 +1,4 @@
-package team.gif.robot.commands.autoaim;
+/*package team.gif.robot.commands.autoaim;
 
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import team.gif.robot.Constants;
@@ -26,8 +26,6 @@ public class LimelightAutoAim extends CommandBase {
     @Override
     public void initialize() {
         System.out.println("Auto Aim Start");
-
-        Robot.limelight.setLEDMode(3);
 
         Drivetrain.getInstance().leftTalon1.enableCurrentLimit(false);
         Drivetrain.getInstance().leftTalon2.enableCurrentLimit(false);
@@ -132,4 +130,4 @@ public class LimelightAutoAim extends CommandBase {
     public boolean isFinished() {
         return false;
     }
-}
+} */

@@ -51,8 +51,6 @@ public class Robot extends TimedRobot {
   private delay chosenDelay;
   private Timer _elapsedTime = new Timer();
 
-
-  public static Limelight limelight;
   private final Compressor compressor = new Compressor();
 
   private RobotContainer m_robotContainer;
@@ -85,15 +83,11 @@ public class Robot extends TimedRobot {
 
     driveCommand = new Drive(Drivetrain.getInstance());
     drivetrain = Drivetrain.getInstance();
-    limelight = new Limelight();
 
     // Puts a button on the dashboard which sets the current
     // hanger position as the 0 position. Does this by calling
     // the commandBase specifically made for this ResetHanger()
     SmartDashboard.putData("Hanger", new ResetHanger());
-    setLimelightPipeline();
-    limelight.setLEDMode(1);//force off
-
     SmartDashboard.putData("ResetHead", new ResetHeading());
   }
 
@@ -139,7 +133,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    limelight.setLEDMode(1);//force off
+
   }
 
   @Override
@@ -164,9 +158,7 @@ public class Robot extends TimedRobot {
     //drivetrain.resetPigeon();
     System.out.println("Auto: Sensors Reset");
 
-    setLimelightPipeline();
       System.out.println("Auto: Pipeline Reset");
-    limelight.setLEDMode(1);//turn off
       System.out.println("Auto: LED Reset");
     updateauto();
       System.out.println("Auto: auto selection updated");
@@ -203,8 +195,6 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     System.out.println("teleop init");
     Globals.autonomousModeActive = false;
-    setLimelightPipeline();
-    limelight.setLEDMode(1);//force off
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -322,18 +312,5 @@ public class Robot extends TimedRobot {
     } else if(chosenAuto ==null) {
         System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
     }
-  }
-
-  public void setLimelightPipeline(){/**sets the limelight pipeline to red side or blue side**/
-    if( DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue ) {
-      allianceEntry.setString("         Blue");
-      limelight.setPipeline(0);
-    } else if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
-      allianceEntry.setString("          Red");
-      limelight.setPipeline(1);
-    } else {
-      allianceEntry.setString("  !ERROR!");
-    }
-    limelight.setPipeline(0);
   }
 }

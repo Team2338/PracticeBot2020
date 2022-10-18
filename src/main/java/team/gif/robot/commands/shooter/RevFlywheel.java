@@ -8,24 +8,21 @@ import team.gif.robot.subsystems.Shooter;
 public class RevFlywheel extends CommandBase {
 
     public RevFlywheel() {
-        Robot.limelight.setLEDMode(3);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.limelight.setLEDMode(3);//force on
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Robot.limelight.setLEDMode(3);
         // RevFlyWheel is used in auto but OI isn't instantiated yet so need to check first
         if (Robot.oi != null && (Robot.oi.dStart.get() || Robot.oi.aDPadRight.get())) {
-            Shooter.getInstance().setPID(Constants.Shooter.RPM_HIGH); // RPM_HIGH
+            Shooter.getInstance().setPID(Constants.Shooter.RPM_HIGH * 0.5); // RPM_HIGH
         } else {
-            Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW); // RPM_LOW
+            Shooter.getInstance().setPID(Constants.Shooter.RPM_LOW * 0.5); // RPM_LOW
         }
     }
 
@@ -37,7 +34,6 @@ public class RevFlywheel extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Shooter.getInstance().setVoltage(0);
-        Robot.limelight.setLEDMode(1);//force off
     }
 
 }

@@ -13,7 +13,6 @@ public class LimelightLEDControl extends CommandBase {
 
     @Override
     public void initialize() {
-        Robot.limelight.setLEDMode(3);
     }
 
     @Override
@@ -29,6 +28,5 @@ public class LimelightLEDControl extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        Robot.limelight.setLEDMode(1);
     }
 }
